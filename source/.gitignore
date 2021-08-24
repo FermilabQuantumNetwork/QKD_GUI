@@ -1,3 +1,9 @@
 *.o
 moc*.cpp
 PROGRAM
+moc_predefs.h
+qrc_resources.cpp
+ui_mainwindow.h
+ui_qkd_param.h
+*.swp
+*.stash
