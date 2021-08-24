@@ -138,10 +138,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->stepduration->setValue(30);
 
-    while(1){
-        udpcom.sendDataToClient(6.66);
-        sleep(1);
-    }
+    //while(1){
+    //    udpcom.sendDataToClient(6.66);
+    //    sleep(1);
+    //}
 
    /* QubitTime=200;
     Phasetime=50;
