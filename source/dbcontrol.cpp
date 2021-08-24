@@ -38,7 +38,8 @@ void DBControl::DBConnect(QString server, int port, QString database, QString lo
        QSqlQuery query4("create table if not exists QKD_stats_V3(id int not null auto_increment primary key, sifted_time int, sifted_phase int, error_rate_time double, error_rate_phase double, datetime datetime);",db);
        usleep(1000);
     }
-    else std::cout<<"connection to the database failed"<<std::cout;
+    else
+        std::cout << "connection to the database failed" << std::endl;
     //this->readQubits();
    /* this->createHDF5forQKDdata("test1.h5");
     QVector<int> apa(5);
@@ -127,18 +128,18 @@ void DBControl::createHDF5forQKDdata(QString name){
     try{
 
         QString as = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
-        const H5std_string DATASET_NAME(as.toStdString());
+        const H5std_string DATASET_NAME(as.toLocal8Bit().data());
         //const int      NX = 10;
         //const int      NY = 5;
 
         hsize_t      dims[2]  = { 3, 3};  // dataset dimensions at creation
         hsize_t      maxdims[2] = {H5S_UNLIMITED, H5S_UNLIMITED};
-        mspace1= new H5::DataSpace( RANK, dims, maxdims);
+        mspace1 = new H5::DataSpace( RANK, dims, maxdims);
         /*
          * Create a new file. If file exists its contents will be overwritten.
          */
         QString nameh5 = name + ".h5";
-        fileh5 =new  H5::H5File( nameh5.toStdString(), H5F_ACC_TRUNC );
+        fileh5 = new H5::H5File(nameh5.toLocal8Bit().data(), H5F_ACC_TRUNC);
         /*
          * Modify dataset creation properties, i.e. enable chunking.
          */
@@ -155,11 +156,19 @@ void DBControl::createHDF5forQKDdata(QString name){
          * Create a new dataset within the file using cparms
          * creation properties.
          */
-        dataset = new H5::DataSet(fileh5->createDataSet( DATASET_NAME, H5::PredType::NATIVE_INT, *mspace1, cparms));
+
+       /*
+        * Define datatype for the data in the file.
+        * We will store little endian INT numbers.
+        */
+        H5::IntType datatype( H5::PredType::NATIVE_INT );
+        datatype.setOrder( H5T_ORDER_LE );
+
+        //dataset = new H5::DataSet(fileh5->createDataSet( DATASET_NAME, datatype, *mspace1, cparms));
 
         size[1]   = 500;//
     }
-    catch( H5::FileIException error )
+    catch( H5::FileIException &error )
      {
         error.printErrorStack();
         return ;
@@ -218,7 +227,7 @@ void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, 
     chunkcounter++;
 
   }
-    catch( H5::FileIException error )
+    catch( H5::FileIException &error )
      {
         error.printErrorStack();
         return ;
