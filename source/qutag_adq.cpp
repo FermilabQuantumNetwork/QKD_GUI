@@ -2,6 +2,8 @@
 #include <iostream>//entradas y salidas por consola
 #include <fstream>//archivos.txt
 #include <time.h>
+#include <unistd.h> /* For exit() */
+
 #define SLEEP(x) usleep(x)
 
 
@@ -25,8 +27,14 @@ qutagadq::qutagadq(){
     anlAvilable=false;
 
     printf( ">>> tdcbase version: %f\n", TDC_getVersion() );
-    rc = TDC_init( -1 );                                 /* Accept every device */
-    checkRc( "TDC_init", rc );
+
+    /* Accept every device */
+    rc = TDC_init(-1);
+
+    if (rc) {
+        fprintf(stderr, "Error connecting to qutag: %s\n", TDC_perror(rc));
+        exit(1);
+    }
 
     rc = TDC_getTimebase( &timeBase );
     checkRc( "TDC_getTimebase", rc );
