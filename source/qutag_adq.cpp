@@ -6,16 +6,8 @@
 
 #define SLEEP(x) usleep(x)
 
-
-
-
-
-
-//////////////////////////////////////////////////
-//////constructor////////
-//////////////////////////////////////////////////
-qutagadq::qutagadq(){
-
+qutagadq::qutagadq()
+{
     timetags.reserve(TIMESTAMP_COUNT+1);
     channelsTDC.reserve(TIMESTAMP_COUNT+1);
     break_=false;
@@ -86,45 +78,38 @@ qutagadq::qutagadq(){
 
     rc = TDC_enableStartStop( 1 );
     checkRc( "TDC_enableStartStop", rc );
-
-
 }
 
-void qutagadq::run(){
-
-lautrun();
-//andrewrun();
+void qutagadq::run()
+{
+    lautrun();
 }
 
 /* Check return code and exit on error */
-void qutagadq::checkRc( const char * fctname, int rc )
+void qutagadq::checkRc(const char *fctname, int rc)
 {
-  if ( rc ) {
-    printf("error\n");
-    printf( ">>> %s: %s\n", fctname, TDC_perror( rc ) );
-    /* Don't quit on "not connected" to allow for demo mode */
-    if ( rc != TDC_NotConnected ) {
-      printf("error\n");
-      TDC_deInit();
-      exit( 1 );
+    if (rc) {
+        fprintf(stderr, "error calling %s: %s\n", fctname, TDC_perror(rc));
+
+        /* Don't quit on "not connected" to allow for demo mode */
+        if (rc != TDC_NotConnected) {
+            printf("error\n");
+            TDC_deInit();
+            exit(1);
+        }
     }
-  }
 }
 
 
- void qutagadq::adqui(){
+void qutagadq::adqui()
+{
 
 }
 
-
-
- qutagadq::~qutagadq(){
-
-TDC_deInit();
-
- }
-
-
+qutagadq::~qutagadq()
+{
+    TDC_deInit();
+}
 
 int qutagadq::filterset(){
 
