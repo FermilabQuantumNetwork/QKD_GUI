@@ -164,7 +164,7 @@ void DBControl::createHDF5forQKDdata(QString name){
         H5::IntType datatype( H5::PredType::NATIVE_INT );
         datatype.setOrder( H5T_ORDER_LE );
 
-        //dataset = new H5::DataSet(fileh5->createDataSet( DATASET_NAME, datatype, *mspace1, cparms));
+        dataset = new H5::DataSet(fileh5->createDataSet( DATASET_NAME, datatype, *mspace1, cparms));
 
         size[1]   = 500;//
     }
