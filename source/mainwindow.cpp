@@ -902,14 +902,15 @@ void MainWindow::setupsignalslot(){
 
     QObject::connect(&anl, SIGNAL(rates_tab2(int, int, int, int, int, int, double)), this, SLOT(plotRates_tab2(int, int, int, int, int, int, double)));
 
-    QObject::connect(ui->thch1, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_thch1(double)));
-    QObject::connect(ui->thch2, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_thch2(double)));
-    QObject::connect(ui->thch3, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_thch3(double)));
-    QObject::connect(ui->thch4, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_thch4(double)));
+    QObject::connect(ui->thch1, SIGNAL(valueChanged(double)), &adq, SLOT(change_trigger_level_ch1(double)));
+    QObject::connect(ui->thch2, SIGNAL(valueChanged(double)), &adq, SLOT(change_trigger_level_ch2(double)));
+    QObject::connect(ui->thch3, SIGNAL(valueChanged(double)), &adq, SLOT(change_trigger_level_ch3(double)));
+    QObject::connect(ui->thch4, SIGNAL(valueChanged(double)), &adq, SLOT(change_trigger_level_ch4(double)));
     QObject::connect(ui->delaych1, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch1(int)));
     QObject::connect(ui->delaych2, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch2(int)));
     QObject::connect(ui->delaych3, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch3(int)));
     QObject::connect(ui->delaych4, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch4(int)));
+
     QObject::connect(ui->cw, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_cw(int)));
 
     QObject::connect(ui->DBON, SIGNAL(valueChanged(int)), this, SLOT(turnONDB(int)));
@@ -930,7 +931,6 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->delayline, SIGNAL(valueChanged(int)), this, SLOT(Chang_delayline(int)));
 
     QObject::connect(this, SIGNAL(main_SaveAndValues(int, int, int , int , int, int , float , int )), &dbc, SLOT(SaveAndValues(int, int, int , int , int, int , float , int )));
-   // QObject::connect(this, SIGNAL(main_SaveAndValues(int, int, int , int , int, float , int )), this, SLOT(AndValues(int, int, int , int , int, float , int )));
 
     QObject::connect(this, SIGNAL(main_SaveRateValues( int, int , int , int , int , int , int , int , int , float)), &dbc, SLOT(SaveRateValues( int, int , int , int , int , int , int , int , int , float)));
 
@@ -954,15 +954,6 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->rof4, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof4(QString)));
 
     QObject::connect(ui->actionQKD, SIGNAL(triggered()), &qkdparam, SLOT(show()));
-
-   /* QObject::connect(ui->QKD_time, SIGNAL(valueChanged(int)), this, SLOT(chang_QKD_time(int)));
-    QObject::connect(ui->QKD_phase, SIGNAL(valueChanged(int)), this, SLOT(chang_QKD_phase(int)));
-    QObject::connect(ui->QKD_nuqub, SIGNAL(valueChanged(int)), this, SLOT(chang_QKD_nuqub(int)));
-    QObject::connect(ui->QKD_PxQ, SIGNAL(valueChanged(int)), this, SLOT(chang_QKD_PxQ(int)));
-    QObject::connect(ui->QKD_iw, SIGNAL(valueChanged(int)), this, SLOT(chang_QKD_iw(int)));
-    QObject::connect(ui->QKD_zero, SIGNAL(valueChanged(int)), this, SLOT(chang_QKD_zero(int)));*/
-
-    //int in_QKD_timeA, in_QKD_numbA, in_QKD_phA, in_QKD_iwA, in_QKD_pxqA, in_QKD_zeroA;
 
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_timeA(double)), this, SLOT(chang_QKD_timeA(double)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_timeB(double)), this, SLOT(chang_QKD_timeB(double)));
@@ -992,9 +983,6 @@ void MainWindow::setupsignalslot(){
     QObject::connect(this, SIGNAL(MW_savehdf5(QString)), &dbc, SLOT(createHDF5forQKDdata(QString)));
 
     QObject::connect(this, SIGNAL(saveH5datafromMW(intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector)), &dbc, SLOT(appendQKDdata2HDF5(intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector)));
-
-   // void SaveQKDresults(int okA, int errA, int randA, int bkgndA, int okB, int errB, int randB, int bkgndB, int okC, int errC, int randC, int bkgndC);
-    //void SaveQKDstats(int sifted_time, int sifted_phase, int error_time, int error_phase);
 
     QObject::connect(this, SIGNAL(main_SaveQKDresults(double,double, double, double ,double, double,double,double,double, double, double, double)),&dbc, SLOT(SaveQKDresults(double,double, double, double ,double, double,double,double,double, double, double, double)));
     QObject::connect(this, SIGNAL(main_SaveQKDstats(int, int, double, double)),&dbc, SLOT(SaveQKDstats(int, int, double, double)));
@@ -1038,8 +1026,6 @@ void MainWindow::plotRates(char AoBoC, int event, double key){
 
     }
    if(AoBoC=='C'){
-    //std::cout<<"que pasaaaaaaaaaaaaaaaaaaaaaa  line          "<<value1<<std::endl;
-
         ui->PlotTrack->graph(2)->addData(key-lastPointKey_tab1, value1);
 
     }

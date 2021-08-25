@@ -1,14 +1,11 @@
 #ifndef SWABIAN_H
 #define SWABIAN_H 
 
-#include <QThread>
 #include <timetagger/TimeTagger.h> /* for timestamp_t */
 #include <timetagger/Iterators.h> /* For SynchronizedMeasurements */
 
-class Swabian : public QThread
+class Swabian
 {
-    Q_OBJECT
-
 public:
     Swabian(void);
     ~Swabian(void);
@@ -17,8 +14,7 @@ public:
     int get_histogram(int channel, std::vector<timestamp_t> *data);
     int set_delay(int channel, int delay);
     int set_trigger_level(int channel, float level);
-
-public slots:
+    int get_count_rates(int *channels, double *out, size_t n);
 
     int set_delay_ch1(int delay);
     int set_delay_ch2(int delay);

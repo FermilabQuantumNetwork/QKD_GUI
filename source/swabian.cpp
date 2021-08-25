@@ -2,9 +2,12 @@
 #include <timetagger/Iterators.h>
 #include <timetagger/TimeTagger.h>
 #include <stdio.h>
+#include <thread>
 
 Swabian::Swabian(void)
 {
+    if (this->t)
+        freeTimeTagger(this->t);
 }
 
 Swabian::~Swabian(void)
@@ -135,6 +138,32 @@ int Swabian::set_trigger_level(int channel, float level)
     }
 
     t->setTriggerLevel(channel,level);
+
+    return 0;
+}
+
+int Swabian::get_count_rates(int *channels, double *out, size_t n)
+{
+    int i;
+
+    if (!t) {
+        fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
+        return -1;
+    }
+
+    std::vector<channel_t> v(channels,channels+n);
+    Countrate c(t, v);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    std::vector<double> data;
+    c.getData([&data](size_t size) {
+      data.resize(size);
+      return data.data();
+    });
+
+    for (i = 0; i < n; i++)
+        out[i] = data[i];
 
     return 0;
 }
