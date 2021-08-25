@@ -6,8 +6,8 @@
 
 Swabian::Swabian(void)
 {
-    if (this->t)
-        freeTimeTagger(this->t);
+    t = NULL;
+    measurementGroup = NULL;
 }
 
 Swabian::~Swabian(void)
@@ -22,6 +22,9 @@ Swabian::~Swabian(void)
 
     measurements.clear();
     channels.clear();
+
+    if (this->t)
+        freeTimeTagger(this->t);
 }
 
 /* Connect to a Swabian time tagger.
@@ -37,7 +40,12 @@ int Swabian::connect()
     }
 
     // connect to a time tagger
-    t = createTimeTagger();
+    this->t = createTimeTagger();
+
+    // turn in the test signal on the first two channels for all measurements
+    for (int i = 1; i < 3; i++) {
+        this->t->setTestSignal(i, true);
+    }
 
     return 0;
 }
@@ -54,7 +62,7 @@ int Swabian::initialize_measurements(int start_channel, int click_channel_mask, 
 {
     int i;
 
-    if (!t) {
+    if (!this->t) {
         fprintf(stderr, "error: initialize_histogram() called but no time tagger connected!\n");
         return -1;
     }
@@ -115,7 +123,7 @@ int Swabian::get_histogram(int channel, std::vector<timestamp_t> *data)
 
 int Swabian::set_delay(int channel, int delay)
 {
-    if (!t) {
+    if (!this->t) {
         fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
         return -1;
     }
@@ -125,19 +133,19 @@ int Swabian::set_delay(int channel, int delay)
         return -1;
     }
 
-    t->setDelayHardware(channel,delay);
+    this->t->setDelayHardware(channel,delay);
 
     return 0;
 }
 
 int Swabian::set_trigger_level(int channel, float level)
 {
-    if (!t) {
+    if (!this->t) {
         fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
         return -1;
     }
 
-    t->setTriggerLevel(channel,level);
+    this->t->setTriggerLevel(channel,level);
 
     return 0;
 }
