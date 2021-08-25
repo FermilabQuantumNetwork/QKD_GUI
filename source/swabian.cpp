@@ -42,11 +42,6 @@ int Swabian::connect()
     // connect to a time tagger
     this->t = createTimeTagger();
 
-    // turn in the test signal on the first two channels for all measurements
-    for (int i = 1; i < 3; i++) {
-        this->t->setTestSignal(i, true);
-    }
-
     return 0;
 }
 

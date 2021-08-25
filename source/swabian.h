@@ -25,8 +25,6 @@ public:
     int set_trigger_level_ch3(float level);
     int set_trigger_level_ch4(float level);
 
-private:
-
     TimeTagger *t;
     SynchronizedMeasurements *measurementGroup;
     std::vector<StartStop*> measurements;

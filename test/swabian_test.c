@@ -18,6 +18,9 @@ int main(int argc, char **argv)
     int channels[4] = {1,2,3,4};
     double data[4];
 
+    s.t->setTestSignal(1, true);
+    s.t->setTestSignal(2, true);
+
     s.get_count_rates(channels,data,LEN(channels));
 
     for (i = 0; i < LEN(channels); i++) {
