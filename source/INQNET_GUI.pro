@@ -11,7 +11,7 @@ DEPENDPATH += $$PWD/../lib
 DEFINES += LINUX linux
 TARGET = PROGRAM
 TEMPLATE = app
-LIBS += -DLINUX -Dlinux -L$$PWD/../lib/ -lftd3xx -ltdcbase
+LIBS += -DLINUX -Dlinux -L$$PWD/../lib/ -lftd3xx -ltdcbase -lTimeTagger -lokFrontPanel
 PKGCONFIG += 
 CONFIG += link_pkgconfig 
 
@@ -28,7 +28,8 @@ SOURCES += main.cpp\
            qkd_param.cpp \
            qutag_adq.cpp \
            qutag_anl.cpp \
-           socket_com.cpp
+           socket_com.cpp \
+           swabian.cpp
           
 
 HEADERS  += mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
             socket_com.h \
             tdcbase.h \
             tdcdecl.h \
-            tdcstartstop.h
+            tdcstartstop.h \
+            swabian.h
 	   
 
 FORMS    += mainwindow.ui \
