@@ -52,29 +52,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->thch2->setValue(-0.08);
     ui->thch3->setValue(-0.06);
     ui->thch4->setValue(-0.08);
+    ui->delaych1->setValue(0);
+    ui->delaych2->setValue(0);
+    ui->delaych3->setValue(0);
+    ui->delaych4->setValue(0);
     ui->cw->setValue(50000);
-
-    //for (int i=0;i<9;i++)P_R[i]=0;
-    //for (int i=0;i<9;i++)P_T[i]=false;
 
     ui->plot1_1->setValue(0);
     ui->plot1_2->setValue(0);
     ui->win1_1->setValue(0);
     ui->win1_2->setValue(0);
 
-    if(Teleport0_or_QKD1){
-        ui->histStart->setValue(1);
-        ui->histEnd->setValue(50001);
-    }
-    else{
-        ui->histStart->setValue(69000);
-        ui->histEnd->setValue(78500);
-    }
+    ui->histStart->setValue(1);
+    ui->histEnd->setValue(50001);
 
     ui->binsinplot->setValue(10000);
     ui->adqtime->setValue(2);//update rate Adq time
-
-    
 
     ui->PlotAChn1->setValue(1);
     ui->PlotAChn2->setValue(3);
@@ -913,6 +906,10 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->thch2, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_thch2(double)));
     QObject::connect(ui->thch3, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_thch3(double)));
     QObject::connect(ui->thch4, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_thch4(double)));
+    QObject::connect(ui->delaych1, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch1(int)));
+    QObject::connect(ui->delaych2, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch2(int)));
+    QObject::connect(ui->delaych3, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch3(int)));
+    QObject::connect(ui->delaych4, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch4(int)));
     QObject::connect(ui->cw, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_cw(int)));
 
     QObject::connect(ui->DBON, SIGNAL(valueChanged(int)), this, SLOT(turnONDB(int)));

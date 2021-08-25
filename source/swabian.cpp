@@ -109,3 +109,75 @@ int Swabian::get_histogram(int channel, std::vector<timestamp_t> *data)
 
     return -1;
 }
+
+int Swabian::set_delay(int channel, int delay)
+{
+    if (!t) {
+        fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
+        return -1;
+    }
+
+    if (abs(delay) > 2000000) {
+        fprintf(stderr, "delay must be between +/- 2000000 ps\n");
+        return -1;
+    }
+
+    t->setDelayHardware(channel,delay);
+
+    return 0;
+}
+
+int Swabian::set_trigger_level(int channel, float level)
+{
+    if (!t) {
+        fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
+        return -1;
+    }
+
+    t->setTriggerLevel(channel,level);
+
+    return 0;
+}
+
+/* Slots. */
+
+int Swabian::set_delay_ch1(int delay)
+{
+    return set_delay(1,delay);
+}
+
+int Swabian::set_delay_ch2(int delay)
+{
+    return set_delay(2,delay);
+}
+
+int Swabian::set_delay_ch3(int delay)
+{
+    return set_delay(3,delay);
+}
+
+int Swabian::set_delay_ch4(int delay)
+{
+    return set_delay(4,delay);
+}
+
+int Swabian::set_trigger_level_ch1(float level)
+{
+    return set_trigger_level(1,level);
+}
+
+int Swabian::set_trigger_level_ch2(float level)
+{
+    return set_trigger_level(2,level);
+}
+
+int Swabian::set_trigger_level_ch3(float level)
+{
+    return set_trigger_level(3,level);
+}
+
+int Swabian::set_trigger_level_ch4(float level)
+{
+    return set_trigger_level(4,level);
+}
+
