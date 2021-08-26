@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
     setupHistoPlot(ui->PlotA);
     setupHistoPlot(ui->PlotC);
     setupratePlot(ui->PlotTrack);
-    setupratePlot_tab2(ui->PlotTab2);
     setup_plot_qkd_results(ui->QKD_H1_results);
     setup_plot_qkd_results(ui->QKD_H2_results);
     setup_plot_qkd_results(ui->QKD_H3_results);
@@ -56,12 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->delaych2->setValue(0);
     ui->delaych3->setValue(0);
     ui->delaych4->setValue(0);
-    ui->cw->setValue(50000);
-
-    ui->plot1_1->setValue(0);
-    ui->plot1_2->setValue(0);
-    ui->win1_1->setValue(0);
-    ui->win1_2->setValue(0);
 
     ui->histStart->setValue(1);
     ui->histEnd->setValue(50001);
@@ -77,31 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->PlotCChn2->setValue(4);
     ui->startChan->setValue(1);
 
-    ui->plot1_1->setValue(0);
-    ui->plot1_2->setValue(1);
-    ui->plot2_1->setValue(0);
-    ui->plot2_2->setValue(1);
-    ui->plot3_1->setValue(0);
-    ui->plot3_2->setValue(1);
-
-    ui->win1_1->setValue(0);
-    ui->win1_2->setValue(0);
-    ui->win2_1->setValue(1);
-    ui->win2_2->setValue(1);
-    ui->win3_1->setValue(2);
-    ui->win3_2->setValue(2);
-
-    //QThread::msleep(100);
-
-    ui->adqtime_2->setValue(10);
-
-    /*ui->tab2_plot1->setChecked(true);
-    ui->tab2_plot2->setChecked(true);
-    ui->tab2_plot3->setChecked(true);
-    */
-
     lastPointKey_tab1 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-    lastPointKey_tab2 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     lastPointKey_tab3 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     lastPointKey_tab4 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     qkd_prevKey = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
@@ -110,8 +79,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->rof2->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
     ui->rof3->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
     ui->rof4->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof5->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof6->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof7->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof8->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof9->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof10->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof11->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof12->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof13->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof14->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof15->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof16->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof17->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->rof18->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
 
-    //ui->menuLoad_Qubits->addAction()
     ui->rof1->addItem(tr("Rise"));
     ui->rof1->addItem(tr("Fall"));
     ui->rof2->addItem(tr("Rise"));
@@ -120,16 +102,134 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->rof3->addItem(tr("Fall"));
     ui->rof4->addItem(tr("Rise"));
     ui->rof4->addItem(tr("Fall"));
+    ui->rof5->addItem(tr("Rise"));
+    ui->rof5->addItem(tr("Fall"));
+    ui->rof6->addItem(tr("Rise"));
+    ui->rof6->addItem(tr("Fall"));
+    ui->rof7->addItem(tr("Rise"));
+    ui->rof7->addItem(tr("Fall"));
+    ui->rof8->addItem(tr("Rise"));
+    ui->rof8->addItem(tr("Fall"));
+    ui->rof9->addItem(tr("Rise"));
+    ui->rof9->addItem(tr("Fall"));
+    ui->rof10->addItem(tr("Rise"));
+    ui->rof10->addItem(tr("Fall"));
+    ui->rof11->addItem(tr("Rise"));
+    ui->rof11->addItem(tr("Fall"));
+    ui->rof12->addItem(tr("Rise"));
+    ui->rof12->addItem(tr("Fall"));
+    ui->rof13->addItem(tr("Rise"));
+    ui->rof13->addItem(tr("Fall"));
+    ui->rof14->addItem(tr("Rise"));
+    ui->rof14->addItem(tr("Fall"));
+    ui->rof15->addItem(tr("Rise"));
+    ui->rof15->addItem(tr("Fall"));
+    ui->rof16->addItem(tr("Rise"));
+    ui->rof16->addItem(tr("Fall"));
+    ui->rof17->addItem(tr("Rise"));
+    ui->rof17->addItem(tr("Fall"));
+    ui->rof18->addItem(tr("Rise"));
+    ui->rof18->addItem(tr("Fall"));
 
     ui->rof1->setCurrentText("Fall");
     ui->rof2->setCurrentText("Fall");
     ui->rof3->setCurrentText("Fall");
     ui->rof4->setCurrentText("Fall");
+    ui->rof5->setCurrentText("Fall");
+    ui->rof6->setCurrentText("Fall");
+    ui->rof7->setCurrentText("Fall");
+    ui->rof8->setCurrentText("Fall");
+    ui->rof9->setCurrentText("Fall");
+    ui->rof10->setCurrentText("Fall");
+    ui->rof11->setCurrentText("Fall");
+    ui->rof12->setCurrentText("Fall");
+    ui->rof13->setCurrentText("Fall");
+    ui->rof14->setCurrentText("Fall");
+    ui->rof15->setCurrentText("Fall");
+    ui->rof16->setCurrentText("Fall");
+    ui->rof17->setCurrentText("Fall");
+    ui->rof18->setCurrentText("Fall");
 
+    /* FIXME: Should be some way to do this globally using stylesheets, but I
+     * wasn't able to get it to work. */
+    ui->test1->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test2->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test3->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test4->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test5->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test6->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test7->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test8->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test9->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test10->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test11->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test12->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test13->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test14->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test15->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test16->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test17->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
+    ui->test18->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
 
-    ui->Max_delay->setValue(500);
+    ui->test1->addItem(tr("Enable"));
+    ui->test1->addItem(tr("Disable"));
+    ui->test2->addItem(tr("Enable"));
+    ui->test2->addItem(tr("Disable"));
+    ui->test3->addItem(tr("Enable"));
+    ui->test3->addItem(tr("Disable"));
+    ui->test4->addItem(tr("Enable"));
+    ui->test4->addItem(tr("Disable"));
+    ui->test5->addItem(tr("Enable"));
+    ui->test5->addItem(tr("Disable"));
+    ui->test6->addItem(tr("Enable"));
+    ui->test6->addItem(tr("Disable"));
+    ui->test7->addItem(tr("Enable"));
+    ui->test7->addItem(tr("Disable"));
+    ui->test8->addItem(tr("Enable"));
+    ui->test8->addItem(tr("Disable"));
+    ui->test9->addItem(tr("Enable"));
+    ui->test9->addItem(tr("Disable"));
+    ui->test10->addItem(tr("Enable"));
+    ui->test10->addItem(tr("Disable"));
+    ui->test11->addItem(tr("Enable"));
+    ui->test11->addItem(tr("Disable"));
+    ui->test12->addItem(tr("Enable"));
+    ui->test12->addItem(tr("Disable"));
+    ui->test13->addItem(tr("Enable"));
+    ui->test13->addItem(tr("Disable"));
+    ui->test14->addItem(tr("Enable"));
+    ui->test14->addItem(tr("Disable"));
+    ui->test15->addItem(tr("Enable"));
+    ui->test15->addItem(tr("Disable"));
+    ui->test16->addItem(tr("Enable"));
+    ui->test16->addItem(tr("Disable"));
+    ui->test17->addItem(tr("Enable"));
+    ui->test17->addItem(tr("Disable"));
+    ui->test18->addItem(tr("Enable"));
+    ui->test18->addItem(tr("Disable"));
 
-    ui->stepduration->setValue(30);
+    ui->test1->setCurrentText("Disable");
+    ui->test2->setCurrentText("Disable");
+    ui->test3->setCurrentText("Disable");
+    ui->test4->setCurrentText("Disable");
+    ui->test5->setCurrentText("Disable");
+    ui->test6->setCurrentText("Disable");
+    ui->test7->setCurrentText("Disable");
+    ui->test8->setCurrentText("Disable");
+    ui->test9->setCurrentText("Disable");
+    ui->test10->setCurrentText("Disable");
+    ui->test11->setCurrentText("Disable");
+    ui->test12->setCurrentText("Disable");
+    ui->test13->setCurrentText("Disable");
+    ui->test14->setCurrentText("Disable");
+    ui->test15->setCurrentText("Disable");
+    ui->test16->setCurrentText("Disable");
+    ui->test17->setCurrentText("Disable");
+    ui->test18->setCurrentText("Disable");
+
+    /* Set connected label to Disconnected. */
+    ui->connected_label->setText("Disconnected");
+
 
     //while(1){
     //    udpcom.sendDataToClient(6.66);
@@ -353,117 +453,7 @@ QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
   scope->rescaleAxes();
   scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
-void MainWindow::setupratePlot_tab2(QCustomPlot *scope){
 
-
-scope->plotLayout()->clear();
-
-QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
-
-
-  wideAxisRect->setupFullAxesBox(true);
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
-  //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
-
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
-  //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
-
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
-
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
-
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
-
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
-  //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
-  //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
-
-  //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
-  //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
-
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
-
-  wideAxisRect->setRangeZoom(Qt::Vertical);
-
-
- //scope->plotLayout()->addElement(0, 0, title1);
- scope->plotLayout()->addElement(0, 0, wideAxisRect);
-
-  QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(128,0,0), 1), QBrush(QColor(240,128,128)),4));
-  //graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(200, 0, 0), 1), QBrush(QColor(128,0,0)),4));
-  graph1->setPen(QPen(QColor(200, 0, 0), 2));
-
-  QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(0,100,0), 1), QBrush(QColor(144,238,144)),4));
-  //graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(0, 200, 0), 1), QBrush(QColor(0,128,0)),4));
-  graph2->setPen(QPen(QColor(0, 200, 0), 2));
-
-  QCPGraph *graph3 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(189,183,107), 1), QBrush(QColor(255,255,0)),4));
-  //graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(200, 200, 0), 1), QBrush(QColor(255,255,0)),4));
-  graph3->setPen(QPen(QColor(200, 200, 0), 2));
-
-
-  QCPGraph *graph4 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(72,61,139), 1), QBrush(QColor(230,230,250)),4));
-  //graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(173, 127, 168), 1), QBrush(QColor(138,43,226)),4));
-  graph4->setPen(QPen(QColor(63, 211, 249), 2));
-
-  QCPGraph *graph5 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph5->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(0,0,139), 1), QBrush(QColor(135,206,250)),4));
-  //graph5->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(63, 211, 249), 1), QBrush(QColor(30,144,255)),4));
-  graph5->setPen(QPen(QColor(173, 127, 168), 2));
-
-  QCPGraph *graph6 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph6->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(0,0,139), 1), QBrush(QColor(51,51,255)),4));
-  //graph5->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(QColor(63, 211, 249), 1), QBrush(QColor(30,144,255)),4));
-  graph6->setPen(QPen(QColor(130, 170, 120), 2));
-
-
-
-
-
-
-  QLinearGradient plotGradient;
-  plotGradient.setStart(0, 0);
-  plotGradient.setFinalStop(0, 350);
-  plotGradient.setColorAt(0, QColor(80, 80, 80));
-  plotGradient.setColorAt(1, QColor(50, 50, 50));
-  scope->setBackground(plotGradient);
-  QLinearGradient axisRectGradient;
-  axisRectGradient.setStart(0, 0);
-  axisRectGradient.setFinalStop(0, 350);
-  axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-  axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-  scope->axisRect()->setBackground(axisRectGradient);
-
-  scope->rescaleAxes();
-  //scope->yAxis->setRange(0, 2);
-
-  scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
-}
 void MainWindow::setupHistoPlot(QCustomPlot *histograma){
 
   histograma->plotLayout()->clear();
@@ -745,6 +735,22 @@ void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope){
       scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
+void MainWindow::refreshButton()
+{
+    int i;
+
+    std::vector<std::string> devices = s.check_for_devices();
+
+    ui->taggers->clear();
+    for (i = 0; i < devices.size(); i++) {
+        ui->taggers->addItem(tr(devices[i].c_str()));
+    }
+}
+
+void MainWindow::connectButton()
+{
+}
+
 void MainWindow::setupsignalslot(){
 
 
@@ -759,6 +765,9 @@ void MainWindow::setupsignalslot(){
     qRegisterMetaType<intvector>("intvector");
 
 
+
+    QObject::connect(ui->connect_button, &QPushButton::released, this, &MainWindow::connectButton);
+    QObject::connect(ui->refresh_button, &QPushButton::released, this, &MainWindow::refreshButton);
 
     QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_startChan(int)));
     QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_startChan(int)));
@@ -864,29 +873,6 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->trackC2, SIGNAL(toggled(bool)), this, SLOT(Chang_track8(bool)));
     QObject::connect(ui->trackC3, SIGNAL(toggled(bool)), this, SLOT(Chang_track9(bool)));
 
-    QObject::connect(ui->plot1_1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot1_1(int)));
-    QObject::connect(ui->plot1_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot1_2(int)));
-    QObject::connect(ui->plot2_1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot2_1(int)));
-    QObject::connect(ui->plot2_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot2_2(int)));
-    QObject::connect(ui->plot3_1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot3_1(int)));
-    QObject::connect(ui->plot3_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot3_2(int)));
-    QObject::connect(ui->plot4_1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot4_1(int)));
-    QObject::connect(ui->plot4_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot4_2(int)));
-    QObject::connect(ui->plot5_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot5_2(int)));
-    QObject::connect(ui->plot6_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_plot6_2(int)));
-
-    QObject::connect(ui->win1_1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win1_1(int)));
-    QObject::connect(ui->win1_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win1_2(int)));
-    QObject::connect(ui->win2_1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win2_1(int)));
-    QObject::connect(ui->win2_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win2_2(int)));
-    QObject::connect(ui->win3_1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win3_1(int)));
-    QObject::connect(ui->win3_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win3_2(int)));
-    QObject::connect(ui->win5_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win5_2(int)));
-    QObject::connect(ui->win6_2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_win6_2(int)));
-
-    QObject::connect(ui->adqtime_2, SIGNAL(valueChanged(double)), &anl, SLOT(Chang_adqtime_2(double)));
-    QObject::connect(ui->adqtime_2, SIGNAL(valueChanged(double)), this, SLOT(Chang_adqtime_2(double)));
-
     QObject::connect(&anl, SIGNAL(Chang_anlAvilable(bool)), &adq, SLOT(Chang_anlAvilable(bool)));
 
     QObject::connect(&anl, SIGNAL(CombinationChange(bool)), this, SLOT(CombinationChange(bool)));
@@ -898,9 +884,6 @@ void MainWindow::setupsignalslot(){
     QObject::connect(&anl, SIGNAL(anlongoing(bool)), &adq, SLOT(adqpausechange(bool)));
 
     QObject::connect(&adq, SIGNAL(qutaghist(vectorDouble, vectorDouble, vectorDouble)), this, SLOT(histoplot(vectorDouble, vectorDouble, vectorDouble)),Qt::QueuedConnection);
-    //QObject::connect(&adq, SIGNAL(qutaghist(vectorDouble, vectorDouble)), this, SLOT(histoplot(vectorDouble, vectorDouble)), Qt::BlockingQueuedConnection);
-
-    QObject::connect(&anl, SIGNAL(rates_tab2(int, int, int, int, int, int, double)), this, SLOT(plotRates_tab2(int, int, int, int, int, int, double)));
 
     QObject::connect(ui->thch1, SIGNAL(valueChanged(double)), &adq, SLOT(change_trigger_level_ch1(double)));
     QObject::connect(ui->thch2, SIGNAL(valueChanged(double)), &adq, SLOT(change_trigger_level_ch2(double)));
@@ -911,47 +894,21 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->delaych3, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch3(int)));
     QObject::connect(ui->delaych4, SIGNAL(valueChanged(double)), &adq, SLOT(change_delay_ch4(int)));
 
-    QObject::connect(ui->cw, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_cw(int)));
-
-    QObject::connect(ui->DBON, SIGNAL(valueChanged(int)), this, SLOT(turnONDB(int)));
-
     QObject::connect(ui->actionSave_state, SIGNAL(triggered(bool)), this, SLOT(SaveState(bool)));
     QObject::connect(ui->actionLoad_state, SIGNAL(triggered(bool)), this, SLOT(LoadState(bool)));
-
-    QObject::connect(ui->tab2_plot1, SIGNAL(toggled(bool)), this, SLOT(tab2_plot1_activate(bool)));
-    QObject::connect(ui->tab2_plot2, SIGNAL(toggled(bool)), this, SLOT(tab2_plot2_activate(bool)));
-    QObject::connect(ui->tab2_plot3, SIGNAL(toggled(bool)), this, SLOT(tab2_plot3_activate(bool)));
-    QObject::connect(ui->tab2_plot4, SIGNAL(toggled(bool)), this, SLOT(tab2_plot4_activate(bool)));
-    QObject::connect(ui->tab2_plot5, SIGNAL(toggled(bool)), this, SLOT(tab2_plot5_activate(bool)));
-    QObject::connect(ui->tab2_plot6, SIGNAL(toggled(bool)), this, SLOT(tab2_plot6_activate(bool)));
-
-    QObject::connect(ui->BSM, SIGNAL(released()), this, SLOT(setBSMmeas()));
-    QObject::connect(ui->HOM, SIGNAL(released()), this, SLOT(setHOMmeas()));
-
-    QObject::connect(ui->delayline, SIGNAL(valueChanged(int)), this, SLOT(Chang_delayline(int)));
 
     QObject::connect(this, SIGNAL(main_SaveAndValues(int, int, int , int , int, int , float , int )), &dbc, SLOT(SaveAndValues(int, int, int , int , int, int , float , int )));
 
     QObject::connect(this, SIGNAL(main_SaveRateValues( int, int , int , int , int , int , int , int , int , float)), &dbc, SLOT(SaveRateValues( int, int , int , int , int , int , int , int , int , float)));
 
-    QObject::connect(ui->homscan_time, SIGNAL(valueChanged(int)), this, SLOT(Chang_homscan_time(int)));
-    QObject::connect(ui->homscan, SIGNAL(valueChanged(int)), this, SLOT(Chang_homscan(int)));
-
-    QObject::connect(ui->tab2_xrange, SIGNAL(valueChanged(int)), this, SLOT(chang_tab2range(int)));
-
-
-    QObject::connect(ui->reset_delay, SIGNAL(released()), this, SLOT(resetdelay()));
-
-    QObject::connect(ui->Max_delay, SIGNAL(valueChanged(int)), this, SLOT(chang_in_max_del(int)));
-
-    QObject::connect(ui->stepduration, SIGNAL(valueChanged(int)), this, SLOT(chang_in_stepduration(int)));
-
-    QObject::connect(ui->clean_tab2, SIGNAL(released()), this, SLOT(clean_tab2()));
-
     QObject::connect(ui->rof1, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof1(QString)));
     QObject::connect(ui->rof2, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof2(QString)));
     QObject::connect(ui->rof3, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof3(QString)));
     QObject::connect(ui->rof4, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof4(QString)));
+    //QObject::connect(ui->rof5, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof1(QString)));
+    //QObject::connect(ui->rof6, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof2(QString)));
+    //QObject::connect(ui->rof7, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof3(QString)));
+    //QObject::connect(ui->rof8, SIGNAL(currentTextChanged(QString)), &adq, SLOT(Chang_rof4(QString)));
 
     QObject::connect(ui->actionQKD, SIGNAL(triggered()), &qkdparam, SLOT(show()));
 
@@ -1056,72 +1013,6 @@ void MainWindow::plotRates(char AoBoC, int event, double key){
     //lastPointKey_tab1 = key;
 
 }
-
-void MainWindow::plotRates_tab2(int eventA, int eventB, int eventC, int orgate , int bsm1, int bsm2, double key){
-
-
-   double value1 = eventA;
-   double value2 = eventB;
-   double value3 = eventC;
-   double value4 = orgate;
-   double value5 = bsm1;
-   double value6 = bsm2;
-   //std::cout<<bsm2<<std::endl;
-
-   if(in_tab2_plot1)ui->PlotTab2->graph(0)->addData(key-lastPointKey_tab2, value1);
-   //ui->PlotTab2->graph(0)->rescaleValueAxis(true);
-   if(in_tab2_plot2)ui->PlotTab2->graph(1)->addData(key-lastPointKey_tab2, value2);
-   //ui->PlotTab2->graph(1)->rescaleValueAxis(true);
-   if(in_tab2_plot3)ui->PlotTab2->graph(2)->addData(key-lastPointKey_tab2, value3);
-   //ui->PlotTab2->graph(2)->rescaleValueAxis(true);
-   if(in_tab2_plot4)ui->PlotTab2->graph(3)->addData(key-lastPointKey_tab2, value4);
-   //ui->PlotTab2->graph(2)->rescaleValueAxis(true);
-   if(in_tab2_plot5)ui->PlotTab2->graph(4)->addData(key-lastPointKey_tab2, value5);
-   //ui->PlotTab2->graph(2)->rescaleValueAxis(true);
-   if(in_tab2_plot6)ui->PlotTab2->graph(5)->addData(key-lastPointKey_tab2, value6);
-
-    if(dbrunning && !in_homscan){
-
-        //std::cout<<"delay : "<<in_delayline<<std::endl;
-        emit main_SaveAndValues(eventA, eventB, eventC, orgate , bsm1, bsm2 , in_adqtime_2, in_delayline);
-         ui->current_delay_pos->display(in_delayline);
-    }
-    if(dbrunning && in_homscan && prev_homscan<=in_Max_delay){
-
-        del_key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-
-        if(del_key-del_previouskey>in_stepduration){
-            prev_homscan+=in_homscan_time;
-            del_previouskey=del_key;
-        }
-
-        // std::cout<<"delay scan : "<<prev_homscan<<std::endl;
-         emit main_SaveAndValues(eventA, eventB, eventC, orgate , bsm1, bsm2 , in_adqtime_2, prev_homscan);
-         ui->current_delay_pos->display(prev_homscan);
-
-
-    }
-
-   ui->PlotTab2->xAxis->setRange(key-lastPointKey_tab2, double(xrange), Qt::AlignRight);
-  //ui->PlotTab2->yAxis->rescale();
-   ui->PlotTab2->replot();
-
-    if(CombiChang ){
-        ui->PlotTab2->graph(0)->data()->clear();
-        CombiChang=false;
-    }
-    if(CombiChang){
-        ui->PlotTab2->graph(1)->data()->clear();
-        CombiChang=false;
-    }
-    if(CombiChang){
-        ui->PlotTab2->graph(2)->data()->clear();
-        CombiChang=false;
-    }
-//lastPointKey_tab2 = key;
-
-}
-
 
 void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double bkgndA,double okB,double errB,double randB,double bkgndB,double okC,double errC,double randC,double bkgndC, double key){
 
@@ -1886,24 +1777,6 @@ void MainWindow::SaveState(bool a){
 
                      }
 
-                    for ( int i=0;i<3;i++) {
-                           for (int j =0;j<2;j++) {
-                                   localstring = QString("tab2_plot[%1][%2]").arg(i).arg(j);
-                                   //std::cout<< localstring.toStdString()<< std::endl;
-                                    if(!mapint.contains(localstring))mapint.insert(localstring,tab2_plot[i][j]);
-                                    else mapint.value(localstring, tab2_plot[i][j]);
-                               }
-                     }
-
-                    for ( int i=0;i<3;i++) {
-                           for (int j =0;j<2;j++) {
-                                   localstring = QString("tab2_win[%1][%2]").arg(i).arg(j);
-                                   //std::cout<< localstring.toStdString()<< std::endl;
-                                    if(!mapint.contains(localstring))mapint.insert(localstring,tab2_win[i][j]);
-                                    else mapint.value(localstring, tab2_win[i][j]);
-                               }
-                     }
-
                     mapint.insert("in_startChan",in_startChan);
                     mapint.insert("in_PlotACh1",in_PlotACh1);
                     mapint.insert("in_PlotACh2",in_PlotACh2);
@@ -1916,7 +1789,6 @@ void MainWindow::SaveState(bool a){
                     mapint.insert("in_binsinplot",in_binsinplot);
 
                     mapdouble.insert("in_adqtime", in_adqtime);
-                    mapdouble.insert("adqtime_tab2", double(adqtime_tab2));
 
                     /*QMapIterator<QString,int>ip(mapint);
                     while (ip.hasNext()) {
@@ -1963,21 +1835,6 @@ void MainWindow::LoadState(bool a){
                        }
                    }
              }*/
-            if(mapintout.contains("tab2_plot[0][0]"))ui->plot1_1->setValue(mapintout.value("tab2_plot[0][0]"));
-            if(mapintout.contains("tab2_plot[0][1]"))ui->plot1_2->setValue(mapintout.value("tab2_plot[0][1]"));
-            if(mapintout.contains("tab2_plot[1][0]"))ui->plot2_1->setValue(mapintout.value("tab2_plot[1][0]"));
-            if(mapintout.contains("tab2_plot[1][1]"))ui->plot2_2->setValue(mapintout.value("tab2_plot[1][1]"));
-            if(mapintout.contains("tab2_plot[2][0]"))ui->plot3_1->setValue(mapintout.value("tab2_plot[2][0]"));
-            if(mapintout.contains("tab2_plot[2][1]"))ui->plot3_2->setValue(mapintout.value("tab2_plot[2][1]"));
-
-            if(mapintout.contains("tab2_win[0][0]"))ui->win1_1->setValue(mapintout.value("tab2_win[0][0]"));
-            if(mapintout.contains("tab2_win[0][1]"))ui->win1_2->setValue(mapintout.value("tab2_win[0][1]"));
-            if(mapintout.contains("tab2_win[1][0]"))ui->win2_1->setValue(mapintout.value("tab2_win[1][0]"));
-            if(mapintout.contains("tab2_win[1][1]"))ui->win2_2->setValue(mapintout.value("tab2_win[1][1]"));
-            if(mapintout.contains("tab2_win[2][0]"))ui->win3_1->setValue(mapintout.value("tab2_win[2][0]"));
-            if(mapintout.contains("tab2_win[2][1]"))ui->win3_2->setValue(mapintout.value("tab2_win[2][1]"));
-
-
 
             if(mapintout.contains("Plot_Win_BoE[0][0][0]"))ui->BegA1->setValue(mapintout.value("Plot_Win_BoE[0][0][0]"));
             if(mapintout.contains("Plot_Win_BoE[0][1][0]"))ui->BegA2->setValue(mapintout.value("Plot_Win_BoE[0][1][0]"));
@@ -2013,7 +1870,6 @@ void MainWindow::LoadState(bool a){
             if(mapintout.contains("in_binsinplot"))ui->binsinplot->setValue(mapintout.value("in_binsinplot"));
 
             if(mapdoubleout.contains("in_adqtime"))ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
-            if(mapdoubleout.contains("adqtime_tab2"))ui->adqtime_2->setValue(mapdoubleout.value("adqtime_tab2"));
 
 
 
@@ -2037,59 +1893,6 @@ MainWindow::~MainWindow()
 {
   delete ui;
 }
-
-void MainWindow::setBSMmeas(){
-    ui->tab2_plot1->setChecked(true);
-    ui->tab2_plot2->setChecked(true);
-    ui->tab2_plot3->setChecked(false);
-    ui->tab2_plot4->setChecked(true);
-    ui->tab2_plot5->setChecked(true);
-
-    ui->plot1_1->setValue(0);
-    ui->plot1_2->setValue(1);
-    ui->plot2_1->setValue(0);
-    ui->plot2_2->setValue(1);
-    //ui->plot3_1->setValue(0);
-    //ui->plot3_2->setValue(1);
-    ui->plot4_1->setValue(0);
-    ui->plot4_2->setValue(1);
-    ui->plot5_2->setValue(3);
-
-    ui->win1_1->setValue(0);
-    ui->win1_2->setValue(2);
-    ui->win2_1->setValue(2);
-    ui->win2_2->setValue(0);
-    ui->win5_2->setValue(0);
-    //ui->win3_2->setValue(2);
-
-}
-void MainWindow::setHOMmeas(){
-
-    QMessageBox msgBox;
-    msgBox.setText("Still to do :P");
-    msgBox.exec();
-}
-void MainWindow::clean_tab2(){
-
-    QMessageBox msgBox;
-    msgBox.setText("Still to do :P");
-    msgBox.exec();
-}
-
-void MainWindow::   Chang_homscan(int val){
-    in_homscan=bool(val);
-    if(in_homscan && !firstscan){
-        firstscan=true;
-        del_previouskey = 0;
-    }
-}
-
-/*void MainWindow::error1(){
-	QMessageBox msgBox;
-	msgBox.setText("reinicialice/encienda el conversor.");
-	msgBox.exec();
-}
-*/
 
 void MainWindow::hdf5savefile(){
 

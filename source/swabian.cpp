@@ -27,6 +27,11 @@ Swabian::~Swabian(void)
         freeTimeTagger(this->t);
 }
 
+std::vector<std::string> Swabian::check_for_devices(void)
+{
+    return scanTimeTagger();
+}
+
 /* Connect to a Swabian time tagger.
  *
  * Returns 0 on success, -1 on error. */

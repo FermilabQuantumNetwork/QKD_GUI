@@ -19,6 +19,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QDateTime>
+#include "swabian.h"
 
 #define MAX_QUBITS 1000
 #define HDF5TIMEINTEGRATION 3
@@ -41,7 +42,6 @@ public:
 
   void setupPlotA(QCustomPlot *customPlot);
   void setupratePlot(QCustomPlot *customPlot);
-  void setupratePlot_tab2(QCustomPlot *customPlot);
 
   void setupsignalslot();
   void setupHistoPlot(QCustomPlot *customPlot);
@@ -54,9 +54,10 @@ public:
   void setup_plot_qkd_stats(QCustomPlot *scope);
 
 private slots:
+    void refreshButton();
+    void connectButton();
   
   void plotRates(char AoB, int event, double key);
-  void plotRates_tab2(int eventA, int eventB, int eventC,int eventD, int eventE, int eventf, double key);
 
   void changeStartchan(int starchan){this->in_startChan=starchan;}
 
@@ -91,25 +92,6 @@ private slots:
 
   void Chang_in_adqtime(double val){this->in_adqtime=val;}
 
-  void Chang_plot1_1(int val){this->tab2_plot[0][0]=val;}
-  void Chang_plot1_2(int val){this->tab2_plot[0][1]=val;}
-  void Chang_plot2_1(int val){this->tab2_plot[1][0]=val;}
-  void Chang_plot2_2(int val){this->tab2_plot[1][1]=val;}
-  void Chang_plot3_1(int val){this->tab2_plot[2][0]=val;}
-  void Chang_plot3_2(int val){this->tab2_plot[2][1]=val;}
-  void Chang_plot4_1(int val){this->tab2_plot[3][0]=val;}
-  void Chang_plot4_2(int val){this->tab2_plot[3][1]=val;}
-  void Chang_plot5_1(int val){this->tab2_plot[4][0]=val;}
-  void Chang_plot5_2(int val){this->tab2_plot[4][1]=val;}
-
-  void Chang_win1_1(int val){this->tab2_win[0][0]=val;}
-  void Chang_win1_2(int val){this->tab2_win[0][1]=val;}
-  void Chang_win2_1(int val){this->tab2_win[1][0]=val;}
-  void Chang_win2_2(int val){this->tab2_win[1][1]=val;}
-  void Chang_win3_1(int val){this->tab2_win[2][0]=val;}
-  void Chang_win3_2(int val){this->tab2_win[2][1]=val;}
-  void Chang_win4_2(int val){this->tab2_win[3][1]=val;}
-
   void Chang_in_PlotAChn1(int val){this->in_PlotACh1=val;}
   void Chang_in_PlotAChn2(int val){this->in_PlotACh2=val;}
   void Chang_in_PlotBChn1(int val){this->in_PlotBCh1=val;}
@@ -136,29 +118,10 @@ private slots:
   void SaveState(bool a);
   void LoadState(bool a);
 
-  void tab2_plot1_activate(bool val){in_tab2_plot1=val;}
-  void tab2_plot2_activate(bool val){in_tab2_plot2=val;}
-  void tab2_plot3_activate(bool val){in_tab2_plot3=val;}
-  void tab2_plot4_activate(bool val){in_tab2_plot4=val;}
-  void tab2_plot5_activate(bool val){in_tab2_plot5=val;}
-  void tab2_plot6_activate(bool val){in_tab2_plot6=val;}
-
-  void setBSMmeas();
-  void setHOMmeas();
-  void clean_tab2();
-
   void Chang_delayline(int val){in_delayline=val;}
-
-  void Chang_homscan_time(int val){in_homscan_time=val;}
-  void Chang_homscan(int val);
-
-  void chang_tab2range(int val){xrange=val;}
-
 
   void resetdelay(){in_delayline=0;prev_homscan=0;}
   void chang_in_max_del(int val){in_Max_delay=val;}
-
-  void chang_in_stepduration(int val){in_stepduration=val;}
 
   void createQKDLinesA();
   void createQKDLinesB();
@@ -220,6 +183,7 @@ private slots:
 private:
   Ui::MainWindow *ui;
   qutagadq adq;
+  Swabian s;
   qutaganl anl;
   DBControl dbc;
   socket_com udpcom;
@@ -241,7 +205,6 @@ private:
   QCPItemStraightLine *infLine[18];
 
   double lastPointKey_tab1;
-  double lastPointKey_tab2;
   double lastPointKey_tab3;
   double lastPointKey_tab4;
   double qkd_prevKey;
@@ -262,17 +225,6 @@ private:
 
   ////SECOND tab////
 
-
-  float adqtime_tab2;
-  int tab2_plot[6][2]={{0}};
-  int tab2_win[4][2]={{0}};
-
-  bool in_tab2_plot1=false;
-  bool in_tab2_plot2=false;
-  bool in_tab2_plot3=false;
-  bool in_tab2_plot4=false;
-  bool in_tab2_plot5=false;
-  bool in_tab2_plot6=false;
 
   int in_delayline=0;
 

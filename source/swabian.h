@@ -9,6 +9,7 @@ class Swabian
 public:
     Swabian(void);
     ~Swabian(void);
+    std::vector<std::string> check_for_devices(void);
     int connect();
     int initialize_measurements(int start_channel, int click_channel_mask, int bin_width, timestamp_t time);
     int get_histogram(int channel, std::vector<timestamp_t> *data);

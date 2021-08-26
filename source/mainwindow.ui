@@ -48,7 +48,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab1">
        <attribute name="title">
@@ -2168,2018 +2168,6 @@ background-color: rgb(136, 138, 133);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab2">
-       <attribute name="title">
-        <string>AND gates</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QWidget" name="tab2W" native="true">
-          <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QWidget" name="horizontalWidget" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_27">
-              <item>
-               <layout class="QFormLayout" name="formLayout_6">
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetMinimumSize</enum>
-                </property>
-                <item row="0" column="0">
-                 <widget class="QPushButton" name="BSM">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>BSM</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QPushButton" name="HOM">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>HOM</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <spacer name="verticalSpacer_11">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_103">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Scan mode</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QSlider" name="homscan">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_104">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Scan step Size</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QSpinBox" name="homscan_time">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="suffix">
-                   <string> [ps]</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1000</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_108">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Step duration</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QSpinBox" name="stepduration">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="suffix">
-                   <string> [s]</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>50000</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_106">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Max Delay</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QSpinBox" name="Max_delay">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="suffix">
-                   <string> [ps]</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_105">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Current pos.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QLCDNumber" name="current_delay_pos">
-                  <property name="digitCount">
-                   <number>4</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="0">
-                 <widget class="QPushButton" name="reset_delay">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Reset Del.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="0">
-                 <spacer name="verticalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="9" column="0">
-                 <widget class="QLabel" name="label_22">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Adquisition time</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="1">
-                 <widget class="QDoubleSpinBox" name="adqtime_2">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="suffix">
-                   <string> [s]</string>
-                  </property>
-                  <property name="minimum">
-                   <double>1.000000000000000</double>
-                  </property>
-                  <property name="maximum">
-                   <double>6000.000000000000000</double>
-                  </property>
-                  <property name="value">
-                   <double>1.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="0">
-                 <widget class="QLabel" name="label_21">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>X axis range</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="1">
-                 <widget class="QSpinBox" name="tab2_xrange">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="suffix">
-                   <string> [s]</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>5</number>
-                  </property>
-                  <property name="value">
-                   <number>125</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="11" column="0">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="12" column="0">
-                 <widget class="QLabel" name="label_77">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Record Data</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="12" column="1">
-                 <widget class="QSlider" name="DBON">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="13" column="0">
-                 <widget class="QPushButton" name="clean_tab2">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
-                  <property name="text">
-                   <string>Clean Plot</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_18">
-                <property name="leftMargin">
-                 <number>25</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_9">
-                  <item>
-                   <widget class="QRadioButton" name="tab2_plot1">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(239, 41, 41);</string>
-                    </property>
-                    <property name="text">
-                     <string>&amp;&amp;1</string>
-                    </property>
-                    <property name="autoExclusive">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_27">
-                    <item>
-                     <widget class="QLabel" name="label_27">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Plot</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_28">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Window </string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_29">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_8">
-                      <item>
-                       <widget class="QLabel" name="label_29">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>A</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_30">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>B</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_90">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>C</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot1_1">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>1</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="win1_1">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_11">
-                      <item>
-                       <widget class="QLabel" name="label_36">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_37">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_35">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_28">
-                    <item>
-                     <widget class="QLabel" name="label_23">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>43</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(200, 0, 0);</string>
-                      </property>
-                      <property name="text">
-                       <string>&amp;</string>
-                      </property>
-                      <property name="textFormat">
-                       <enum>Qt::RichText</enum>
-                      </property>
-                      <property name="scaledContents">
-                       <bool>true</bool>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_26">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_10">
-                      <item>
-                       <widget class="QLabel" name="label_32">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>A</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_33">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>B</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_91">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>C</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot1_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>1</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="win1_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_12">
-                      <item>
-                       <widget class="QLabel" name="label_38">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_40">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_39">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_7">
-                  <item>
-                   <widget class="QRadioButton" name="tab2_plot2">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(138, 226, 52);</string>
-                    </property>
-                    <property name="text">
-                     <string>&amp;&amp;2</string>
-                    </property>
-                    <property name="autoExclusive">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_31">
-                    <item>
-                     <widget class="QLabel" name="label_25">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Plot</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_26">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Window </string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_22">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_13">
-                      <item>
-                       <widget class="QLabel" name="label_42">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>A</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_41">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>B</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_92">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>C</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot2_1">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="win2_1">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_14">
-                      <item>
-                       <widget class="QLabel" name="label_44">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_45">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_46">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_23">
-                    <item>
-                     <widget class="QLabel" name="label_24">
-                      <property name="font">
-                       <font>
-                        <pointsize>44</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(0, 200, 0);</string>
-                      </property>
-                      <property name="text">
-                       <string>&amp;</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_30">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_15">
-                      <item>
-                       <widget class="QLabel" name="label_47">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>A</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_48">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>B</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_93">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>C</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot2_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="win2_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_16">
-                      <item>
-                       <widget class="QLabel" name="label_50">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_52">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_51">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_17">
-                  <item>
-                   <widget class="QRadioButton" name="tab2_plot3">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(252, 233, 79);</string>
-                    </property>
-                    <property name="text">
-                     <string>&amp;&amp;3</string>
-                    </property>
-                    <property name="autoExclusive">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_25">
-                    <item>
-                     <widget class="QLabel" name="label_56">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Plot </string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_57">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);
-</string>
-                      </property>
-                      <property name="text">
-                       <string> Window </string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_34">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_18">
-                      <item>
-                       <widget class="QLabel" name="label_49">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>A</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_43">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>B</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_94">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>C</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot3_1">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="win3_1">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_19">
-                      <item>
-                       <widget class="QLabel" name="label_59">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_60">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_58">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_33">
-                    <item>
-                     <widget class="QLabel" name="label_61">
-                      <property name="font">
-                       <font>
-                        <pointsize>44</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(200, 200, 0);</string>
-                      </property>
-                      <property name="text">
-                       <string>&amp;</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_20">
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_32">
-                      <item>
-                       <layout class="QHBoxLayout" name="horizontalLayout_22">
-                        <item>
-                         <widget class="QLabel" name="label_63">
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(238, 238, 236);</string>
-                          </property>
-                          <property name="text">
-                           <string>A</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="label_62">
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(238, 238, 236);</string>
-                          </property>
-                          <property name="text">
-                           <string>B</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="label_95">
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(238, 238, 236);</string>
-                          </property>
-                          <property name="text">
-                           <string>C</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                      <item>
-                       <widget class="QSlider" name="plot3_2">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="maximum">
-                         <number>2</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QSlider" name="win3_2">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="maximum">
-                         <number>2</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <layout class="QHBoxLayout" name="horizontalLayout_21">
-                        <item>
-                         <widget class="QLabel" name="label_65">
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(238, 238, 236);</string>
-                          </property>
-                          <property name="text">
-                           <string>1</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="label_64">
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(238, 238, 236);</string>
-                          </property>
-                          <property name="text">
-                           <string>2</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="label_66">
-                          <property name="styleSheet">
-                           <string notr="true">color: rgb(238, 238, 236);</string>
-                          </property>
-                          <property name="text">
-                           <string>3</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_3">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_37">
-                  <item>
-                   <widget class="QRadioButton" name="tab2_plot4">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(63, 211, 249);</string>
-                    </property>
-                    <property name="text">
-                     <string>OR</string>
-                    </property>
-                    <property name="autoExclusive">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_46">
-                    <item>
-                     <widget class="QLabel" name="label_127">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Plot </string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_45">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_38">
-                      <item>
-                       <widget class="QLabel" name="label_121">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>&amp;1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_122">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>&amp;2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_120">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>&amp;3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot4_1">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_98">
-                    <property name="font">
-                     <font>
-                      <pointsize>44</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(63, 211, 249);</string>
-                    </property>
-                    <property name="text">
-                     <string> || </string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_44">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_39">
-                      <item>
-                       <widget class="QLabel" name="label_125">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>&amp;1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_126">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>&amp;2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_124">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>&amp;3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot4_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_5">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_30">
-                  <item>
-                   <widget class="QRadioButton" name="tab2_plot5">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(173, 127, 168);
-</string>
-                    </property>
-                    <property name="text">
-                     <string>BSM</string>
-                    </property>
-                    <property name="autoExclusive">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_6">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Fixed</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_99">
-                    <property name="font">
-                     <font>
-                      <pointsize>44</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(63, 211, 249);</string>
-                    </property>
-                    <property name="text">
-                     <string> OR </string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_123">
-                    <property name="font">
-                     <font>
-                      <pointsize>44</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(173, 127, 168);</string>
-                    </property>
-                    <property name="text">
-                     <string>&amp;</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_40">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_36">
-                      <item>
-                       <widget class="QLabel" name="label_115">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>A</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_116">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>B</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_114">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>C</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot5_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="win5_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_35">
-                      <item>
-                       <widget class="QLabel" name="label_119">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_118">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_117">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_43">
-                    <item>
-                     <widget class="QLabel" name="label_100">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Plot </string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_101">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);
-</string>
-                      </property>
-                      <property name="text">
-                       <string> Window </string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_31">
-                  <item>
-                   <widget class="QRadioButton" name="tab2_plot6">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(173, 127, 168);
-</string>
-                    </property>
-                    <property name="text">
-                     <string>BSM</string>
-                    </property>
-                    <property name="autoExclusive">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_7">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Fixed</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_107">
-                    <property name="font">
-                     <font>
-                      <pointsize>44</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(63, 211, 249);</string>
-                    </property>
-                    <property name="text">
-                     <string> OR </string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_128">
-                    <property name="font">
-                     <font>
-                      <pointsize>44</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(173, 127, 168);</string>
-                    </property>
-                    <property name="text">
-                     <string>&amp;</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_41">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_40">
-                      <item>
-                       <widget class="QLabel" name="label_129">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>A</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_130">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>B</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_131">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>C</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="plot6_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="win6_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_41">
-                      <item>
-                       <widget class="QLabel" name="label_132">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_133">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="label_134">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(238, 238, 236);</string>
-                        </property>
-                        <property name="text">
-                         <string>3</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_47">
-                    <item>
-                     <widget class="QLabel" name="label_109">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);</string>
-                      </property>
-                      <property name="text">
-                       <string> Plot </string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_110">
-                      <property name="font">
-                       <font>
-                        <pointsize>20</pointsize>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(238, 238, 236);
-</string>
-                      </property>
-                      <property name="text">
-                       <string> Window </string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_8">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer_4">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCustomPlot" name="PlotTab2" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_5"/>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="conf">
        <property name="styleSheet">
         <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
@@ -4193,124 +2181,23 @@ background-color: rgb(136, 138, 133);</string>
           <property name="styleSheet">
            <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
           </property>
-          <widget class="QLabel" name="label_76">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>173</y>
-             <width>85</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(238, 238, 236);</string>
-           </property>
-           <property name="text">
-            <string>Coinc Window</string>
-           </property>
-          </widget>
-          <widget class="QSpinBox" name="cw">
-           <property name="geometry">
-            <rect>
-             <x>107</x>
-             <y>173</y>
-             <width>74</width>
-             <height>23</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(238, 238, 236);</string>
-           </property>
-           <property name="maximum">
-            <number>999999</number>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_102">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>202</y>
-             <width>91</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(238, 238, 236);</string>
-           </property>
-           <property name="text">
-            <string>Delay line time</string>
-           </property>
-          </widget>
-          <widget class="QSpinBox" name="delayline">
-           <property name="geometry">
-            <rect>
-             <x>107</x>
-             <y>202</y>
-             <width>78</width>
-             <height>23</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(238, 238, 236);</string>
-           </property>
-           <property name="suffix">
-            <string> [ps]</string>
-           </property>
-           <property name="maximum">
-            <number>500</number>
-           </property>
-          </widget>
           <widget class="QWidget" name="gridLayoutWidget">
            <property name="geometry">
             <rect>
              <x>107</x>
              <y>16</y>
-             <width>1161</width>
-             <height>141</height>
+             <width>466</width>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_7">
-            <item row="0" column="1">
-             <widget class="QLabel" name="label_154">
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_98">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
               <property name="text">
-               <string>Threshold (V)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QSpinBox" name="delaych1">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="2">
-             <widget class="QSpinBox" name="delaych4">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QDoubleSpinBox" name="thch3">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="QSpinBox" name="delaych2">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
+               <string>Channel 5</string>
               </property>
              </widget>
             </item>
@@ -4324,16 +2211,331 @@ background-color: rgb(136, 138, 133);</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="label_155">
+            <item row="21" column="0">
+             <widget class="QLabel" name="label_114">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
               <property name="text">
-               <string>Delay (ps)</string>
+               <string>Channel 18</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_7">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="2">
+             <widget class="QSpinBox" name="delaych4_8">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_16">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_107">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 12</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="3">
+             <widget class="QComboBox" name="rof9">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="4">
+             <widget class="QLCDNumber" name="rate17"/>
+            </item>
+            <item row="14" column="2">
+             <widget class="QSpinBox" name="delaych4_5">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QDoubleSpinBox" name="thch2_2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLCDNumber" name="rate1"/>
+            </item>
+            <item row="20" column="2">
+             <widget class="QSpinBox" name="delaych4_7">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="3">
+             <widget class="QComboBox" name="rof8">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_6">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="4">
+             <widget class="QLCDNumber" name="rate6"/>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_102">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 9</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="4">
+             <widget class="QLCDNumber" name="rate5"/>
+            </item>
+            <item row="10" column="1">
+             <widget class="QDoubleSpinBox" name="thch3_2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="4">
+             <widget class="QLCDNumber" name="rate8"/>
+            </item>
+            <item row="16" column="4">
+             <widget class="QLCDNumber" name="rate13"/>
+            </item>
+            <item row="18" column="3">
+             <widget class="QComboBox" name="rof15">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="3">
+             <widget class="QComboBox" name="rof7">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_104">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QDoubleSpinBox" name="thch1_2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="4">
+             <widget class="QLCDNumber" name="rate9"/>
+            </item>
+            <item row="13" column="4">
+             <widget class="QLCDNumber" name="rate10"/>
+            </item>
+            <item row="2" column="1">
+             <widget class="QDoubleSpinBox" name="thch1">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="0">
+             <widget class="QLabel" name="label_109">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 17</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="2">
+             <widget class="QSpinBox" name="delaych3_3">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="3">
+             <widget class="QComboBox" name="rof17">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_8">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2">
+             <widget class="QSpinBox" name="delaych4">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="4">
+             <widget class="QLCDNumber" name="rate16"/>
+            </item>
+            <item row="18" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_9">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="0">
+             <widget class="QLabel" name="label_106">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_154">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Threshold (V)</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_101">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 7</string>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="3">
+             <widget class="QComboBox" name="rof18">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_11">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLCDNumber" name="rate2"/>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_96">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QComboBox" name="rof2">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
               </property>
              </widget>
             </item>
@@ -4348,40 +2550,94 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_96">
+            <item row="9" column="2">
+             <widget class="QSpinBox" name="delaych4_3">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="4">
+             <widget class="QLCDNumber" name="rate18"/>
+            </item>
+            <item row="15" column="4">
+             <widget class="QLCDNumber" name="rate12"/>
+            </item>
+            <item row="19" column="0">
+             <widget class="QLabel" name="label_110">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
               <property name="text">
-               <string>Channel 4</string>
+               <string>Channel 16</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QDoubleSpinBox" name="thch4">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
+            <item row="18" column="4">
+             <widget class="QLCDNumber" name="rate15"/>
             </item>
-            <item row="4" column="2">
-             <widget class="QSpinBox" name="delaych3">
+            <item row="8" column="2">
+             <widget class="QSpinBox" name="delaych4_2">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QDoubleSpinBox" name="thch1">
+            <item row="16" column="2">
+             <widget class="QSpinBox" name="delaych2_3">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
+             </widget>
+            </item>
+            <item row="19" column="3">
+             <widget class="QComboBox" name="rof16">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="2">
+             <widget class="QSpinBox" name="delaych1_2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_99">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="3">
+             <widget class="QComboBox" name="rof4">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="2">
+             <widget class="QSpinBox" name="delaych4_6">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="2">
+             <widget class="QSpinBox" name="delaych4_4">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
@@ -4395,13 +2651,107 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_16">
+            <item row="11" column="2">
+             <widget class="QSpinBox" name="delaych2_2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="3">
+             <widget class="QComboBox" name="rof14">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="3">
+             <widget class="QComboBox" name="rof13">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QComboBox" name="rof3">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="2">
+             <widget class="QSpinBox" name="delaych4_9">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_100">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
               <property name="text">
-               <string>Channel 1</string>
+               <string>Channel 8</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_4">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_10">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QDoubleSpinBox" name="thch4">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="0">
+             <widget class="QLabel" name="label_108">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 15</string>
               </property>
              </widget>
             </item>
@@ -4421,8 +2771,25 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="3">
-             <widget class="QComboBox" name="rof2">
+            <item row="14" column="4">
+             <widget class="QLCDNumber" name="rate11"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QSpinBox" name="delaych2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QSpinBox" name="delaych3">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="3">
+             <widget class="QComboBox" name="rof12">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
               </property>
@@ -4431,8 +2798,49 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="3">
-             <widget class="QComboBox" name="rof3">
+            <item row="2" column="2">
+             <widget class="QSpinBox" name="delaych1">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="2">
+             <widget class="QSpinBox" name="delaych3_2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="2">
+             <widget class="QSpinBox" name="delaych4_10">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QDoubleSpinBox" name="thch3">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4" alignment="Qt::AlignHCenter">
+             <widget class="QLabel" name="label_21">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Rate</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="3">
+             <widget class="QComboBox" name="rof5">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
               </property>
@@ -4441,8 +2849,67 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="3">
-             <widget class="QComboBox" name="rof4">
+            <item row="4" column="4">
+             <widget class="QLCDNumber" name="rate3"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_155">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Delay (ps)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="4">
+             <widget class="QLCDNumber" name="rate4"/>
+            </item>
+            <item row="17" column="0">
+             <widget class="QLabel" name="label_103">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 14</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_5">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_3">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="1">
+             <widget class="QDoubleSpinBox" name="thch4_12">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="3">
+             <widget class="QComboBox" name="rof10">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
               </property>
@@ -4464,7 +2931,580 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
+            <item row="17" column="4">
+             <widget class="QLCDNumber" name="rate14"/>
+            </item>
+            <item row="9" column="3">
+             <widget class="QComboBox" name="rof6">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="currentText">
+               <string/>
+              </property>
+              <property name="currentIndex">
+               <number>-1</number>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="4">
+             <widget class="QLCDNumber" name="rate7"/>
+            </item>
+            <item row="14" column="3">
+             <widget class="QComboBox" name="rof11">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_105">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QComboBox" name="test1">
+              <property name="palette">
+               <palette>
+                <active>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </active>
+                <inactive>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </inactive>
+                <disabled>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </disabled>
+               </palette>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5" alignment="Qt::AlignHCenter">
+             <widget class="QLabel" name="label_22">
+              <property name="palette">
+               <palette>
+                <active>
+                 <colorrole role="WindowText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>255</red>
+                    <green>255</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </active>
+                <inactive>
+                 <colorrole role="WindowText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>255</red>
+                    <green>255</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </inactive>
+                <disabled>
+                 <colorrole role="WindowText">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>190</red>
+                    <green>190</green>
+                    <blue>190</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </disabled>
+               </palette>
+              </property>
+              <property name="text">
+               <string>Test Signal</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QComboBox" name="test2"/>
+            </item>
+            <item row="4" column="5">
+             <widget class="QComboBox" name="test3"/>
+            </item>
+            <item row="7" column="5">
+             <widget class="QComboBox" name="test4"/>
+            </item>
+            <item row="8" column="5">
+             <widget class="QComboBox" name="test5"/>
+            </item>
+            <item row="9" column="5">
+             <widget class="QComboBox" name="test6"/>
+            </item>
+            <item row="10" column="5">
+             <widget class="QComboBox" name="test7"/>
+            </item>
+            <item row="11" column="5">
+             <widget class="QComboBox" name="test8"/>
+            </item>
+            <item row="12" column="5">
+             <widget class="QComboBox" name="test9"/>
+            </item>
+            <item row="13" column="5">
+             <widget class="QComboBox" name="test10"/>
+            </item>
+            <item row="14" column="5">
+             <widget class="QComboBox" name="test11"/>
+            </item>
+            <item row="15" column="5">
+             <widget class="QComboBox" name="test12"/>
+            </item>
+            <item row="16" column="5">
+             <widget class="QComboBox" name="test13"/>
+            </item>
+            <item row="17" column="5">
+             <widget class="QComboBox" name="test14"/>
+            </item>
+            <item row="18" column="5">
+             <widget class="QComboBox" name="test15"/>
+            </item>
+            <item row="19" column="5">
+             <widget class="QComboBox" name="test16"/>
+            </item>
+            <item row="20" column="5">
+             <widget class="QComboBox" name="test17"/>
+            </item>
+            <item row="21" column="5">
+             <widget class="QComboBox" name="test18"/>
+            </item>
            </layout>
+          </widget>
+          <widget class="QComboBox" name="taggers">
+           <property name="geometry">
+            <rect>
+             <x>890</x>
+             <y>120</y>
+             <width>79</width>
+             <height>23</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="connect_button">
+           <property name="geometry">
+            <rect>
+             <x>990</x>
+             <y>120</y>
+             <width>80</width>
+             <height>23</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Connect</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="refresh_button">
+           <property name="geometry">
+            <rect>
+             <x>1100</x>
+             <y>120</y>
+             <width>80</width>
+             <height>23</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Refresh</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="connected_label">
+           <property name="geometry">
+            <rect>
+             <x>1210</x>
+             <y>130</y>
+             <width>57</width>
+             <height>15</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_23">
+           <property name="geometry">
+            <rect>
+             <x>890</x>
+             <y>90</y>
+             <width>111</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Time Taggers</string>
+           </property>
           </widget>
          </widget>
         </item>
@@ -5181,42 +4221,6 @@ color: rgb(238, 238, 236);</string>
   <tabstop>trackC1</tabstop>
   <tabstop>trackC2</tabstop>
   <tabstop>trackC3</tabstop>
-  <tabstop>BSM</tabstop>
-  <tabstop>HOM</tabstop>
-  <tabstop>homscan</tabstop>
-  <tabstop>homscan_time</tabstop>
-  <tabstop>stepduration</tabstop>
-  <tabstop>Max_delay</tabstop>
-  <tabstop>reset_delay</tabstop>
-  <tabstop>adqtime_2</tabstop>
-  <tabstop>tab2_xrange</tabstop>
-  <tabstop>DBON</tabstop>
-  <tabstop>clean_tab2</tabstop>
-  <tabstop>tab2_plot1</tabstop>
-  <tabstop>plot1_1</tabstop>
-  <tabstop>win1_1</tabstop>
-  <tabstop>plot1_2</tabstop>
-  <tabstop>win1_2</tabstop>
-  <tabstop>tab2_plot2</tabstop>
-  <tabstop>plot2_1</tabstop>
-  <tabstop>win2_1</tabstop>
-  <tabstop>plot2_2</tabstop>
-  <tabstop>win2_2</tabstop>
-  <tabstop>tab2_plot3</tabstop>
-  <tabstop>plot3_1</tabstop>
-  <tabstop>win3_1</tabstop>
-  <tabstop>plot3_2</tabstop>
-  <tabstop>win3_2</tabstop>
-  <tabstop>tab2_plot4</tabstop>
-  <tabstop>plot4_1</tabstop>
-  <tabstop>plot4_2</tabstop>
-  <tabstop>tab2_plot5</tabstop>
-  <tabstop>plot5_2</tabstop>
-  <tabstop>win5_2</tabstop>
-  <tabstop>tab2_plot6</tabstop>
-  <tabstop>plot6_2</tabstop>
-  <tabstop>win6_2</tabstop>
-  <tabstop>cw</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>

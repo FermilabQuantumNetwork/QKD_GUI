@@ -5,45 +5,36 @@
 #include <stdlib.h>
 #include <stdio.h>//printf
 
-
-
-
-void my_handler(int s){
-           printf("\n ADIOS :D \n");
-           exit(1); 
+void my_handler(int s)
+{
+    printf("\n ADIOS :D \n");
+    exit(1); 
 }
 
-
-
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  QApplication::setGraphicsSystem("raster");
+    QApplication::setGraphicsSystem("raster");
 #endif
-  QApplication a(argc, argv);
 
+    QApplication a(argc, argv);
+    a.setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
 
-///////////ctl+c/////////////////////////////
+    ///////////ctl+c/////////////////////////////
 
- struct sigaction sigIntHandler;
+    struct sigaction sigIntHandler;
 
-   sigIntHandler.sa_handler = my_handler;
-   sigemptyset(&sigIntHandler.sa_mask);
-   sigIntHandler.sa_flags = 0;
+    sigIntHandler.sa_handler = my_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
 
-   sigaction(SIGINT, &sigIntHandler, NULL);
+    sigaction(SIGINT, &sigIntHandler, NULL);
 
-////////////////////////////////////////////
+    ////////////////////////////////////////////
 
+    MainWindow w;
 
-MainWindow w;
+    w.show();
 
-
-
-w.show();
-
-
-return a.exec();
-;
-
+    return a.exec();
 }
