@@ -35,7 +35,7 @@ std::vector<std::string> Swabian::check_for_devices(void)
 /* Connect to a Swabian time tagger.
  *
  * Returns 0 on success, -1 on error. */
-int Swabian::connect()
+int Swabian::connect(std::string serial)
 {
     std::vector<std::string> taggers = scanTimeTagger();
 
@@ -45,7 +45,9 @@ int Swabian::connect()
     }
 
     // connect to a time tagger
-    this->t = createTimeTagger();
+    this->t = createTimeTagger(serial);
+
+    if (!this->t) return -1;
 
     return 0;
 }

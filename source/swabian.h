@@ -10,7 +10,7 @@ public:
     Swabian(void);
     ~Swabian(void);
     std::vector<std::string> check_for_devices(void);
-    int connect();
+    int connect(std::string serial="");
     int initialize_measurements(int start_channel, int click_channel_mask, int bin_width, timestamp_t time);
     int get_histogram(int channel, std::vector<timestamp_t> *data);
     int set_delay(int channel, int delay);

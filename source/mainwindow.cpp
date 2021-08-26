@@ -230,25 +230,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Set connected label to Disconnected. */
     ui->connected_label->setText("Disconnected");
 
-
-    //while(1){
-    //    udpcom.sendDataToClient(6.66);
-    //    sleep(1);
-    //}
-
-   /* QubitTime=200;
-    Phasetime=50;
-    NoQubits=30;
-    PeaksQubit=3;
-    QKD_intWind = 45;
-    QKD_zero = 1;*/
-
-   /* ui->QKD_time->setValue(200);//QubitTime
-    ui->QKD_phase->setValue(50);//Phasetime
-    ui->QKD_nuqub->setValue(30);//NoQubits
-    ui->QKD_PxQ->setValue(3);//PeaksQubit
-    ui->QKD_iw->setValue(45);//QKD_intWind
-    ui->QKD_zero->setValue(1);//QKD_zero*/
+    ui->taggers->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
 
     qkdparam.QKD_setDefault();
 
@@ -749,6 +731,8 @@ void MainWindow::refreshButton()
 
 void MainWindow::connectButton()
 {
+    if (s.connect(ui->taggers->currentText().toStdString()) == 0)
+        ui->connected_label->setText("Connected");
 }
 
 void MainWindow::setupsignalslot(){
