@@ -28,6 +28,37 @@ namespace Ui {
 class MainWindow;
 }
 
+class WorkerThread : public QThread
+{
+    Q_OBJECT
+public:
+    void run() override {
+        int i;
+        int channels[18];
+
+        for (i = 0; i < 18; i++)
+            channels[i] = i+1;
+        
+        while (true) {
+            if (!s->t) {
+                sleep(1000);
+                continue;
+            }
+            double *rates = new double[18];
+
+            printf("getting rates\n");
+            s->get_count_rates(channels,rates,18);
+
+            emit(rates_ready(rates));
+        }
+    }
+    WorkerThread(Swabian *s_) {
+        s = s_;
+    }
+    Swabian *s;
+signals:
+    void rates_ready(double *rates);
+};
 
 class MainWindow : public QMainWindow
 {
@@ -56,6 +87,8 @@ public:
 private slots:
     void refreshButton();
     void connectButton();
+    void parametersChanged();
+    void show_rates(double *rates);
   
   void plotRates(char AoB, int event, double key);
 

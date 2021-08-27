@@ -178,45 +178,17 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
     return 0;
 }
 
-/* Slots. */
-
-int Swabian::set_delay_ch1(int delay)
+int Swabian::set_test_signal(int channel, int value)
 {
-    return set_delay(1,delay);
-}
+    if (!this->t) {
+        fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
+        return -1;
+    }
 
-int Swabian::set_delay_ch2(int delay)
-{
-    return set_delay(2,delay);
-}
+    if (value)
+        this->t->setTestSignal(channel,true);
+    else
+        this->t->setTestSignal(channel,false);
 
-int Swabian::set_delay_ch3(int delay)
-{
-    return set_delay(3,delay);
+    return 0;
 }
-
-int Swabian::set_delay_ch4(int delay)
-{
-    return set_delay(4,delay);
-}
-
-int Swabian::set_trigger_level_ch1(float level)
-{
-    return set_trigger_level(1,level);
-}
-
-int Swabian::set_trigger_level_ch2(float level)
-{
-    return set_trigger_level(2,level);
-}
-
-int Swabian::set_trigger_level_ch3(float level)
-{
-    return set_trigger_level(3,level);
-}
-
-int Swabian::set_trigger_level_ch4(float level)
-{
-    return set_trigger_level(4,level);
-}
-

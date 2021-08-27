@@ -16,15 +16,7 @@ public:
     int set_delay(int channel, int delay);
     int set_trigger_level(int channel, float level);
     int get_count_rates(int *channels, double *out, size_t n);
-
-    int set_delay_ch1(int delay);
-    int set_delay_ch2(int delay);
-    int set_delay_ch3(int delay);
-    int set_delay_ch4(int delay);
-    int set_trigger_level_ch1(float level);
-    int set_trigger_level_ch2(float level);
-    int set_trigger_level_ch3(float level);
-    int set_trigger_level_ch4(float level);
+    int set_test_signal(int channel, int value);
 
     TimeTagger *t;
     SynchronizedMeasurements *measurementGroup;
