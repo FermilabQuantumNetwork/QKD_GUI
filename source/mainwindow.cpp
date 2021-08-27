@@ -1025,12 +1025,14 @@ void MainWindow::setupsignalslot(){
     connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
     workerThread->start();
 
-    QObject::connect(workerThread, SIGNAL(rates_ready(int rates *)), this, SLOT(show_rates(int rates *)), Qt::QueuedConnection);
+    QObject::connect(workerThread, &WorkerThread::rates_ready, this, &MainWindow::show_rates);
 }
 
 void MainWindow::show_rates(double *rates)
 {
     printf("displaying rates\n");
+    for (int i= 0; i < 18; i++)
+        printf("rates[%i] = %f\n", i, rates[i]);
     ui->rate1->display(rates[0]);
     ui->rate2->display(rates[1]);
     ui->rate3->display(rates[2]);
@@ -1060,8 +1062,8 @@ void MainWindow::parametersChanged(void)
     int i;
     double thresholds[18];
     double delay[18];
-    double test[18];
-    double rof[18];
+    int test[18];
+    int rof[18];
 
     thresholds[0] = ui->threshold1->value();
     thresholds[1] = ui->threshold2->value();
@@ -1120,6 +1122,10 @@ void MainWindow::parametersChanged(void)
     test[16] = ui->test17->currentIndex();
     test[17] = ui->test18->currentIndex();
 
+    printf("test[0] current index = %i\n", test[0]);
+    printf("test[1] current index = %i\n", test[1]);
+    printf("test[2] current index = %i\n", test[2]);
+
     rof[0] = ui->rof1->currentIndex();
     rof[1] = ui->rof2->currentIndex();
     rof[2] = ui->rof3->currentIndex();
@@ -1147,7 +1153,7 @@ void MainWindow::parametersChanged(void)
     for (i = 0; i < MAX_CHANNELS; i++) {
         s.set_trigger_level(i+1,thresholds[i]);
         s.set_delay(i+1,delay[i]);
-        s.set_test_signal(i+1,test[i]);
+        s.set_test_signal(i+1,!test[i]);
     }
 }
 

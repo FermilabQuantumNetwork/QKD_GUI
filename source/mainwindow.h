@@ -41,13 +41,13 @@ public:
         
         while (true) {
             if (!s->t) {
-                sleep(1000);
+                sleep(1);
                 continue;
             }
             double *rates = new double[18];
 
             printf("getting rates\n");
-            s->get_count_rates(channels,rates,18);
+            s->get_count_rates(channels,rates,9);
 
             emit(rates_ready(rates));
         }
