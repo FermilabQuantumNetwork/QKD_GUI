@@ -2426,7 +2426,11 @@ background-color: rgb(136, 138, 133);</string>
              </widget>
             </item>
             <item row="21" column="6">
-             <widget class="QLCDNumber" name="rate18"/>
+             <widget class="QLCDNumber" name="rate18">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="14" column="2" alignment="Qt::AlignHCenter">
              <widget class="QCheckBox" name="enable11">
@@ -2506,7 +2510,11 @@ background-color: rgb(136, 138, 133);</string>
              </widget>
             </item>
             <item row="10" column="6">
-             <widget class="QLCDNumber" name="rate7"/>
+             <widget class="QLCDNumber" name="rate7">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="13" column="0">
              <widget class="QLabel" name="label_105">
@@ -2535,7 +2543,11 @@ background-color: rgb(136, 138, 133);</string>
              <widget class="QComboBox" name="test18"/>
             </item>
             <item row="15" column="6">
-             <widget class="QLCDNumber" name="rate12"/>
+             <widget class="QLCDNumber" name="rate12">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="3" column="3">
              <widget class="QDoubleSpinBox" name="threshold2">
@@ -2548,7 +2560,11 @@ background-color: rgb(136, 138, 133);</string>
              </widget>
             </item>
             <item row="19" column="6">
-             <widget class="QLCDNumber" name="rate16"/>
+             <widget class="QLCDNumber" name="rate16">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="8" column="5">
              <widget class="QComboBox" name="rof5">
@@ -2582,7 +2598,11 @@ background-color: rgb(136, 138, 133);</string>
              </widget>
             </item>
             <item row="8" column="6">
-             <widget class="QLCDNumber" name="rate5"/>
+             <widget class="QLCDNumber" name="rate5">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="8" column="3">
              <widget class="QDoubleSpinBox" name="threshold5">
@@ -2904,7 +2924,11 @@ background-color: rgb(136, 138, 133);</string>
              </widget>
             </item>
             <item row="7" column="6">
-             <widget class="QLCDNumber" name="rate4"/>
+             <widget class="QLCDNumber" name="rate4">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="10" column="7">
              <widget class="QComboBox" name="test7"/>
@@ -2923,7 +2947,11 @@ background-color: rgb(136, 138, 133);</string>
              <widget class="QComboBox" name="test17"/>
             </item>
             <item row="3" column="6">
-             <widget class="QLCDNumber" name="rate2"/>
+             <widget class="QLCDNumber" name="rate2">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="12" column="5">
              <widget class="QComboBox" name="rof9">
@@ -3069,7 +3097,11 @@ background-color: rgb(136, 138, 133);</string>
              </widget>
             </item>
             <item row="16" column="6">
-             <widget class="QLCDNumber" name="rate13"/>
+             <widget class="QLCDNumber" name="rate13">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_71">
@@ -3099,7 +3131,11 @@ color: rgb(238, 238, 236);</string>
              <widget class="QComboBox" name="test14"/>
             </item>
             <item row="12" column="6">
-             <widget class="QLCDNumber" name="rate9"/>
+             <widget class="QLCDNumber" name="rate9">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="2" column="7">
              <widget class="QComboBox" name="test1">
@@ -3397,7 +3433,11 @@ color: rgb(238, 238, 236);</string>
              <widget class="QComboBox" name="test11"/>
             </item>
             <item row="20" column="6">
-             <widget class="QLCDNumber" name="rate17"/>
+             <widget class="QLCDNumber" name="rate17">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="19" column="7">
              <widget class="QComboBox" name="test16"/>
@@ -3417,7 +3457,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="2" column="6">
-             <widget class="QLCDNumber" name="rate1"/>
+             <widget class="QLCDNumber" name="rate1">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="15" column="0">
              <widget class="QLabel" name="label_107">
@@ -3667,7 +3711,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="13" column="6">
-             <widget class="QLCDNumber" name="rate10"/>
+             <widget class="QLCDNumber" name="rate10">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="17" column="5">
              <widget class="QComboBox" name="rof14">
@@ -3713,7 +3761,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="4" column="6">
-             <widget class="QLCDNumber" name="rate3"/>
+             <widget class="QLCDNumber" name="rate3">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="3" column="4">
              <widget class="QSpinBox" name="delay2">
@@ -3723,7 +3775,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="11" column="6">
-             <widget class="QLCDNumber" name="rate8"/>
+             <widget class="QLCDNumber" name="rate8">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_16">
@@ -3763,7 +3819,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="18" column="6">
-             <widget class="QLCDNumber" name="rate15"/>
+             <widget class="QLCDNumber" name="rate15">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="11" column="7">
              <widget class="QComboBox" name="test8"/>
@@ -3852,7 +3912,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="9" column="6">
-             <widget class="QLCDNumber" name="rate6"/>
+             <widget class="QLCDNumber" name="rate6">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="4" column="2" alignment="Qt::AlignHCenter">
              <widget class="QCheckBox" name="enable3">
@@ -3882,7 +3946,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="17" column="6">
-             <widget class="QLCDNumber" name="rate14"/>
+             <widget class="QLCDNumber" name="rate14">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="4" column="4">
              <widget class="QSpinBox" name="delay3">
@@ -3902,7 +3970,11 @@ color: rgb(238, 238, 236);</string>
              </widget>
             </item>
             <item row="14" column="6">
-             <widget class="QLCDNumber" name="rate11"/>
+             <widget class="QLCDNumber" name="rate11">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
             </item>
             <item row="14" column="3">
              <widget class="QDoubleSpinBox" name="threshold11">

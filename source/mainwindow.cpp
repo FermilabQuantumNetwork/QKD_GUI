@@ -1030,9 +1030,6 @@ void MainWindow::setupsignalslot(){
 
 void MainWindow::show_rates(double *rates)
 {
-    printf("displaying rates\n");
-    for (int i= 0; i < 18; i++)
-        printf("rates[%i] = %f\n", i, rates[i]);
     ui->rate1->display(rates[0]);
     ui->rate2->display(rates[1]);
     ui->rate3->display(rates[2]);
@@ -1121,10 +1118,6 @@ void MainWindow::parametersChanged(void)
     test[15] = ui->test16->currentIndex();
     test[16] = ui->test17->currentIndex();
     test[17] = ui->test18->currentIndex();
-
-    printf("test[0] current index = %i\n", test[0]);
-    printf("test[1] current index = %i\n", test[1]);
-    printf("test[2] current index = %i\n", test[2]);
 
     rof[0] = ui->rof1->currentIndex();
     rof[1] = ui->rof2->currentIndex();
