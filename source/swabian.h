@@ -17,11 +17,13 @@ public:
     int set_trigger_level(int channel, float level);
     int get_count_rates(int *channels, double *out, size_t n);
     int set_test_signal(int channel, int value);
+    void set_rising_mask(int _rising_channel_mask);
 
     TimeTagger *t;
     SynchronizedMeasurements *measurementGroup;
     std::vector<StartStop*> measurements;
     std::vector<int> channels;
+    int rising_channel_mask;
 };
 
 #endif

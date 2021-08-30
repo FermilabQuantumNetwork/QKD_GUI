@@ -8,6 +8,7 @@ Swabian::Swabian(void)
 {
     t = NULL;
     measurementGroup = NULL;
+    rising_channel_mask = 0;
 }
 
 Swabian::~Swabian(void)
@@ -143,7 +144,7 @@ int Swabian::set_delay(int channel, int delay)
 int Swabian::set_trigger_level(int channel, float level)
 {
     if (!this->t) {
-        fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
+        fprintf(stderr, "error: set_trigger_level() called but no time tagger connected!\n");
         return -1;
     }
 
@@ -155,13 +156,26 @@ int Swabian::set_trigger_level(int channel, float level)
 int Swabian::get_count_rates(int *channels, double *out, size_t n)
 {
     int i;
+    int channels_corrected[18];
 
-    if (!t) {
-        fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
+    if (!this->t) {
+        fprintf(stderr, "error: get_count_rates() called but no time tagger connected!\n");
         return -1;
     }
 
-    std::vector<channel_t> v(channels,channels+n);
+    /* The Swabian actually triggers on *both* rising and falling edges at all
+     * times. In order to get the times from a rising edge you need to specify
+     * the channel number as normal, but to get the falling edges, you need to
+     * specify a negative channel number. */
+    for (i = 0; i < n; i++) {
+        if (this->rising_channel_mask & (1 << i) == 0) {
+            channels_corrected[i] = -channels[i];
+        } else {
+            channels_corrected[i] = channels[i];
+        }
+    }
+
+    std::vector<channel_t> v(channels_corrected,channels_corrected+n);
     Countrate c(t, v);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -178,10 +192,17 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
     return 0;
 }
 
+void Swabian::set_rising_mask(int _rising_channel_mask)
+{
+    fprintf(stderr, "setting rising mask\n");
+    this->rising_channel_mask = _rising_channel_mask;
+    fprintf(stderr, "done\n");
+}
+
 int Swabian::set_test_signal(int channel, int value)
 {
     if (!this->t) {
-        fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
+        fprintf(stderr, "error: set_test_signal() called but no time tagger connected!\n");
         return -1;
     }
 

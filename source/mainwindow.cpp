@@ -1143,11 +1143,18 @@ void MainWindow::parametersChanged(void)
         return;
     }
 
+    int rising_channel_mask = 0;
     for (i = 0; i < MAX_CHANNELS; i++) {
         s.set_trigger_level(i+1,thresholds[i]);
         s.set_delay(i+1,delay[i]);
         s.set_test_signal(i+1,!test[i]);
+        if (rof[i] == 0) {
+            printf("channel %i is rising\n", i+1);
+            rising_channel_mask |= (1 << i);
+        }
     }
+    fprintf(stderr, "calling set_rising_mask\n");
+    s.set_rising_mask(rising_channel_mask);
 }
 
 
