@@ -46,6 +46,9 @@ public:
             }
             double *rates = new double[18];
 
+            for (i = 0; i < 18; i++)
+                rates[i] = 0.0;
+
             s->get_count_rates(channels,rates,9);
 
             emit(rates_ready(rates));
