@@ -28,7 +28,44 @@ namespace Ui {
 class MainWindow;
 }
 
-class WorkerThread : public QThread
+class HistogramWorkerThread : public QThread
+{
+    Q_OBJECT
+public:
+    void run() override {
+        while (true) {
+            std::vector<std::vector<double>> data;
+
+            if (!s->t) {
+                sleep(1);
+                continue;
+            }
+
+            s->get_histograms(this->start_channel, &this->channels[0], this->n, this->bin_width, this->time, data);
+
+            emit(histograms_ready(this->channels, this->n, data));
+        }
+    }
+    HistogramWorkerThread(Swabian *s_, int start_channel_, int *channels_, size_t n_, int bin_width_, int time_) {
+        int i;
+        s = s_;
+        for (i = 0; i < n_; i++)
+            this->channels[i] = channels_[i];
+        n = n_;
+        bin_width = bin_width_;
+        time = time_;
+    }
+    Swabian *s;
+    int start_channel;
+    int channels[18];
+    size_t n;
+    int bin_width;
+    int time;
+signals:
+    void histograms_ready(int *channels, size_t n, std::vector<std::vector<double>> data);
+};
+
+class CountWorkerThread : public QThread
 {
     Q_OBJECT
 public:
@@ -54,7 +91,7 @@ public:
             emit(rates_ready(rates));
         }
     }
-    WorkerThread(Swabian *s_) {
+    CountWorkerThread(Swabian *s_) {
         s = s_;
     }
     Swabian *s;
@@ -91,6 +128,7 @@ private slots:
     void connectButton();
     void parametersChanged();
     void show_rates(double *rates);
+    void show_histograms(int *channels, size_t n, std::vector<std::vector<double>> data);
   
   void plotRates(char AoB, int event, double key);
 

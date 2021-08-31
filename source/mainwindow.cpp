@@ -1020,12 +1020,77 @@ void MainWindow::setupsignalslot(){
 
     QObject::connect(&qkdparam, SIGNAL(sig_turnONDB(int)), this, SLOT(chang_QKD_turnONDB(int)));
 
-    WorkerThread *workerThread = new WorkerThread(&this->s);
-    //connect(workerThread, &WorkerThread::resultReady, this, &MyObject::handleResults);
-    connect(workerThread, &WorkerThread::finished, workerThread, &QObject::deleteLater);
+    CountWorkerThread *workerThread = new CountWorkerThread(&this->s);
+    connect(workerThread, &CountWorkerThread::finished, workerThread, &QObject::deleteLater);
     workerThread->start();
 
-    QObject::connect(workerThread, &WorkerThread::rates_ready, this, &MainWindow::show_rates);
+    QObject::connect(workerThread, &CountWorkerThread::rates_ready, this, &MainWindow::show_rates);
+
+
+    int start_channel = ui->startChan->value();
+    int chanA = ui->PlotAChn1->value();
+    int chanB = ui->PlotBChn1->value();
+    int chanC = ui->PlotCChn1->value();
+    int channels[18];
+    channels[0] = chanA;
+    channels[1] = chanB;
+    channels[2] = chanC;
+    size_t n = 3;
+    int bin_width = (ui->histEnd->value() - ui->histStart->value())/ui->binsinplot->value();
+    int time = ui->adqtime->value();
+
+    //HistogramWorkerThread *histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, channels, n, bin_width, time);
+    //connect(histogramWorkerThread, &HistogramWorkerThread::finished, histogramWorkerThread, &QObject::deleteLater);
+    //histogramWorkerThread->start();
+
+    //QObject::connect(histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
+}
+
+void MainWindow::show_histograms(int *channels, size_t n, std::vector<std::vector<double>> data)
+{
+    int i;
+
+    QVector<double> xa(data[0].size());
+    QVector<double> ya(data[0].size());
+
+    for (i = 0; i < data[0].size()/2; i++) {
+        xa.push_back(data[0][2*i]);
+        ya.push_back(data[0][2*i+1]);
+    }
+
+    ui->PlotA->graph(0)->data()->clear();
+    // pass data points to graphs:
+    ui->PlotA->graph(0)->setData(xa, ya);
+    ui->PlotA->graph(0)->rescaleValueAxis();
+    ui->PlotA->replot();
+
+    QVector<double> xb(data[1].size());
+    QVector<double> yb(data[1].size());
+
+    for (i = 0; i < data[1].size()/2; i++) {
+        xb.push_back(data[1][2*i]);
+        yb.push_back(data[1][2*i+1]);
+    }
+
+    ui->PlotB->graph(0)->data()->clear();
+    // pass data points to graphs:
+    ui->PlotB->graph(0)->setData(xb, yb);
+    ui->PlotB->graph(0)->rescaleValueAxis();
+    ui->PlotB->replot();
+
+    QVector<double> xc(data[2].size());
+    QVector<double> yc(data[2].size());
+
+    for (i = 0; i < data[2].size()/2; i++) {
+        xc.push_back(data[2][2*i]);
+        yc.push_back(data[2][2*i+1]);
+    }
+
+    ui->PlotC->graph(0)->data()->clear();
+    // pass data points to graphs:
+    ui->PlotC->graph(0)->setData(xc, yc);
+    ui->PlotC->graph(0)->rescaleValueAxis();
+    ui->PlotC->replot();
 }
 
 void MainWindow::show_rates(double *rates)
@@ -1316,8 +1381,8 @@ void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, c
     //std::cout<<" histoplot hermanitititototot"<< datB.size()<<"   "<<datC.size() <<std::endl;
     double binwidth=((in_histEnd-in_histStart)/in_binsinplot);
 
-  //  std::cout<<"histogram size   "<<datA.size()<<std::endl;
-//std::cout<<"binwidth   "<<binwidth<<std::endl;
+    //  std::cout<<"histogram size   "<<datA.size()<<std::endl;
+    //std::cout<<"binwidth   "<<binwidth<<std::endl;
     QVector<double> x(datA.size());
 //for (int i=in_histStart; i<in_histEnd; i++){
     for (int i=0; i<datA.size(); ++i){

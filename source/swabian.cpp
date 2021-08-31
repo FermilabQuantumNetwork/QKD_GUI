@@ -9,6 +9,7 @@ Swabian::Swabian(void)
 {
     t = NULL;
     rising_channel_mask = 0;
+    pthread_mutex_init(&this->m,NULL);
 }
 
 Swabian::~Swabian(void)
@@ -20,9 +21,9 @@ Swabian::~Swabian(void)
 /* Returns a vector of strings for all connected Swabian devices. */
 std::vector<std::string> Swabian::check_for_devices(void)
 {
-    pthread_mutex_lock(&this->m);
+    fprintf(stderr, "check for devices getting mutex lock\n");
     return scanTimeTagger();
-    pthread_mutex_unlock(&this->m);
+    fprintf(stderr, "check for devices releasing mutex lock\n");
 }
 
 /* Connect to a Swabian time tagger.
@@ -63,6 +64,8 @@ int Swabian::get_histograms(int start_channel, int *channels, size_t n, int bin_
         return -1;
     }
 
+    fprintf(stderr, "get histograms called\n");
+
     pthread_mutex_lock(&this->m);
 
     SynchronizedMeasurements measurementGroup(this->t);
@@ -98,6 +101,8 @@ int Swabian::get_histograms(int start_channel, int *channels, size_t n, int bin_
 
     pthread_mutex_unlock(&this->m);
     
+    fprintf(stderr, "done histograms called\n");
+
     return 0;
 }
 
@@ -118,12 +123,16 @@ int Swabian::set_delay(int channel, int delay)
         return -1;
     }
 
+    fprintf(stderr, "set delay called\n");
+
     pthread_mutex_lock(&this->m);
 
     this->t->setDelayHardware(channel,delay);
 
     pthread_mutex_unlock(&this->m);
     
+    fprintf(stderr, "done with set delay\n");
+
     return 0;
 }
 
@@ -137,12 +146,18 @@ int Swabian::set_trigger_level(int channel, float level)
         return -1;
     }
 
+    fprintf(stderr, "set trigger called\n");
+
+    fprintf(stderr, "set trigger waiting for mutex\n");
     pthread_mutex_lock(&this->m);
+    fprintf(stderr, "set trigger got mutex\n");
 
     this->t->setTriggerLevel(channel,level);
 
     pthread_mutex_unlock(&this->m);
     
+    fprintf(stderr, "done trigger called\n");
+
     return 0;
 }
 
@@ -160,6 +175,9 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
         return -1;
     }
 
+    fprintf(stderr, "get count rates called\n");
+    fprintf(stderr, "count rates waiting for mutex\n");
+
     /* The Swabian actually triggers on *both* rising and falling edges at all
      * times. In order to get the times from a rising edge you need to specify
      * the channel number as normal, but to get the falling edges, you need to
@@ -174,6 +192,7 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
 
     pthread_mutex_lock(&this->m);
 
+    fprintf(stderr, "count rates got mutex\n");
     std::vector<channel_t> v(channels_corrected,channels_corrected+n);
     Countrate c(t, v);
 
@@ -190,6 +209,8 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
 
     pthread_mutex_unlock(&this->m);
     
+    fprintf(stderr, "done count rates called\n");
+
     return 0;
 }
 
@@ -208,6 +229,8 @@ int Swabian::set_test_signal(int channel, int value)
         return -1;
     }
 
+    fprintf(stderr, "set test signal called\n");
+
     pthread_mutex_lock(&this->m);
 
     if (value)
@@ -217,5 +240,7 @@ int Swabian::set_test_signal(int channel, int value)
 
     pthread_mutex_unlock(&this->m);
     
+    fprintf(stderr, "done test signal called\n");
+
     return 0;
 }
