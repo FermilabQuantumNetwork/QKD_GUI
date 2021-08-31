@@ -12,7 +12,7 @@ public:
     ~Swabian(void);
     std::vector<std::string> check_for_devices(void);
     int connect(std::string serial="");
-    int get_histograms(int start_channel, int *channels, size_t n, int bin_width, timestamp_t time, std::vector<std::vector<double>> &out);
+    int get_histograms(int start_channel, int chan_a, int chan_b, int chan_c, int bin_width, timestamp_t time, std::vector<double> &dataA, std::vector<double> &dataB, std::vector<double> &dataC);
     int set_delay(int channel, int delay);
     int set_trigger_level(int channel, float level);
     int get_count_rates(int *channels, double *out, size_t n);

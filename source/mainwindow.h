@@ -33,36 +33,54 @@ class HistogramWorkerThread : public QThread
     Q_OBJECT
 public:
     void run() override {
+        int i;
+
+        printf("run called\n");
         while (true) {
-            std::vector<std::vector<double>> data;
+            std::vector<double> dataA, dataB, dataC;
+
+            printf("loop\n");
 
             if (!s->t) {
                 sleep(1);
                 continue;
             }
+            printf("timetagger available\n");
 
-            s->get_histograms(this->start_channel, &this->channels[0], this->n, this->bin_width, this->time, data);
 
-            emit(histograms_ready(this->channels, this->n, data));
+            s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, this->bin_width, this->time, dataA, dataB, dataC);
+
+            QVector<double> dataA_q, dataB_q, dataC_q;
+
+            for (i = 0; i < dataA.size(); i++)
+                dataA_q.push_back(dataA[i]);
+            for (i = 0; i < dataB.size(); i++)
+                dataB_q.push_back(dataB[i]);
+            for (i = 0; i < dataC.size(); i++)
+                dataC_q.push_back(dataC[i]);
+
+            emit(histograms_ready(dataA_q,dataB_q,dataC_q));
         }
     }
-    HistogramWorkerThread(Swabian *s_, int start_channel_, int *channels_, size_t n_, int bin_width_, int time_) {
+    HistogramWorkerThread(Swabian *s_, int start_channel_, int chanA_, int chanB_, int chanC_, int bin_width_, timestamp_t time_) {
         int i;
-        s = s_;
-        for (i = 0; i < n_; i++)
-            this->channels[i] = channels_[i];
-        n = n_;
+
+        printf("histogram worker thread initialized\n");
+        this->s = s_;
+        this->start_channel = start_channel_;
+        this->chanA = chanA_;
+        this->chanB = chanB_;
+        this->chanC = chanC_;
         bin_width = bin_width_;
         time = time_;
     }
     Swabian *s;
     int start_channel;
-    int channels[18];
-    size_t n;
+    int chanA, chanB, chanC;
     int bin_width;
-    int time;
+    timestamp_t time;
 signals:
-    void histograms_ready(int *channels, size_t n, std::vector<std::vector<double>> data);
+    void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC);
 };
 
 class CountWorkerThread : public QThread
@@ -123,12 +141,15 @@ public:
   void setup_plot_qkd_results(QCustomPlot *scope);
   void setup_plot_qkd_stats(QCustomPlot *scope);
 
+    HistogramWorkerThread *histogramWorkerThread;
+    CountWorkerThread *countWorkerThread;
+
 private slots:
     void refreshButton();
     void connectButton();
     void parametersChanged();
     void show_rates(double *rates);
-    void show_histograms(int *channels, size_t n, std::vector<std::vector<double>> data);
+    void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC);
   
   void plotRates(char AoB, int event, double key);
 

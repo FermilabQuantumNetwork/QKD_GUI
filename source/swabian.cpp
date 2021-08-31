@@ -55,9 +55,9 @@ int Swabian::connect(std::string serial)
  *     - time: The time of the acquisition in seconds
  *
  * Returns 0 on success, -1 on error. */
-int Swabian::get_histograms(int start_channel, int *channels, size_t n, int bin_width, timestamp_t time, std::vector<std::vector<double>> &out)
+int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_c, int bin_width, timestamp_t time, std::vector<double> &dataA, std::vector<double> &dataB, std::vector<double> &dataC)
 {
-    int i;
+    int i, j;
 
     if (!this->t) {
         fprintf(stderr, "error: initialize_histogram() called but no time tagger connected!\n");
@@ -66,15 +66,14 @@ int Swabian::get_histograms(int start_channel, int *channels, size_t n, int bin_
 
     fprintf(stderr, "get histograms called\n");
 
-    pthread_mutex_lock(&this->m);
+    //pthread_mutex_lock(&this->m);
 
     SynchronizedMeasurements measurementGroup(this->t);
 
     std::vector<StartStop*> measurements;
-
-    for (i = 0; i < n; i++) {
-        measurements.push_back(new StartStop(measurementGroup.getTagger(), channels[i], start_channel, bin_width));
-    }
+    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_a, start_channel, bin_width));
+    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_b, start_channel, bin_width));
+    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_c, start_channel, bin_width));
 
     // This will run these measurements simultaneously.
     // Because of the asynchronous processing, they will neither start nor stop at once in real time, but they will
@@ -82,24 +81,37 @@ int Swabian::get_histograms(int start_channel, int *channels, size_t n, int bin_
     measurementGroup.startFor(time);
     measurementGroup.waitUntilFinished();
 
-    std::vector<timestamp_t> data;
 
+    printf("measurement size = %i\n", measurements.size());
     for (i = 0; i < measurements.size(); i++) {
+        printf("%i\n", i);
+        std::vector<timestamp_t> data;
+
         // Fetch both vectors of data.
         measurements[i]->getData([&data](size_t size1, size_t size2) {
           data.resize(size1 * size2);
           return data.data();
         });
 
-        std::vector<double> this_data;
+        printf("data.size = %i\n", data.size());
 
-        for (i = 0; i < data.size(); i++)
-            this_data.push_back((double) data[i]);
-
-        out.push_back(this_data);
+        switch (i) {
+        case 0:
+            for (j = 0; j < data.size(); j++)
+                dataA.push_back((double) data[j]);
+            break;
+        case 1:
+            for (j = 0; j < data.size(); j++)
+                dataB.push_back((double) data[j]);
+            break;
+        case 2:
+            for (j = 0; j < data.size(); j++)
+                dataC.push_back((double) data[j]);
+            break;
+        }
     }
 
-    pthread_mutex_unlock(&this->m);
+    //pthread_mutex_unlock(&this->m);
     
     fprintf(stderr, "done histograms called\n");
 
@@ -190,7 +202,7 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
         }
     }
 
-    pthread_mutex_lock(&this->m);
+    //pthread_mutex_lock(&this->m);
 
     fprintf(stderr, "count rates got mutex\n");
     std::vector<channel_t> v(channels_corrected,channels_corrected+n);
@@ -207,7 +219,7 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
     for (i = 0; i < n; i++)
         out[i] = data[i];
 
-    pthread_mutex_unlock(&this->m);
+    //pthread_mutex_unlock(&this->m);
     
     fprintf(stderr, "done count rates called\n");
 

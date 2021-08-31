@@ -1020,11 +1020,11 @@ void MainWindow::setupsignalslot(){
 
     QObject::connect(&qkdparam, SIGNAL(sig_turnONDB(int)), this, SLOT(chang_QKD_turnONDB(int)));
 
-    CountWorkerThread *workerThread = new CountWorkerThread(&this->s);
-    connect(workerThread, &CountWorkerThread::finished, workerThread, &QObject::deleteLater);
-    workerThread->start();
+    this->countWorkerThread = new CountWorkerThread(&this->s);
+    connect(this->countWorkerThread, &CountWorkerThread::finished, this->countWorkerThread, &QObject::deleteLater);
+    this->countWorkerThread->start();
 
-    QObject::connect(workerThread, &CountWorkerThread::rates_ready, this, &MainWindow::show_rates);
+    QObject::connect(this->countWorkerThread, &CountWorkerThread::rates_ready, this, &MainWindow::show_rates);
 
 
     int start_channel = ui->startChan->value();
@@ -1032,30 +1032,39 @@ void MainWindow::setupsignalslot(){
     int chanB = ui->PlotBChn1->value();
     int chanC = ui->PlotCChn1->value();
     int channels[18];
-    channels[0] = chanA;
-    channels[1] = chanB;
-    channels[2] = chanC;
+    /* FIXME: Testing. */
+    chanA = 4;
+    chanB = 2;
+    chanC = 7;
+    start_channel = 1;
+    printf("start channel = %i\n", start_channel);
+    printf("channels = %i, %i, %i\n", channels[0], channels[1], channels[2]);
     size_t n = 3;
     int bin_width = (ui->histEnd->value() - ui->histStart->value())/ui->binsinplot->value();
-    int time = ui->adqtime->value();
+    bin_width = 10;
+    timestamp_t time = ui->adqtime->value();
+    time = static_cast<timestamp_t>(1e12);
 
-    //HistogramWorkerThread *histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, channels, n, bin_width, time);
-    //connect(histogramWorkerThread, &HistogramWorkerThread::finished, histogramWorkerThread, &QObject::deleteLater);
-    //histogramWorkerThread->start();
+    this->histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, chanA, chanB, chanC, bin_width, time);
+    connect(this->histogramWorkerThread, &HistogramWorkerThread::finished, this->histogramWorkerThread, &QObject::deleteLater);
+    this->histogramWorkerThread->start();
 
-    //QObject::connect(histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
+    QObject::connect(this->histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
 }
 
-void MainWindow::show_histograms(int *channels, size_t n, std::vector<std::vector<double>> data)
+void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC)
 {
     int i;
 
-    QVector<double> xa(data[0].size());
-    QVector<double> ya(data[0].size());
+    QVector<double> xa(datA.size());
+    QVector<double> ya(datA.size());
 
-    for (i = 0; i < data[0].size()/2; i++) {
-        xa.push_back(data[0][2*i]);
-        ya.push_back(data[0][2*i+1]);
+    printf("datA.size = %i\n", datA.size());
+    for (i = 0; i < datA.size()/2; i++) {
+        printf("xa[%i] = %.2f\n", i, xa[i]);
+        printf("ya[%i] = %.2f\n", i, ya[i]);
+        xa.push_back(datA[2*i]);
+        ya.push_back(datA[2*i+1]);
     }
 
     ui->PlotA->graph(0)->data()->clear();
@@ -1064,12 +1073,12 @@ void MainWindow::show_histograms(int *channels, size_t n, std::vector<std::vecto
     ui->PlotA->graph(0)->rescaleValueAxis();
     ui->PlotA->replot();
 
-    QVector<double> xb(data[1].size());
-    QVector<double> yb(data[1].size());
+    QVector<double> xb(datB.size());
+    QVector<double> yb(datB.size());
 
-    for (i = 0; i < data[1].size()/2; i++) {
-        xb.push_back(data[1][2*i]);
-        yb.push_back(data[1][2*i+1]);
+    for (i = 0; i < datB.size()/2; i++) {
+        xb.push_back(datB[2*i]);
+        yb.push_back(datB[2*i+1]);
     }
 
     ui->PlotB->graph(0)->data()->clear();
@@ -1078,12 +1087,12 @@ void MainWindow::show_histograms(int *channels, size_t n, std::vector<std::vecto
     ui->PlotB->graph(0)->rescaleValueAxis();
     ui->PlotB->replot();
 
-    QVector<double> xc(data[2].size());
-    QVector<double> yc(data[2].size());
+    QVector<double> xc(datC.size());
+    QVector<double> yc(datC.size());
 
-    for (i = 0; i < data[2].size()/2; i++) {
-        xc.push_back(data[2][2*i]);
-        yc.push_back(data[2][2*i+1]);
+    for (i = 0; i < datC.size()/2; i++) {
+        xc.push_back(datC[2*i]);
+        yc.push_back(datC[2*i+1]);
     }
 
     ui->PlotC->graph(0)->data()->clear();
