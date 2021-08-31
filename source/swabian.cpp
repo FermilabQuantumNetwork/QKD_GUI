@@ -8,27 +8,16 @@
 Swabian::Swabian(void)
 {
     t = NULL;
-    measurementGroup = NULL;
     rising_channel_mask = 0;
 }
 
 Swabian::~Swabian(void)
 {
-    int i;
-
-    if (measurementGroup != NULL)
-        delete measurementGroup;
-
-    for (i = 0; i < measurements.size(); i++)
-        delete measurements[i];
-
-    measurements.clear();
-    channels.clear();
-
     if (this->t)
         freeTimeTagger(this->t);
 }
 
+/* Returns a vector of strings for all connected Swabian devices. */
 std::vector<std::string> Swabian::check_for_devices(void)
 {
     pthread_mutex_lock(&this->m);
@@ -59,12 +48,13 @@ int Swabian::connect(std::string serial)
 /* Initialize the measurements for a histogram of time differences between multiple channels and a start channel. Arguments:
  *
  *     - start_channel: The clock signal
- *     - click_channel_mask: A bitmask of the channels to calculate time differences from
+ *     - channels: A bitmask of the channels to calculate time differences from
+ *     - n: the number of channels
  *     - bin_width: The bin width of the histogram in ps
- *     - time: The time of the acquisition
+ *     - time: The time of the acquisition in seconds
  *
  * Returns 0 on success, -1 on error. */
-int Swabian::initialize_measurements(int start_channel, int click_channel_mask, int bin_width, timestamp_t time)
+int Swabian::get_histograms(int start_channel, int *channels, size_t n, int bin_width, timestamp_t time, std::vector<std::vector<double>> &out)
 {
     int i;
 
@@ -73,66 +63,49 @@ int Swabian::initialize_measurements(int start_channel, int click_channel_mask, 
         return -1;
     }
 
-    if (measurementGroup != NULL)
-        delete measurementGroup;
+    pthread_mutex_lock(&this->m);
 
-    measurementGroup = new SynchronizedMeasurements(this->t);
+    SynchronizedMeasurements measurementGroup(this->t);
 
-    for (i = 0; i < measurements.size(); i++)
-        delete measurements[i];
+    std::vector<StartStop*> measurements;
 
-    measurements.clear();
-    channels.clear();
-    for (i = 0; i < 5; i++) {
-        if (!(click_channel_mask & (1 << i)))
-            continue;
-        measurements.push_back(new StartStop(measurementGroup->getTagger(), i, start_channel, bin_width));
-        channels.push_back(i);
+    for (i = 0; i < n; i++) {
+        measurements.push_back(new StartStop(measurementGroup.getTagger(), channels[i], start_channel, bin_width));
     }
 
     // This will run these measurements simultaneously.
     // Because of the asynchronous processing, they will neither start nor stop at once in real time, but they will
     // process exact the same data.
-    measurementGroup->startFor(time);
-    measurementGroup->waitUntilFinished();
+    measurementGroup.startFor(time);
+    measurementGroup.waitUntilFinished();
 
-    return 0;
-}
-
-/* Sets the histogram of the time differences between channel `channel` and the
- * start channel specified when calling initialize_measurements(). Returns 0 on
- * success, -1 on error. */
-int Swabian::get_histogram(int channel, std::vector<timestamp_t> *data)
-{
-    int i;
-
-    if (!t) {
-        fprintf(stderr, "error: get_histogram() called but no time tagger connected!\n");
-        return -1;
-    }
-
-    pthread_mutex_lock(&this->m);
+    std::vector<timestamp_t> data;
 
     for (i = 0; i < measurements.size(); i++) {
-        if (channels[i] == channel) {
-            // Fetch both vectors of data.
-            measurements[i]->getData([data](size_t size1, size_t size2) {
-              data->resize(size1 * size2);
-              return data->data();
-            });
-            pthread_mutex_unlock(&this->m);
+        // Fetch both vectors of data.
+        measurements[i]->getData([&data](size_t size1, size_t size2) {
+          data.resize(size1 * size2);
+          return data.data();
+        });
 
-            return 0;
-        }
+        std::vector<double> this_data;
+
+        for (i = 0; i < data.size(); i++)
+            this_data.push_back((double) data[i]);
+
+        out.push_back(this_data);
     }
 
     pthread_mutex_unlock(&this->m);
     
-    fprintf(stderr, "no histogram found for channel %i\n", channel);
-
-    return -1;
+    return 0;
 }
 
+/* Set the delay on channel `channel` to `delay` in ps.
+ *
+ * The maximum delay is +/- 2000000 (or +/- 2 us).
+ *
+ * Returns 0 on success and -1 on error. */
 int Swabian::set_delay(int channel, int delay)
 {
     if (!this->t) {
@@ -154,6 +127,9 @@ int Swabian::set_delay(int channel, int delay)
     return 0;
 }
 
+/* Set the trigger level on channel `channel` to `level` in V.
+ *
+ * Returns 0 on success and -1 on error. */
 int Swabian::set_trigger_level(int channel, float level)
 {
     if (!this->t) {
@@ -170,6 +146,10 @@ int Swabian::set_trigger_level(int channel, float level)
     return 0;
 }
 
+/* Get the count rate on channels `channels`. The number of channels is
+ * specified by `n`, and `out` should be an array with at least `n` elements.
+ *
+ * Returns 0 on success and -1 on error. */
 int Swabian::get_count_rates(int *channels, double *out, size_t n)
 {
     int i;
@@ -185,7 +165,7 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
      * the channel number as normal, but to get the falling edges, you need to
      * specify a negative channel number. */
     for (i = 0; i < n; i++) {
-        if (this->rising_channel_mask & (1 << i) == 0) {
+        if ((this->rising_channel_mask & (1 << i)) == 0) {
             channels_corrected[i] = -channels[i];
         } else {
             channels_corrected[i] = channels[i];
@@ -218,6 +198,9 @@ void Swabian::set_rising_mask(int _rising_channel_mask)
     this->rising_channel_mask = _rising_channel_mask;
 }
 
+/* Enable/Disable the test signal on channel `channel`.
+ *
+ * Returns 0 on success, -1 on error. */
 int Swabian::set_test_signal(int channel, int value)
 {
     if (!this->t) {
