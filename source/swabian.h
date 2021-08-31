@@ -3,6 +3,7 @@
 
 #include <timetagger/TimeTagger.h> /* for timestamp_t */
 #include <timetagger/Iterators.h> /* For SynchronizedMeasurements */
+#include <pthread.h> /* for pthread_mutex_t */
 
 class Swabian
 {
@@ -24,6 +25,8 @@ public:
     std::vector<StartStop*> measurements;
     std::vector<int> channels;
     int rising_channel_mask;
+
+    pthread_mutex_t m;
 };
 
 #endif

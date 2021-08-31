@@ -3,6 +3,7 @@
 #include <timetagger/TimeTagger.h>
 #include <stdio.h>
 #include <thread>
+#include <pthread.h> /* for pthread_mutex_t */
 
 Swabian::Swabian(void)
 {
@@ -30,7 +31,9 @@ Swabian::~Swabian(void)
 
 std::vector<std::string> Swabian::check_for_devices(void)
 {
+    pthread_mutex_lock(&this->m);
     return scanTimeTagger();
+    pthread_mutex_unlock(&this->m);
 }
 
 /* Connect to a Swabian time tagger.
@@ -108,6 +111,8 @@ int Swabian::get_histogram(int channel, std::vector<timestamp_t> *data)
         return -1;
     }
 
+    pthread_mutex_lock(&this->m);
+
     for (i = 0; i < measurements.size(); i++) {
         if (channels[i] == channel) {
             // Fetch both vectors of data.
@@ -115,9 +120,13 @@ int Swabian::get_histogram(int channel, std::vector<timestamp_t> *data)
               data->resize(size1 * size2);
               return data->data();
             });
+            pthread_mutex_unlock(&this->m);
+
             return 0;
         }
     }
+
+    pthread_mutex_unlock(&this->m);
     
     fprintf(stderr, "no histogram found for channel %i\n", channel);
 
@@ -136,8 +145,12 @@ int Swabian::set_delay(int channel, int delay)
         return -1;
     }
 
+    pthread_mutex_lock(&this->m);
+
     this->t->setDelayHardware(channel,delay);
 
+    pthread_mutex_unlock(&this->m);
+    
     return 0;
 }
 
@@ -148,8 +161,12 @@ int Swabian::set_trigger_level(int channel, float level)
         return -1;
     }
 
+    pthread_mutex_lock(&this->m);
+
     this->t->setTriggerLevel(channel,level);
 
+    pthread_mutex_unlock(&this->m);
+    
     return 0;
 }
 
@@ -175,6 +192,8 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
         }
     }
 
+    pthread_mutex_lock(&this->m);
+
     std::vector<channel_t> v(channels_corrected,channels_corrected+n);
     Countrate c(t, v);
 
@@ -189,14 +208,14 @@ int Swabian::get_count_rates(int *channels, double *out, size_t n)
     for (i = 0; i < n; i++)
         out[i] = data[i];
 
+    pthread_mutex_unlock(&this->m);
+    
     return 0;
 }
 
 void Swabian::set_rising_mask(int _rising_channel_mask)
 {
-    fprintf(stderr, "setting rising mask\n");
     this->rising_channel_mask = _rising_channel_mask;
-    fprintf(stderr, "done\n");
 }
 
 int Swabian::set_test_signal(int channel, int value)
@@ -206,10 +225,14 @@ int Swabian::set_test_signal(int channel, int value)
         return -1;
     }
 
+    pthread_mutex_lock(&this->m);
+
     if (value)
         this->t->setTestSignal(channel,true);
     else
         this->t->setTestSignal(channel,false);
 
+    pthread_mutex_unlock(&this->m);
+    
     return 0;
 }
