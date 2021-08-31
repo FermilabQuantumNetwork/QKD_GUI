@@ -13,9 +13,8 @@
 #include <algorithm>
 #include <H5Cpp.h>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow){
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
+{
 
     ui->setupUi(this);
     setGeometry(200, 200, 1500, 800);
@@ -23,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle(QString("INQNET TDC"));
     Teleport0_or_QKD1=1;
 
-//setup style of the histograms and plots
+    // setup style of the histograms and plots
     setupHistoPlot(ui->PlotB);
     setupHistoPlot(ui->PlotA);
     setupHistoPlot(ui->PlotC);
@@ -37,15 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setup_plot_qkd_results(ui->Late_results);
     setup_plot_qkd_results(ui->Phase_results);
 
-    if(!Teleport0_or_QKD1){
-        setup_histolines_Teleport();
-        setupDefaultRanges();
-    }
-    else {
-        setup_histolines_QKD();
-    }
-    
-
+    setup_histolines_QKD();
 
     ui->threshold1->setValue(0);
     ui->threshold2->setValue(0);
@@ -85,18 +76,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->delay17->setValue(0);
     ui->delay18->setValue(0);
 
-    ui->histStart->setValue(1);
-    ui->histEnd->setValue(50001);
-
-    ui->binsinplot->setValue(10000);
-    ui->adqtime->setValue(2);//update rate Adq time
+    ui->bin_width->setValue(10);
+    // update rate Adq time
+    ui->adqtime->setValue(2);
 
     ui->PlotAChn1->setValue(1);
-    ui->PlotAChn2->setValue(3);
     ui->PlotBChn1->setValue(1);
-    ui->PlotBChn2->setValue(2);
     ui->PlotCChn1->setValue(1);
-    ui->PlotCChn2->setValue(4);
     ui->startChan->setValue(1);
 
     lastPointKey_tab1 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
@@ -104,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent) :
     lastPointKey_tab4 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     qkd_prevKey = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
 
+    /* FIXME: There has to be a better way of doing this with QPalette. */
     ui->rof1->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
     ui->rof2->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
     ui->rof3->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
@@ -288,30 +275,6 @@ MainWindow::MainWindow(QWidget *parent) :
 ///////////////////setups///////////////////////////
 ///////////////////////////////////////////////////////////
 
-void MainWindow::setupDefaultRanges(){
-   
-    ui->BegA1->setValue(70700);
-    ui->BegA2->setValue(72600);
-    ui->BegA3->setValue(74600);
-    ui->EndA1->setValue(72100);
-    ui->EndA2->setValue(73900);
-    ui->EndA3->setValue(75900);
-
-    ui->BegB1->setValue(71600);
-    ui->BegB2->setValue(73600);
-    ui->BegB3->setValue(75600);
-    ui->EndB1->setValue(72800);
-    ui->EndB2->setValue(74800);
-    ui->EndB3->setValue(76800);
-
-    ui->BegC1->setValue(71600);
-    ui->BegC2->setValue(73600);
-    ui->BegC3->setValue(75600);
-    ui->EndC1->setValue(72800);
-    ui->EndC2->setValue(74800);
-    ui->EndC3->setValue(76800);
-    
-}
 void MainWindow::setup_histolines_Teleport(){
         for (int i=0;i<18;i++) {
             if(i<6)infLine[i] = new QCPItemStraightLine(ui->PlotA);
@@ -764,12 +727,10 @@ void MainWindow::connectButton()
         ui->connected_label->setText("Connected");
 }
 
-void MainWindow::setupsignalslot(){
-
-
-    //QTimer::singleShot(0, this, SLOT(showFullScreen()));
-
-
+void MainWindow::setupsignalslot()
+{
+    /* To be able to send complex types in signals, the data types need to be
+     * registered with QT. */
     qRegisterMetaType<vectorInt64>("vectorInt64");
     qRegisterMetaType<vectorInt32>("vectorInt32");
     qRegisterMetaType<vectorInt8>("vectorInt8");
@@ -777,134 +738,20 @@ void MainWindow::setupsignalslot(){
     qRegisterMetaType<boolvector2d>("boolvector2d");
     qRegisterMetaType<intvector>("intvector");
 
-
-
-    QObject::connect(ui->connect_button, &QPushButton::released, this, &MainWindow::connectButton);
-    QObject::connect(ui->refresh_button, &QPushButton::released, this, &MainWindow::refreshButton);
-
-    QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_startChan(int)));
-    QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_startChan(int)));
-    QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), this, SLOT(changeStartchan(int)));
+    /* Buttons on the Histogram tab. */
 
     QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
-    QObject::connect(ui->binsinplot, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->PlotAChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->PlotBChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->PlotCChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), this, SLOT(histogramChanged()));
 
-    QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), this, SLOT(Chang_in_adqtime(double)));
-    QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_adqtime(double)));
+    /* Buttons on the Parameters tab. */
 
+    QObject::connect(ui->connect_button, &QPushButton::released, this, &MainWindow::connectButton);
+    QObject::connect(ui->refresh_button, &QPushButton::released, this, &MainWindow::refreshButton);
 
-
-    QObject::connect(ui->histStart, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_histStart(int)));
-    QObject::connect(ui->histStart, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_histStart(int)));
-    QObject::connect(ui->histStart, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_histStart(int)));
-
-
-    QObject::connect(ui->histEnd, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_histEnd(int)));
-    QObject::connect(ui->histEnd, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_histEnd(int)));
-    QObject::connect(ui->histEnd, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_histEnd(int)));
-
-    QObject::connect(ui->binsinplot, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_binsinplot(int)));
-    QObject::connect(ui->binsinplot, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_binsinplot(int)));
-    QObject::connect(ui->binsinplot, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_binsinplot(int)));
-
-    QObject::connect(ui->PlotAChn1, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_PlotAChn1(int)));
-    QObject::connect(ui->PlotAChn2, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_PlotAChn2(int)));
-    QObject::connect(ui->PlotBChn1, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_PlotBChn1(int)));
-    QObject::connect(ui->PlotBChn2, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_PlotBChn2(int)));
-    QObject::connect(ui->PlotCChn1, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_PlotCChn1(int)));
-    QObject::connect(ui->PlotCChn2, SIGNAL(valueChanged(int)), this, SLOT(Chang_in_PlotCChn2(int)));
-
-    QObject::connect(ui->PlotAChn1, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_PlotAChn1(int)));
-    QObject::connect(ui->PlotAChn2, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_PlotAChn2(int)));
-    QObject::connect(ui->PlotBChn1, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_PlotBChn1(int)));
-    QObject::connect(ui->PlotBChn2, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_PlotBChn2(int)));
-    QObject::connect(ui->PlotCChn1, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_PlotCChn1(int)));
-    QObject::connect(ui->PlotCChn2, SIGNAL(valueChanged(int)), &adq, SLOT(Chang_in_PlotCChn2(int)));
-
-    QObject::connect(ui->PlotAChn1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_PlotAChn1(int)));
-    QObject::connect(ui->PlotAChn2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_PlotAChn2(int)));
-    QObject::connect(ui->PlotBChn1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_PlotBChn1(int)));
-    QObject::connect(ui->PlotBChn2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_PlotBChn2(int)));
-    QObject::connect(ui->PlotCChn1, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_PlotCChn1(int)));
-    QObject::connect(ui->PlotCChn2, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_PlotCChn2(int)));
-
-
-
-
-    QObject::connect(ui->BegA1, SIGNAL(valueChanged(int)), this, SLOT(BegA1(int)));
-    QObject::connect(ui->BegA2, SIGNAL(valueChanged(int)), this, SLOT(BegA2(int)));
-    QObject::connect(ui->BegA3, SIGNAL(valueChanged(int)), this, SLOT(BegA3(int)));
-
-    QObject::connect(ui->EndA1, SIGNAL(valueChanged(int)), this, SLOT(EndA1(int)));
-    QObject::connect(ui->EndA2, SIGNAL(valueChanged(int)), this, SLOT(EndA2(int)));
-    QObject::connect(ui->EndA3, SIGNAL(valueChanged(int)), this, SLOT(EndA3(int)));
-
-    QObject::connect(ui->BegB1, SIGNAL(valueChanged(int)), this, SLOT(BegB1(int)));
-    QObject::connect(ui->BegB2, SIGNAL(valueChanged(int)), this, SLOT(BegB2(int)));
-    QObject::connect(ui->BegB3, SIGNAL(valueChanged(int)), this, SLOT(BegB3(int)));
-
-    QObject::connect(ui->EndB1, SIGNAL(valueChanged(int)), this, SLOT(EndB1(int)));
-    QObject::connect(ui->EndB2, SIGNAL(valueChanged(int)), this, SLOT(EndB2(int)));
-    QObject::connect(ui->EndB3, SIGNAL(valueChanged(int)), this, SLOT(EndB3(int)));
-
-    QObject::connect(ui->BegC1, SIGNAL(valueChanged(int)), this, SLOT(BegC1(int)));
-    QObject::connect(ui->BegC2, SIGNAL(valueChanged(int)), this, SLOT(BegC2(int)));
-    QObject::connect(ui->BegC3, SIGNAL(valueChanged(int)), this, SLOT(BegC3(int)));
-
-    QObject::connect(ui->EndC1, SIGNAL(valueChanged(int)), this, SLOT(EndC1(int)));
-    QObject::connect(ui->EndC2, SIGNAL(valueChanged(int)), this, SLOT(EndC2(int)));
-    QObject::connect(ui->EndC3, SIGNAL(valueChanged(int)), this, SLOT(EndC3(int)));
-
-    QObject::connect(ui->BegA1, SIGNAL(valueChanged(int)), &anl, SLOT(BegA1(int)));
-    QObject::connect(ui->BegA2, SIGNAL(valueChanged(int)), &anl, SLOT(BegA2(int)));
-    QObject::connect(ui->BegA3, SIGNAL(valueChanged(int)), &anl, SLOT(BegA3(int)));
-
-    QObject::connect(ui->EndA1, SIGNAL(valueChanged(int)), &anl, SLOT(EndA1(int)));
-    QObject::connect(ui->EndA2, SIGNAL(valueChanged(int)), &anl, SLOT(EndA2(int)));
-    QObject::connect(ui->EndA3, SIGNAL(valueChanged(int)), &anl, SLOT(EndA3(int)));
-
-    QObject::connect(ui->BegB1, SIGNAL(valueChanged(int)), &anl, SLOT(BegB1(int)));
-    QObject::connect(ui->BegB2, SIGNAL(valueChanged(int)), &anl, SLOT(BegB2(int)));
-    QObject::connect(ui->BegB3, SIGNAL(valueChanged(int)), &anl, SLOT(BegB3(int)));
-
-    QObject::connect(ui->EndB1, SIGNAL(valueChanged(int)), &anl, SLOT(EndB1(int)));
-    QObject::connect(ui->EndB2, SIGNAL(valueChanged(int)), &anl, SLOT(EndB2(int)));
-    QObject::connect(ui->EndB3, SIGNAL(valueChanged(int)), &anl, SLOT(EndB3(int)));
-
-    QObject::connect(ui->BegC1, SIGNAL(valueChanged(int)), &anl, SLOT(BegC1(int)));
-    QObject::connect(ui->BegC2, SIGNAL(valueChanged(int)), &anl, SLOT(BegC2(int)));
-    QObject::connect(ui->BegC3, SIGNAL(valueChanged(int)), &anl, SLOT(BegC3(int)));
-
-    QObject::connect(ui->EndC1, SIGNAL(valueChanged(int)), &anl, SLOT(EndC1(int)));
-    QObject::connect(ui->EndC2, SIGNAL(valueChanged(int)), &anl, SLOT(EndC2(int)));
-    QObject::connect(ui->EndC3, SIGNAL(valueChanged(int)), &anl, SLOT(EndC3(int)));
-
-    QObject::connect(ui->trackA1, SIGNAL(toggled(bool)), this, SLOT(Chang_track1(bool)));
-    QObject::connect(ui->trackA2, SIGNAL(toggled(bool)), this, SLOT(Chang_track2(bool)));
-    QObject::connect(ui->trackA3, SIGNAL(toggled(bool)), this, SLOT(Chang_track3(bool)));
-    QObject::connect(ui->trackB1, SIGNAL(toggled(bool)), this, SLOT(Chang_track4(bool)));
-    QObject::connect(ui->trackB2, SIGNAL(toggled(bool)), this, SLOT(Chang_track5(bool)));
-    QObject::connect(ui->trackB3, SIGNAL(toggled(bool)), this, SLOT(Chang_track6(bool)));
-    QObject::connect(ui->trackC1, SIGNAL(toggled(bool)), this, SLOT(Chang_track7(bool)));
-    QObject::connect(ui->trackC2, SIGNAL(toggled(bool)), this, SLOT(Chang_track8(bool)));
-    QObject::connect(ui->trackC3, SIGNAL(toggled(bool)), this, SLOT(Chang_track9(bool)));
-
-    QObject::connect(&anl, SIGNAL(Chang_anlAvilable(bool)), &adq, SLOT(Chang_anlAvilable(bool)));
-
-    QObject::connect(&anl, SIGNAL(CombinationChange(bool)), this, SLOT(CombinationChange(bool)));
-   // QObject::connect(&anl, SIGNAL(CombinationChange(bool)), this, SLOT(CombinationChange(bool)));
-
-    QObject::connect(&adq, SIGNAL(dataready(vectorInt64, vectorInt8, int)), &anl, SLOT(timestampANL(vectorInt64, vectorInt8, int)),Qt::QueuedConnection);
-
-
-    QObject::connect(&anl, SIGNAL(anlongoing(bool)), &adq, SLOT(adqpausechange(bool)));
-
-    QObject::connect(&adq, SIGNAL(qutaghist(vectorDouble, vectorDouble, vectorDouble)), this, SLOT(histoplot(vectorDouble, vectorDouble, vectorDouble)),Qt::QueuedConnection);
-
+    /* Note: There should be a cleaner way to do this with loops, but I don't know how. */
     QObject::connect(ui->threshold1, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
     QObject::connect(ui->threshold2, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
     QObject::connect(ui->threshold3, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
@@ -943,13 +790,6 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->delay17, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
     QObject::connect(ui->delay18, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
 
-    QObject::connect(ui->actionSave_state, SIGNAL(triggered(bool)), this, SLOT(SaveState(bool)));
-    QObject::connect(ui->actionLoad_state, SIGNAL(triggered(bool)), this, SLOT(LoadState(bool)));
-
-    QObject::connect(this, SIGNAL(main_SaveAndValues(int, int, int , int , int, int , float , int )), &dbc, SLOT(SaveAndValues(int, int, int , int , int, int , float , int )));
-
-    QObject::connect(this, SIGNAL(main_SaveRateValues( int, int , int , int , int , int , int , int , int , float)), &dbc, SLOT(SaveRateValues( int, int , int , int , int , int , int , int , int , float)));
-
     QObject::connect(ui->rof1, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
     QObject::connect(ui->rof2, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
     QObject::connect(ui->rof3, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
@@ -987,6 +827,15 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->test16, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
     QObject::connect(ui->test17, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
     QObject::connect(ui->test18, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
+
+    /* Buttons on the Histogram tab. */
+
+    QObject::connect(ui->actionSave_state, SIGNAL(triggered(bool)), this, SLOT(SaveState(bool)));
+    QObject::connect(ui->actionLoad_state, SIGNAL(triggered(bool)), this, SLOT(LoadState(bool)));
+
+    QObject::connect(this, SIGNAL(main_SaveAndValues(int, int, int , int , int, int , float , int )), &dbc, SLOT(SaveAndValues(int, int, int , int , int, int , float , int )));
+
+    QObject::connect(this, SIGNAL(main_SaveRateValues( int, int , int , int , int , int , int , int , int , float)), &dbc, SLOT(SaveRateValues( int, int , int , int , int , int , int , int , int , float)));
 
     QObject::connect(ui->actionQKD, SIGNAL(triggered()), &qkdparam, SLOT(show()));
 
@@ -1027,41 +876,33 @@ void MainWindow::setupsignalslot(){
 
     QObject::connect(&qkdparam, SIGNAL(sig_turnONDB(int)), this, SLOT(chang_QKD_turnONDB(int)));
 
+    /* Set up the rate and histogram worker threads. */
+
     this->countWorkerThread = new CountWorkerThread(&this->s);
     connect(this->countWorkerThread, &CountWorkerThread::finished, this->countWorkerThread, &QObject::deleteLater);
     this->countWorkerThread->start();
 
     QObject::connect(this->countWorkerThread, &CountWorkerThread::rates_ready, this, &MainWindow::show_rates);
 
-
+    int bin_width = ui->bin_width->value();
+    timestamp_t time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
     int start_channel = ui->startChan->value();
     int chanA = ui->PlotAChn1->value();
     int chanB = ui->PlotBChn1->value();
     int chanC = ui->PlotCChn1->value();
-    int channels[18];
-    /* FIXME: Testing. */
-    chanA = 4;
-    chanB = 2;
-    chanC = 7;
-    start_channel = 1;
-    printf("start channel = %i\n", start_channel);
-    printf("channels = %i, %i, %i\n", channels[0], channels[1], channels[2]);
-    size_t n = 3;
-    int bin_width = (ui->histEnd->value() - ui->histStart->value())/ui->binsinplot->value();
-    bin_width = 10;
-    timestamp_t time = ui->adqtime->value();
-    time = static_cast<timestamp_t>(1e12);
 
     this->histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, chanA, chanB, chanC, bin_width, time);
     connect(this->histogramWorkerThread, &HistogramWorkerThread::finished, this->histogramWorkerThread, &QObject::deleteLater);
     this->histogramWorkerThread->start();
 
     QObject::connect(this->histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
+
+    this->histogramChanged();
 }
 
 void MainWindow::histogramChanged(void)
 {
-    this->histogramWorkerThread->bin_width = (ui->histEnd->value() - ui->histStart->value())/ui->binsinplot->value();
+    this->histogramWorkerThread->bin_width = ui->bin_width->value();
     this->histogramWorkerThread->time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
     this->histogramWorkerThread->start_channel = ui->startChan->value();
     this->histogramWorkerThread->chanA = ui->PlotAChn1->value();
@@ -1069,6 +910,9 @@ void MainWindow::histogramChanged(void)
     this->histogramWorkerThread->chanC = ui->PlotCChn1->value();
 }
 
+/* Plots the Swabian time difference histograms on the main Histogram tab. This
+ * function is called when the histogram worker emits the histogram_ready
+ * signal. */
 void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC)
 {
     int i;
@@ -1119,6 +963,8 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     ui->PlotC->replot();
 }
 
+/* Displays the event rate for each channel on the Parameters tab. This
+ * function is called by the rates_ready signal from the count worker thread. */
 void MainWindow::show_rates(double *rates)
 {
     ui->rate1->display(rates[0]);
@@ -1142,8 +988,6 @@ void MainWindow::show_rates(double *rates)
 
     free(rates);
 }
-
-#define MAX_CHANNELS 9
 
 void MainWindow::parametersChanged(void)
 {
@@ -1405,7 +1249,7 @@ void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double 
 
 void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC){
     //std::cout<<" histoplot hermanitititototot"<< datB.size()<<"   "<<datC.size() <<std::endl;
-    double binwidth=((in_histEnd-in_histStart)/in_binsinplot);
+    double binwidth= ui->bin_width->value();
 
     //  std::cout<<"histogram size   "<<datA.size()<<std::endl;
     //std::cout<<"binwidth   "<<binwidth<<std::endl;
@@ -1457,15 +1301,6 @@ void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, c
            }
 
       }
-      ui->countA1->display(P_R[0]);
-      ui->countA2->display(P_R[1]);
-      ui->countA3->display(P_R[2]);
-      ui->countB1->display(P_R[3]);
-      ui->countB2->display(P_R[4]);
-      ui->countB3->display(P_R[5]);
-      ui->countC1->display(P_R[6]);
-      ui->countC2->display(P_R[7]);
-      ui->countC3->display(P_R[8]);
 
       if(dbrunning)emit main_SaveRateValues(P_R[0], P_R[1],  P_R[2], P_R[3], P_R[4], P_R[5], P_R[6], P_R[7], P_R[8], float(in_adqtime));
 
@@ -2075,14 +1910,9 @@ void MainWindow::SaveState(bool a){
 
                     mapint.insert("in_startChan",in_startChan);
                     mapint.insert("in_PlotACh1",in_PlotACh1);
-                    mapint.insert("in_PlotACh2",in_PlotACh2);
                     mapint.insert("in_PlotBCh1",in_PlotBCh1);
-                    mapint.insert("in_PlotBCh2",in_PlotBCh2);
                     mapint.insert("in_PlotCCh1",in_PlotCCh1);
-                    mapint.insert("in_PlotCCh2",in_PlotCCh2);
-                    mapint.insert("in_histStart",in_histStart);
-                    mapint.insert("in_histEnd",in_histEnd);
-                    mapint.insert("in_binsinplot",in_binsinplot);
+                    mapint.insert("in_bin_width",ui->bin_width->value());
 
                     mapdouble.insert("in_adqtime", in_adqtime);
 
@@ -2132,38 +1962,12 @@ void MainWindow::LoadState(bool a){
                    }
              }*/
 
-            if(mapintout.contains("Plot_Win_BoE[0][0][0]"))ui->BegA1->setValue(mapintout.value("Plot_Win_BoE[0][0][0]"));
-            if(mapintout.contains("Plot_Win_BoE[0][1][0]"))ui->BegA2->setValue(mapintout.value("Plot_Win_BoE[0][1][0]"));
-            if(mapintout.contains("Plot_Win_BoE[0][2][0]"))ui->BegA3->setValue(mapintout.value("Plot_Win_BoE[0][2][0]"));
-            if(mapintout.contains("Plot_Win_BoE[0][0][1]"))ui->EndA1->setValue(mapintout.value("Plot_Win_BoE[0][0][1]"));
-            if(mapintout.contains("Plot_Win_BoE[0][1][1]"))ui->EndA2->setValue(mapintout.value("Plot_Win_BoE[0][1][1]"));
-            if(mapintout.contains("Plot_Win_BoE[0][2][1]"))ui->EndA3->setValue(mapintout.value("Plot_Win_BoE[0][2][1]"));
-
-            if(mapintout.contains("Plot_Win_BoE[1][0][0]"))ui->BegB1->setValue(mapintout.value("Plot_Win_BoE[1][0][0]"));
-            if(mapintout.contains("Plot_Win_BoE[1][1][0]"))ui->BegB2->setValue(mapintout.value("Plot_Win_BoE[1][1][0]"));
-            if(mapintout.contains("Plot_Win_BoE[1][2][0]"))ui->BegB3->setValue(mapintout.value("Plot_Win_BoE[1][2][0]"));
-            if(mapintout.contains("Plot_Win_BoE[1][0][1]"))ui->EndB1->setValue(mapintout.value("Plot_Win_BoE[1][0][1]"));
-            if(mapintout.contains("Plot_Win_BoE[1][1][1]"))ui->EndB2->setValue(mapintout.value("Plot_Win_BoE[1][1][1]"));
-            if(mapintout.contains("Plot_Win_BoE[1][2][1]"))ui->EndB3->setValue(mapintout.value("Plot_Win_BoE[1][2][1]"));
-
-            if(mapintout.contains("Plot_Win_BoE[2][0][0]"))ui->BegC1->setValue(mapintout.value("Plot_Win_BoE[2][0][0]"));
-            if(mapintout.contains("Plot_Win_BoE[2][1][0]"))ui->BegC2->setValue(mapintout.value("Plot_Win_BoE[2][1][0]"));
-            if(mapintout.contains("Plot_Win_BoE[2][2][0]"))ui->BegC3->setValue(mapintout.value("Plot_Win_BoE[2][2][0]"));
-            if(mapintout.contains("Plot_Win_BoE[2][0][1]"))ui->EndC1->setValue(mapintout.value("Plot_Win_BoE[2][0][1]"));
-            if(mapintout.contains("Plot_Win_BoE[2][1][1]"))ui->EndC2->setValue(mapintout.value("Plot_Win_BoE[2][1][1]"));
-            if(mapintout.contains("Plot_Win_BoE[2][2][1]"))ui->EndC3->setValue(mapintout.value("Plot_Win_BoE[2][2][1]"));
-
 
             if(mapintout.contains("in_startChan"))ui->startChan->setValue(mapintout.value("in_startChan"));
             if(mapintout.contains("in_PlotACh1"))ui->PlotAChn1->setValue(mapintout.value("in_PlotACh1"));
-            if(mapintout.contains("in_PlotACh2"))ui->PlotAChn2->setValue(mapintout.value("in_PlotACh2"));
             if(mapintout.contains("in_PlotBCh1"))ui->PlotBChn1->setValue(mapintout.value("in_PlotBCh1"));
-            if(mapintout.contains("in_PlotBCh2"))ui->PlotBChn2->setValue(mapintout.value("in_PlotBCh2"));
             if(mapintout.contains("in_PlotCCh1"))ui->PlotCChn1->setValue(mapintout.value("in_PlotCCh1"));
-            if(mapintout.contains("in_PlotCCh2"))ui->PlotCChn2->setValue(mapintout.value("in_PlotCCh2"));
-            if(mapintout.contains("in_histStart"))ui->histStart->setValue(mapintout.value("in_histStart"));
-            if(mapintout.contains("in_histEnd"))ui->histEnd->setValue(mapintout.value("in_histEnd"));
-            if(mapintout.contains("in_binsinplot"))ui->binsinplot->setValue(mapintout.value("in_binsinplot"));
+            if(mapintout.contains("in_bin_width"))ui->bin_width->setValue(mapintout.value("bin_width"));
 
             if(mapdoubleout.contains("in_adqtime"))ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
 

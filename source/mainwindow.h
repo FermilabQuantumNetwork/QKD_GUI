@@ -24,10 +24,17 @@
 #define MAX_QUBITS 1000
 #define HDF5TIMEINTEGRATION 3
 
+/* Maximum number of channels on the Swabian. Technically there are 18
+ * channels, but I think we only paid for the version with 9 channels. */
+#define MAX_CHANNELS 9
+
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
+/* Histogram worker class. This is a QThread that gets the histogram data from
+ * the Swabian class and then emits a signal with the data so that it can be
+ * plotted. It's started when the GUI boots up and runs an infinite loop. */
 class HistogramWorkerThread : public QThread
 {
     Q_OBJECT
@@ -35,18 +42,13 @@ public:
     void run() override {
         int i;
 
-        printf("run called\n");
         while (true) {
             std::vector<double> dataA, dataB, dataC;
-
-            printf("loop\n");
 
             if (!s->t) {
                 sleep(1);
                 continue;
             }
-            printf("timetagger available\n");
-
 
             s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, this->bin_width, this->time, dataA, dataB, dataC);
 
@@ -63,9 +65,6 @@ public:
         }
     }
     HistogramWorkerThread(Swabian *s_, int start_channel_, int chanA_, int chanB_, int chanC_, int bin_width_, timestamp_t time_) {
-        int i;
-
-        printf("histogram worker thread initialized\n");
         this->s = s_;
         this->start_channel = start_channel_;
         this->chanA = chanA_;
@@ -83,6 +82,9 @@ signals:
     void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC);
 };
 
+/* Count worker class. This is a QThread that gets the event rate on each
+ * channel from the Swabian class and then emits a signal with the rates which
+ * is picked up by the MainWindow class and displayed on the Parameters tab. */
 class CountWorkerThread : public QThread
 {
     Q_OBJECT
@@ -119,27 +121,24 @@ signals:
 
 class MainWindow : public QMainWindow
 {
-  Q_OBJECT
-
+    Q_OBJECT
 public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+    void closeEvent(QCloseEvent *event);
 
+    void setupPlotA(QCustomPlot *customPlot);
+    void setupratePlot(QCustomPlot *customPlot);
 
-  explicit MainWindow(QWidget *parent = 0);
-  ~MainWindow();
-  void closeEvent(QCloseEvent *event);
+    void setupsignalslot();
+    void setupHistoPlot(QCustomPlot *customPlot);
 
-  void setupPlotA(QCustomPlot *customPlot);
-  void setupratePlot(QCustomPlot *customPlot);
-
-  void setupsignalslot();
-  void setupHistoPlot(QCustomPlot *customPlot);
-
-  void setup_histolines_Teleport();
+    void setup_histolines_Teleport();
   
-  void setupDefaultRanges();
+    void setupDefaultRanges();
   
-  void setup_plot_qkd_results(QCustomPlot *scope);
-  void setup_plot_qkd_stats(QCustomPlot *scope);
+    void setup_plot_qkd_results(QCustomPlot *scope);
+    void setup_plot_qkd_stats(QCustomPlot *scope);
 
     HistogramWorkerThread *histogramWorkerThread;
     CountWorkerThread *countWorkerThread;
@@ -160,60 +159,12 @@ private slots:
 
   void LinePlot();
 
-  void BegA1(int val){Plot_Win_BoE[0][0][0]=val;LinePlot();}
-  void BegA2(int val){Plot_Win_BoE[0][1][0]=val;LinePlot();}
-  void BegA3(int val){Plot_Win_BoE[0][2][0]=val;LinePlot();}
-  void EndA1(int val){Plot_Win_BoE[0][0][1]=val;LinePlot();}
-  void EndA2(int val){Plot_Win_BoE[0][1][1]=val;LinePlot();}
-  void EndA3(int val){Plot_Win_BoE[0][2][1]=val;LinePlot();}
-
-  void BegB1(int val){Plot_Win_BoE[1][0][0]=val;LinePlot();}
-  void BegB2(int val){Plot_Win_BoE[1][1][0]=val;LinePlot();}
-  void BegB3(int val){Plot_Win_BoE[1][2][0]=val;LinePlot();}
-  void EndB1(int val){Plot_Win_BoE[1][0][1]=val;LinePlot();}
-  void EndB2(int val){Plot_Win_BoE[1][1][1]=val;LinePlot();}
-  void EndB3(int val){Plot_Win_BoE[1][2][1]=val;LinePlot();}
-
-  void BegC1(int val){Plot_Win_BoE[2][0][0]=val;LinePlot();}
-  void BegC2(int val){Plot_Win_BoE[2][1][0]=val;LinePlot();}
-  void BegC3(int val){Plot_Win_BoE[2][2][0]=val;LinePlot();}
-  void EndC1(int val){Plot_Win_BoE[2][0][1]=val;LinePlot();}
-  void EndC2(int val){Plot_Win_BoE[2][1][1]=val;LinePlot();}
-  void EndC3(int val){Plot_Win_BoE[2][2][1]=val;LinePlot();}
-
-  void Chang_in_binsinplot(int val){this->in_binsinplot=val;}
-  void Chang_in_histStart(int val){this->in_histStart=val;}
-  void Chang_in_histEnd(int val){this->in_histEnd=val;}
-
-  void Chang_in_adqtime(double val){this->in_adqtime=val;}
-
-  void Chang_in_PlotAChn1(int val){this->in_PlotACh1=val;}
-  void Chang_in_PlotAChn2(int val){this->in_PlotACh2=val;}
-  void Chang_in_PlotBChn1(int val){this->in_PlotBCh1=val;}
-  void Chang_in_PlotBChn2(int val){this->in_PlotBCh2=val;}
-  void Chang_in_PlotCChn1(int val){this->in_PlotCCh1=val;}
-  void Chang_in_PlotCChn2(int val){this->in_PlotCCh2=val;}
-
-  void Chang_track1(bool val){this->P_T[0]=val;trackRateChang =true;}
-  void Chang_track2(bool val){this->P_T[1]=val;trackRateChang =true;}
-  void Chang_track3(bool val){this->P_T[2]=val;trackRateChang =true;}
-  void Chang_track4(bool val){this->P_T[3]=val;trackRateChang =true;}
-  void Chang_track5(bool val){this->P_T[4]=val;trackRateChang =true;}
-  void Chang_track6(bool val){this->P_T[5]=val;trackRateChang =true;}
-  void Chang_track7(bool val){this->P_T[6]=val;trackRateChang =true;}
-  void Chang_track8(bool val){this->P_T[7]=val;trackRateChang =true;}
-  void Chang_track9(bool val){this->P_T[8]=val;trackRateChang =true;}
-
   void CombinationChange(bool val){CombiChang =val;}
-
-  void Chang_adqtime_2(double val){in_adqtime_2=val;}
 
   void turnONDB(int val);
 
   void SaveState(bool a);
   void LoadState(bool a);
-
-  void Chang_delayline(int val){in_delayline=val;}
 
   void resetdelay(){in_delayline=0;prev_homscan=0;}
   void chang_in_max_del(int val){in_Max_delay=val;}
@@ -224,13 +175,6 @@ private slots:
 
 
   void setup_histolines_QKD();
-
-  /*void chang_QKD_time(int val){QubitTime=val;}
-  void chang_QKD_phase(int val){Phasetime=val;}
-  void chang_QKD_nuqub(int val){NoQubits=val;}
-  void chang_QKD_PxQ(int val){PeaksQubit=val;}hidelines(val)
-  void chang_QKD_iw(int val){QKD_intWind=val;}
-  void chang_QKD_zero(int val){QKD_zero=val;}*/
 
   void chang_QKD_timeA(double val){in_QKD_timeA=val;if(initR)createQKDLinesA();}
   void chang_QKD_phA(int val){in_QKD_phA=val;if(initR)createQKDLinesA();}
@@ -310,9 +254,9 @@ private:
   double prevbinwidth;
 
   ///general Configs////
-  int in_binsinplot, in_startChan, in_histStart, in_histEnd;
+  int in_startChan;
   double in_adqtime;
-  int in_PlotACh1, in_PlotACh2, in_PlotBCh1, in_PlotBCh2,in_PlotCCh1,in_PlotCCh2;
+  int in_PlotACh1, in_PlotBCh1, in_PlotCCh1;
   /////first plot////
   int P_R[9]={0};
   bool P_T[9]={0};
