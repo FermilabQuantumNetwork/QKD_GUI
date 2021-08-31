@@ -744,6 +744,7 @@ void MainWindow::setupsignalslot()
     QObject::connect(ui->PlotAChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->PlotBChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->PlotCChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
+    QObject::connect(ui->bin_width, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), this, SLOT(histogramChanged()));
 
     /* Buttons on the Parameters tab. */
@@ -902,6 +903,7 @@ void MainWindow::setupsignalslot()
 
 void MainWindow::histogramChanged(void)
 {
+    printf("setting bin width = %i\n", ui->bin_width->value());
     this->histogramWorkerThread->bin_width = ui->bin_width->value();
     this->histogramWorkerThread->time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
     this->histogramWorkerThread->start_channel = ui->startChan->value();
@@ -920,10 +922,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> xa(datA.size());
     QVector<double> ya(datA.size());
 
-    printf("datA.size = %i\n", datA.size());
     for (i = 0; i < datA.size()/2; i++) {
-        printf("xa[%i] = %.2f\n", i, xa[i]);
-        printf("ya[%i] = %.2f\n", i, ya[i]);
         xa.push_back(datA[2*i]);
         ya.push_back(datA[2*i+1]);
     }

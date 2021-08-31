@@ -50,6 +50,7 @@ public:
                 continue;
             }
 
+            printf("bin width = %i\n", bin_width);
             s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, this->bin_width, this->time, dataA, dataB, dataC);
 
             QVector<double> dataA_q, dataB_q, dataC_q;
@@ -254,9 +255,9 @@ private:
   double prevbinwidth;
 
   ///general Configs////
-  int in_startChan;
+  int in_startChan, in_histStart, in_histEnd;
   double in_adqtime;
-  int in_PlotACh1, in_PlotBCh1, in_PlotCCh1;
+  int in_PlotACh1, in_PlotACh2, in_PlotBCh1, in_PlotBCh2,in_PlotCCh1,in_PlotCCh2;
   /////first plot////
   int P_R[9]={0};
   bool P_T[9]={0};
