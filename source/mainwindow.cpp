@@ -903,7 +903,6 @@ void MainWindow::setupsignalslot()
 
 void MainWindow::histogramChanged(void)
 {
-    printf("setting bin width = %i\n", ui->bin_width->value());
     this->histogramWorkerThread->bin_width = ui->bin_width->value();
     this->histogramWorkerThread->time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
     this->histogramWorkerThread->start_channel = ui->startChan->value();
@@ -915,7 +914,7 @@ void MainWindow::histogramChanged(void)
 /* Plots the Swabian time difference histograms on the main Histogram tab. This
  * function is called when the histogram worker emits the histogram_ready
  * signal. */
-void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC)
+void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width)
 {
     int i;
 
@@ -923,8 +922,17 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> ya(datA.size());
 
     for (i = 0; i < datA.size()/2; i++) {
+        if (xa.size() > 0 && xa.back() < datA[2*i] - bin_width) {
+            xa.push_back(xa.back() - bin_width);
+            ya.push_back(0);
+        }
         xa.push_back(datA[2*i]);
         ya.push_back(datA[2*i+1]);
+        /* Hack to include empty bins. */
+        if (i < datA.size()/2-1 && xa.back() + bin_width < datA[2*(i+1)]) {
+            xa.push_back(xa.back() + bin_width);
+            ya.push_back(0);
+        }
     }
 
     ui->PlotA->graph(0)->data()->clear();
@@ -939,6 +947,11 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     for (i = 0; i < datB.size()/2; i++) {
         xb.push_back(datB[2*i]);
         yb.push_back(datB[2*i+1]);
+        /* Hack to include empty bins. */
+        while (i < datB.size()/2-1 && xb.back() + bin_width < datB[2*(i+1)]) {
+            xb.push_back(xa.back() + bin_width);
+            yb.push_back(0);
+        }
     }
 
     ui->PlotB->graph(0)->data()->clear();
@@ -953,6 +966,11 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     for (i = 0; i < datC.size()/2; i++) {
         xc.push_back(datC[2*i]);
         yc.push_back(datC[2*i+1]);
+        /* Hack to include empty bins. */
+        while (i < datC.size()/2-1 && xc.back() + bin_width < datC[2*(i+1)]) {
+            xc.push_back(xc.back() + bin_width);
+            yc.push_back(0);
+        }
     }
 
     ui->PlotC->graph(0)->data()->clear();
@@ -1083,11 +1101,9 @@ void MainWindow::parametersChanged(void)
         s.set_delay(i+1,delay[i]);
         s.set_test_signal(i+1,!test[i]);
         if (rof[i] == 0) {
-            printf("channel %i is rising\n", i+1);
             rising_channel_mask |= (1 << i);
         }
     }
-    fprintf(stderr, "calling set_rising_mask\n");
     s.set_rising_mask(rising_channel_mask);
 }
 

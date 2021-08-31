@@ -50,8 +50,8 @@ public:
                 continue;
             }
 
-            printf("bin width = %i\n", bin_width);
-            s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, this->bin_width, this->time, dataA, dataB, dataC);
+            int last_bin_width = this->bin_width;
+            s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, last_bin_width, this->time, dataA, dataB, dataC);
 
             QVector<double> dataA_q, dataB_q, dataC_q;
 
@@ -62,7 +62,7 @@ public:
             for (i = 0; i < dataC.size(); i++)
                 dataC_q.push_back(dataC[i]);
 
-            emit(histograms_ready(dataA_q,dataB_q,dataC_q));
+            emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width));
         }
     }
     HistogramWorkerThread(Swabian *s_, int start_channel_, int chanA_, int chanB_, int chanC_, int bin_width_, timestamp_t time_) {
@@ -80,7 +80,7 @@ public:
     int bin_width;
     timestamp_t time;
 signals:
-    void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC);
+    void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
 };
 
 /* Count worker class. This is a QThread that gets the event rate on each
@@ -150,7 +150,7 @@ private slots:
     void parametersChanged();
     void histogramChanged(void);
     void show_rates(double *rates);
-    void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC);
+    void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
   
   void plotRates(char AoB, int event, double key);
 
