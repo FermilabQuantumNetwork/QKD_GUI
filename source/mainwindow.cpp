@@ -786,6 +786,13 @@ void MainWindow::setupsignalslot(){
     QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), &anl, SLOT(Chang_in_startChan(int)));
     QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), this, SLOT(changeStartchan(int)));
 
+    QObject::connect(ui->startChan, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
+    QObject::connect(ui->binsinplot, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
+    QObject::connect(ui->PlotAChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
+    QObject::connect(ui->PlotBChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
+    QObject::connect(ui->PlotCChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
+    QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), this, SLOT(histogramChanged()));
+
     QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), this, SLOT(Chang_in_adqtime(double)));
     QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), &adq, SLOT(Chang_in_adqtime(double)));
 
@@ -1050,6 +1057,16 @@ void MainWindow::setupsignalslot(){
     this->histogramWorkerThread->start();
 
     QObject::connect(this->histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
+}
+
+void MainWindow::histogramChanged(void)
+{
+    this->histogramWorkerThread->bin_width = (ui->histEnd->value() - ui->histStart->value())/ui->binsinplot->value();
+    this->histogramWorkerThread->time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
+    this->histogramWorkerThread->start_channel = ui->startChan->value();
+    this->histogramWorkerThread->chanA = ui->PlotAChn1->value();
+    this->histogramWorkerThread->chanB = ui->PlotBChn1->value();
+    this->histogramWorkerThread->chanC = ui->PlotCChn1->value();
 }
 
 void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC)

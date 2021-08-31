@@ -148,6 +148,7 @@ private slots:
     void refreshButton();
     void connectButton();
     void parametersChanged();
+    void histogramChanged(void);
     void show_rates(double *rates);
     void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC);
   
