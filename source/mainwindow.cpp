@@ -903,12 +903,47 @@ void MainWindow::setupsignalslot()
 
 void MainWindow::histogramChanged(void)
 {
+    int rof[18];
+
+    int chanA = ui->PlotAChn1->value();
+    int chanB = ui->PlotBChn1->value();
+    int chanC = ui->PlotCChn1->value();
+
     this->histogramWorkerThread->bin_width = ui->bin_width->value();
     this->histogramWorkerThread->time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
     this->histogramWorkerThread->start_channel = ui->startChan->value();
-    this->histogramWorkerThread->chanA = ui->PlotAChn1->value();
-    this->histogramWorkerThread->chanB = ui->PlotBChn1->value();
-    this->histogramWorkerThread->chanC = ui->PlotCChn1->value();
+
+    rof[0] = ui->rof1->currentIndex();
+    rof[1] = ui->rof2->currentIndex();
+    rof[2] = ui->rof3->currentIndex();
+    rof[3] = ui->rof4->currentIndex();
+    rof[4] = ui->rof5->currentIndex();
+    rof[5] = ui->rof6->currentIndex();
+    rof[6] = ui->rof7->currentIndex();
+    rof[7] = ui->rof8->currentIndex();
+    rof[8] = ui->rof9->currentIndex();
+    rof[9] = ui->rof10->currentIndex();
+    rof[10] = ui->rof11->currentIndex();
+    rof[11] = ui->rof12->currentIndex();
+    rof[12] = ui->rof13->currentIndex();
+    rof[13] = ui->rof14->currentIndex();
+    rof[14] = ui->rof15->currentIndex();
+    rof[15] = ui->rof16->currentIndex();
+    rof[16] = ui->rof17->currentIndex();
+    rof[17] = ui->rof18->currentIndex();
+
+    if (rof[chanA-1] == 0)
+        this->histogramWorkerThread->chanA = chanA;
+    else
+        this->histogramWorkerThread->chanA = -chanA;
+    if (rof[chanB-1] == 0)
+        this->histogramWorkerThread->chanB = chanB;
+    else
+        this->histogramWorkerThread->chanB = -chanB;
+    if (rof[chanC-1] == 0)
+        this->histogramWorkerThread->chanC = chanC;
+    else
+        this->histogramWorkerThread->chanC = -chanC;
 }
 
 /* Plots the Swabian time difference histograms on the main Histogram tab. This
@@ -1105,6 +1140,9 @@ void MainWindow::parametersChanged(void)
         }
     }
     s.set_rising_mask(rising_channel_mask);
+
+    /* Change the histogram because the trigger edge settings may have changed. */
+    this->histogramChanged();
 }
 
 
