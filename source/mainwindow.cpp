@@ -931,7 +931,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> ya(datA.size());
 
     if (debug)
-        fprintf(stderr, "datA.size() = %llu\n", datA.size());
+        fprintf(stderr, "datA.size() = %i\n", datA.size());
 
     for (i = 0; i < datA.size()/2; i++) {
         if (xa.size() > 0 && xa.back() < datA[2*i] - bin_width) {
@@ -958,7 +958,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> yb(datB.size());
 
     if (debug)
-        fprintf(stderr, "datB.size() = %llu\n", datB.size());
+        fprintf(stderr, "datB.size() = %i\n", datB.size());
 
     for (i = 0; i < datB.size()/2; i++) {
         if ((xb.size() > 0) && (xb.back() < datB[2*i] - bin_width)) {
@@ -985,7 +985,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> yc(datC.size());
 
     if (debug)
-        fprintf(stderr, "datC.size() = %llu\n", datC.size());
+        fprintf(stderr, "datC.size() = %i\n", datC.size());
 
     for (i = 0; i < datC.size()/2; i++) {
         if (xc.size() > 0 && xc.back() < datC[2*i] - bin_width) {
