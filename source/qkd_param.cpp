@@ -29,16 +29,8 @@ QKD_param::QKD_param(QWidget *parent) :
     QObject::connect(ui->QKD_DB, SIGNAL(valueChanged(int)), this, SLOT(turnONDB(int)));
 
     QApplication::connect(ui->hdf5, SIGNAL(released()), this, SLOT(in_savehdf5()));
-    /* QubitTime=200;
-     Phasetime=50;
-     NoQubits=30;
-     PeaksQubit=3;
-     QKD_intWind = 45;
-     QKD_zero = 1;*/
-
 
     this->setWindowFlags(Qt::WindowStaysOnTopHint);
-
 }
 
 void QKD_param::QKD_setDefault(){

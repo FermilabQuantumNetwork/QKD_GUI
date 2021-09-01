@@ -12,6 +12,7 @@
 #include <QtCore>
 #include <algorithm>
 #include <H5Cpp.h>
+#include "qkd_param.h"
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -2094,19 +2095,21 @@ void MainWindow::SaveState(void)
         QMap<QString, double> mapdouble;
         QString localstring;
 
-        for (int i=0;i < 3; i++) {
-            for (int j =0;j < 3; j++) {
-                for (int k = 0;k < 2; k++) {
-                    localstring = QString("Plot_Win_BoE[%1][%2][%3]").arg(i).arg(j).arg(k);
-                    if(!mapint.contains(localstring))
-                        mapint.insert(localstring,Plot_Win_BoE[i][j][k]);
-                    else
-                        mapint.value(localstring, Plot_Win_BoE[i][j][k]);
-                }
-
-            }
-        }
-
+        mapint.insert("in_QKD_timeA", in_QKD_timeA);
+        mapint.insert("in_QKD_zeroA", in_QKD_zeroA);
+        mapint.insert("in_QKD_iwA", in_QKD_iwA);
+        mapint.insert("in_QKD_phA", in_QKD_phA);
+        mapint.insert("in_QKD_numA", in_QKD_numbA);
+        mapint.insert("in_QKD_timeB", in_QKD_timeB);
+        mapint.insert("in_QKD_zeroB", in_QKD_zeroB);
+        mapint.insert("in_QKD_iwB", in_QKD_iwB);
+        mapint.insert("in_QKD_phB", in_QKD_phB);
+        mapint.insert("in_QKD_numB", in_QKD_numbB);
+        mapint.insert("in_QKD_timeC", in_QKD_timeC);
+        mapint.insert("in_QKD_zeroC", in_QKD_zeroC);
+        mapint.insert("in_QKD_iwC", in_QKD_iwC);
+        mapint.insert("in_QKD_phC", in_QKD_phC);
+        mapint.insert("in_QKD_numC", in_QKD_numbC);
         mapint.insert("in_startChan",ui->startChan->value());
         mapint.insert("in_PlotACh1",ui->PlotAChn1->value());
         mapint.insert("in_PlotBCh1",ui->PlotBChn1->value());
@@ -2143,17 +2146,36 @@ void MainWindow::LoadState(void)
         in.setVersion(QDataStream::Qt_4_5);
         in >> mapintout;
 
-        /*QString localstring;
-        for (int i=0;i < 3; i++) {
-            for (int j =0;j < 3; j++) {
-                for (int k = 0;k < 2; k++) {
-                    localstring = QString("Plot_Win_BoE[%1][%2][%3]").arg(i).arg(j).arg(k);
-                    if(mapintout.contains(localstring))
-                        Plot_Win_BoE[i][j][k]= mapintout.value(localstring);
-                }
-            }
-        }*/
-
+        if (mapintout.contains("in_QKD_timeA"))
+            qkdparam.ui->QKD_timeA->setValue(mapintout.value("in_QKD_timeA"));
+        if (mapintout.contains("in_QKD_zeroA"))
+            qkdparam.ui->QKD_zeroA->setValue(mapintout.value("in_QKD_zeroA"));
+        if (mapintout.contains("in_QKD_iwA"))
+            qkdparam.ui->QKD_iwA->setValue(mapintout.value("in_QKD_iwA"));
+        if (mapintout.contains("in_QKD_phA"))
+            qkdparam.ui->QKD_phA->setValue(mapintout.value("in_QKD_phA"));
+        if (mapintout.contains("in_QKD_numA"))
+            qkdparam.ui->QKD_numA->setValue(mapintout.value("in_QKD_numA"));
+        if (mapintout.contains("in_QKD_timeB"))
+            qkdparam.ui->QKD_timeB->setValue(mapintout.value("in_QKD_timeB"));
+        if (mapintout.contains("in_QKD_zeroB"))
+            qkdparam.ui->QKD_zeroB->setValue(mapintout.value("in_QKD_zeroB"));
+        if (mapintout.contains("in_QKD_iwB"))
+            qkdparam.ui->QKD_iwB->setValue(mapintout.value("in_QKD_iwB"));
+        if (mapintout.contains("in_QKD_phB"))
+            qkdparam.ui->QKD_phB->setValue(mapintout.value("in_QKD_phB"));
+        if (mapintout.contains("in_QKD_numB"))
+            qkdparam.ui->QKD_numA->setValue(mapintout.value("in_QKD_numA"));
+        if (mapintout.contains("in_QKD_timeC"))
+            qkdparam.ui->QKD_timeC->setValue(mapintout.value("in_QKD_timeC"));
+        if (mapintout.contains("in_QKD_zeroC"))
+            qkdparam.ui->QKD_zeroC->setValue(mapintout.value("in_QKD_zeroC"));
+        if (mapintout.contains("in_QKD_iwC"))
+            qkdparam.ui->QKD_iwC->setValue(mapintout.value("in_QKD_iwC"));
+        if (mapintout.contains("in_QKD_phC"))
+            qkdparam.ui->QKD_phC->setValue(mapintout.value("in_QKD_phC"));
+        if (mapintout.contains("in_QKD_numC"))
+            qkdparam.ui->QKD_numC->setValue(mapintout.value("in_QKD_numC"));
 
         if (mapintout.contains("in_startChan"))
             ui->startChan->setValue(mapintout.value("in_startChan"));

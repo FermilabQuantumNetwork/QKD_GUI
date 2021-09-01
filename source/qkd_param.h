@@ -4,7 +4,7 @@
 #include <QWidget>
 
 namespace Ui {
-class QKD_param;
+    class QKD_param;
 }
 
 class QKD_param : public QWidget
@@ -15,9 +15,9 @@ public:
     explicit QKD_param(QWidget *parent = nullptr);
     ~QKD_param();
     void QKD_setDefault();
+    Ui::QKD_param *ui;
 
 private:
-    Ui::QKD_param *ui;
     int  in_QKD_numbA, in_QKD_phA, in_QKD_iwA, in_QKD_pxqA, in_QKD_zeroA;
     int  in_QKD_numbB, in_QKD_phB, in_QKD_iwB, in_QKD_pxqB, in_QKD_zeroB;
     int  in_QKD_numbC, in_QKD_phC, in_QKD_iwC, in_QKD_pxqC, in_QKD_zeroC;
@@ -67,8 +67,6 @@ public slots:
     void slot_QKD_zeroC(int a){sig_QKD_zeroC(a);}
     void in_savehdf5(){emit savehdf5();}
     void turnONDB(int a){emit sig_turnONDB(a);}
-
-
 };
 
 #endif // QKD_PARAM_H
