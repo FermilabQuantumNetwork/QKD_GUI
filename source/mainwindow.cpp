@@ -961,7 +961,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
         fprintf(stderr, "datB.size() = %llu\n", datB.size());
 
     for (i = 0; i < datB.size()/2; i++) {
-        if (xb.size() > 0 && xb.back() < datB[2*i] - bin_width) {
+        if ((xb.size() > 0) && (xb.back() < datB[2*i] - bin_width)) {
             xb.push_back(xb.back() - bin_width);
             yb.push_back(0);
         }
@@ -969,8 +969,8 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
         xb.push_back(datB[2*i]);
         yb.push_back(datB[2*i+1]);
         /* Hack to include empty bins. */
-        if (i < datB.size()/2-1 && xb.back() + bin_width < datB[2*(i+1)]) {
-            xb.push_back(xa.back() + bin_width);
+        if ((i < datB.size()/2-1) && (xb.back() + bin_width < datB[2*(i+1)])) {
+            xb.push_back(xb.back() + bin_width);
             yb.push_back(0);
         }
     }
