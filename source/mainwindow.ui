@@ -193,7 +193,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab1">
        <attribute name="title">
@@ -1302,17 +1302,268 @@
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_7">
-            <item row="19" column="4">
-             <widget class="QSpinBox" name="delay16">
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_101">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 7</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="6">
+             <widget class="QComboBox" name="test12"/>
+            </item>
+            <item row="4" column="2">
+             <widget class="QDoubleSpinBox" name="threshold3">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QSpinBox" name="delay2">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable5">
+            <item row="11" column="3">
+             <widget class="QSpinBox" name="delay8">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="2">
+             <widget class="QDoubleSpinBox" name="threshold14">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="label_73">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
               <property name="text">
-               <string/>
+               <string>Edge</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="4">
+             <widget class="QComboBox" name="rof10">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="6">
+             <widget class="QComboBox" name="test18"/>
+            </item>
+            <item row="18" column="4">
+             <widget class="QComboBox" name="rof15">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="5">
+             <widget class="QLCDNumber" name="rate11">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="4">
+             <widget class="QComboBox" name="rof9">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="5">
+             <widget class="QLCDNumber" name="rate4">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_99">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="3">
+             <widget class="QSpinBox" name="delay6">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="4">
+             <widget class="QComboBox" name="rof17">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="4">
+             <widget class="QComboBox" name="rof12">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="3">
+             <widget class="QSpinBox" name="delay17">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2">
+             <widget class="QDoubleSpinBox" name="threshold4">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="3">
+             <widget class="QSpinBox" name="delay5">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="0">
+             <widget class="QLabel" name="label_106">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_104">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="3">
+             <widget class="QSpinBox" name="delay13">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="6">
+             <widget class="QComboBox" name="test4"/>
+            </item>
+            <item row="10" column="6">
+             <widget class="QComboBox" name="test7"/>
+            </item>
+            <item row="14" column="4">
+             <widget class="QComboBox" name="rof11">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="4">
+             <widget class="QComboBox" name="rof13">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="0">
+             <widget class="QLabel" name="label_108">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 15</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="2">
+             <widget class="QDoubleSpinBox" name="threshold5">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="5">
+             <widget class="QLCDNumber" name="rate14">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="5">
+             <widget class="QLCDNumber" name="rate16">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="2">
+             <widget class="QDoubleSpinBox" name="threshold18">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -1326,412 +1577,21 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable1">
-              <property name="palette">
-               <palette>
-                <active>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Text">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="ButtonText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="ToolTipText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="PlaceholderText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="128">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </active>
-                <inactive>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Text">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="ButtonText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="ToolTipText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="PlaceholderText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="128">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </inactive>
-                <disabled>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Text">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>190</red>
-                    <green>190</green>
-                    <blue>190</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="ButtonText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>190</red>
-                    <green>190</green>
-                    <blue>190</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="ToolTipText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="PlaceholderText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="128">
-                    <red>0</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </disabled>
-               </palette>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_71">
+              <property name="styleSheet">
+               <string notr="true">
+color: rgb(238, 238, 236);</string>
               </property>
               <property name="text">
-               <string/>
+               <string>Channel 2</string>
               </property>
              </widget>
             </item>
-            <item row="16" column="7">
-             <widget class="QComboBox" name="test13"/>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_72">
+            <item row="2" column="3">
+             <widget class="QSpinBox" name="delay1">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 3</string>
-              </property>
-             </widget>
-            </item>
-            <item row="21" column="6">
-             <widget class="QLCDNumber" name="rate18">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable11">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="5">
-             <widget class="QComboBox" name="rof8">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="4">
-             <widget class="QSpinBox" name="delay10">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="7">
-             <widget class="QComboBox" name="test10"/>
-            </item>
-            <item row="20" column="3">
-             <widget class="QDoubleSpinBox" name="threshold17">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="7">
-             <widget class="QComboBox" name="test9"/>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_101">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 7</string>
-              </property>
-             </widget>
-            </item>
-            <item row="18" column="3">
-             <widget class="QDoubleSpinBox" name="threshold15">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="4">
-             <widget class="QSpinBox" name="delay12">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="5">
-             <widget class="QComboBox" name="rof12">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="6">
-             <widget class="QLCDNumber" name="rate7">
-              <property name="digitCount">
-               <number>10</number>
               </property>
              </widget>
             </item>
@@ -1745,71 +1605,7 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="3">
-             <widget class="QDoubleSpinBox" name="threshold1">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="7">
-             <widget class="QComboBox" name="test5"/>
-            </item>
-            <item row="21" column="7">
-             <widget class="QComboBox" name="test18"/>
-            </item>
-            <item row="15" column="6">
-             <widget class="QLCDNumber" name="rate12">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="3">
-             <widget class="QDoubleSpinBox" name="threshold2">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="6">
-             <widget class="QLCDNumber" name="rate16">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="5">
-             <widget class="QComboBox" name="rof5">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="4">
-             <widget class="QSpinBox" name="delay14">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable4">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="21" column="4">
+            <item row="21" column="3">
              <widget class="QSpinBox" name="delay18">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
@@ -1817,299 +1613,20 @@
              </widget>
             </item>
             <item row="8" column="6">
-             <widget class="QLCDNumber" name="rate5">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
+             <widget class="QComboBox" name="test5"/>
             </item>
-            <item row="8" column="3">
-             <widget class="QDoubleSpinBox" name="threshold5">
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_100">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="3">
-             <widget class="QDoubleSpinBox" name="threshold16">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="3">
-             <widget class="QDoubleSpinBox" name="threshold14">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="4">
-             <widget class="QSpinBox" name="delay8">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="4">
-             <widget class="QSpinBox" name="delay6">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="5">
-             <widget class="QComboBox" name="rof3">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="label_24">
-              <property name="palette">
-               <palette>
-                <active>
-                 <colorrole role="WindowText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                </active>
-                <inactive>
-                 <colorrole role="WindowText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                </inactive>
-                <disabled>
-                 <colorrole role="WindowText">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>190</red>
-                    <green>190</green>
-                    <blue>190</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                </disabled>
-               </palette>
               </property>
               <property name="text">
-               <string>Enabled</string>
+               <string>Channel 8</string>
               </property>
              </widget>
             </item>
-            <item row="12" column="4">
-             <widget class="QSpinBox" name="delay9">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="5">
-             <widget class="QComboBox" name="rof13">
+            <item row="3" column="4">
+             <widget class="QComboBox" name="rof2">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
               </property>
@@ -2118,22 +1635,8 @@
               </property>
              </widget>
             </item>
-            <item row="14" column="4">
-             <widget class="QSpinBox" name="delay11">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="4">
-             <widget class="QSpinBox" name="delay17">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="3">
-             <widget class="QDoubleSpinBox" name="threshold9">
+            <item row="13" column="2">
+             <widget class="QDoubleSpinBox" name="threshold10">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
@@ -2142,43 +1645,20 @@
               </property>
              </widget>
             </item>
-            <item row="7" column="6">
-             <widget class="QLCDNumber" name="rate4">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="7">
-             <widget class="QComboBox" name="test7"/>
-            </item>
-            <item row="7" column="5">
-             <widget class="QComboBox" name="rof4">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="7">
+            <item row="20" column="6">
              <widget class="QComboBox" name="test17"/>
             </item>
-            <item row="3" column="6">
+            <item row="3" column="5">
              <widget class="QLCDNumber" name="rate2">
               <property name="digitCount">
                <number>10</number>
               </property>
              </widget>
             </item>
-            <item row="12" column="5">
-             <widget class="QComboBox" name="rof9">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
+            <item row="20" column="5">
+             <widget class="QLCDNumber" name="rate17">
+              <property name="digitCount">
+               <number>10</number>
               </property>
              </widget>
             </item>
@@ -2192,60 +1672,68 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="5">
-             <widget class="QComboBox" name="rof1">
+            <item row="10" column="3">
+             <widget class="QSpinBox" name="delay7">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="4">
+             <widget class="QComboBox" name="rof7">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="currentText">
-               <string/>
-              </property>
-              <property name="currentIndex">
-               <number>-1</number>
               </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
              </widget>
             </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="label_155">
+            <item row="10" column="2">
+             <widget class="QDoubleSpinBox" name="threshold7">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="6">
+             <widget class="QComboBox" name="test2"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_72">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
               <property name="text">
-               <string>Delay (ps)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
+               <string>Channel 3</string>
               </property>
              </widget>
             </item>
-            <item row="19" column="0">
-             <widget class="QLabel" name="label_110">
+            <item row="19" column="4">
+             <widget class="QComboBox" name="rof16">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QSpinBox" name="delay3">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
-              <property name="text">
-               <string>Channel 16</string>
-              </property>
              </widget>
             </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_98">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 5</string>
-              </property>
-             </widget>
+            <item row="17" column="6">
+             <widget class="QComboBox" name="test14"/>
             </item>
-            <item row="4" column="7">
-             <widget class="QComboBox" name="test3"/>
-            </item>
-            <item row="7" column="3">
-             <widget class="QDoubleSpinBox" name="threshold4">
+            <item row="11" column="2">
+             <widget class="QDoubleSpinBox" name="threshold8">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
@@ -2264,76 +1752,14 @@
               </property>
              </widget>
             </item>
-            <item row="18" column="7">
-             <widget class="QComboBox" name="test15"/>
-            </item>
-            <item row="18" column="4">
-             <widget class="QSpinBox" name="delay15">
+            <item row="17" column="3">
+             <widget class="QSpinBox" name="delay14">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable8">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="21" column="3">
-             <widget class="QDoubleSpinBox" name="threshold18">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="3">
-             <widget class="QDoubleSpinBox" name="threshold12">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="4">
-             <widget class="QSpinBox" name="delay5">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable12">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="6">
-             <widget class="QLCDNumber" name="rate13">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_71">
-              <property name="styleSheet">
-               <string notr="true">
-color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 2</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
+            <item row="0" column="2">
              <widget class="QLabel" name="label_154">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
@@ -2343,342 +1769,6 @@ color: rgb(238, 238, 236);</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="7">
-             <widget class="QComboBox" name="test14"/>
-            </item>
-            <item row="12" column="6">
-             <widget class="QLCDNumber" name="rate9">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="7">
-             <widget class="QComboBox" name="test1">
-              <property name="palette">
-               <palette>
-                <active>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                </active>
-                <inactive>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                </inactive>
-                <disabled>
-                 <colorrole role="Button">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Base">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                 <colorrole role="Window">
-                  <brush brushstyle="LinearGradientPattern">
-                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
-                    <gradientstop position="0.000000000000000">
-                     <color alpha="255">
-                      <red>80</red>
-                      <green>80</green>
-                      <blue>80</blue>
-                     </color>
-                    </gradientstop>
-                    <gradientstop position="1.000000000000000">
-                     <color alpha="255">
-                      <red>50</red>
-                      <green>50</green>
-                      <blue>50</blue>
-                     </color>
-                    </gradientstop>
-                   </gradient>
-                  </brush>
-                 </colorrole>
-                </disabled>
-               </palette>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable2">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable9">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="0">
-             <widget class="QLabel" name="label_106">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 13</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="7">
-             <widget class="QComboBox" name="test2"/>
-            </item>
-            <item row="7" column="4">
-             <widget class="QSpinBox" name="delay4">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="3">
-             <widget class="QDoubleSpinBox" name="threshold10">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="0">
-             <widget class="QLabel" name="label_103">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 14</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable10">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="label_104">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 11</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="3">
-             <widget class="QDoubleSpinBox" name="threshold3">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="0">
-             <widget class="QLabel" name="label_109">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 17</string>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="4">
-             <widget class="QSpinBox" name="delay13">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="7">
-             <widget class="QComboBox" name="test11"/>
-            </item>
-            <item row="20" column="6">
-             <widget class="QLCDNumber" name="rate17">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="7">
-             <widget class="QComboBox" name="test16"/>
-            </item>
-            <item row="10" column="4">
-             <widget class="QSpinBox" name="delay7">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable13">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="6">
-             <widget class="QLCDNumber" name="rate1">
-              <property name="digitCount">
-               <number>10</number>
               </property>
              </widget>
             </item>
@@ -2692,10 +1782,20 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="7">
-             <widget class="QComboBox" name="test6"/>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_98">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 5</string>
+              </property>
+             </widget>
             </item>
-            <item row="0" column="7" alignment="Qt::AlignHCenter">
+            <item row="19" column="6">
+             <widget class="QComboBox" name="test16"/>
+            </item>
+            <item row="0" column="6" alignment="Qt::AlignHCenter">
              <widget class="QLabel" name="label_22">
               <property name="palette">
                <palette>
@@ -2919,34 +2019,7 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="3">
-             <widget class="QDoubleSpinBox" name="threshold8">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="minimum">
-               <double>-10.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="6">
-             <widget class="QLCDNumber" name="rate10">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="5">
-             <widget class="QComboBox" name="rof14">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="3">
+            <item row="9" column="2">
              <widget class="QDoubleSpinBox" name="threshold6">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
@@ -2956,8 +2029,32 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="16" column="3">
-             <widget class="QDoubleSpinBox" name="threshold13">
+            <item row="18" column="5">
+             <widget class="QLCDNumber" name="rate15">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="3">
+             <widget class="QSpinBox" name="delay15">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="5">
+             <widget class="QLCDNumber" name="rate7">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="6">
+             <widget class="QComboBox" name="test13"/>
+            </item>
+            <item row="19" column="2">
+             <widget class="QDoubleSpinBox" name="threshold16">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
@@ -2966,88 +2063,51 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="5">
-             <widget class="QLabel" name="label_73">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Edge</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="6">
-             <widget class="QLCDNumber" name="rate3">
+            <item row="13" column="5">
+             <widget class="QLCDNumber" name="rate10">
               <property name="digitCount">
                <number>10</number>
               </property>
              </widget>
             </item>
-            <item row="3" column="4">
-             <widget class="QSpinBox" name="delay2">
+            <item row="8" column="4">
+             <widget class="QComboBox" name="rof5">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QDoubleSpinBox" name="threshold1">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
-             </widget>
-            </item>
-            <item row="11" column="6">
-             <widget class="QLCDNumber" name="rate8">
-              <property name="digitCount">
-               <number>10</number>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_16">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 1</string>
-              </property>
-             </widget>
-            </item>
-            <item row="18" column="0">
-             <widget class="QLabel" name="label_108">
+            <item row="17" column="0">
+             <widget class="QLabel" name="label_103">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
               <property name="text">
-               <string>Channel 15</string>
+               <string>Channel 14</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="label_100">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-              <property name="text">
-               <string>Channel 8</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4">
-             <widget class="QSpinBox" name="delay1">
+            <item row="15" column="3">
+             <widget class="QSpinBox" name="delay12">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="18" column="6">
-             <widget class="QLCDNumber" name="rate15">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="7">
-             <widget class="QComboBox" name="test8"/>
-            </item>
-            <item row="9" column="5">
+            <item row="9" column="4">
              <widget class="QComboBox" name="rof6">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
@@ -3063,122 +2123,51 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="20" column="5">
-             <widget class="QComboBox" name="rof17">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable6">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="5">
-             <widget class="QComboBox" name="rof11">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="5">
-             <widget class="QComboBox" name="rof16">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="5">
-             <widget class="QComboBox" name="rof7">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="6" alignment="Qt::AlignHCenter">
-             <widget class="QLabel" name="label_21">
+            <item row="14" column="3">
+             <widget class="QSpinBox" name="delay11">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
-              <property name="text">
-               <string>Rate</string>
+             </widget>
+            </item>
+            <item row="12" column="3">
+             <widget class="QSpinBox" name="delay9">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="15" column="7">
-             <widget class="QComboBox" name="test12"/>
-            </item>
-            <item row="10" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable7">
-              <property name="text">
-               <string/>
+            <item row="16" column="2">
+             <widget class="QDoubleSpinBox" name="threshold13">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
               </property>
              </widget>
             </item>
-            <item row="9" column="6">
-             <widget class="QLCDNumber" name="rate6">
+            <item row="8" column="5">
+             <widget class="QLCDNumber" name="rate5">
               <property name="digitCount">
                <number>10</number>
               </property>
              </widget>
             </item>
-            <item row="4" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable3">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
+            <item row="14" column="6">
+             <widget class="QComboBox" name="test11"/>
             </item>
-            <item row="18" column="5">
-             <widget class="QComboBox" name="rof15">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_99">
+            <item row="18" column="2">
+             <widget class="QDoubleSpinBox" name="threshold15">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
-              <property name="text">
-               <string>Channel 6</string>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
               </property>
              </widget>
             </item>
-            <item row="17" column="6">
-             <widget class="QLCDNumber" name="rate14">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="4">
-             <widget class="QSpinBox" name="delay3">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="21" column="5">
+            <item row="21" column="4">
              <widget class="QComboBox" name="rof18">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
@@ -3188,14 +2177,7 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="14" column="6">
-             <widget class="QLCDNumber" name="rate11">
-              <property name="digitCount">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="3">
+            <item row="14" column="2">
              <widget class="QDoubleSpinBox" name="threshold11">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
@@ -3205,31 +2187,32 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="7">
-             <widget class="QComboBox" name="test4"/>
-            </item>
-            <item row="3" column="5">
-             <widget class="QComboBox" name="rof2">
+            <item row="19" column="3">
+             <widget class="QSpinBox" name="delay16">
               <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
+               <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="5">
-             <widget class="QComboBox" name="rof10">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
-              <property name="maxVisibleItems">
-               <number>2</number>
+            <item row="16" column="5">
+             <widget class="QLCDNumber" name="rate13">
+              <property name="digitCount">
+               <number>10</number>
               </property>
              </widget>
             </item>
-            <item row="10" column="3">
-             <widget class="QDoubleSpinBox" name="threshold7">
+            <item row="20" column="0">
+             <widget class="QLabel" name="label_109">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 17</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="2">
+             <widget class="QDoubleSpinBox" name="threshold12">
               <property name="styleSheet">
                <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
@@ -3238,40 +2221,409 @@ color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="17" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable14">
-              <property name="text">
-               <string/>
+            <item row="4" column="4">
+             <widget class="QComboBox" name="rof3">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
               </property>
              </widget>
             </item>
-            <item row="18" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable15">
-              <property name="text">
-               <string/>
+            <item row="13" column="3">
+             <widget class="QSpinBox" name="delay10">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
               </property>
              </widget>
             </item>
-            <item row="19" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable16">
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_155">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
               <property name="text">
-               <string/>
+               <string>Delay (ps)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item row="21" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable18">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_16">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
               <property name="text">
-               <string/>
+               <string>Channel 1</string>
               </property>
              </widget>
             </item>
-            <item row="20" column="2" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="enable17">
+            <item row="0" column="5" alignment="Qt::AlignHCenter">
+             <widget class="QLabel" name="label_21">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
               <property name="text">
-               <string/>
+               <string>Rate</string>
               </property>
              </widget>
+            </item>
+            <item row="9" column="5">
+             <widget class="QLCDNumber" name="rate6">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="21" column="5">
+             <widget class="QLCDNumber" name="rate18">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6">
+             <widget class="QComboBox" name="test1">
+              <property name="palette">
+               <palette>
+                <active>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </active>
+                <inactive>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </inactive>
+                <disabled>
+                 <colorrole role="Button">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Base">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                 <colorrole role="Window">
+                  <brush brushstyle="LinearGradientPattern">
+                   <gradient startx="0.000000000000000" starty="0.000000000000000" endx="1.000000000000000" endy="0.000000000000000" type="LinearGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+                    <gradientstop position="0.000000000000000">
+                     <color alpha="255">
+                      <red>80</red>
+                      <green>80</green>
+                      <blue>80</blue>
+                     </color>
+                    </gradientstop>
+                    <gradientstop position="1.000000000000000">
+                     <color alpha="255">
+                      <red>50</red>
+                      <green>50</green>
+                      <blue>50</blue>
+                     </color>
+                    </gradientstop>
+                   </gradient>
+                  </brush>
+                 </colorrole>
+                </disabled>
+               </palette>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QComboBox" name="rof1">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="currentText">
+               <string/>
+              </property>
+              <property name="currentIndex">
+               <number>-1</number>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6">
+             <widget class="QComboBox" name="test3"/>
+            </item>
+            <item row="17" column="4">
+             <widget class="QComboBox" name="rof14">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QDoubleSpinBox" name="threshold2">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="6">
+             <widget class="QComboBox" name="test9"/>
+            </item>
+            <item row="11" column="6">
+             <widget class="QComboBox" name="test8"/>
+            </item>
+            <item row="12" column="2">
+             <widget class="QDoubleSpinBox" name="threshold9">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="4">
+             <widget class="QComboBox" name="rof4">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="4">
+             <widget class="QComboBox" name="rof8">
+              <property name="styleSheet">
+               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+              </property>
+              <property name="maxVisibleItems">
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="3">
+             <widget class="QSpinBox" name="delay4">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="6">
+             <widget class="QComboBox" name="test15"/>
+            </item>
+            <item row="20" column="2">
+             <widget class="QDoubleSpinBox" name="threshold17">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="minimum">
+               <double>-10.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="5">
+             <widget class="QLCDNumber" name="rate8">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="6">
+             <widget class="QComboBox" name="test10"/>
+            </item>
+            <item row="15" column="5">
+             <widget class="QLCDNumber" name="rate12">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="5">
+             <widget class="QLCDNumber" name="rate9">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="0">
+             <widget class="QLabel" name="label_110">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(238, 238, 236);</string>
+              </property>
+              <property name="text">
+               <string>Channel 16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLCDNumber" name="rate1">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="5">
+             <widget class="QLCDNumber" name="rate3">
+              <property name="digitCount">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="6">
+             <widget class="QComboBox" name="test6"/>
             </item>
            </layout>
           </widget>
