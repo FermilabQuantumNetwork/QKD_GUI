@@ -235,15 +235,15 @@ void MainWindow::setup_histolines_QKD()
         LinesPlotA4[i]->setVisible(0);
 
         LinesPlotB1[i] = new QCPItemStraightLine(ui->PlotB);
-        LinesPlotB1[i]->setPen(QPen(Qt::red));
+        LinesPlotB1[i]->setPen(QPen(Qt::white));
         LinesPlotB1[i]->setVisible(0);
 
         LinesPlotB2[i] = new QCPItemStraightLine(ui->PlotB);
-        LinesPlotB2[i]->setPen(QPen(Qt::green));
+        LinesPlotB2[i]->setPen(QPen(Qt::red));
         LinesPlotB2[i]->setVisible(0);
 
         LinesPlotB3[i] = new QCPItemStraightLine(ui->PlotB);
-        LinesPlotB3[i]->setPen(QPen(Qt::yellow));
+        LinesPlotB3[i]->setPen(QPen(Qt::white));
         LinesPlotB3[i]->setVisible(0);
 
         LinesPlotB4[i] = new QCPItemStraightLine(ui->PlotB);
@@ -251,15 +251,15 @@ void MainWindow::setup_histolines_QKD()
         LinesPlotB4[i]->setVisible(0);
 
         LinesPlotC1[i] = new QCPItemStraightLine(ui->PlotC);
-        LinesPlotC1[i]->setPen(QPen(Qt::red));
+        LinesPlotC1[i]->setPen(QPen(Qt::white));
         LinesPlotC1[i]->setVisible(0);
 
         LinesPlotC2[i] = new QCPItemStraightLine(ui->PlotC);
-        LinesPlotC2[i]->setPen(QPen(Qt::green));
+        LinesPlotC2[i]->setPen(QPen(Qt::red));
         LinesPlotC2[i]->setVisible(0);
 
         LinesPlotC3[i] = new QCPItemStraightLine(ui->PlotC);
-        LinesPlotC3[i]->setPen(QPen(Qt::yellow));
+        LinesPlotC3[i]->setPen(QPen(Qt::white));
         LinesPlotC3[i]->setVisible(0);
 
         LinesPlotC4[i] = new QCPItemStraightLine(ui->PlotC);
@@ -1641,53 +1641,6 @@ void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, c
 /////////////////////////////////////
 
 
-void MainWindow::LinePlot()
-{
-
-    if(!Teleport0_or_QKD1){
-
-        for (int i=0; i<18; i++) {
-
-            if(i==0 || i==3 || i==6 || i==9 || i==12 || i==15)infLine[i]->setPen(QPen(Qt::red));
-            if(i==1 || i==4 || i==7 || i==10 || i==13 || i==16)infLine[i]->setPen(QPen(Qt::green));
-            if(i==2 || i==5 || i==8 || i==11  || i==14 || i==17)infLine[i]->setPen(QPen(Qt::yellow));
-
-
-
-            if(i<6){
-
-                if(i<3)infLine[i]->point1->setCoords(Plot_Win_BoE[0][i][0], 0);
-                    else infLine[i]->point1->setCoords(Plot_Win_BoE[0][i-3][1], 0);
-                if(i<3)infLine[i]->point2->setCoords(Plot_Win_BoE[0][i][0], 1);
-                    else infLine[i]->point2->setCoords(Plot_Win_BoE[0][i-3][1], 1);
-
-
-                ui->PlotA->replot();
-
-            }
-            if(i>5 && i<12){
-                if(i<9)infLine[i]->point1->setCoords(Plot_Win_BoE[1][i-6][0], 0);
-                    else infLine[i]->point1->setCoords(Plot_Win_BoE[1][i-6-3][1], 0);
-                if(i<9)infLine[i]->point2->setCoords(Plot_Win_BoE[1][i-6][0], 1);
-                    else infLine[i]->point2->setCoords(Plot_Win_BoE[1][i-6-3][1], 1);
-
-                ui->PlotB->replot();
-
-
-            }
-            if(i>11){
-                if(i<15)infLine[i]->point1->setCoords(Plot_Win_BoE[2][i-12][0], 0);
-                    else infLine[i]->point1->setCoords(Plot_Win_BoE[2][i-12-3][1], 0);
-                if(i<15)infLine[i]->point2->setCoords(Plot_Win_BoE[2][i-12][0], 1);
-                    else infLine[i]->point2->setCoords(Plot_Win_BoE[2][i-12-3][1], 1);
-
-                ui->PlotC->replot();
-
-                }
-        }
-    }
-}
-
 void MainWindow::createQKDLinesA()
 {
     for (int i = 0; i < in_QKD_numbA*2; i++) {
@@ -1698,12 +1651,12 @@ void MainWindow::createQKDLinesA()
             LinesPlotA2[i]->setVisible(1);
             LinesPlotA2[i]->point1->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_phA,0);
             LinesPlotA2[i]->point2->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_phA,1);
-            LinesPlotA3[i]->setVisible(1);
-            LinesPlotA3[i]->point1->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+2*in_QKD_phA,0);
-            LinesPlotA3[i]->point2->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+2*in_QKD_phA,1);
-            LinesPlotA4[i]->setVisible(1);
-            LinesPlotA4[i]->point1->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+3*in_QKD_phA,0);
-            LinesPlotA4[i]->point2->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+3*in_QKD_phA,1);
+            //LinesPlotA3[i]->setVisible(1);
+            //LinesPlotA3[i]->point1->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+2*in_QKD_phA,0);
+            //LinesPlotA3[i]->point2->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+2*in_QKD_phA,1);
+            //LinesPlotA4[i]->setVisible(1);
+            //LinesPlotA4[i]->point1->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+3*in_QKD_phA,0);
+            //LinesPlotA4[i]->point2->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+3*in_QKD_phA,1);
        } else {
             LinesPlotA1[i]->setVisible(1);
             LinesPlotA1[i]->point1->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA,0);
@@ -1711,12 +1664,12 @@ void MainWindow::createQKDLinesA()
             LinesPlotA2[i]->setVisible(1);
             LinesPlotA2[i]->point1->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+in_QKD_phA,0);
             LinesPlotA2[i]->point2->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+in_QKD_phA,1);
-            LinesPlotA3[i]->setVisible(1);
-            LinesPlotA3[i]->point1->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+2*in_QKD_phA,0);
-            LinesPlotA3[i]->point2->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+2*in_QKD_phA,1);
-            LinesPlotA4[i]->setVisible(1);
-            LinesPlotA4[i]->point1->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+3*in_QKD_phA,0);
-            LinesPlotA4[i]->point2->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+3*in_QKD_phA,1);
+            //LinesPlotA3[i]->setVisible(1);
+            //LinesPlotA3[i]->point1->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+2*in_QKD_phA,0);
+            //LinesPlotA3[i]->point2->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+2*in_QKD_phA,1);
+            //LinesPlotA4[i]->setVisible(1);
+            //LinesPlotA4[i]->point1->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+3*in_QKD_phA,0);
+            //LinesPlotA4[i]->point2->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+3*in_QKD_phA,1);
        }
     }
 
@@ -1736,9 +1689,9 @@ void MainWindow::createQKDLinesB()
             LinesPlotB3[i]->setVisible(1);
             LinesPlotB3[i]->point1->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+2*in_QKD_phB,0);
             LinesPlotB3[i]->point2->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+2*in_QKD_phB,1);
-            LinesPlotB4[i]->setVisible(1);
-            LinesPlotB4[i]->point1->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+3*in_QKD_phB,0);
-            LinesPlotB4[i]->point2->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+3*in_QKD_phB,1);
+            //LinesPlotB4[i]->setVisible(1);
+            //LinesPlotB4[i]->point1->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+3*in_QKD_phB,0);
+            //LinesPlotB4[i]->point2->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+3*in_QKD_phB,1);
        } else {
             LinesPlotB1[i]->setVisible(1);
             LinesPlotB1[i]->point1->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB,0);
@@ -1749,11 +1702,12 @@ void MainWindow::createQKDLinesB()
             LinesPlotB3[i]->setVisible(1);
             LinesPlotB3[i]->point1->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+2*in_QKD_phB,0);
             LinesPlotB3[i]->point2->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+2*in_QKD_phB,1);
-            LinesPlotB4[i]->setVisible(1);
-            LinesPlotB4[i]->point1->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+3*in_QKD_phB,0);
-            LinesPlotB4[i]->point2->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+3*in_QKD_phB,1);
+            //LinesPlotB4[i]->setVisible(1);
+            //LinesPlotB4[i]->point1->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+3*in_QKD_phB,0);
+            //LinesPlotB4[i]->point2->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+3*in_QKD_phB,1);
        }
     }
+
     ui->PlotB->replot();
 }
 
@@ -1770,9 +1724,9 @@ void MainWindow::createQKDLinesC()
             LinesPlotC3[i]->setVisible(1);
             LinesPlotC3[i]->point1->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+2*in_QKD_phC,0);
             LinesPlotC3[i]->point2->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+2*in_QKD_phC,1);
-            LinesPlotC4[i]->setVisible(1);
-            LinesPlotC4[i]->point1->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+3*in_QKD_phC,0);
-            LinesPlotC4[i]->point2->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+3*in_QKD_phC,1);
+            //LinesPlotC4[i]->setVisible(1);
+            //LinesPlotC4[i]->point1->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+3*in_QKD_phC,0);
+            //LinesPlotC4[i]->point2->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+3*in_QKD_phC,1);
        } else {
             LinesPlotC1[i]->setVisible(1);
             LinesPlotC1[i]->point1->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC,0);
@@ -1783,11 +1737,12 @@ void MainWindow::createQKDLinesC()
             LinesPlotC3[i]->setVisible(1);
             LinesPlotC3[i]->point1->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+2*in_QKD_phC,0);
             LinesPlotC3[i]->point2->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+2*in_QKD_phC,1);
-            LinesPlotC4[i]->setVisible(1);
-            LinesPlotC4[i]->point1->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+3*in_QKD_phC,0);
-            LinesPlotC4[i]->point2->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+3*in_QKD_phC,1);
+            //LinesPlotC4[i]->setVisible(1);
+            //LinesPlotC4[i]->point1->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+3*in_QKD_phC,0);
+            //LinesPlotC4[i]->point2->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+3*in_QKD_phC,1);
        }
     }
+
     ui->PlotC->replot();
 }
 

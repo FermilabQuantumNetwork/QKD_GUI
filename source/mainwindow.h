@@ -7,8 +7,6 @@
 #include <QtCore>
 #include <ctime>
 #include <stdio.h>
-#include "qutag_adq.h"
-#include "qutag_anl.h"
 #include "dbcontrol.h"
 #include "socket_com.h"
 #include "qkd_param.h"
@@ -20,6 +18,7 @@
 #include <QJsonObject>
 #include <QDateTime>
 #include "swabian.h"
+#include <unistd.h> /* For usleep() */
 
 #define MAX_QUBITS 1000
 #define HDF5TIMEINTEGRATION 3
@@ -28,11 +27,16 @@
  * channels, but I think we only paid for the version with 9 channels. */
 #define MAX_CHANNELS 9
 
+typedef QVector<int64_t> vectorInt64;
+typedef QVector<int8_t> vectorInt8;
+typedef QVector<double> vectorDouble;
+typedef QVector<int32_t> vectorInt32;
+
 namespace Ui {
     class MainWindow;
 }
 
-const bool debug = true;
+const bool debug = false;
 
 /* Histogram worker class. This is a QThread that gets the histogram data from
  * the Swabian class and then emits a signal with the data so that it can be
@@ -170,8 +174,6 @@ private slots:
 
   void histoplot(const vectorDouble &dat1, const vectorDouble &dat2, const vectorDouble &dat3);
 
-  void LinePlot();
-
   void CombinationChange(bool val){CombiChang =val;}
 
   void turnONDB(int val);
@@ -226,9 +228,7 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
-  qutagadq adq;
   Swabian s;
-  qutaganl anl;
   DBControl dbc;
   socket_com udpcom;
   QKD_param qkdparam;
