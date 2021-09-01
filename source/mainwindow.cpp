@@ -13,6 +13,11 @@
 #include <algorithm>
 #include <H5Cpp.h>
 
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+
+char qubit_sequence[100] = "E0E0L0L0P0P0";
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -823,6 +828,7 @@ void MainWindow::setupsignalslot()
     QObject::connect(this->histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
 
     this->histogramChanged();
+    this->refreshButton();
 }
 
 void MainWindow::histogramChanged(void)
@@ -875,7 +881,7 @@ void MainWindow::histogramChanged(void)
  * signal. */
 void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width)
 {
-    int i;
+    int i, j;
 
     if (debug)
         fprintf(stderr, "show_histograms() called\n");
@@ -962,6 +968,230 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     ui->PlotC->graph(0)->setData(xc, yc);
     ui->PlotC->graph(0)->rescaleValueAxis();
     ui->PlotC->replot();
+
+    double resultAok=0, resultAerr=0, resultArand=0, resultAbkgnd=0;
+    double resultBok=0, resultBerr=0, resultBrand=0, resultBbkgnd=0;
+    double resultCok=0, resultCerr=0, resultCrand=0, resultCbkgnd=0;
+
+    size_t nA, nB, nC;
+    
+    nA = MIN(in_QKD_numbA,strlen(qubit_sequence));
+    nB = MIN(in_QKD_numbB,strlen(qubit_sequence));
+    nC = MIN(in_QKD_numbC,strlen(qubit_sequence));
+
+    double resultEok=0, resultEerr=0, resultErand=0;
+    double resultLok=0, resultLerr=0, resultLrand=0;
+    double resultPok=0, resultPerr=0, resultPrand=0;
+    double totalBkgnd=0;
+
+    if (debug)
+        fprintf(stderr, "computing stats from %i qubits\n", nA);
+
+    for (i = 0; i < datA.size()/2; i++) {
+        if (datA[2*i] > histEnd) break;
+        double t = datA[2*i];
+        double count = datA[2*i+1];
+
+        for (j = 0; j < nA; j++) {
+            /* Find if we are in the early time bin. */
+            double left = j*in_QKD_timeA + in_QKD_zeroA;
+            double right = left + in_QKD_iwA;
+            if ((t > left) && (t < right)) {
+                /* Got an early signal. */
+                switch (qubit_sequence[j]) {
+                case 'E':
+                    resultAok += count;
+                    resultEok += count;
+                    break;
+                case 'L':
+                    resultAerr += count;
+                    resultEerr += count;
+                    break;
+                case '0':
+                    resultAbkgnd += count;
+                    resultEbkgnd += count;
+                    totalBkgnd += count;
+                    break;
+                case 'P':
+                    resultArand += count;
+                    resultErand += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+
+            /* Find if we are in the late time bin. */
+            left = j*in_QKD_timeA + in_QKD_zeroA + in_QKD_phA;
+            right = left + in_QKD_iwA;
+            if ((t > left) && (t < right)) {
+                /* Got a late signal. */
+                switch (qubit_sequence[j]) {
+                case 'E':
+                    resultAerr += count;
+                    resultLerr += count;
+                    break;
+                case 'L':
+                    resultAok += count;
+                    resultLok += count;
+                    break;
+                case '0':
+                    resultAbkgnd += count;
+                    resultLbkgnd += count;
+                    totalBkgnd += count;
+                    break;
+                case 'P':
+                    resultArand += count;
+                    resultLrand += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+        }
+    }
+
+    for (i = 0; i < datB.size()/2; i++) {
+        if (datB[2*i] > histEnd) break;
+        double t = datB[2*i];
+        double count = datB[2*i+1];
+
+        for (j = 0; j < nB; j++) {
+            /* Find if we are in the early early time bin. */
+            double left = j*in_QKD_timeB + in_QKD_zeroB;
+            double right = left + in_QKD_iwB;
+            if ((t > left) && (t < right)) {
+                /* Got an early early signal, which is always ignored. */
+                switch (qubit_sequence[j]) {
+                case 'E':
+                case 'L':
+                case '0':
+                case 'P':
+                    resultBrand += count;
+                    resultPrand += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+
+            /* Find if we are in the middle time bin. */
+            left = j*in_QKD_timeB + in_QKD_zeroB + in_QKD_phB;
+            right = left + in_QKD_iwB;
+            if ((t > left) && (t < right)) {
+                /* Got an early signal. */
+                switch (qubit_sequence[j]) {
+                case 'P':
+                    resultBok += count;
+                    resultPok += count;
+                    break;
+                case 'E':
+                case 'L':
+                    resultBrand += count;
+                    resultPrand += count;
+                    break;
+                case '0':
+                    resultBbkgnd += count;
+                    resultPbkgnd += count;
+                    totalBkgnd += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+
+            /* Find if we are in the late late time bin.
+             * FIXME: handle overlap with previous bin. Right now we are double
+             * counting. */
+            left = j*in_QKD_timeB + in_QKD_zeroB + in_QKD_phB;
+            right = left + in_QKD_iwB;
+            if ((t > left) && (t < right)) {
+                /* Got a late late signal. */
+                switch (qubit_sequence[j]) {
+                case 'E':
+                case 'L':
+                case 'P':
+                case '0':
+                    resultBrand += count;
+                    resultPrand += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+        }
+    }
+                
+    for (i = 0; i < datC.size()/2; i++) {
+        if (datC[2*i] > histEnd) break;
+        double t = datC[2*i];
+        double count = datC[2*i+1];
+
+        for (j = 0; j < nC; j++) {
+            /* Find if we are in the early early time bin. */
+            double left = j*in_QKD_timeC + in_QKD_zeroC;
+            double right = left + in_QKD_iwC;
+            if ((t > left) && (t < right)) {
+                /* Got an early early signal, which is always ignored. */
+                switch (qubit_sequence[j]) {
+                case 'E':
+                case 'L':
+                case '0':
+                case 'P':
+                    resultCrand += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+
+            /* Find if we are in the middle time bin. */
+            left = j*in_QKD_timeC + in_QKD_zeroC + in_QKD_phC;
+            right = left + in_QKD_iwC;
+            if ((t > left) && (t < right)) {
+                /* Got a middle signal. */
+                switch (qubit_sequence[j]) {
+                case 'P':
+                    resultCerr += count;
+                    break;
+                case 'E':
+                case 'L':
+                    resultCrand += count;
+                    break;
+                case '0':
+                    resultCbkgnd += count;
+                    totalBkgnd += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+
+            /* Find if we are in the late late time bin.
+             * FIXME: handle overlap with previous bin. Right now we are double
+             * counting. */
+            left = j*in_QKD_timeC + in_QKD_zeroC + in_QKD_phC;
+            right = left + in_QKD_iwC;
+            if ((t > left) && (t < right)) {
+                /* Got a late late signal. */
+                switch (qubit_sequence[j]) {
+                case 'E':
+                case 'L':
+                case 'P':
+                case '0':
+                    resultCrand += count;
+                    break;
+                default:
+                    fprintf(stderr, "unknown qubit sequence character\n");
+                }
+            }
+        }
+    }
+                
+    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
+
+    plot_qkd_results_det(resultAok, resultAerr, resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd, resultCok, resultCerr, resultCrand, resultCbkgnd, key);
+    plot_qkd_results_QB(resultEok, resultEerr,resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd,resultPok, resultPerr, resultPrand, totalBkgnd,key);
 
     if (debug)
         fprintf(stderr, "show_histograms() done\n");
@@ -1141,25 +1371,53 @@ void MainWindow::plotRates(char AoBoC, int event, double key)
 
 void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double bkgndA,double okB,double errB,double randB,double bkgndB,double okC,double errC,double randC,double bkgndC, double key)
 {
-    ui->QKD_H1_results->graph(0)->addData(key-lastPointKey_tab3, okA);
-    ui->QKD_H1_results->graph(1)->addData(key-lastPointKey_tab3, errA);
-    ui->QKD_H1_results->graph(2)->addData(key-lastPointKey_tab3, randA);
-    ui->QKD_H1_results->graph(3)->addData(key-lastPointKey_tab3, bkgndA);
+    int i;
+    double values[4], max;
 
-    ui->QKD_H2_results->graph(0)->addData(key-lastPointKey_tab3, okB);
-    ui->QKD_H2_results->graph(1)->addData(key-lastPointKey_tab3, errB);
-    ui->QKD_H2_results->graph(2)->addData(key-lastPointKey_tab3, randB);
-    ui->QKD_H2_results->graph(3)->addData(key-lastPointKey_tab3, bkgndB);
+    values[0] = okA;
+    values[1] = errA;
+    values[2] = randA;
+    values[3] = bkgndA;
 
-    ui->QKD_H3_results->graph(0)->addData(key-lastPointKey_tab3, okC);
-    ui->QKD_H3_results->graph(1)->addData(key-lastPointKey_tab3, errC);
-    ui->QKD_H3_results->graph(2)->addData(key-lastPointKey_tab3, randC);
-    ui->QKD_H3_results->graph(3)->addData(key-lastPointKey_tab3, bkgndC);
+    max = values[0];
+    for (i = 0; i < 4; i++) {
+        ui->QKD_H1_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
+        if (i == 0 || values[i] > max) {
+            max = values[i];
+            ui->QKD_H1_results->graph(i)->rescaleValueAxis();
+        }
+    }
 
+    values[0] = okB;
+    values[1] = errB;
+    values[2] = randB;
+    values[3] = bkgndB;
+
+    max = values[0];
+    for (i = 0; i < 4; i++) {
+        ui->QKD_H2_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
+        if (i == 0 || values[i] > max) {
+            max = values[i];
+            ui->QKD_H2_results->graph(i)->rescaleValueAxis();
+        }
+    }
+
+    values[0] = okC;
+    values[1] = errC;
+    values[2] = randC;
+    values[3] = bkgndC;
+
+    max = values[0];
+    for (i = 0; i < 4; i++) {
+        ui->QKD_H3_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
+        if (i == 0 || values[i] > max) {
+            max = values[i];
+            ui->QKD_H3_results->graph(i)->rescaleValueAxis();
+        }
+    }
     ui->QKD_H1_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->QKD_H2_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->QKD_H3_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
-    //ui->PlotTrack->yAxis->rescale();
 
     ui->QKD_H1_results->replot();
     ui->QKD_H2_results->replot();
@@ -1304,9 +1562,6 @@ void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, c
       double resultLok=0, resultLerr=0, resultLrand=0;
       double resultPok=0, resultPerr=0, resultPrand=0;
       double totalBkgnd=0;
-     /* double tempresultEok=0, tempresultEerr=0, tempresultErand=0;
-      double tempresultLok=0, tempresultLerr=0, tempresultLrand=0;
-      double tempresultPok=0, tempresultPerr=0, tempresultPrand=0;*/
 
       int error_ok_time = 0, error_ok_phase = 0, error_time = 0, error_phase = 0;
 

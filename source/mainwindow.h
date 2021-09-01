@@ -38,6 +38,8 @@ namespace Ui {
 
 const bool debug = false;
 
+extern char qubit_sequence[100];
+
 /* Histogram worker class. This is a QThread that gets the histogram data from
  * the Swabian class and then emits a signal with the data so that it can be
  * plotted. It's started when the GUI boots up and runs an infinite loop. */
