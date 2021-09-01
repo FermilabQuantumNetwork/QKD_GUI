@@ -32,6 +32,8 @@ namespace Ui {
     class MainWindow;
 }
 
+const bool debug = true;
+
 /* Histogram worker class. This is a QThread that gets the histogram data from
  * the Swabian class and then emits a signal with the data so that it can be
  * plotted. It's started when the GUI boots up and runs an infinite loop. */
@@ -50,8 +52,14 @@ public:
                 continue;
             }
 
+            if (debug)
+                fprintf(stderr, "calling get_histograms()\n");
+
             int last_bin_width = this->bin_width;
             s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, last_bin_width, this->time, dataA, dataB, dataC);
+
+            if (debug)
+                fprintf(stderr, "done calling get_histograms()\n");
 
             QVector<double> dataA_q, dataB_q, dataC_q;
 
@@ -107,7 +115,13 @@ public:
             for (i = 0; i < 18; i++)
                 rates[i] = 0.0;
 
+            if (debug)
+                fprintf(stderr, "calling get_count_rates()\n");
+
             s->get_count_rates(channels,rates,9);
+
+            if (debug)
+                fprintf(stderr, "done calling get_count_rates()\n");
 
             emit(rates_ready(rates));
         }

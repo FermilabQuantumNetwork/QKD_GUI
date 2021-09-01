@@ -683,8 +683,17 @@ void MainWindow::refreshButton()
 
 void MainWindow::connectButton()
 {
-    if (s.connect(ui->taggers->currentText().toStdString()) == 0)
+    if (debug)
+        fprintf(stderr, "connecting to swabian\n");
+    if (s.connect(ui->taggers->currentText().toStdString()) == 0) {
         ui->connected_label->setText("Connected");
+
+        if (debug)
+            fprintf(stderr, "successfully connected to swabian\n");
+    } else {
+        if (debug)
+            fprintf(stderr, "failed to connect to swabian\n");
+    }
 }
 
 void MainWindow::setupsignalslot()
@@ -913,6 +922,9 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
 {
     int i;
 
+    if (debug)
+        fprintf(stderr, "show_histograms() called\n");
+
     QVector<double> xa(datA.size());
     QVector<double> ya(datA.size());
 
@@ -940,6 +952,10 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> yb(datB.size());
 
     for (i = 0; i < datB.size()/2; i++) {
+        if (xb.size() > 0 && xb.back() < datB[2*i] - bin_width) {
+            xb.push_back(xb.back() - bin_width);
+            yb.push_back(0);
+        }
         xb.push_back(datB[2*i]);
         yb.push_back(datB[2*i+1]);
         /* Hack to include empty bins. */
@@ -959,6 +975,10 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> yc(datC.size());
 
     for (i = 0; i < datC.size()/2; i++) {
+        if (xc.size() > 0 && xc.back() < datC[2*i] - bin_width) {
+            xc.push_back(xc.back() - bin_width);
+            yc.push_back(0);
+        }
         xc.push_back(datC[2*i]);
         yc.push_back(datC[2*i+1]);
         /* Hack to include empty bins. */
@@ -973,6 +993,9 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     ui->PlotC->graph(0)->setData(xc, yc);
     ui->PlotC->graph(0)->rescaleValueAxis();
     ui->PlotC->replot();
+
+    if (debug)
+        fprintf(stderr, "show_histograms() done\n");
 }
 
 /* Displays the event rate for each channel on the Parameters tab. This
