@@ -1932,9 +1932,9 @@ void MainWindow::SaveState(void)
         }
 
         mapint.insert("in_startChan",ui->startChan->value());
-        mapint.insert("in_PlotACh1",ui->PlotACh1->value());
-        mapint.insert("in_PlotBCh1",ui->PlotBCh1->value());
-        mapint.insert("in_PlotCCh1",ui->PlotCCh1->value());
+        mapint.insert("in_PlotACh1",ui->PlotAChn1->value());
+        mapint.insert("in_PlotBCh1",ui->PlotBChn1->value());
+        mapint.insert("in_PlotCCh1",ui->PlotCChn1->value());
         mapint.insert("in_bin_width",ui->bin_width->value());
 
         mapdouble.insert("in_adqtime", ui->adqtime->value());
