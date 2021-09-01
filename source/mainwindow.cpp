@@ -1009,7 +1009,6 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     break;
                 case '0':
                     resultAbkgnd += count;
-                    resultEbkgnd += count;
                     totalBkgnd += count;
                     break;
                 case 'P':
@@ -1037,7 +1036,6 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     break;
                 case '0':
                     resultAbkgnd += count;
-                    resultLbkgnd += count;
                     totalBkgnd += count;
                     break;
                 case 'P':
@@ -1092,7 +1090,6 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     break;
                 case '0':
                     resultBbkgnd += count;
-                    resultPbkgnd += count;
                     totalBkgnd += count;
                     break;
                 default:
@@ -1191,7 +1188,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
 
     plot_qkd_results_det(resultAok, resultAerr, resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd, resultCok, resultCerr, resultCrand, resultCbkgnd, key);
-    plot_qkd_results_QB(resultEok, resultEerr,resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd,resultPok, resultPerr, resultPrand, totalBkgnd,key);
+    plot_qkd_results_QB(resultEok, resultEerr, resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd, resultPok, resultPerr, resultPrand, totalBkgnd, key);
 
     if (debug)
         fprintf(stderr, "show_histograms() done\n");
@@ -1426,25 +1423,55 @@ void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double
 
 void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double bkgndE,double okL,double errL,double randL, double bkgndL,double okP,double errP,double randP,double bkgndP, double key)
 {
-    ui->Early_results->graph(0)->addData(key-lastPointKey_tab3, okE);
-    ui->Early_results->graph(1)->addData(key-lastPointKey_tab3, errE);
-    ui->Early_results->graph(2)->addData(key-lastPointKey_tab3, randE);
-    ui->Early_results->graph(3)->addData(key-lastPointKey_tab3, bkgndE);
+    int i;
+    double values[4], max;
 
-    ui->Late_results->graph(0)->addData(key-lastPointKey_tab3, okL);
-    ui->Late_results->graph(1)->addData(key-lastPointKey_tab3, errL);
-    ui->Late_results->graph(2)->addData(key-lastPointKey_tab3, randL);
-    ui->Late_results->graph(3)->addData(key-lastPointKey_tab3, bkgndL);
+    values[0] = okE;
+    values[1] = errE;
+    values[2] = randE;
+    values[3] = bkgndE;
 
-    ui->Phase_results->graph(0)->addData(key-lastPointKey_tab3, okP);
-    ui->Phase_results->graph(1)->addData(key-lastPointKey_tab3, errP);
-    ui->Phase_results->graph(2)->addData(key-lastPointKey_tab3, randP);
-    ui->Phase_results->graph(3)->addData(key-lastPointKey_tab3, bkgndP);
+    max = values[0];
+    for (i = 0; i < 4; i++) {
+        ui->Early_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
+        if (i == 0 || values[i] > max) {
+            max = values[i];
+            ui->Early_results->graph(i)->rescaleValueAxis();
+        }
+    }
+
+    values[0] = okL;
+    values[1] = errL;
+    values[2] = randL;
+    values[3] = bkgndL;
+
+    max = values[0];
+    for (i = 0; i < 4; i++) {
+        ui->Late_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
+        if (i == 0 || values[i] > max) {
+            max = values[i];
+            ui->Early_results->graph(i)->rescaleValueAxis();
+        }
+    }
+
+
+    values[0] = okP;
+    values[1] = errP;
+    values[2] = randP;
+    values[3] = bkgndP;
+
+    max = values[0];
+    for (i = 0; i < 4; i++) {
+        ui->Phase_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
+        if (i == 0 || values[i] > max) {
+            max = values[i];
+            ui->Early_results->graph(i)->rescaleValueAxis();
+        }
+    }
 
     ui->Early_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->Late_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->Phase_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
-    //ui->PlotTrack->yAxis->rescale();
 
     ui->Early_results->replot();
     ui->Late_results->replot();
