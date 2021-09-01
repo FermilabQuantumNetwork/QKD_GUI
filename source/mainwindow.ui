@@ -218,7 +218,7 @@
         <item>
          <widget class="QWidget" name="widget_2" native="true">
           <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+           <string notr="true">#widget_2 { background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255)); }</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
@@ -228,9 +228,6 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
               <property name="spacing">
@@ -840,9 +837,6 @@
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(238, 238, 236);</string>
-                   </property>
                    <property name="text">
                     <string>Clock/Start Channel</string>
                    </property>
@@ -855,9 +849,6 @@
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(238, 238, 236);</string>
                    </property>
                    <property name="minimum">
                     <number>1</number>
@@ -883,9 +874,6 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
                   <property name="text">
                    <string>Plot A</string>
                   </property>
@@ -898,9 +886,6 @@
                  <layout class="QHBoxLayout" name="horizontalLayout_23">
                   <item>
                    <widget class="QSpinBox" name="PlotAChn1">
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(238, 238, 236);</string>
-                    </property>
                     <property name="minimum">
                      <number>1</number>
                     </property>
@@ -926,9 +911,6 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
                   <property name="text">
                    <string>Plot B</string>
                   </property>
@@ -941,9 +923,6 @@
                  <layout class="QHBoxLayout" name="horizontalLayout_24">
                   <item>
                    <widget class="QSpinBox" name="PlotBChn1">
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(238, 238, 236);</string>
-                    </property>
                     <property name="minimum">
                      <number>1</number>
                     </property>
@@ -969,9 +948,6 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(238, 238, 236);</string>
-                  </property>
                   <property name="text">
                    <string>Plot C</string>
                   </property>
@@ -984,9 +960,6 @@
                  <layout class="QHBoxLayout" name="horizontalLayout_29">
                   <item>
                    <widget class="QSpinBox" name="PlotCChn1">
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(238, 238, 236);</string>
-                    </property>
                     <property name="minimum">
                      <number>1</number>
                     </property>
@@ -1016,9 +989,6 @@
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(238, 238, 236);</string>
-                   </property>
                    <property name="text">
                     <string>Bin Width (ps)</string>
                    </property>
@@ -1026,9 +996,6 @@
                  </item>
                  <item>
                   <widget class="QSpinBox" name="bin_width">
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(238, 238, 236);</string>
-                   </property>
                    <property name="minimum">
                     <number>1</number>
                    </property>
@@ -1090,9 +1057,6 @@
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(238, 238, 236);</string>
-                   </property>
                    <property name="text">
                     <string>Update Rate / Adq Time</string>
                    </property>
@@ -1100,9 +1064,6 @@
                  </item>
                  <item>
                   <widget class="QDoubleSpinBox" name="adqtime">
-                   <property name="styleSheet">
-                    <string notr="true">color: rgb(238, 238, 236);</string>
-                   </property>
                    <property name="suffix">
                     <string> [s]</string>
                    </property>
@@ -1135,9 +1096,6 @@
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget_4" native="true">
-             <property name="styleSheet">
-              <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <property name="topMargin">
                <number>0</number>
@@ -1153,9 +1111,6 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="styleSheet">
-                 <string notr="true"/>
-                </property>
                 <layout class="QVBoxLayout" name="verticalLayout_10"/>
                </widget>
               </item>
@@ -1170,9 +1125,6 @@
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget_3" native="true">
-             <property name="styleSheet">
-              <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <property name="topMargin">
                <number>0</number>
@@ -1243,9 +1195,6 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
               <property name="topMargin">
                <number>0</number>
@@ -1263,9 +1212,6 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_17"/>
                  </widget>
                 </item>
@@ -1281,7 +1227,7 @@
       </widget>
       <widget class="QWidget" name="conf">
        <property name="styleSheet">
-        <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+        <string notr="true">#conf {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));} </string>
        </property>
        <attribute name="title">
         <string>Parameters</string>
@@ -1289,9 +1235,6 @@
        <layout class="QHBoxLayout" name="horizontalLayout_26">
         <item>
          <widget class="QWidget" name="horizontalWidget" native="true">
-          <property name="styleSheet">
-           <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-          </property>
           <widget class="QWidget" name="gridLayoutWidget">
            <property name="geometry">
             <rect>
@@ -1304,9 +1247,6 @@
            <layout class="QGridLayout" name="gridLayout_7">
             <item row="10" column="0">
              <widget class="QLabel" name="label_101">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 7</string>
               </property>
@@ -1317,9 +1257,6 @@
             </item>
             <item row="4" column="2">
              <widget class="QDoubleSpinBox" name="threshold3">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1327,23 +1264,14 @@
             </item>
             <item row="3" column="3">
              <widget class="QSpinBox" name="delay2">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="11" column="3">
              <widget class="QSpinBox" name="delay8">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="17" column="2">
              <widget class="QDoubleSpinBox" name="threshold14">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1351,9 +1279,6 @@
             </item>
             <item row="0" column="4">
              <widget class="QLabel" name="label_73">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Edge</string>
               </property>
@@ -1364,9 +1289,6 @@
             </item>
             <item row="13" column="4">
              <widget class="QComboBox" name="rof10">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1377,9 +1299,6 @@
             </item>
             <item row="18" column="4">
              <widget class="QComboBox" name="rof15">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1394,9 +1313,6 @@
             </item>
             <item row="12" column="4">
              <widget class="QComboBox" name="rof9">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1411,9 +1327,6 @@
             </item>
             <item row="9" column="0">
              <widget class="QLabel" name="label_99">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 6</string>
               </property>
@@ -1421,16 +1334,10 @@
             </item>
             <item row="9" column="3">
              <widget class="QSpinBox" name="delay6">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="20" column="4">
              <widget class="QComboBox" name="rof17">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1438,9 +1345,6 @@
             </item>
             <item row="15" column="4">
              <widget class="QComboBox" name="rof12">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1448,16 +1352,10 @@
             </item>
             <item row="20" column="3">
              <widget class="QSpinBox" name="delay17">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="7" column="2">
              <widget class="QDoubleSpinBox" name="threshold4">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1465,16 +1363,10 @@
             </item>
             <item row="8" column="3">
              <widget class="QSpinBox" name="delay5">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="16" column="0">
              <widget class="QLabel" name="label_106">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 13</string>
               </property>
@@ -1482,9 +1374,6 @@
             </item>
             <item row="14" column="0">
              <widget class="QLabel" name="label_104">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 11</string>
               </property>
@@ -1492,9 +1381,6 @@
             </item>
             <item row="16" column="3">
              <widget class="QSpinBox" name="delay13">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="7" column="6">
@@ -1505,9 +1391,6 @@
             </item>
             <item row="14" column="4">
              <widget class="QComboBox" name="rof11">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1515,9 +1398,6 @@
             </item>
             <item row="16" column="4">
              <widget class="QComboBox" name="rof13">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1525,9 +1405,6 @@
             </item>
             <item row="18" column="0">
              <widget class="QLabel" name="label_108">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 15</string>
               </property>
@@ -1535,9 +1412,6 @@
             </item>
             <item row="8" column="2">
              <widget class="QDoubleSpinBox" name="threshold5">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1559,9 +1433,6 @@
             </item>
             <item row="21" column="2">
              <widget class="QDoubleSpinBox" name="threshold18">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1569,9 +1440,6 @@
             </item>
             <item row="21" column="0">
              <widget class="QLabel" name="label_114">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 18</string>
               </property>
@@ -1579,10 +1447,6 @@
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_71">
-              <property name="styleSheet">
-               <string notr="true">
-color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 2</string>
               </property>
@@ -1590,16 +1454,10 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="2" column="3">
              <widget class="QSpinBox" name="delay1">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="13" column="0">
              <widget class="QLabel" name="label_105">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 10</string>
               </property>
@@ -1607,9 +1465,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="21" column="3">
              <widget class="QSpinBox" name="delay18">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="8" column="6">
@@ -1617,9 +1472,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="11" column="0">
              <widget class="QLabel" name="label_100">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 8</string>
               </property>
@@ -1627,9 +1479,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="3" column="4">
              <widget class="QComboBox" name="rof2">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1637,9 +1486,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="13" column="2">
              <widget class="QDoubleSpinBox" name="threshold10">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1664,9 +1510,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="7" column="0">
              <widget class="QLabel" name="label_96">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 4</string>
               </property>
@@ -1674,16 +1517,10 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="10" column="3">
              <widget class="QSpinBox" name="delay7">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="10" column="4">
              <widget class="QComboBox" name="rof7">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1691,9 +1528,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="10" column="2">
              <widget class="QDoubleSpinBox" name="threshold7">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1704,9 +1538,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_72">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 3</string>
               </property>
@@ -1714,9 +1545,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="19" column="4">
              <widget class="QComboBox" name="rof16">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -1724,9 +1552,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="4" column="3">
              <widget class="QSpinBox" name="delay3">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="17" column="6">
@@ -1734,9 +1559,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="11" column="2">
              <widget class="QDoubleSpinBox" name="threshold8">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1744,9 +1566,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="12" column="0">
              <widget class="QLabel" name="label_102">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 9</string>
               </property>
@@ -1754,16 +1573,10 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="17" column="3">
              <widget class="QSpinBox" name="delay14">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="0" column="2">
              <widget class="QLabel" name="label_154">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Threshold (V)</string>
               </property>
@@ -1774,9 +1587,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="15" column="0">
              <widget class="QLabel" name="label_107">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 12</string>
               </property>
@@ -1784,9 +1594,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="8" column="0">
              <widget class="QLabel" name="label_98">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 5</string>
               </property>
@@ -2021,9 +1828,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="9" column="2">
              <widget class="QDoubleSpinBox" name="threshold6">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2038,9 +1842,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="18" column="3">
              <widget class="QSpinBox" name="delay15">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="10" column="5">
@@ -2055,9 +1856,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="19" column="2">
              <widget class="QDoubleSpinBox" name="threshold16">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2072,9 +1870,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="8" column="4">
              <widget class="QComboBox" name="rof5">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -2082,9 +1877,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="2" column="2">
              <widget class="QDoubleSpinBox" name="threshold1">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2092,9 +1884,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="17" column="0">
              <widget class="QLabel" name="label_103">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 14</string>
               </property>
@@ -2102,16 +1891,10 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="15" column="3">
              <widget class="QSpinBox" name="delay12">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="9" column="4">
              <widget class="QComboBox" name="rof6">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="currentText">
                <string/>
               </property>
@@ -2125,23 +1908,14 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="14" column="3">
              <widget class="QSpinBox" name="delay11">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="12" column="3">
              <widget class="QSpinBox" name="delay9">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="16" column="2">
              <widget class="QDoubleSpinBox" name="threshold13">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2159,9 +1933,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="18" column="2">
              <widget class="QDoubleSpinBox" name="threshold15">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2169,9 +1940,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="21" column="4">
              <widget class="QComboBox" name="rof18">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -2179,9 +1947,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="14" column="2">
              <widget class="QDoubleSpinBox" name="threshold11">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2223,9 +1988,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="4" column="4">
              <widget class="QComboBox" name="rof3">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -2481,9 +2243,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="2" column="4">
              <widget class="QComboBox" name="rof1">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="currentText">
                <string/>
               </property>
@@ -2500,9 +2259,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="17" column="4">
              <widget class="QComboBox" name="rof14">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -2536,9 +2292,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="7" column="4">
              <widget class="QComboBox" name="rof4">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -2546,9 +2299,6 @@ color: rgb(238, 238, 236);</string>
             </item>
             <item row="11" column="4">
              <widget class="QComboBox" name="rof8">
-              <property name="styleSheet">
-               <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-              </property>
               <property name="maxVisibleItems">
                <number>2</number>
               </property>
@@ -2694,9 +2444,6 @@ color: rgb(238, 238, 236);</string>
        </layout>
       </widget>
       <widget class="QWidget" name="tab">
-       <property name="styleSheet">
-        <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
-       </property>
        <attribute name="title">
         <string>QKD results/det</string>
        </attribute>
@@ -2755,10 +2502,6 @@ color: rgb(238, 238, 236);</string>
               </property>
               <item>
                <widget class="QLabel" name="label_111">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(238, 238, 236);</string>
-                </property>
                 <property name="text">
                  <string>OK</string>
                 </property>
@@ -2836,7 +2579,7 @@ color: rgb(238, 238, 236);</string>
       </widget>
       <widget class="QWidget" name="tab_3">
        <property name="styleSheet">
-        <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+        <string notr="true">#tab_3 {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255)); }</string>
        </property>
        <attribute name="title">
         <string>QKD results/QB</string>
@@ -2925,10 +2668,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="label_143">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(238, 238, 236);</string>
-            </property>
             <property name="text">
              <string>OK</string>
             </property>
@@ -3169,7 +2908,7 @@ color: rgb(238, 238, 236);</string>
       </widget>
       <widget class="QWidget" name="tab_2">
        <property name="styleSheet">
-        <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));</string>
+        <string notr="true">#tab_2 {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255)); }</string>
        </property>
        <attribute name="title">
         <string>QKD stats</string>
