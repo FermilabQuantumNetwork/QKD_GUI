@@ -189,9 +189,6 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
       <property name="currentIndex">
        <number>1</number>
       </property>
@@ -217,9 +214,6 @@
         </property>
         <item>
          <widget class="QWidget" name="widget_2" native="true">
-          <property name="styleSheet">
-           <string notr="true">#widget_2 { background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255)); }</string>
-          </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <widget class="QFrame" name="horizontalFrame_299">
@@ -1226,9 +1220,6 @@
        </layout>
       </widget>
       <widget class="QWidget" name="conf">
-       <property name="styleSheet">
-        <string notr="true">#conf {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255));} </string>
-       </property>
        <attribute name="title">
         <string>Parameters</string>
        </attribute>
@@ -2699,9 +2690,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_148">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(239, 41, 41);</string>
-            </property>
             <property name="text">
              <string>Error</string>
             </property>
@@ -2712,9 +2700,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_146">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(114, 159, 207);</string>
-            </property>
             <property name="text">
              <string>Random</string>
             </property>
@@ -2725,9 +2710,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_141">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(252, 233, 79);</string>
-            </property>
             <property name="text">
              <string>Background</string>
             </property>
@@ -2759,9 +2741,6 @@
               <underline>true</underline>
              </font>
             </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(238, 238, 236);</string>
-            </property>
             <property name="text">
              <string>Phase</string>
             </property>
@@ -2772,9 +2751,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_150">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(238, 238, 236);</string>
             </property>
             <property name="text">
              <string>OK</string>
@@ -2786,9 +2762,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="label_153">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(239, 41, 41);</string>
-            </property>
             <property name="text">
              <string>Error</string>
             </property>
@@ -2799,9 +2772,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="label_152">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(114, 159, 207);</string>
-            </property>
             <property name="text">
              <string>Random</string>
             </property>
@@ -2812,9 +2782,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="label_151">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(252, 233, 79);</string>
-            </property>
             <property name="text">
              <string>Background</string>
             </property>
@@ -2841,9 +2808,6 @@ color: rgb(238, 238, 236);</string>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
-       <property name="styleSheet">
-        <string notr="true">#tab_2 {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255)); }</string>
-       </property>
        <attribute name="title">
         <string>QKD stats</string>
        </attribute>
@@ -2895,9 +2859,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="label_136">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(238, 238, 236);</string>
-            </property>
             <property name="text">
              <string>SIFTED TIME</string>
             </property>
@@ -2905,9 +2866,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="SIFTED">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(239, 41, 41);</string>
-            </property>
             <property name="text">
              <string>SIFTED PHASE</string>
             </property>
@@ -2928,9 +2886,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="label_139">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(238, 238, 236);</string>
-            </property>
             <property name="text">
              <string>ERROR TIME</string>
             </property>
@@ -2938,9 +2893,6 @@ color: rgb(238, 238, 236);</string>
           </item>
           <item>
            <widget class="QLabel" name="label_138">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(239, 41, 41);</string>
-            </property>
             <property name="text">
              <string>ERROR PHASE</string>
             </property>
