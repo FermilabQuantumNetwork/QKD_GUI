@@ -1406,17 +1406,17 @@ void MainWindow::plot_qkd_results_QB(double okE, double errE, double randE, doub
     ui->Early_results->graph(0)->addData(key-lastPointKey_tab3, okE);
     ui->Early_results->graph(1)->addData(key-lastPointKey_tab3, errE);
     ui->Early_results->graph(2)->addData(key-lastPointKey_tab3, randE);
-    ui->Early_results->graph(3)->addData(key-lastPointKey_tab3, bkngE);
+    ui->Early_results->graph(3)->addData(key-lastPointKey_tab3, bkngdE);
 
     ui->Late_results->graph(0)->addData(key-lastPointKey_tab3, okL);
     ui->Late_results->graph(1)->addData(key-lastPointKey_tab3, errL);
     ui->Late_results->graph(2)->addData(key-lastPointKey_tab3, randL);
-    ui->Late_results->graph(3)->addData(key-lastPointKey_tab3, bkngL);
+    ui->Late_results->graph(3)->addData(key-lastPointKey_tab3, bkngdL);
 
     ui->Phase_results->graph(0)->addData(key-lastPointKey_tab3, okP);
     ui->Phase_results->graph(1)->addData(key-lastPointKey_tab3, errP);
     ui->Phase_results->graph(2)->addData(key-lastPointKey_tab3, randP);
-    ui->Phase_results->graph(3)->addData(key-lastPointKey_tab3, bkngP);
+    ui->Phase_results->graph(3)->addData(key-lastPointKey_tab3, bkngdP);
 
     ui->Early_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->Late_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
