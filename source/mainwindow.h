@@ -164,8 +164,8 @@ private slots:
 
   void turnONDB(int val);
 
-  void SaveState(bool a);
-  void LoadState(bool a);
+  void SaveState(void);
+  void LoadState(void);
 
   void resetdelay(){in_delayline=0;prev_homscan=0;}
   void chang_in_max_del(int val){in_Max_delay=val;}

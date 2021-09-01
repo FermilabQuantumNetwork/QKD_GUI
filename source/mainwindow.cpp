@@ -275,16 +275,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 ///////////////////setups///////////////////////////
 ///////////////////////////////////////////////////////////
 
-void MainWindow::setup_histolines_Teleport(){
-        for (int i=0;i<18;i++) {
-            if(i<6)infLine[i] = new QCPItemStraightLine(ui->PlotA);
-            if((i>5) && (i<12)) infLine[i] = new QCPItemStraightLine(ui->PlotB);
-            if(i>11)infLine[i] = new QCPItemStraightLine(ui->PlotC);
-        }
-    }
-void MainWindow::setup_histolines_QKD(){
-    //QVector<QCPItemStraightLine> LinesPlotA1(2000,ui->PlotA);
-
+void MainWindow::setup_histolines_QKD()
+{
     for (int i = 0 ; i<MAX_QUBITS ; i++) {
         LinesPlotA1[i] = new QCPItemStraightLine(ui->PlotA);
         LinesPlotA1[i]->setPen(QPen(Qt::red));
@@ -334,13 +326,12 @@ void MainWindow::setup_histolines_QKD(){
         LinesPlotC4[i]->setVisible(0);
     }
 }
-void MainWindow::setupratePlot(QCustomPlot *scope){
 
+void MainWindow::setupratePlot(QCustomPlot *scope)
+{
+    scope->plotLayout()->clear();
 
-scope->plotLayout()->clear();
-
-QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
-
+    QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
 
   wideAxisRect->setupFullAxesBox(true);
   wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
@@ -428,8 +419,8 @@ QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
   scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
-void MainWindow::setupHistoPlot(QCustomPlot *histograma){
-
+void MainWindow::setupHistoPlot(QCustomPlot *histograma)
+{
   histograma->plotLayout()->clear();
 
   QCPAxisRect *wideAxisRect = new QCPAxisRect(histograma);
@@ -527,7 +518,9 @@ title1->setTextColor(Qt::white);
 
 
 }
-void MainWindow::setup_plot_qkd_results(QCustomPlot *scope){
+
+void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
+{
 
     scope->plotLayout()->clear();
 
@@ -622,8 +615,9 @@ void MainWindow::setup_plot_qkd_results(QCustomPlot *scope){
       scope->rescaleAxes();
       scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
-void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope){
 
+void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
+{
     scope->plotLayout()->clear();
 
     QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
@@ -831,8 +825,8 @@ void MainWindow::setupsignalslot()
 
     /* Buttons on the Histogram tab. */
 
-    QObject::connect(ui->actionSave_state, SIGNAL(triggered(bool)), this, SLOT(SaveState(bool)));
-    QObject::connect(ui->actionLoad_state, SIGNAL(triggered(bool)), this, SLOT(LoadState(bool)));
+    QObject::connect(ui->actionSave_state, SIGNAL(triggered(bool)), this, SLOT(SaveState()));
+    QObject::connect(ui->actionLoad_state, SIGNAL(triggered(bool)), this, SLOT(LoadState()));
 
     QObject::connect(this, SIGNAL(main_SaveAndValues(int, int, int , int , int, int , float , int )), &dbc, SLOT(SaveAndValues(int, int, int , int , int, int , float , int )));
 
@@ -1145,14 +1139,12 @@ void MainWindow::parametersChanged(void)
     this->histogramChanged();
 }
 
-
 //////////////////////////////////////////////////////////
 ///////////////////plotting///////////////////////////
 ///////////////////////////////////////////////////////////
 
-void MainWindow::plotRates(char AoBoC, int event, double key){
-
-
+void MainWindow::plotRates(char AoBoC, int event, double key)
+{
     double value1 = event; 
 
    if(AoBoC=='A'){
@@ -1197,20 +1189,10 @@ void MainWindow::plotRates(char AoBoC, int event, double key){
         ui->PlotTrack->graph(2)->data()->clear();
         trackRateChang=false;
     }
-   //prom=0;
-   //promedio.prepend(event);
-   //for(int i=0; i<promedio.size(); i++)prom=prom+promedio[i];
-   //prom=prom/promedio.size();
-   //ui->mediamovil->display(prom);
-   //if(promedio.size()>50)promedio.resize(50);
-    //lastPointKey_tab1 = key;
-
 }
 
-void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double bkgndA,double okB,double errB,double randB,double bkgndB,double okC,double errC,double randC,double bkgndC, double key){
-
-//std::cout<<"randA: "<<randA<<std::endl;
-
+void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double bkgndA,double okB,double errB,double randB,double bkgndB,double okC,double errC,double randC,double bkgndC, double key)
+{
     ui->QKD_H1_results->graph(0)->addData(key-lastPointKey_tab3, okA);
     ui->QKD_H1_results->graph(1)->addData(key-lastPointKey_tab3, errA);
     ui->QKD_H1_results->graph(2)->addData(key-lastPointKey_tab3, randA);
@@ -1236,14 +1218,10 @@ void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double
     ui->QKD_H1_results->replot();
     ui->QKD_H2_results->replot();
     ui->QKD_H3_results->replot();
-
-
-
 }
-void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double bkgndE,double okL,double errL,double randL, double bkgndL,double okP,double errP,double randP,double bkgndP, double key){
 
-//std::cout<<"randA: "<<randA<<std::endl;
-
+void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double bkgndE,double okL,double errL,double randL, double bkgndL,double okP,double errP,double randP,double bkgndP, double key)
+{
     ui->Early_results->graph(0)->addData(key-lastPointKey_tab3, okE);
     ui->Early_results->graph(1)->addData(key-lastPointKey_tab3, errE);
     ui->Early_results->graph(2)->addData(key-lastPointKey_tab3, randE);
@@ -1269,14 +1247,10 @@ void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double 
     ui->Early_results->replot();
     ui->Late_results->replot();
     ui->Phase_results->replot();
-
-
-
 }
 
-void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double key){
-    //std::cout<<sifted_time<<"   "<<sifted_phase<< "     "<<error_time<< "     "<< error_phase<<"   "<<key<<std::endl;
-
+void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double key)
+{
     ui->qkd_errorplot->graph(0)->addData(key-lastPointKey_tab3, error_time);
     ui->qkd_errorplot->graph(1)->addData(key-lastPointKey_tab3, error_phase);
 
@@ -1295,12 +1269,14 @@ void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double 
     ui->qkd_siftedplot->replot();
 
 }
+
 //////////////////////////////////////////////////////////
 ///////////////////histograms///////////////////////////
 ///////////////////////////////////////////////////////////
 
 
-void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC){
+void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC)
+{
     //std::cout<<" histoplot hermanitititototot"<< datB.size()<<"   "<<datC.size() <<std::endl;
     double binwidth= ui->bin_width->value();
 
@@ -1718,8 +1694,6 @@ void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, c
 
 
   x.clear();
-
-	
 }
 
 /////////////////////////////////////
@@ -1727,7 +1701,8 @@ void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, c
 /////////////////////////////////////
 
 
-void MainWindow::LinePlot(){
+void MainWindow::LinePlot()
+{
 
     if(!Teleport0_or_QKD1){
 
@@ -1773,13 +1748,10 @@ void MainWindow::LinePlot(){
     }
 }
 
-void MainWindow::createQKDLinesA(){
-/*std::cout<<in_QKD_timeA<<std::endl;
-std::cout<<in_QKD_zeroA<<std::endl;
-std::cout<<in_QKD_iwA<<std::endl;*/
-
-    for(int i=0; i<in_QKD_numbA*2; i++){
-       if((i+1)%2){
+void MainWindow::createQKDLinesA()
+{
+    for (int i = 0; i < in_QKD_numbA*2; i++) {
+       if ((i+1) % 2) {
             LinesPlotA1[i]->setVisible(1);
             LinesPlotA1[i]->point1->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA,0);
             LinesPlotA1[i]->point2->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA,1);
@@ -1792,10 +1764,7 @@ std::cout<<in_QKD_iwA<<std::endl;*/
             LinesPlotA4[i]->setVisible(1);
             LinesPlotA4[i]->point1->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+3*in_QKD_phA,0);
             LinesPlotA4[i]->point2->setCoords(i/2*in_QKD_timeA+in_QKD_zeroA+3*in_QKD_phA,1);
-
-            //std::cout<<"1";
-       }
-       else{
+       } else {
             LinesPlotA1[i]->setVisible(1);
             LinesPlotA1[i]->point1->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA,0);
             LinesPlotA1[i]->point2->setCoords((i-1)/2*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA,1);
@@ -1812,11 +1781,12 @@ std::cout<<in_QKD_iwA<<std::endl;*/
     }
 
     ui->PlotA->replot();
-
 }
-void MainWindow::createQKDLinesB(){
-    for(int i=0; i<in_QKD_numbB*2; i++){
-       if((i+1)%2){
+
+void MainWindow::createQKDLinesB()
+{
+    for(int i=0; i < in_QKD_numbB*2; i++) {
+       if ((i+1) % 2) {
             LinesPlotB1[i]->setVisible(1);
             LinesPlotB1[i]->point1->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB,0);
             LinesPlotB1[i]->point2->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB,1);
@@ -1829,8 +1799,7 @@ void MainWindow::createQKDLinesB(){
             LinesPlotB4[i]->setVisible(1);
             LinesPlotB4[i]->point1->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+3*in_QKD_phB,0);
             LinesPlotB4[i]->point2->setCoords(i/2*in_QKD_timeB+in_QKD_zeroB+3*in_QKD_phB,1);
-       }
-       else{
+       } else {
             LinesPlotB1[i]->setVisible(1);
             LinesPlotB1[i]->point1->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB,0);
             LinesPlotB1[i]->point2->setCoords((i-1)/2*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB,1);
@@ -1847,9 +1816,11 @@ void MainWindow::createQKDLinesB(){
     }
     ui->PlotB->replot();
 }
-void MainWindow::createQKDLinesC(){
-    for(int i=0; i<in_QKD_numbC*2; i++){
-       if((i+1)%2){
+
+void MainWindow::createQKDLinesC()
+{
+    for (int i=0; i < in_QKD_numbC*2; i++) {
+       if ((i+1) % 2) {
             LinesPlotC1[i]->setVisible(1);
             LinesPlotC1[i]->point1->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC,0);
             LinesPlotC1[i]->point2->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC,1);
@@ -1862,8 +1833,7 @@ void MainWindow::createQKDLinesC(){
             LinesPlotC4[i]->setVisible(1);
             LinesPlotC4[i]->point1->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+3*in_QKD_phC,0);
             LinesPlotC4[i]->point2->setCoords(i/2*in_QKD_timeC+in_QKD_zeroC+3*in_QKD_phC,1);
-       }
-       else{
+       } else {
             LinesPlotC1[i]->setVisible(1);
             LinesPlotC1[i]->point1->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC,0);
             LinesPlotC1[i]->point2->setCoords((i-1)/2*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC,1);
@@ -1881,27 +1851,29 @@ void MainWindow::createQKDLinesC(){
     ui->PlotC->replot();
 }
 
-void MainWindow::hidelinesA(int val){
-
-    for (int i= 2*val;i<2*in_QKD_numbA;i++) {
+void MainWindow::hidelinesA(int val)
+{
+    for (int i=2*val;i < 2*in_QKD_numbA; i++) {
          LinesPlotA1[i]->setVisible(0);
          LinesPlotA2[i]->setVisible(0);
          LinesPlotA3[i]->setVisible(0);
          LinesPlotA4[i]->setVisible(0);
     }
 }
-void MainWindow::hidelinesB(int val){
 
-    for (int i= 2*val;i<2*in_QKD_numbB;i++) {
+void MainWindow::hidelinesB(int val)
+{
+    for (int i=2*val;i < 2*in_QKD_numbB; i++) {
          LinesPlotB1[i]->setVisible(0);
          LinesPlotB2[i]->setVisible(0);
          LinesPlotB3[i]->setVisible(0);
          LinesPlotB4[i]->setVisible(0);
     }
 }
-void MainWindow::hidelinesC(int val){
 
-    for (int i= 2*val;i<2*in_QKD_numbC;i++) {
+void MainWindow::hidelinesC(int val)
+{
+    for (int i=2*val;i < 2*in_QKD_numbC; i++) {
          LinesPlotC1[i]->setVisible(0);
          LinesPlotC2[i]->setVisible(0);
          LinesPlotC3[i]->setVisible(0);
@@ -1909,7 +1881,8 @@ void MainWindow::hidelinesC(int val){
     }
 }
 
-void MainWindow::turnONDB(int val){
+void MainWindow::turnONDB(int val)
+{
     /*if(!dbc.isRunning() && dbrunning == 0 && val==1){
         dbc.run();
         dbrunning=val;
@@ -1922,124 +1895,116 @@ void MainWindow::turnONDB(int val){
     dbrunning=val;
 }
 
-
-void MainWindow::SaveState(bool a){
-//std::cout<<"debug"<<std::cout;
+void MainWindow::SaveState(void)
+{
     QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save Current Configuration"), "",
             tr("Configuration (*.conf);;All Files (*)"));
 
-   //QString fileName = "test";
-    if (fileName.isEmpty())
+    if (fileName.isEmpty()) {
+        return;
+    } else {
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            QMessageBox::information(this, tr("Unable to open file"),
+                file.errorString());
             return;
-        else {
-            QFile file(fileName);
-            if (!file.open(QIODevice::WriteOnly)) {
-                QMessageBox::information(this, tr("Unable to open file"),
-                    file.errorString());
-                return;
+        }
+
+        QDataStream out(&file);
+
+        out.setVersion(QDataStream::Qt_4_5);
+        QMap<QString, int> mapint;
+        QMap<QString, double> mapdouble;
+        QString localstring;
+
+        for (int i=0;i < 3; i++) {
+            for (int j =0;j < 3; j++) {
+                for (int k = 0;k < 2; k++) {
+                    localstring = QString("Plot_Win_BoE[%1][%2][%3]").arg(i).arg(j).arg(k);
+                    if(!mapint.contains(localstring))
+                        mapint.insert(localstring,Plot_Win_BoE[i][j][k]);
+                    else
+                        mapint.value(localstring, Plot_Win_BoE[i][j][k]);
+                }
+
             }
+        }
 
-            QDataStream out(&file);
+        mapint.insert("in_startChan",ui->startChan->value());
+        mapint.insert("in_PlotACh1",ui->PlotACh1->value());
+        mapint.insert("in_PlotBCh1",ui->PlotBCh1->value());
+        mapint.insert("in_PlotCCh1",ui->PlotCCh1->value());
+        mapint.insert("in_bin_width",ui->bin_width->value());
 
-                    out.setVersion(QDataStream::Qt_4_5);
-                    QMap<QString, int> mapint;
-                    QMap<QString, double> mapdouble;
-                    QString localstring;
+        mapdouble.insert("in_adqtime", ui->adqtime->value());
 
-
-                    for ( int i=0;i<3;i++) {
-                           for (int j =0;j<3;j++) {
-                               for (int k = 0;k<2;k++) {
-                                   localstring = QString("Plot_Win_BoE[%1][%2][%3]").arg(i).arg(j).arg(k);
-                                   //std::cout<< localstring.toStdString()<< std::endl;
-                                    if(!mapint.contains(localstring))mapint.insert(localstring,Plot_Win_BoE[i][j][k]);
-                                    else mapint.value(localstring, Plot_Win_BoE[i][j][k]);
-                               }
-
-                           }
-
-                     }
-
-                    mapint.insert("in_startChan",in_startChan);
-                    mapint.insert("in_PlotACh1",in_PlotACh1);
-                    mapint.insert("in_PlotBCh1",in_PlotBCh1);
-                    mapint.insert("in_PlotCCh1",in_PlotCCh1);
-                    mapint.insert("in_bin_width",ui->bin_width->value());
-
-                    mapdouble.insert("in_adqtime", in_adqtime);
-
-                    /*QMapIterator<QString,int>ip(mapint);
-                    while (ip.hasNext()) {
-                        ip.next();
-                        std::cout<< ip.key().toStdString()<< ": " << ip.value() << std::endl;
-                    }*/
-                    out<<mapint;
-                    out<<mapdouble;
-            }
-
-   // LoadState(1);
+        out << mapint;
+        out << mapdouble;
+    }
 }
 
-
-
-void MainWindow::LoadState(bool a){
+void MainWindow::LoadState(void)
+{
     QString fileName = QFileDialog::getOpenFileName(this,
             tr("Load Configuration"), "",
             tr("Configuration (*.conf);;All Files (*)"));
-    //QString fileName = "test";
-    if (fileName.isEmpty())
+
+    if (fileName.isEmpty()) {
+        return;
+    } else {
+        QFile file(fileName);
+
+        if (!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::information(this, tr("Unable to open file"),
+                file.errorString());
             return;
-        else {
+        }
 
-            QFile file(fileName);
+        QMap<QString, int> mapintout;
+        QMap<QString, double> mapdoubleout;
+        QDataStream in(&file);
+        in.setVersion(QDataStream::Qt_4_5);
+        in >> mapintout;
 
-            if (!file.open(QIODevice::ReadOnly)) {
-                QMessageBox::information(this, tr("Unable to open file"),
-                    file.errorString());
-                return;
+        /*QString localstring;
+        for (int i=0;i < 3; i++) {
+            for (int j =0;j < 3; j++) {
+                for (int k = 0;k < 2; k++) {
+                    localstring = QString("Plot_Win_BoE[%1][%2][%3]").arg(i).arg(j).arg(k);
+                    if(mapintout.contains(localstring))
+                        Plot_Win_BoE[i][j][k]= mapintout.value(localstring);
+                }
             }
-            QMap<QString, int> mapintout;
-            QMap<QString, double> mapdoubleout;
-            QDataStream in(&file);
-            in.setVersion(QDataStream::Qt_4_5);
-            in>>mapintout;
-
-            /*QString localstring;
-            for ( int i=0;i<3;i++) {
-                   for (int j =0;j<3;j++) {
-                       for (int k = 0;k<2;k++) {
-                           localstring = QString("Plot_Win_BoE[%1][%2][%3]").arg(i).arg(j).arg(k);
-                            if(mapintout.contains(localstring))Plot_Win_BoE[i][j][k]= mapintout.value(localstring);
-                       }
-                   }
-             }*/
+        }*/
 
 
-            if(mapintout.contains("in_startChan"))ui->startChan->setValue(mapintout.value("in_startChan"));
-            if(mapintout.contains("in_PlotACh1"))ui->PlotAChn1->setValue(mapintout.value("in_PlotACh1"));
-            if(mapintout.contains("in_PlotBCh1"))ui->PlotBChn1->setValue(mapintout.value("in_PlotBCh1"));
-            if(mapintout.contains("in_PlotCCh1"))ui->PlotCChn1->setValue(mapintout.value("in_PlotCCh1"));
-            if(mapintout.contains("in_bin_width"))ui->bin_width->setValue(mapintout.value("bin_width"));
+        if (mapintout.contains("in_startChan"))
+            ui->startChan->setValue(mapintout.value("in_startChan"));
+        if (mapintout.contains("in_PlotACh1"))
+            ui->PlotAChn1->setValue(mapintout.value("in_PlotACh1"));
+        if (mapintout.contains("in_PlotBCh1"))
+            ui->PlotBChn1->setValue(mapintout.value("in_PlotBCh1"));
+        if (mapintout.contains("in_PlotCCh1"))
+            ui->PlotCChn1->setValue(mapintout.value("in_PlotCCh1"));
+        if (mapintout.contains("in_bin_width"))
+            ui->bin_width->setValue(mapintout.value("bin_width"));
 
-            if(mapdoubleout.contains("in_adqtime"))ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
+        if (mapdoubleout.contains("in_adqtime"))
+            ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
 
-
-
-               QMapIterator<QString,int>i(mapintout);
-               while (i.hasNext()) {
-                   i.next();
-                   std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
-               }
-               in>>mapdoubleout;
-               QMapIterator<QString,double>j(mapdoubleout);
-               while (j.hasNext()) {
-                   j.next();
-                   std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
-               }
-
+        QMapIterator<QString,int>i(mapintout);
+        while (i.hasNext()) {
+            i.next();
+            std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
+        }
+        in >> mapdoubleout;
+        QMapIterator<QString,double>j(mapdoubleout);
+        while (j.hasNext()) {
+            j.next();
+            std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
+        }
     }
-
 }
 
 MainWindow::~MainWindow()
@@ -2047,18 +2012,15 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-void MainWindow::hdf5savefile(){
+void MainWindow::hdf5savefile()
+{
+    bool ok;
+    QString comentario = QInputDialog::getText(this, tr("Record DATA"),tr("Insert a name for HDF5 the file"), QLineEdit::Normal,QDir::home().dirName(), &ok);
 
-
-
-        bool ok;
-        QString comentario = QInputDialog::getText(this, tr("Record DATA"),tr("Insert a name for HDF5 the file"), QLineEdit::Normal,QDir::home().dirName(), &ok);
-
-
-   if (ok && !comentario.isEmpty()){
-       HDF5File_created=true;
-       emit MW_savehdf5(comentario);
-   }
+    if (ok && !comentario.isEmpty()){
+        HDF5File_created=true;
+        emit MW_savehdf5(comentario);
+    }
 
    /*    QString key = QDateTime::currentDateTime().toString("dd_MMM_yyyy_hh:mm" );
        key.append(".txt");
@@ -2071,19 +2033,16 @@ void MainWindow::hdf5savefile(){
        out<<"# "<<comentario<<"\n";
        out<<"Vch0\tVch1\tCch0\tCch1\tTime\n";
        recorddata=true;*/
-
-
 }
 
 void MainWindow::fillTablesNames(QStringList tables_names)
 {
-    if (tables_names.length() == 0)
+    if (tables_names.length() == 0) {
         QMessageBox::warning(this,
                              "Tables",
                              "There are no tables to display in the database",
                              QMessageBox::Ok);
-    else
-    {
+    } else {
        /* ui->menuLoad_Qubits->addAction()
         ui->comboBox_table_name->addItems(tables_names);
 
@@ -2092,12 +2051,11 @@ void MainWindow::fillTablesNames(QStringList tables_names)
 
         for (int i = 0; i < tables_names.size(); ++i)ui->menuLoad_Qubits->addAction(tables_names.at(i));
                          //std::cout << tables_names.at(i).toLocal8Bit().constData() << std::endl;
-
     }
 }
 
-
-void MainWindow::set_qkd_datafromDB(const boolvector2d &dat,int qkdcolumns, int qkdrows){
+void MainWindow::set_qkd_datafromDB(const boolvector2d &dat,int qkdcolumns, int qkdrows)
+{
    /* std::cout<<dat.size()<<std::endl;
     std::cout<<dat[0].size()<<std::endl;
    for (int i = 0;i<dat.size();i++) {
@@ -2113,34 +2071,29 @@ void MainWindow::set_qkd_datafromDB(const boolvector2d &dat,int qkdcolumns, int 
             std::cout<<in_qkdfromDB[i][j];
         }
          std::cout<<std::endl;
-}
+    }
     this->in_qubnumindb=qkdrows;
     this->in_qkddbcolumns=qkdcolumns;
     qubitsfromDBloaded=true;
 }
 
-
-void MainWindow::closeEvent (QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent *event)
 {
-        std::cout<<"going out"<<std::endl;
-       adq.Break();
-       usleep(100);
-       //adq.~qutagadq();
-       usleep(100e3);
-       std::cout<<"destroy"<<std::endl;
-       //adq.quit();
-       //anl.quit();
+    std::cout<<"going out"<<std::endl;
+    adq.Break();
+    usleep(100);
+    //adq.~qutagadq();
+    usleep(100e3);
+    std::cout<<"destroy"<<std::endl;
+    //adq.quit();
+    //anl.quit();
 
+    while(adq.isRunning() || anl.isRunning()|| dbc.isRunning())
+        usleep(100);
 
-	
-       while(adq.isRunning() || anl.isRunning()|| dbc.isRunning())usleep(100);
-       usleep(1000);
-       //savejasonFile.close();
+    usleep(1000);
+    //savejasonFile.close();
 
-       event->accept();
-
-
+    event->accept();
     //else event->ignore();
-
-    
 }
