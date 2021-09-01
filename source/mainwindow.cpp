@@ -250,26 +250,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     qkdparam.QKD_setDefault();
 
-/*    savejasonFile.setFileName(QDateTime::currentDateTime().toString("yyyy-MM-dd'_'hh:mm:ss'.json'"));
-    if (!savejasonFile.open(QIODevice::ReadWrite)) {
-        qWarning("Couldn't open save file.");
-    }
-*/
     //dbc.start();
-    //adq.start();
-    //anl.start();
 
-    adq.initdone = 1;
     initR=true;
 
     createQKDLinesA();
     createQKDLinesB();
     createQKDLinesC();
-
-
-
 }
-
 
 //////////////////////////////////////////////////////////
 ///////////////////setups///////////////////////////
@@ -277,7 +265,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::setup_histolines_QKD()
 {
-    for (int i = 0 ; i<MAX_QUBITS ; i++) {
+    for (int i = 0 ; i < MAX_QUBITS ; i++) {
         LinesPlotA1[i] = new QCPItemStraightLine(ui->PlotA);
         LinesPlotA1[i]->setPen(QPen(Qt::red));
         LinesPlotA1[i]->setVisible(0);
@@ -333,287 +321,268 @@ void MainWindow::setupratePlot(QCustomPlot *scope)
 
     QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
 
-  wideAxisRect->setupFullAxesBox(true);
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
-  //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
+    wideAxisRect->setupFullAxesBox(true);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
+    //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
-  //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
+    //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
 
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
-  //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
-  //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-  //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
-  //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
 
-  wideAxisRect->setRangeZoom(Qt::Vertical);
+    wideAxisRect->setRangeZoom(Qt::Vertical);
 
+    //scope->plotLayout()->addElement(0, 0, title1);
+    scope->plotLayout()->addElement(0, 0, wideAxisRect);
 
- //scope->plotLayout()->addElement(0, 0, title1);
- scope->plotLayout()->addElement(0, 0, wideAxisRect);
+    QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
+    graph1->setPen(QPen(QColor(200, 0, 0), 2));
 
-  QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-  graph1->setPen(QPen(QColor(200, 0, 0), 2));
+    QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
+    graph2->setPen(QPen(QColor(0, 200, 0), 2));
 
-  QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
-  graph2->setPen(QPen(QColor(0, 200, 0), 2));
+    QCPGraph *graph3 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::blue),4));
+    graph3->setPen(QPen(QColor(200, 200, 0), 2));
 
-  QCPGraph *graph3 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::blue),4));
-  graph3->setPen(QPen(QColor(200, 200, 0), 2));
+    QLinearGradient plotGradient;
+    plotGradient.setStart(0, 0);
+    plotGradient.setFinalStop(0, 350);
+    plotGradient.setColorAt(0, QColor(80, 80, 80));
+    plotGradient.setColorAt(1, QColor(50, 50, 50));
+    scope->setBackground(plotGradient);
+    QLinearGradient axisRectGradient;
+    axisRectGradient.setStart(0, 0);
+    axisRectGradient.setFinalStop(0, 350);
+    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    scope->axisRect()->setBackground(axisRectGradient);
 
+    //scope->yAxis->setRange(0, 2);
 
-
-  QLinearGradient plotGradient;
-  plotGradient.setStart(0, 0);
-  plotGradient.setFinalStop(0, 350);
-  plotGradient.setColorAt(0, QColor(80, 80, 80));
-  plotGradient.setColorAt(1, QColor(50, 50, 50));
-  scope->setBackground(plotGradient);
-  QLinearGradient axisRectGradient;
-  axisRectGradient.setStart(0, 0);
-  axisRectGradient.setFinalStop(0, 350);
-  axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-  axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-  scope->axisRect()->setBackground(axisRectGradient);
-
-
-  //scope->yAxis->setRange(0, 2);
-
-  QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-  timeTicker->setTimeFormat("%h:%m:%s");
-  scope->xAxis->setTicker(timeTicker);
-  scope->rescaleAxes();
-  scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("%h:%m:%s");
+    scope->xAxis->setTicker(timeTicker);
+    scope->rescaleAxes();
+    scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void MainWindow::setupHistoPlot(QCustomPlot *histograma)
 {
-  histograma->plotLayout()->clear();
+    histograma->plotLayout()->clear();
 
-  QCPAxisRect *wideAxisRect = new QCPAxisRect(histograma);
+    QCPAxisRect *wideAxisRect = new QCPAxisRect(histograma);
 
+    wideAxisRect->setupFullAxesBox(true);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
 
-  wideAxisRect->setupFullAxesBox(true);
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
 
-  wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
-  //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
-  //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Cuentas");
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Energia");
 
-  //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Cuentas");
-  //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Energia");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
 
-  wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
-  wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
+    wideAxisRect->setRangeZoom(Qt::Horizontal);
 
-  wideAxisRect->setRangeZoom(Qt::Horizontal);
+    /*QCPPlotTitle *title1 = new QCPPlotTitle(histograma);
+    title1->setText("histo");
+    title1->setFont(QFont("sans", 12, QFont::Bold));
+    title1->setTextColor(Qt::white);
 
+    */
 
+    //histograma->plotLayout()->addElement(0, 0, title1);
+    histograma->plotLayout()->addElement(0, 0, wideAxisRect);
 
-  
-/*QCPPlotTitle *title1 = new QCPPlotTitle(histograma);
-title1->setText("histo");
-title1->setFont(QFont("sans", 12, QFont::Bold));
-title1->setTextColor(Qt::white);
+    QCPGraph *graph1 = histograma->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    //QCPGraph *graph2 = histograma->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
 
-*/
+    graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
+    graph1->setPen(QPen(QColor(100, 100, 100), 2));
+    graph1->setLineStyle((QCPGraph::LineStyle)4);
 
+    histograma->xAxis->setRange(0, 10000);
 
-  //histograma->plotLayout()->addElement(0, 0, title1);
-  histograma->plotLayout()->addElement(0, 0, wideAxisRect);
+    //histograma->addGraph();
+    //histograma->graph(0)->setPen(QPen(Qt::red));
 
+    QLinearGradient plotGradient;
+    plotGradient.setStart(0, 0);
+    plotGradient.setFinalStop(0, 350);
+    plotGradient.setColorAt(0, QColor(80, 80, 80));
+    plotGradient.setColorAt(1, QColor(50, 50, 50));
+    histograma->setBackground(plotGradient);
+    QLinearGradient axisRectGradient;
+    axisRectGradient.setStart(0, 0);
+    axisRectGradient.setFinalStop(0, 350);
+    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    histograma->axisRect()->setBackground(axisRectGradient);
 
-  QCPGraph *graph1 = histograma->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-  //QCPGraph *graph2 = histograma->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-
-  graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-  graph1->setPen(QPen(QColor(100, 100, 100), 2));
-  graph1->setLineStyle((QCPGraph::LineStyle)4);
-
-  histograma->xAxis->setRange(0, 10000);
-
-  //histograma->addGraph();
-  //histograma->graph(0)->setPen(QPen(Qt::red));
-
-  QLinearGradient plotGradient;
-  plotGradient.setStart(0, 0);
-  plotGradient.setFinalStop(0, 350);
-  plotGradient.setColorAt(0, QColor(80, 80, 80));
-  plotGradient.setColorAt(1, QColor(50, 50, 50));
-  histograma->setBackground(plotGradient);
-  QLinearGradient axisRectGradient;
-  axisRectGradient.setStart(0, 0);
-  axisRectGradient.setFinalStop(0, 350);
-  axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-  axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-  histograma->axisRect()->setBackground(axisRectGradient);
-
-
-
- // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
-  histograma->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
-
-
+    // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+    histograma->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
 {
-
     scope->plotLayout()->clear();
 
     QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
 
+    wideAxisRect->setupFullAxesBox(true);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
+    //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
 
-      wideAxisRect->setupFullAxesBox(true);
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
-      //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
+    //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
-      //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
-      //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
-      //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
-      //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
-      //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
 
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
+    wideAxisRect->setRangeZoom(Qt::Vertical);
 
-      wideAxisRect->setRangeZoom(Qt::Vertical);
+    //scope->plotLayout()->addElement(0, 0, title1);
+    scope->plotLayout()->addElement(0, 0, wideAxisRect);
 
+    QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
+    graph1->setPen(QPen(QColor(0, 0, 0), 2));
 
-     //scope->plotLayout()->addElement(0, 0, title1);
-     scope->plotLayout()->addElement(0, 0, wideAxisRect);
+    QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
+    graph2->setPen(QPen(QColor(200, 0, 0), 2));
 
-      QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-      graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-      graph1->setPen(QPen(QColor(0, 0, 0), 2));
+    QCPGraph *graph3 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::blue),4));
+    graph3->setPen(QPen(QColor(0, 0, 200), 2));
 
-      QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-      graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
-      graph2->setPen(QPen(QColor(200, 0, 0), 2));
+    QCPGraph *graph4 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::yellow),4));
+    graph4->setPen(QPen(QColor(200, 200, 0), 2));
 
-      QCPGraph *graph3 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-      graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::blue),4));
-      graph3->setPen(QPen(QColor(0, 0, 200), 2));
+    QLinearGradient plotGradient;
+    plotGradient.setStart(0, 0);
+    plotGradient.setFinalStop(0, 350);
+    plotGradient.setColorAt(0, QColor(80, 80, 80));
+    plotGradient.setColorAt(1, QColor(50, 50, 50));
+    scope->setBackground(plotGradient);
+    QLinearGradient axisRectGradient;
+    axisRectGradient.setStart(0, 0);
+    axisRectGradient.setFinalStop(0, 350);
+    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    scope->axisRect()->setBackground(axisRectGradient);
 
-      QCPGraph *graph4 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-      graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::yellow),4));
-      graph4->setPen(QPen(QColor(200, 200, 0), 2));
+    //scope->yAxis->setRange(0, 2);
 
-
-      QLinearGradient plotGradient;
-      plotGradient.setStart(0, 0);
-      plotGradient.setFinalStop(0, 350);
-      plotGradient.setColorAt(0, QColor(80, 80, 80));
-      plotGradient.setColorAt(1, QColor(50, 50, 50));
-      scope->setBackground(plotGradient);
-      QLinearGradient axisRectGradient;
-      axisRectGradient.setStart(0, 0);
-      axisRectGradient.setFinalStop(0, 350);
-      axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-      axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-      scope->axisRect()->setBackground(axisRectGradient);
-
-
-      //scope->yAxis->setRange(0, 2);
-
-      QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-      timeTicker->setTimeFormat("%h:%m:%s");
-      scope->xAxis->setTicker(timeTicker);
-      scope->rescaleAxes();
-      scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("%h:%m:%s");
+    scope->xAxis->setTicker(timeTicker);
+    scope->rescaleAxes();
+    scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
@@ -622,85 +591,82 @@ void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
 
     QCPAxisRect *wideAxisRect = new QCPAxisRect(scope);
 
+    wideAxisRect->setupFullAxesBox(true);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
+    //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
 
-      wideAxisRect->setupFullAxesBox(true);
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
-      //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
+    //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
-      //wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
 
-      wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setPen(QPen(QColor(140, 140, 140), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridPen(QPen(QColor(80, 80, 80), 1, Qt::DotLine));
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setSubGridVisible(true);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setSubGridVisible(true);
-      //wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setVisible(false);//
-      //wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setVisible(false);//
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->grid()->setZeroLinePen(Qt::NoPen);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->grid()->setZeroLinePen(Qt::NoPen);
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
+    //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
+    //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
-      //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
-      //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
 
-      wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
-      wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
+    wideAxisRect->setRangeZoom(Qt::Vertical);
 
-      wideAxisRect->setRangeZoom(Qt::Vertical);
+    //scope->plotLayout()->addElement(0, 0, title1);
+    scope->plotLayout()->addElement(0, 0, wideAxisRect);
 
+    QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
+    graph1->setPen(QPen(QColor(0, 0, 0), 2));
 
-     //scope->plotLayout()->addElement(0, 0, title1);
-     scope->plotLayout()->addElement(0, 0, wideAxisRect);
+    QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
+    graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
+    graph2->setPen(QPen(QColor(200, 0, 0), 2));
 
-      QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-      graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-      graph1->setPen(QPen(QColor(0, 0, 0), 2));
+    QLinearGradient plotGradient;
+    plotGradient.setStart(0, 0);
+    plotGradient.setFinalStop(0, 350);
+    plotGradient.setColorAt(0, QColor(80, 80, 80));
+    plotGradient.setColorAt(1, QColor(50, 50, 50));
+    scope->setBackground(plotGradient);
+    QLinearGradient axisRectGradient;
+    axisRectGradient.setStart(0, 0);
+    axisRectGradient.setFinalStop(0, 350);
+    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    scope->axisRect()->setBackground(axisRectGradient);
 
-      QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-      graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
-      graph2->setPen(QPen(QColor(200, 0, 0), 2));
+    //scope->yAxis->setRange(0, 2);
 
-      QLinearGradient plotGradient;
-      plotGradient.setStart(0, 0);
-      plotGradient.setFinalStop(0, 350);
-      plotGradient.setColorAt(0, QColor(80, 80, 80));
-      plotGradient.setColorAt(1, QColor(50, 50, 50));
-      scope->setBackground(plotGradient);
-      QLinearGradient axisRectGradient;
-      axisRectGradient.setStart(0, 0);
-      axisRectGradient.setFinalStop(0, 350);
-      axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-      axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-      scope->axisRect()->setBackground(axisRectGradient);
-
-
-      //scope->yAxis->setRange(0, 2);
-
-      QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-      timeTicker->setTimeFormat("%h:%m:%s");
-      scope->xAxis->setTicker(timeTicker);
-      scope->rescaleAxes();
-      scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("%h:%m:%s");
+    scope->xAxis->setTicker(timeTicker);
+    scope->rescaleAxes();
+    scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 void MainWindow::refreshButton()
@@ -1147,45 +1113,35 @@ void MainWindow::plotRates(char AoBoC, int event, double key)
 {
     double value1 = event; 
 
-   if(AoBoC=='A'){
-
+    if (AoBoC == 'A') {
         ui->PlotTrack->graph(0)->addData(key-lastPointKey_tab1, value1);
-    // remove data of lines that's outside visible range:key, value1
-    //ui->PlotTrack->graph(0)->removeDataBefore(key-55);
-    // rescale value (vertical) axis to fit the current data:
+        // remove data of lines that's outside visible range:key, value1
+        //ui->PlotTrack->graph(0)->removeDataBefore(key-55);
+        // rescale value (vertical) axis to fit the current data:
         //ui->PlotTrack->graph(0)->rescaleValueAxis(true);
-      //  lastPointKey_tab1 = key;
- // make key axis range scroll with the data (at a constant range size of 8):
-       // ui->PlotTrack->graph(0)->keyAxis()->setRange(key+0.25, 50, Qt::AlignRight);
+        //  lastPointKey_tab1 = key;
+        // make key axis range scroll with the data (at a constant range size of 8):
+        // ui->PlotTrack->graph(0)->keyAxis()->setRange(key+0.25, 50, Qt::AlignRight);
         //ui->PlotTrack->xAxis->setRange(key, 8, Qt::AlignRight);
         //ui->PlotTrack->replot();
-    }
-   if(AoBoC=='B'){
-
-
+    } else if (AoBoC == 'B') {
         ui->PlotTrack->graph(1)->addData(key-lastPointKey_tab1, value1);
-
-
-    }
-   if(AoBoC=='C'){
+    } else if (AoBoC == 'C') {
         ui->PlotTrack->graph(2)->addData(key-lastPointKey_tab1, value1);
-
     }
 
     ui->PlotTrack->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
-   //ui->PlotTrack->yAxis->rescale();
+    //ui->PlotTrack->yAxis->rescale();
 
     ui->PlotTrack->replot();
 
-    if(trackRateChang && AoBoC=='A'){
+    if (trackRateChang && AoBoC == 'A') {
         ui->PlotTrack->graph(0)->data()->clear();
         trackRateChang=false;
-    }
-    if(trackRateChang && AoBoC=='B'){
+    } else if (trackRateChang && AoBoC == 'B') {
         ui->PlotTrack->graph(1)->data()->clear();
         trackRateChang=false;
-    }
-    if(trackRateChang && AoBoC=='C'){
+    } else if (trackRateChang && AoBoC == 'C') {
         ui->PlotTrack->graph(2)->data()->clear();
         trackRateChang=false;
     }
@@ -1208,12 +1164,10 @@ void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double
     ui->QKD_H3_results->graph(2)->addData(key-lastPointKey_tab3, randC);
     ui->QKD_H3_results->graph(3)->addData(key-lastPointKey_tab3, bkgndC);
 
-
-
     ui->QKD_H1_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->QKD_H2_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->QKD_H3_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
-   //ui->PlotTrack->yAxis->rescale();
+    //ui->PlotTrack->yAxis->rescale();
 
     ui->QKD_H1_results->replot();
     ui->QKD_H2_results->replot();
@@ -1237,12 +1191,10 @@ void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double 
     ui->Phase_results->graph(2)->addData(key-lastPointKey_tab3, randP);
     ui->Phase_results->graph(3)->addData(key-lastPointKey_tab3, bkgndP);
 
-
-
     ui->Early_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->Late_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->Phase_results->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
-   //ui->PlotTrack->yAxis->rescale();
+    //ui->PlotTrack->yAxis->rescale();
 
     ui->Early_results->replot();
     ui->Late_results->replot();
@@ -1257,17 +1209,13 @@ void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double 
     ui->qkd_siftedplot->graph(0)->addData(key-lastPointKey_tab3, sifted_time);
     ui->qkd_siftedplot->graph(1)->addData(key-lastPointKey_tab3, sifted_phase);
 
-
-
-
     ui->qkd_errorplot->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->qkd_siftedplot->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
 
-   //ui->PlotTrack->yAxis->rescale();
+    //ui->PlotTrack->yAxis->rescale();
 
     ui->qkd_errorplot->replot();
     ui->qkd_siftedplot->replot();
-
 }
 
 //////////////////////////////////////////////////////////
@@ -2079,21 +2027,10 @@ void MainWindow::set_qkd_datafromDB(const boolvector2d &dat,int qkdcolumns, int 
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    std::cout<<"going out"<<std::endl;
-    adq.Break();
-    usleep(100);
-    //adq.~qutagadq();
-    usleep(100e3);
-    std::cout<<"destroy"<<std::endl;
-    //adq.quit();
-    //anl.quit();
-
-    while(adq.isRunning() || anl.isRunning()|| dbc.isRunning())
+    while (dbc.isRunning())
         usleep(100);
 
     usleep(1000);
-    //savejasonFile.close();
 
     event->accept();
-    //else event->ignore();
 }

@@ -154,8 +154,6 @@ private slots:
   
   void plotRates(char AoB, int event, double key);
 
-  void changeStartchan(int starchan){this->in_startChan=starchan;}
-
   void histoplot(const vectorDouble &dat1, const vectorDouble &dat2, const vectorDouble &dat3);
 
   void LinePlot();
@@ -167,13 +165,9 @@ private slots:
   void SaveState(void);
   void LoadState(void);
 
-  void resetdelay(){in_delayline=0;prev_homscan=0;}
-  void chang_in_max_del(int val){in_Max_delay=val;}
-
   void createQKDLinesA();
   void createQKDLinesB();
   void createQKDLinesC();
-
 
   void setup_histolines_QKD();
 
@@ -197,10 +191,6 @@ private slots:
   void chang_QKD_pxqC(int val){in_QKD_pxqC=val;if(initR)createQKDLinesC();}
   void chang_QKD_iwC(int val){in_QKD_iwC=val;if(initR)createQKDLinesC();}
   void chang_QKD_zeroC(int val){in_QKD_zeroC =val;if(initR)createQKDLinesC();}
-
-  /*int in_QKD_timeA, in_QKD_numbA, in_QKD_phA, in_QKD_iwA, in_QKD_pxqA, in_QKD_zeroA;
-  int in_QKD_timeB, in_QKD_numbB, in_QKD_phB, in_QKD_iwB, in_QKD_pxqB, in_QKD_zeroB;
-  int in_QKD_timeC, in_QKD_numbC, in_QKD_phC, in_QKD_iwC, in_QKD_pxqC, in_QKD_zeroC;*/
 
   void hidelinesA(int val);
   void hidelinesB(int val);
@@ -232,14 +222,7 @@ private:
   QTimer dataTimer;
   QCPItemTracer *itemDemoPhaseTracer;
   bool Teleport0_or_QKD1=1;
-  int currentDemoIndex;
-  double prom;
-  QButtonGroup *buttonGroup1 ;
-  QButtonGroup *buttonGroup2 ;
   bool trackRateChang =false, CombiChang =false;
-  float in_adqtime_2;
-  QVector<int> datach1;
-  QVector<int> datacali;
   bool dbrunning=false;
 
   QCPItemStraightLine *infLine[18];
@@ -255,7 +238,7 @@ private:
   double prevbinwidth;
 
   ///general Configs////
-  int in_startChan, in_histStart, in_histEnd;
+  int in_histStart, in_histEnd;
   double in_adqtime;
   int in_PlotACh1, in_PlotACh2, in_PlotBCh1, in_PlotBCh2,in_PlotCCh1,in_PlotCCh2;
   /////first plot////
@@ -266,18 +249,7 @@ private:
   ////SECOND tab////
 
 
-  int in_delayline=0;
-
-  bool in_homscan=false;
-  int in_homscan_time;
-  int prev_homscan=0;
-  int xrange = 120;
-  int in_Max_delay=500;
-  bool firstscan=false;
-  int in_stepduration;
-  double del_key, del_previouskey;
-
-//////QKD///////////////
+    //////QKD///////////////
 
   QCPItemStraightLine *LinesPlotA1[MAX_QUBITS];
   QCPItemStraightLine *LinesPlotA2[MAX_QUBITS];
