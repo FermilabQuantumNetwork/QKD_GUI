@@ -161,7 +161,6 @@ public:
 private slots:
     void connectAction(QAction *action);
     void refreshButton();
-    void connectButton();
     void parametersChanged();
     void histogramChanged(void);
     void show_rates(double *rates);
