@@ -221,6 +221,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     createQKDLinesA();
     createQKDLinesB();
     createQKDLinesC();
+
+    this->LoadState("default.conf");
 }
 
 //////////////////////////////////////////////////////////
@@ -765,8 +767,8 @@ void MainWindow::setupsignalslot()
 
     /* Buttons on the Histogram tab. */
 
-    QObject::connect(ui->actionSave_state, SIGNAL(triggered(bool)), this, SLOT(SaveState()));
-    QObject::connect(ui->actionLoad_state, SIGNAL(triggered(bool)), this, SLOT(LoadState()));
+    QObject::connect(ui->actionSave_state, SIGNAL(triggered(bool)), this, SLOT(SaveStateDialog()));
+    QObject::connect(ui->actionLoad_state, SIGNAL(triggered(bool)), this, SLOT(LoadStateDialog()));
 
     QObject::connect(this, SIGNAL(main_SaveAndValues(int, int, int , int , int, int , float , int )), &dbc, SLOT(SaveAndValues(int, int, int , int , int, int , float , int )));
 
@@ -2074,8 +2076,7 @@ void MainWindow::turnONDB(int val)
     dbrunning=val;
 }
 
-void MainWindow::SaveState(void)
-{
+void MainWindow::SaveStateDialog(void) {
     QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save Current Configuration"), "",
             tr("Configuration (*.conf);;All Files (*)"));
@@ -2083,49 +2084,54 @@ void MainWindow::SaveState(void)
     if (fileName.isEmpty()) {
         return;
     } else {
-        QFile file(fileName);
-        if (!file.open(QIODevice::WriteOnly)) {
-            QMessageBox::information(this, tr("Unable to open file"),
-                file.errorString());
-            return;
-        }
-
-        QDataStream out(&file);
-
-        out.setVersion(QDataStream::Qt_4_5);
-        QMap<QString, int> mapint;
-        QMap<QString, double> mapdouble;
-        QString localstring;
-
-        mapint.insert("in_QKD_timeA", in_QKD_timeA);
-        mapint.insert("in_QKD_zeroA", in_QKD_zeroA);
-        mapint.insert("in_QKD_iwA", in_QKD_iwA);
-        mapint.insert("in_QKD_phA", in_QKD_phA);
-        mapint.insert("in_QKD_numA", in_QKD_numbA);
-        mapint.insert("in_QKD_timeB", in_QKD_timeB);
-        mapint.insert("in_QKD_zeroB", in_QKD_zeroB);
-        mapint.insert("in_QKD_iwB", in_QKD_iwB);
-        mapint.insert("in_QKD_phB", in_QKD_phB);
-        mapint.insert("in_QKD_numB", in_QKD_numbB);
-        mapint.insert("in_QKD_timeC", in_QKD_timeC);
-        mapint.insert("in_QKD_zeroC", in_QKD_zeroC);
-        mapint.insert("in_QKD_iwC", in_QKD_iwC);
-        mapint.insert("in_QKD_phC", in_QKD_phC);
-        mapint.insert("in_QKD_numC", in_QKD_numbC);
-        mapint.insert("in_startChan",ui->startChan->value());
-        mapint.insert("in_PlotACh1",ui->PlotAChn1->value());
-        mapint.insert("in_PlotBCh1",ui->PlotBChn1->value());
-        mapint.insert("in_PlotCCh1",ui->PlotCChn1->value());
-        mapint.insert("in_bin_width",ui->bin_width->value());
-
-        mapdouble.insert("in_adqtime", ui->adqtime->value());
-
-        out << mapint;
-        out << mapdouble;
+        this->SaveState(filename);
     }
 }
 
-void MainWindow::LoadState(void)
+void MainWindow::SaveState(void)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::information(this, tr("Unable to open file"),
+            file.errorString());
+        return;
+    }
+
+    QDataStream out(&file);
+
+    out.setVersion(QDataStream::Qt_4_5);
+    QMap<QString, int> mapint;
+    QMap<QString, double> mapdouble;
+    QString localstring;
+
+    mapint.insert("in_QKD_timeA", in_QKD_timeA);
+    mapint.insert("in_QKD_zeroA", in_QKD_zeroA);
+    mapint.insert("in_QKD_iwA", in_QKD_iwA);
+    mapint.insert("in_QKD_phA", in_QKD_phA);
+    mapint.insert("in_QKD_numA", in_QKD_numbA);
+    mapint.insert("in_QKD_timeB", in_QKD_timeB);
+    mapint.insert("in_QKD_zeroB", in_QKD_zeroB);
+    mapint.insert("in_QKD_iwB", in_QKD_iwB);
+    mapint.insert("in_QKD_phB", in_QKD_phB);
+    mapint.insert("in_QKD_numB", in_QKD_numbB);
+    mapint.insert("in_QKD_timeC", in_QKD_timeC);
+    mapint.insert("in_QKD_zeroC", in_QKD_zeroC);
+    mapint.insert("in_QKD_iwC", in_QKD_iwC);
+    mapint.insert("in_QKD_phC", in_QKD_phC);
+    mapint.insert("in_QKD_numC", in_QKD_numbC);
+    mapint.insert("in_startChan",ui->startChan->value());
+    mapint.insert("in_PlotACh1",ui->PlotAChn1->value());
+    mapint.insert("in_PlotBCh1",ui->PlotBChn1->value());
+    mapint.insert("in_PlotCCh1",ui->PlotCChn1->value());
+    mapint.insert("in_bin_width",ui->bin_width->value());
+
+    mapdouble.insert("in_adqtime", ui->adqtime->value());
+
+    out << mapint;
+    out << mapdouble;
+}
+
+void MainWindow::LoadStateDialog(void)
 {
     QString fileName = QFileDialog::getOpenFileName(this,
             tr("Load Configuration"), "",
@@ -2134,76 +2140,81 @@ void MainWindow::LoadState(void)
     if (fileName.isEmpty()) {
         return;
     } else {
-        QFile file(fileName);
+        this->LoadState(fileName);
+    }
+}
 
-        if (!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(this, tr("Unable to open file"),
-                file.errorString());
-            return;
-        }
+void MainWindow::LoadState(QString filename)
+{
+    QFile file(fileName);
 
-        QMap<QString, int> mapintout;
-        QMap<QString, double> mapdoubleout;
-        QDataStream in(&file);
-        in.setVersion(QDataStream::Qt_4_5);
-        in >> mapintout;
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(this, tr("Unable to open file"),
+            file.errorString());
+        return;
+    }
 
-        if (mapintout.contains("in_QKD_timeA"))
-            qkdparam.ui->QKD_timeA->setValue(mapintout.value("in_QKD_timeA"));
-        if (mapintout.contains("in_QKD_zeroA"))
-            qkdparam.ui->QKD_zeroA->setValue(mapintout.value("in_QKD_zeroA"));
-        if (mapintout.contains("in_QKD_iwA"))
-            qkdparam.ui->QKD_iwA->setValue(mapintout.value("in_QKD_iwA"));
-        if (mapintout.contains("in_QKD_phA"))
-            qkdparam.ui->QKD_phA->setValue(mapintout.value("in_QKD_phA"));
-        if (mapintout.contains("in_QKD_numA"))
-            qkdparam.ui->QKD_numbA->setValue(mapintout.value("in_QKD_numA"));
-        if (mapintout.contains("in_QKD_timeB"))
-            qkdparam.ui->QKD_timeB->setValue(mapintout.value("in_QKD_timeB"));
-        if (mapintout.contains("in_QKD_zeroB"))
-            qkdparam.ui->QKD_zeroB->setValue(mapintout.value("in_QKD_zeroB"));
-        if (mapintout.contains("in_QKD_iwB"))
-            qkdparam.ui->QKD_iwB->setValue(mapintout.value("in_QKD_iwB"));
-        if (mapintout.contains("in_QKD_phB"))
-            qkdparam.ui->QKD_phB->setValue(mapintout.value("in_QKD_phB"));
-        if (mapintout.contains("in_QKD_numB"))
-            qkdparam.ui->QKD_numbB->setValue(mapintout.value("in_QKD_numB"));
-        if (mapintout.contains("in_QKD_timeC"))
-            qkdparam.ui->QKD_timeC->setValue(mapintout.value("in_QKD_timeC"));
-        if (mapintout.contains("in_QKD_zeroC"))
-            qkdparam.ui->QKD_zeroC->setValue(mapintout.value("in_QKD_zeroC"));
-        if (mapintout.contains("in_QKD_iwC"))
-            qkdparam.ui->QKD_iwC->setValue(mapintout.value("in_QKD_iwC"));
-        if (mapintout.contains("in_QKD_phC"))
-            qkdparam.ui->QKD_phC->setValue(mapintout.value("in_QKD_phC"));
-        if (mapintout.contains("in_QKD_numC"))
-            qkdparam.ui->QKD_numbC->setValue(mapintout.value("in_QKD_numC"));
+    QMap<QString, int> mapintout;
+    QMap<QString, double> mapdoubleout;
+    QDataStream in(&file);
+    in.setVersion(QDataStream::Qt_4_5);
+    in >> mapintout;
 
-        if (mapintout.contains("in_startChan"))
-            ui->startChan->setValue(mapintout.value("in_startChan"));
-        if (mapintout.contains("in_PlotACh1"))
-            ui->PlotAChn1->setValue(mapintout.value("in_PlotACh1"));
-        if (mapintout.contains("in_PlotBCh1"))
-            ui->PlotBChn1->setValue(mapintout.value("in_PlotBCh1"));
-        if (mapintout.contains("in_PlotCCh1"))
-            ui->PlotCChn1->setValue(mapintout.value("in_PlotCCh1"));
-        if (mapintout.contains("in_bin_width"))
-            ui->bin_width->setValue(mapintout.value("bin_width"));
+    if (mapintout.contains("in_QKD_timeA"))
+        qkdparam.ui->QKD_timeA->setValue(mapintout.value("in_QKD_timeA"));
+    if (mapintout.contains("in_QKD_zeroA"))
+        qkdparam.ui->QKD_zeroA->setValue(mapintout.value("in_QKD_zeroA"));
+    if (mapintout.contains("in_QKD_iwA"))
+        qkdparam.ui->QKD_iwA->setValue(mapintout.value("in_QKD_iwA"));
+    if (mapintout.contains("in_QKD_phA"))
+        qkdparam.ui->QKD_phA->setValue(mapintout.value("in_QKD_phA"));
+    if (mapintout.contains("in_QKD_numA"))
+        qkdparam.ui->QKD_numbA->setValue(mapintout.value("in_QKD_numA"));
+    if (mapintout.contains("in_QKD_timeB"))
+        qkdparam.ui->QKD_timeB->setValue(mapintout.value("in_QKD_timeB"));
+    if (mapintout.contains("in_QKD_zeroB"))
+        qkdparam.ui->QKD_zeroB->setValue(mapintout.value("in_QKD_zeroB"));
+    if (mapintout.contains("in_QKD_iwB"))
+        qkdparam.ui->QKD_iwB->setValue(mapintout.value("in_QKD_iwB"));
+    if (mapintout.contains("in_QKD_phB"))
+        qkdparam.ui->QKD_phB->setValue(mapintout.value("in_QKD_phB"));
+    if (mapintout.contains("in_QKD_numB"))
+        qkdparam.ui->QKD_numbB->setValue(mapintout.value("in_QKD_numB"));
+    if (mapintout.contains("in_QKD_timeC"))
+        qkdparam.ui->QKD_timeC->setValue(mapintout.value("in_QKD_timeC"));
+    if (mapintout.contains("in_QKD_zeroC"))
+        qkdparam.ui->QKD_zeroC->setValue(mapintout.value("in_QKD_zeroC"));
+    if (mapintout.contains("in_QKD_iwC"))
+        qkdparam.ui->QKD_iwC->setValue(mapintout.value("in_QKD_iwC"));
+    if (mapintout.contains("in_QKD_phC"))
+        qkdparam.ui->QKD_phC->setValue(mapintout.value("in_QKD_phC"));
+    if (mapintout.contains("in_QKD_numC"))
+        qkdparam.ui->QKD_numbC->setValue(mapintout.value("in_QKD_numC"));
 
-        if (mapdoubleout.contains("in_adqtime"))
-            ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
+    if (mapintout.contains("in_startChan"))
+        ui->startChan->setValue(mapintout.value("in_startChan"));
+    if (mapintout.contains("in_PlotACh1"))
+        ui->PlotAChn1->setValue(mapintout.value("in_PlotACh1"));
+    if (mapintout.contains("in_PlotBCh1"))
+        ui->PlotBChn1->setValue(mapintout.value("in_PlotBCh1"));
+    if (mapintout.contains("in_PlotCCh1"))
+        ui->PlotCChn1->setValue(mapintout.value("in_PlotCCh1"));
+    if (mapintout.contains("in_bin_width"))
+        ui->bin_width->setValue(mapintout.value("bin_width"));
 
-        QMapIterator<QString,int>i(mapintout);
-        while (i.hasNext()) {
-            i.next();
-            std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
-        }
-        in >> mapdoubleout;
-        QMapIterator<QString,double>j(mapdoubleout);
-        while (j.hasNext()) {
-            j.next();
-            std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
-        }
+    if (mapdoubleout.contains("in_adqtime"))
+        ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
+
+    QMapIterator<QString,int>i(mapintout);
+    while (i.hasNext()) {
+        i.next();
+        std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
+    }
+    in >> mapdoubleout;
+    QMapIterator<QString,double>j(mapdoubleout);
+    while (j.hasNext()) {
+        j.next();
+        std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
     }
 }
 
@@ -2279,6 +2290,8 @@ void MainWindow::set_qkd_datafromDB(const boolvector2d &dat,int qkdcolumns, int 
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    this->SaveState("default.conf");
+
     while (dbc.isRunning())
         usleep(100);
 
