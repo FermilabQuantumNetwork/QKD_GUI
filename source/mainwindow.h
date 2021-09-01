@@ -192,21 +192,18 @@ private slots:
   void chang_QKD_timeA(double val){in_QKD_timeA=val;if(initR)createQKDLinesA();}
   void chang_QKD_phA(int val){in_QKD_phA=val;if(initR)createQKDLinesA();}
   void chang_QKD_numbA(int val){if(in_QKD_numbA>val)hidelinesA(val);in_QKD_numbA=val;if(initR)createQKDLinesA();}
-  void chang_QKD_pxqA(int val){in_QKD_pxqA=val;if(initR)createQKDLinesA();}
   void chang_QKD_iwA(int val){in_QKD_iwA=val;if(initR)createQKDLinesA();}
   void chang_QKD_zeroA(int val){in_QKD_zeroA =val;if(initR)createQKDLinesA();}
 
   void chang_QKD_timeB(double val){in_QKD_timeB=val;if(initR)createQKDLinesB();}
   void chang_QKD_phB(int val){in_QKD_phB=val;if(initR)createQKDLinesB();}
   void chang_QKD_numbB(int val){if(in_QKD_numbB>val)hidelinesB(val);in_QKD_numbB=val;if(initR)createQKDLinesB();}
-  void chang_QKD_pxqB(int val){in_QKD_pxqB=val;if(initR)createQKDLinesB();}
   void chang_QKD_iwB(int val){in_QKD_iwB=val;if(initR)createQKDLinesB();}
   void chang_QKD_zeroB(int val){in_QKD_zeroB =val;if(initR)createQKDLinesB();}
 
   void chang_QKD_timeC(double val){in_QKD_timeC=val;if(initR)createQKDLinesC();}
   void chang_QKD_phC(int val){in_QKD_phC=val;if(initR)createQKDLinesC();}
   void chang_QKD_numbC(int val){if(in_QKD_numbC>val)hidelinesC(val);in_QKD_numbC=val;if(initR)createQKDLinesC();}
-  void chang_QKD_pxqC(int val){in_QKD_pxqC=val;if(initR)createQKDLinesC();}
   void chang_QKD_iwC(int val){in_QKD_iwC=val;if(initR)createQKDLinesC();}
   void chang_QKD_zeroC(int val){in_QKD_zeroC =val;if(initR)createQKDLinesC();}
 
@@ -284,9 +281,9 @@ private:
 
   int QubitTime, Phasetime, NoQubits, PeaksQubit, QKD_intWind, QKD_zero;
 
-  int  in_QKD_numbA=30, in_QKD_phA=50, in_QKD_iwA=45, in_QKD_pxqA=3, in_QKD_zeroA=1;
-  int  in_QKD_numbB=30, in_QKD_phB=50, in_QKD_iwB=45, in_QKD_pxqB=3, in_QKD_zeroB=1;
-  int  in_QKD_numbC=30, in_QKD_phC=50, in_QKD_iwC=45, in_QKD_pxqC=3, in_QKD_zeroC=1;
+  int  in_QKD_numbA=30, in_QKD_phA=50, in_QKD_iwA=45, in_QKD_zeroA=1;
+  int  in_QKD_numbB=30, in_QKD_phB=50, in_QKD_iwB=45, in_QKD_zeroB=1;
+  int  in_QKD_numbC=30, in_QKD_phC=50, in_QKD_iwC=45, in_QKD_zeroC=1;
   double in_QKD_timeA=200, in_QKD_timeB=200, in_QKD_timeC=200;
 
   QVector<QVector<bool>> in_qkdfromDB;

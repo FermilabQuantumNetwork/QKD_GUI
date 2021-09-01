@@ -13,11 +13,16 @@
 #include <algorithm>
 #include <H5Cpp.h>
 #include "qkd_param.h"
+#include "ui_qkd_param.h"
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 char qubit_sequence[100] = "E0E0L0L0P0P0";
+
+namespace Ui {
+    class QKD_param;
+}
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -781,9 +786,6 @@ void MainWindow::setupsignalslot()
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwA(int)), this, SLOT(chang_QKD_iwA(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwB(int)), this, SLOT(chang_QKD_iwB(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwC(int)), this, SLOT(chang_QKD_iwC(int)));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_pxqA(int)), this, SLOT(chang_QKD_pxqA(int)));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_pxqB(int)), this, SLOT(chang_QKD_pxqB(int)));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_pxqC(int)), this, SLOT(chang_QKD_pxqC(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroA(int)), this, SLOT(chang_QKD_zeroA(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroB(int)), this, SLOT(chang_QKD_zeroB(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroC(int)), this, SLOT(chang_QKD_zeroC(int)));
@@ -2155,7 +2157,7 @@ void MainWindow::LoadState(void)
         if (mapintout.contains("in_QKD_phA"))
             qkdparam.ui->QKD_phA->setValue(mapintout.value("in_QKD_phA"));
         if (mapintout.contains("in_QKD_numA"))
-            qkdparam.ui->QKD_numA->setValue(mapintout.value("in_QKD_numA"));
+            qkdparam.ui->QKD_numbA->setValue(mapintout.value("in_QKD_numA"));
         if (mapintout.contains("in_QKD_timeB"))
             qkdparam.ui->QKD_timeB->setValue(mapintout.value("in_QKD_timeB"));
         if (mapintout.contains("in_QKD_zeroB"))
@@ -2165,7 +2167,7 @@ void MainWindow::LoadState(void)
         if (mapintout.contains("in_QKD_phB"))
             qkdparam.ui->QKD_phB->setValue(mapintout.value("in_QKD_phB"));
         if (mapintout.contains("in_QKD_numB"))
-            qkdparam.ui->QKD_numA->setValue(mapintout.value("in_QKD_numA"));
+            qkdparam.ui->QKD_numbB->setValue(mapintout.value("in_QKD_numB"));
         if (mapintout.contains("in_QKD_timeC"))
             qkdparam.ui->QKD_timeC->setValue(mapintout.value("in_QKD_timeC"));
         if (mapintout.contains("in_QKD_zeroC"))
@@ -2175,7 +2177,7 @@ void MainWindow::LoadState(void)
         if (mapintout.contains("in_QKD_phC"))
             qkdparam.ui->QKD_phC->setValue(mapintout.value("in_QKD_phC"));
         if (mapintout.contains("in_QKD_numC"))
-            qkdparam.ui->QKD_numC->setValue(mapintout.value("in_QKD_numC"));
+            qkdparam.ui->QKD_numbC->setValue(mapintout.value("in_QKD_numC"));
 
         if (mapintout.contains("in_startChan"))
             ui->startChan->setValue(mapintout.value("in_startChan"));

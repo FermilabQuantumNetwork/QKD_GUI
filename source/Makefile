@@ -67,8 +67,7 @@ SOURCES       = main.cpp \
 		moc_qkd_param.cpp \
 		moc_qutag_adq.cpp \
 		moc_qutag_anl.cpp \
-		moc_socket_com.cpp \
-		moc_swabian.cpp
+		moc_socket_com.cpp
 OBJECTS       = main.o \
 		dbcontrol.o \
 		mainwindow.o \
@@ -85,8 +84,7 @@ OBJECTS       = main.o \
 		moc_qkd_param.o \
 		moc_qutag_adq.o \
 		moc_qutag_anl.o \
-		moc_socket_com.o \
-		moc_swabian.o
+		moc_socket_com.o
 DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
 		/usr/lib64/qt5/mkspecs/common/linux.conf \
@@ -481,19 +479,17 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /../lib64/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /../lib64/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp moc_qutag_adq.cpp moc_qutag_anl.cpp moc_socket_com.cpp moc_swabian.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp moc_qutag_adq.cpp moc_qutag_anl.cpp moc_socket_com.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp moc_qutag_adq.cpp moc_qutag_anl.cpp moc_socket_com.cpp moc_swabian.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp moc_qutag_adq.cpp moc_qutag_anl.cpp moc_socket_com.cpp
 moc_mainwindow.cpp: mainwindow.h \
 		qcustomplot.h \
-		qutag_adq.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h \
-		qutag_anl.h \
 		dbcontrol.h \
 		socket_com.h \
 		qkd_param.h \
+		swabian.h \
+		../include/timetagger/TimeTagger.h \
+		../include/timetagger/Iterators.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
 	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include mainwindow.h -o moc_mainwindow.cpp
@@ -535,13 +531,6 @@ moc_socket_com.cpp: socket_com.h \
 		/../lib64/qt5/bin/moc
 	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include socket_com.h -o moc_socket_com.cpp
 
-moc_swabian.cpp: swabian.h \
-		../include/timetagger/TimeTagger.h \
-		../include/timetagger/Iterators.h \
-		moc_predefs.h \
-		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include swabian.h -o moc_swabian.cpp
-
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -570,14 +559,12 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 main.o: main.cpp mainwindow.h \
 		qcustomplot.h \
-		qutag_adq.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h \
-		qutag_anl.h \
 		dbcontrol.h \
 		socket_com.h \
-		qkd_param.h
+		qkd_param.h \
+		swabian.h \
+		../include/timetagger/TimeTagger.h \
+		../include/timetagger/Iterators.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 dbcontrol.o: dbcontrol.cpp dbcontrol.h
@@ -585,14 +572,12 @@ dbcontrol.o: dbcontrol.cpp dbcontrol.h
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		qcustomplot.h \
-		qutag_adq.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h \
-		qutag_anl.h \
 		dbcontrol.h \
 		socket_com.h \
 		qkd_param.h \
+		swabian.h \
+		../include/timetagger/TimeTagger.h \
+		../include/timetagger/Iterators.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
@@ -647,9 +632,6 @@ moc_qutag_anl.o: moc_qutag_anl.cpp
 
 moc_socket_com.o: moc_socket_com.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_socket_com.o moc_socket_com.cpp
-
-moc_swabian.o: moc_swabian.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_swabian.o moc_swabian.cpp
 
 ####### Install
 
