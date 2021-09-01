@@ -222,7 +222,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     createQKDLinesB();
     createQKDLinesC();
 
-    this->LoadState("default.conf");
+    this->LoadState("default.conf", false);
 }
 
 //////////////////////////////////////////////////////////
@@ -708,24 +708,24 @@ void MainWindow::setupsignalslot()
     QObject::connect(ui->threshold17, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
     QObject::connect(ui->threshold18, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
 
-    QObject::connect(ui->delay1, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay2, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay3, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay4, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay5, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay6, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay7, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay8, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay9, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay10, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay11, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay12, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay13, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay14, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay15, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay16, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay17, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay18, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay1, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay2, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay3, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay4, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay5, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay6, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay7, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay8, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay9, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay10, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay11, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay12, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay13, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay14, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay15, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay16, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay17, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+    QObject::connect(ui->delay18, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
 
     QObject::connect(ui->rof1, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
     QObject::connect(ui->rof2, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
@@ -2144,13 +2144,15 @@ void MainWindow::LoadStateDialog(void)
     }
 }
 
-void MainWindow::LoadState(QString fileName)
+void MainWindow::LoadState(QString fileName, bool warnDialog)
 {
     QFile file(fileName);
 
     if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(this, tr("Unable to open file"),
-            file.errorString());
+        if (warnDialog) {
+            QMessageBox::information(this, tr("Unable to open file"),
+                file.errorString());
+        }
         return;
     }
 
@@ -2205,16 +2207,22 @@ void MainWindow::LoadState(QString fileName)
     if (mapdoubleout.contains("in_adqtime"))
         ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
 
-    QMapIterator<QString,int>i(mapintout);
-    while (i.hasNext()) {
-        i.next();
-        std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
+    if (debug) {
+        QMapIterator<QString,int>i(mapintout);
+        while (i.hasNext()) {
+            i.next();
+            std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
+        }
     }
+
     in >> mapdoubleout;
-    QMapIterator<QString,double>j(mapdoubleout);
-    while (j.hasNext()) {
-        j.next();
-        std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
+
+    if (debug) {
+        QMapIterator<QString,double>j(mapdoubleout);
+        while (j.hasNext()) {
+            j.next();
+            std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
+        }
     }
 }
 

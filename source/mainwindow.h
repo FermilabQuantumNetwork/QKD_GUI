@@ -181,7 +181,7 @@ private slots:
     void SaveStateDialog(void);
     void SaveState(QString fileName);
     void LoadStateDialog(void);
-    void LoadState(QString fileName);
+    void LoadState(QString fileName, bool warnDialog=true);
 
     void createQKDLinesA();
     void createQKDLinesB();
