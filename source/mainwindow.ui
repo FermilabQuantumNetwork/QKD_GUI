@@ -51,7 +51,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab1">
        <property name="autoFillBackground">
@@ -587,6 +587,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="12" column="5">
@@ -600,7 +603,14 @@
               <widget class="QComboBox" name="test1"/>
              </item>
              <item row="16" column="3">
-              <widget class="QSpinBox" name="delay13"/>
+              <widget class="QSpinBox" name="delay13">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="17" column="6">
               <widget class="QComboBox" name="test14"/>
@@ -609,6 +619,9 @@
               <widget class="QDoubleSpinBox" name="threshold1">
                <property name="minimum">
                 <double>-10.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -637,12 +650,22 @@
               </widget>
              </item>
              <item row="10" column="3">
-              <widget class="QSpinBox" name="delay7"/>
+              <widget class="QSpinBox" name="delay7">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="9" column="2">
               <widget class="QDoubleSpinBox" name="threshold6">
                <property name="minimum">
                 <double>-10.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -661,7 +684,14 @@
               </widget>
              </item>
              <item row="20" column="3">
-              <widget class="QSpinBox" name="delay17"/>
+              <widget class="QSpinBox" name="delay17">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="15" column="0">
               <widget class="QLabel" name="label_107">
@@ -671,10 +701,24 @@
               </widget>
              </item>
              <item row="19" column="3">
-              <widget class="QSpinBox" name="delay16"/>
+              <widget class="QSpinBox" name="delay16">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="14" column="3">
-              <widget class="QSpinBox" name="delay11"/>
+              <widget class="QSpinBox" name="delay11">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="7" column="6">
               <widget class="QComboBox" name="test4"/>
@@ -684,16 +728,40 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="21" column="3">
-              <widget class="QSpinBox" name="delay18"/>
+              <widget class="QSpinBox" name="delay18">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="17" column="3">
-              <widget class="QSpinBox" name="delay14"/>
+              <widget class="QSpinBox" name="delay14">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="8" column="3">
-              <widget class="QSpinBox" name="delay5"/>
+              <widget class="QSpinBox" name="delay5">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="10" column="4">
               <widget class="QComboBox" name="rof7">
@@ -721,6 +789,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="0" column="2">
@@ -741,7 +812,14 @@
               </widget>
              </item>
              <item row="13" column="3">
-              <widget class="QSpinBox" name="delay10"/>
+              <widget class="QSpinBox" name="delay10">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="9" column="6">
               <widget class="QComboBox" name="test6"/>
@@ -772,6 +850,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="13" column="6">
@@ -789,10 +870,20 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="11" column="3">
-              <widget class="QSpinBox" name="delay8"/>
+              <widget class="QSpinBox" name="delay8">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="21" column="4">
               <widget class="QComboBox" name="rof18">
@@ -850,6 +941,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="3" column="6">
@@ -877,6 +971,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="20" column="2">
@@ -884,10 +981,20 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="9" column="3">
-              <widget class="QSpinBox" name="delay6"/>
+              <widget class="QSpinBox" name="delay6">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="8" column="4">
               <widget class="QComboBox" name="rof5">
@@ -900,6 +1007,9 @@
               <widget class="QDoubleSpinBox" name="threshold15">
                <property name="minimum">
                 <double>-10.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -922,6 +1032,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="20" column="4">
@@ -932,10 +1045,24 @@
               </widget>
              </item>
              <item row="2" column="3">
-              <widget class="QSpinBox" name="delay1"/>
+              <widget class="QSpinBox" name="delay1">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="7" column="3">
-              <widget class="QSpinBox" name="delay4"/>
+              <widget class="QSpinBox" name="delay4">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="2" column="5">
               <widget class="QLCDNumber" name="rate1">
@@ -1037,6 +1164,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="9" column="0">
@@ -1050,7 +1180,14 @@
               <widget class="QComboBox" name="test3"/>
              </item>
              <item row="12" column="3">
-              <widget class="QSpinBox" name="delay9"/>
+              <widget class="QSpinBox" name="delay9">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="11" column="6">
               <widget class="QComboBox" name="test8"/>
@@ -1067,6 +1204,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="14" column="6">
@@ -1076,6 +1216,9 @@
               <widget class="QDoubleSpinBox" name="threshold18">
                <property name="minimum">
                 <double>-10.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -1121,10 +1264,20 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="3" column="3">
-              <widget class="QSpinBox" name="delay2"/>
+              <widget class="QSpinBox" name="delay2">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="19" column="5">
               <widget class="QLCDNumber" name="rate16">
@@ -1134,7 +1287,14 @@
               </widget>
              </item>
              <item row="15" column="3">
-              <widget class="QSpinBox" name="delay12"/>
+              <widget class="QSpinBox" name="delay12">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="7" column="4">
               <widget class="QComboBox" name="rof4">
@@ -1148,6 +1308,9 @@
                <property name="minimum">
                 <double>-10.000000000000000</double>
                </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="10" column="5">
@@ -1158,12 +1321,22 @@
               </widget>
              </item>
              <item row="18" column="3">
-              <widget class="QSpinBox" name="delay15"/>
+              <widget class="QSpinBox" name="delay15">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="3" column="2">
               <widget class="QDoubleSpinBox" name="threshold2">
                <property name="minimum">
                 <double>-10.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -1227,7 +1400,14 @@
               </widget>
              </item>
              <item row="4" column="3">
-              <widget class="QSpinBox" name="delay3"/>
+              <widget class="QSpinBox" name="delay3">
+               <property name="minimum">
+                <number>-2000000</number>
+               </property>
+               <property name="maximum">
+                <number>2000000</number>
+               </property>
+              </widget>
              </item>
              <item row="7" column="5">
               <widget class="QLCDNumber" name="rate4">
