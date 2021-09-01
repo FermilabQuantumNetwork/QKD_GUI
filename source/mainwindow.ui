@@ -1954,9 +1954,6 @@
             </item>
             <item row="19" column="3">
              <widget class="QSpinBox" name="delay16">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="16" column="5">
@@ -1968,9 +1965,6 @@
             </item>
             <item row="20" column="0">
              <widget class="QLabel" name="label_109">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 17</string>
               </property>
@@ -1978,9 +1972,6 @@
             </item>
             <item row="15" column="2">
              <widget class="QDoubleSpinBox" name="threshold12">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -1995,16 +1986,10 @@
             </item>
             <item row="13" column="3">
              <widget class="QSpinBox" name="delay10">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="0" column="3">
              <widget class="QLabel" name="label_155">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Delay (ps)</string>
               </property>
@@ -2015,9 +2000,6 @@
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_16">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 1</string>
               </property>
@@ -2025,9 +2007,6 @@
             </item>
             <item row="0" column="5" alignment="Qt::AlignHCenter">
              <widget class="QLabel" name="label_21">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Rate</string>
               </property>
@@ -2266,9 +2245,6 @@
             </item>
             <item row="3" column="2">
              <widget class="QDoubleSpinBox" name="threshold2">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2282,9 +2258,6 @@
             </item>
             <item row="12" column="2">
              <widget class="QDoubleSpinBox" name="threshold9">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2306,9 +2279,6 @@
             </item>
             <item row="7" column="3">
              <widget class="QSpinBox" name="delay4">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
              </widget>
             </item>
             <item row="18" column="6">
@@ -2316,9 +2286,6 @@
             </item>
             <item row="20" column="2">
              <widget class="QDoubleSpinBox" name="threshold17">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="minimum">
                <double>-10.000000000000000</double>
               </property>
@@ -2350,9 +2317,6 @@
             </item>
             <item row="19" column="0">
              <widget class="QLabel" name="label_110">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(238, 238, 236);</string>
-              </property>
               <property name="text">
                <string>Channel 16</string>
               </property>
@@ -2514,9 +2478,6 @@
             </item>
             <item>
              <widget class="QLabel" name="label_135">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(239, 41, 41);</string>
-              </property>
               <property name="text">
                <string>ERROR</string>
               </property>
@@ -2527,9 +2488,6 @@
             </item>
             <item>
              <widget class="QLabel" name="label_113">
-              <property name="styleSheet">
-               <string notr="true">color: rgb(114, 159, 207);</string>
-              </property>
               <property name="text">
                <string>RANDOM</string>
               </property>
@@ -2545,9 +2503,6 @@
               </property>
               <item>
                <widget class="QLabel" name="label_112">
-                <property name="styleSheet">
-                 <string notr="true">color: rgb(252, 233, 79);</string>
-                </property>
                 <property name="text">
                  <string>BACKGROUND</string>
                 </property>
@@ -2578,9 +2533,6 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
-       <property name="styleSheet">
-        <string notr="true">#tab_3 {background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(80, 80, 80, 255), stop:1 rgba(50, 50, 50, 255)); }</string>
-       </property>
        <attribute name="title">
         <string>QKD results/QB</string>
        </attribute>
@@ -2655,9 +2607,6 @@
               <strikeout>false</strikeout>
              </font>
             </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(238, 238, 236);</string>
-            </property>
             <property name="text">
              <string>Early</string>
             </property>
@@ -2678,9 +2627,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_144">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(239, 41, 41);</string>
-            </property>
             <property name="text">
              <string>Error</string>
             </property>
@@ -2691,9 +2637,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_145">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(114, 159, 207);</string>
-            </property>
             <property name="text">
              <string>Random</string>
             </property>
@@ -2704,9 +2647,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_142">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(252, 233, 79);</string>
-            </property>
             <property name="text">
              <string>Background</string>
             </property>
@@ -2738,9 +2678,6 @@
               <underline>true</underline>
              </font>
             </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(238, 238, 236);</string>
-            </property>
             <property name="text">
              <string>Late</string>
             </property>
@@ -2751,9 +2688,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_149">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(238, 238, 236);</string>
             </property>
             <property name="text">
              <string>OK</string>
