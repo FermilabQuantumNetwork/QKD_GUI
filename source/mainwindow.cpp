@@ -502,8 +502,8 @@ void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-    //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
-    //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
@@ -514,20 +514,20 @@ void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
     scope->plotLayout()->addElement(0, 0, wideAxisRect);
 
     QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-    graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-    graph1->setPen(QPen(QColor(0, 0, 0), 2));
+    graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::green),4));
+    graph1->setPen(QPen(Qt::green, 2));
 
     QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
     graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
-    graph2->setPen(QPen(QColor(200, 0, 0), 2));
+    graph2->setPen(QPen(Qt::red, 2));
 
     QCPGraph *graph3 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-    graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::blue),4));
-    graph3->setPen(QPen(QColor(0, 0, 200), 2));
+    graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::black),4));
+    graph3->setPen(QPen(Qt::black, 2));
 
     QCPGraph *graph4 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
-    graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::yellow),4));
-    graph4->setPen(QPen(QColor(200, 200, 0), 2));
+    graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
+    graph4->setPen(QPen(Qt::white, 2));
 
     QLinearGradient plotGradient;
     plotGradient.setStart(0, 0);
