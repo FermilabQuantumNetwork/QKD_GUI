@@ -28,7 +28,61 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Light">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>133</red>
+        <green>133</green>
+        <blue>133</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Midlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>111</red>
+        <green>111</green>
+        <blue>111</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Dark">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Mid">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>59</red>
+        <green>59</green>
+        <blue>59</blue>
+       </color>
+      </brush>
+     </colorrole>
      <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="BrightText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
         <red>255</red>
@@ -46,12 +100,57 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="ToolTipText">
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Shadow">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="AlternateBase">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ToolTipBase">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
         <red>255</red>
         <green>255</green>
-        <blue>255</blue>
+        <blue>220</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ToolTipText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
        </color>
       </brush>
      </colorrole>
@@ -75,7 +174,61 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Light">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>133</red>
+        <green>133</green>
+        <blue>133</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Midlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>111</red>
+        <green>111</green>
+        <blue>111</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Dark">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Mid">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>59</red>
+        <green>59</green>
+        <blue>59</blue>
+       </color>
+      </brush>
+     </colorrole>
      <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="BrightText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
         <red>255</red>
@@ -93,12 +246,57 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="ToolTipText">
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Shadow">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="AlternateBase">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ToolTipBase">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
         <red>255</red>
         <green>255</green>
-        <blue>255</blue>
+        <blue>220</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ToolTipText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
        </color>
       </brush>
      </colorrole>
@@ -116,31 +314,67 @@
      <colorrole role="WindowText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>190</red>
-        <green>190</green>
-        <blue>190</blue>
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Light">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>133</red>
+        <green>133</green>
+        <blue>133</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Midlight">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>111</red>
+        <green>111</green>
+        <blue>111</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Dark">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Mid">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>59</red>
+        <green>59</green>
+        <blue>59</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Text">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>190</red>
-        <green>190</green>
-        <blue>190</blue>
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
        </color>
       </brush>
      </colorrole>
-     <colorrole role="ButtonText">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>190</red>
-        <green>190</green>
-        <blue>190</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="ToolTipText">
+     <colorrole role="BrightText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
         <red>255</red>
@@ -149,12 +383,75 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="PlaceholderText">
+     <colorrole role="ButtonText">
       <brush brushstyle="SolidPattern">
-       <color alpha="128">
+       <color alpha="255">
+        <red>44</red>
+        <green>44</green>
+        <blue>44</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Shadow">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
         <red>0</red>
         <green>0</green>
         <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="AlternateBase">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>89</red>
+        <green>89</green>
+        <blue>89</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ToolTipBase">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>255</red>
+        <green>255</green>
+        <blue>220</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ToolTipText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="128">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
        </color>
       </brush>
      </colorrole>
@@ -167,6 +464,9 @@
   <widget class="QWidget" name="centralWidget">
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="leftMargin">
@@ -189,10 +489,16 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab1">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>Histograms</string>
        </attribute>
@@ -679,6 +985,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="conf">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>Parameters</string>
        </attribute>
@@ -691,7 +1000,7 @@
              <x>107</x>
              <y>16</y>
              <width>566</width>
-             <height>539</height>
+             <height>557</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_7">
@@ -713,12 +1022,10 @@
              </widget>
             </item>
             <item row="3" column="3">
-             <widget class="QSpinBox" name="delay2">
-             </widget>
+             <widget class="QSpinBox" name="delay2"/>
             </item>
             <item row="11" column="3">
-             <widget class="QSpinBox" name="delay8">
-             </widget>
+             <widget class="QSpinBox" name="delay8"/>
             </item>
             <item row="17" column="2">
              <widget class="QDoubleSpinBox" name="threshold14">
@@ -783,8 +1090,7 @@
              </widget>
             </item>
             <item row="9" column="3">
-             <widget class="QSpinBox" name="delay6">
-             </widget>
+             <widget class="QSpinBox" name="delay6"/>
             </item>
             <item row="20" column="4">
              <widget class="QComboBox" name="rof17">
@@ -801,8 +1107,7 @@
              </widget>
             </item>
             <item row="20" column="3">
-             <widget class="QSpinBox" name="delay17">
-             </widget>
+             <widget class="QSpinBox" name="delay17"/>
             </item>
             <item row="7" column="2">
              <widget class="QDoubleSpinBox" name="threshold4">
@@ -812,8 +1117,7 @@
              </widget>
             </item>
             <item row="8" column="3">
-             <widget class="QSpinBox" name="delay5">
-             </widget>
+             <widget class="QSpinBox" name="delay5"/>
             </item>
             <item row="16" column="0">
              <widget class="QLabel" name="label_106">
@@ -830,8 +1134,7 @@
              </widget>
             </item>
             <item row="16" column="3">
-             <widget class="QSpinBox" name="delay13">
-             </widget>
+             <widget class="QSpinBox" name="delay13"/>
             </item>
             <item row="7" column="6">
              <widget class="QComboBox" name="test4"/>
@@ -903,8 +1206,7 @@
              </widget>
             </item>
             <item row="2" column="3">
-             <widget class="QSpinBox" name="delay1">
-             </widget>
+             <widget class="QSpinBox" name="delay1"/>
             </item>
             <item row="13" column="0">
              <widget class="QLabel" name="label_105">
@@ -914,8 +1216,7 @@
              </widget>
             </item>
             <item row="21" column="3">
-             <widget class="QSpinBox" name="delay18">
-             </widget>
+             <widget class="QSpinBox" name="delay18"/>
             </item>
             <item row="8" column="6">
              <widget class="QComboBox" name="test5"/>
@@ -966,8 +1267,7 @@
              </widget>
             </item>
             <item row="10" column="3">
-             <widget class="QSpinBox" name="delay7">
-             </widget>
+             <widget class="QSpinBox" name="delay7"/>
             </item>
             <item row="10" column="4">
              <widget class="QComboBox" name="rof7">
@@ -1001,8 +1301,7 @@
              </widget>
             </item>
             <item row="4" column="3">
-             <widget class="QSpinBox" name="delay3">
-             </widget>
+             <widget class="QSpinBox" name="delay3"/>
             </item>
             <item row="17" column="6">
              <widget class="QComboBox" name="test14"/>
@@ -1022,8 +1321,7 @@
              </widget>
             </item>
             <item row="17" column="3">
-             <widget class="QSpinBox" name="delay14">
-             </widget>
+             <widget class="QSpinBox" name="delay14"/>
             </item>
             <item row="0" column="2">
              <widget class="QLabel" name="label_154">
@@ -1074,8 +1372,7 @@
              </widget>
             </item>
             <item row="18" column="3">
-             <widget class="QSpinBox" name="delay15">
-             </widget>
+             <widget class="QSpinBox" name="delay15"/>
             </item>
             <item row="10" column="5">
              <widget class="QLCDNumber" name="rate7">
@@ -1123,8 +1420,7 @@
              </widget>
             </item>
             <item row="15" column="3">
-             <widget class="QSpinBox" name="delay12">
-             </widget>
+             <widget class="QSpinBox" name="delay12"/>
             </item>
             <item row="9" column="4">
              <widget class="QComboBox" name="rof6">
@@ -1140,12 +1436,10 @@
              </widget>
             </item>
             <item row="14" column="3">
-             <widget class="QSpinBox" name="delay11">
-             </widget>
+             <widget class="QSpinBox" name="delay11"/>
             </item>
             <item row="12" column="3">
-             <widget class="QSpinBox" name="delay9">
-             </widget>
+             <widget class="QSpinBox" name="delay9"/>
             </item>
             <item row="16" column="2">
              <widget class="QDoubleSpinBox" name="threshold13">
@@ -1186,8 +1480,7 @@
              </widget>
             </item>
             <item row="19" column="3">
-             <widget class="QSpinBox" name="delay16">
-             </widget>
+             <widget class="QSpinBox" name="delay16"/>
             </item>
             <item row="16" column="5">
              <widget class="QLCDNumber" name="rate13">
@@ -1218,8 +1511,7 @@
              </widget>
             </item>
             <item row="13" column="3">
-             <widget class="QSpinBox" name="delay10">
-             </widget>
+             <widget class="QSpinBox" name="delay10"/>
             </item>
             <item row="0" column="3">
              <widget class="QLabel" name="label_155">
@@ -1260,8 +1552,7 @@
              </widget>
             </item>
             <item row="2" column="6">
-             <widget class="QComboBox" name="test1">
-             </widget>
+             <widget class="QComboBox" name="test1"/>
             </item>
             <item row="2" column="4">
              <widget class="QComboBox" name="rof1">
@@ -1321,8 +1612,7 @@
              </widget>
             </item>
             <item row="7" column="3">
-             <widget class="QSpinBox" name="delay4">
-             </widget>
+             <widget class="QSpinBox" name="delay4"/>
             </item>
             <item row="18" column="6">
              <widget class="QComboBox" name="test15"/>
@@ -1451,6 +1741,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>QKD results/det</string>
        </attribute>
@@ -1576,6 +1869,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>QKD results/QB</string>
        </attribute>
@@ -1858,6 +2154,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>QKD stats</string>
        </attribute>
@@ -1982,6 +2281,9 @@
     <font>
      <pointsize>11</pointsize>
     </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
    </property>
    <widget class="QMenu" name="menuconfig_n">
     <property name="font">
