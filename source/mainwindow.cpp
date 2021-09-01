@@ -2202,7 +2202,7 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     if (mapintout.contains("in_PlotCCh1"))
         ui->PlotCChn1->setValue(mapintout.value("in_PlotCCh1"));
     if (mapintout.contains("in_bin_width"))
-        ui->bin_width->setValue(mapintout.value("bin_width"));
+        ui->bin_width->setValue(mapintout.value("in_bin_width"));
 
     if (mapdoubleout.contains("in_adqtime"))
         ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
