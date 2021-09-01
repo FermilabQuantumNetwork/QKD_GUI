@@ -925,14 +925,20 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     if (debug)
         fprintf(stderr, "show_histograms() called\n");
 
+    double histEnd = ui->histEnd->value();
+
     QVector<double> xa(datA.size());
     QVector<double> ya(datA.size());
+
+    if (debug)
+        fprintf(stderr, "datA.size() = %llu\n", datA.size());
 
     for (i = 0; i < datA.size()/2; i++) {
         if (xa.size() > 0 && xa.back() < datA[2*i] - bin_width) {
             xa.push_back(xa.back() - bin_width);
             ya.push_back(0);
         }
+        if (datA[2*i] > histEnd) break;
         xa.push_back(datA[2*i]);
         ya.push_back(datA[2*i+1]);
         /* Hack to include empty bins. */
@@ -951,15 +957,19 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> xb(datB.size());
     QVector<double> yb(datB.size());
 
+    if (debug)
+        fprintf(stderr, "datB.size() = %llu\n", datB.size());
+
     for (i = 0; i < datB.size()/2; i++) {
         if (xb.size() > 0 && xb.back() < datB[2*i] - bin_width) {
             xb.push_back(xb.back() - bin_width);
             yb.push_back(0);
         }
+        if (datB[2*i] > histEnd) break;
         xb.push_back(datB[2*i]);
         yb.push_back(datB[2*i+1]);
         /* Hack to include empty bins. */
-        while (i < datB.size()/2-1 && xb.back() + bin_width < datB[2*(i+1)]) {
+        if (i < datB.size()/2-1 && xb.back() + bin_width < datB[2*(i+1)]) {
             xb.push_back(xa.back() + bin_width);
             yb.push_back(0);
         }
@@ -974,15 +984,19 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> xc(datC.size());
     QVector<double> yc(datC.size());
 
+    if (debug)
+        fprintf(stderr, "datC.size() = %llu\n", datC.size());
+
     for (i = 0; i < datC.size()/2; i++) {
         if (xc.size() > 0 && xc.back() < datC[2*i] - bin_width) {
             xc.push_back(xc.back() - bin_width);
             yc.push_back(0);
         }
+        if (datC[2*i] > histEnd) break;
         xc.push_back(datC[2*i]);
         yc.push_back(datC[2*i+1]);
         /* Hack to include empty bins. */
-        while (i < datC.size()/2-1 && xc.back() + bin_width < datC[2*(i+1)]) {
+        if (i < datC.size()/2-1 && xc.back() + bin_width < datC[2*(i+1)]) {
             xc.push_back(xc.back() + bin_width);
             yc.push_back(0);
         }

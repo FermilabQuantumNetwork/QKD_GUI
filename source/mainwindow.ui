@@ -1038,6 +1038,23 @@
                   </widget>
                  </item>
                  <item>
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>Histogram End (ps)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="histEnd">
+                   <property name="maximum">
+                    <double>100000000.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>10000.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <spacer name="verticalSpacer_13">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
