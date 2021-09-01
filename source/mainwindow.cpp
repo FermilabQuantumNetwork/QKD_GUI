@@ -338,18 +338,18 @@ void MainWindow::setupratePlot(QCustomPlot *scope)
     graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::blue),4));
     graph3->setPen(QPen(QColor(200, 200, 0), 2));
 
-    QLinearGradient plotGradient;
-    plotGradient.setStart(0, 0);
-    plotGradient.setFinalStop(0, 350);
-    plotGradient.setColorAt(0, QColor(80, 80, 80));
-    plotGradient.setColorAt(1, QColor(50, 50, 50));
-    scope->setBackground(plotGradient);
-    QLinearGradient axisRectGradient;
-    axisRectGradient.setStart(0, 0);
-    axisRectGradient.setFinalStop(0, 350);
-    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-    scope->axisRect()->setBackground(axisRectGradient);
+    //QLinearGradient plotGradient;
+    //plotGradient.setStart(0, 0);
+    //plotGradient.setFinalStop(0, 350);
+    //plotGradient.setColorAt(0, QColor(80, 80, 80));
+    //plotGradient.setColorAt(1, QColor(50, 50, 50));
+    //scope->setBackground(plotGradient);
+    //QLinearGradient axisRectGradient;
+    //axisRectGradient.setStart(0, 0);
+    //axisRectGradient.setFinalStop(0, 350);
+    //axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    //axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    //scope->axisRect()->setBackground(axisRectGradient);
 
     //scope->yAxis->setRange(0, 2);
 
@@ -433,18 +433,18 @@ void MainWindow::setupHistoPlot(QCustomPlot *histograma)
     //histograma->addGraph();
     //histograma->graph(0)->setPen(QPen(Qt::red));
 
-    QLinearGradient plotGradient;
-    plotGradient.setStart(0, 0);
-    plotGradient.setFinalStop(0, 350);
-    plotGradient.setColorAt(0, QColor(80, 80, 80));
-    plotGradient.setColorAt(1, QColor(50, 50, 50));
-    histograma->setBackground(plotGradient);
-    QLinearGradient axisRectGradient;
-    axisRectGradient.setStart(0, 0);
-    axisRectGradient.setFinalStop(0, 350);
-    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-    histograma->axisRect()->setBackground(axisRectGradient);
+    //QLinearGradient plotGradient;
+    //plotGradient.setStart(0, 0);
+    //plotGradient.setFinalStop(0, 350);
+    //plotGradient.setColorAt(0, QColor(80, 80, 80));
+    //plotGradient.setColorAt(1, QColor(50, 50, 50));
+    //histograma->setBackground(plotGradient);
+    //QLinearGradient axisRectGradient;
+    //axisRectGradient.setStart(0, 0);
+    //axisRectGradient.setFinalStop(0, 350);
+    //axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    //axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    //histograma->axisRect()->setBackground(axisRectGradient);
 
     // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
     histograma->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
@@ -520,18 +520,18 @@ void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
     graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::yellow),4));
     graph4->setPen(QPen(QColor(200, 200, 0), 2));
 
-    QLinearGradient plotGradient;
-    plotGradient.setStart(0, 0);
-    plotGradient.setFinalStop(0, 350);
-    plotGradient.setColorAt(0, QColor(80, 80, 80));
-    plotGradient.setColorAt(1, QColor(50, 50, 50));
-    scope->setBackground(plotGradient);
-    QLinearGradient axisRectGradient;
-    axisRectGradient.setStart(0, 0);
-    axisRectGradient.setFinalStop(0, 350);
-    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-    scope->axisRect()->setBackground(axisRectGradient);
+    //QLinearGradient plotGradient;
+    //plotGradient.setStart(0, 0);
+    //plotGradient.setFinalStop(0, 350);
+    //plotGradient.setColorAt(0, QColor(80, 80, 80));
+    //plotGradient.setColorAt(1, QColor(50, 50, 50));
+    //scope->setBackground(plotGradient);
+    //QLinearGradient axisRectGradient;
+    //axisRectGradient.setStart(0, 0);
+    //axisRectGradient.setFinalStop(0, 350);
+    //axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    //axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    //scope->axisRect()->setBackground(axisRectGradient);
 
     //scope->yAxis->setRange(0, 2);
 
@@ -604,18 +604,18 @@ void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
     graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
     graph2->setPen(QPen(QColor(200, 0, 0), 2));
 
-    QLinearGradient plotGradient;
-    plotGradient.setStart(0, 0);
-    plotGradient.setFinalStop(0, 350);
-    plotGradient.setColorAt(0, QColor(80, 80, 80));
-    plotGradient.setColorAt(1, QColor(50, 50, 50));
-    scope->setBackground(plotGradient);
-    QLinearGradient axisRectGradient;
-    axisRectGradient.setStart(0, 0);
-    axisRectGradient.setFinalStop(0, 350);
-    axisRectGradient.setColorAt(0, QColor(80, 80, 80));
-    axisRectGradient.setColorAt(1, QColor(30, 30, 30));
-    scope->axisRect()->setBackground(axisRectGradient);
+    //QLinearGradient plotGradient;
+    //plotGradient.setStart(0, 0);
+    //plotGradient.setFinalStop(0, 350);
+    //plotGradient.setColorAt(0, QColor(80, 80, 80));
+    //plotGradient.setColorAt(1, QColor(50, 50, 50));
+    //scope->setBackground(plotGradient);
+    //QLinearGradient axisRectGradient;
+    //axisRectGradient.setStart(0, 0);
+    //axisRectGradient.setFinalStop(0, 350);
+    //axisRectGradient.setColorAt(0, QColor(80, 80, 80));
+    //axisRectGradient.setColorAt(1, QColor(30, 30, 30));
+    //scope->axisRect()->setBackground(axisRectGradient);
 
     //scope->yAxis->setRange(0, 2);
 
