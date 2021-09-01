@@ -629,10 +629,11 @@ void MainWindow::refreshButton()
     std::vector<std::string> devices = s.check_for_devices();
 
     ui->menuConnect->clear();
-    ui->menuConnect->addAction("Refresh");
     for (i = 0; i < devices.size(); i++) {
         ui->menuConnect->addAction(devices[i].c_str());
     }
+    ui->menuConnect->addSeparator();
+    ui->menuConnect->addAction("Refresh");
 }
 
 void MainWindow::connectAction(QAction *action)
