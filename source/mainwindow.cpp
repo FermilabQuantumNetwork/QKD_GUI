@@ -90,26 +90,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     lastPointKey_tab4 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     qkd_prevKey = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
 
-    /* FIXME: There has to be a better way of doing this with QPalette. */
-    ui->rof1->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof2->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof3->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof4->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof5->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof6->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof7->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof8->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof9->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof10->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof11->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof12->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof13->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof14->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof15->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof16->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof17->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->rof18->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-
     ui->rof1->addItem(tr("Rise"));
     ui->rof1->addItem(tr("Fall"));
     ui->rof2->addItem(tr("Rise"));
@@ -165,27 +145,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->rof16->setCurrentText("Fall");
     ui->rof17->setCurrentText("Fall");
     ui->rof18->setCurrentText("Fall");
-
-    /* FIXME: Should be some way to do this globally using stylesheets, but I
-     * wasn't able to get it to work. */
-    ui->test1->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test2->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test3->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test4->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test5->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test6->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test7->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test8->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test9->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test10->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test11->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test12->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test13->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test14->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test15->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test16->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test17->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
-    ui->test18->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
 
     ui->test1->addItem(tr("Enable"));
     ui->test1->addItem(tr("Disable"));
@@ -245,8 +204,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     /* Set connected label to Disconnected. */
     ui->connected_label->setText("Disconnected");
-
-    ui->taggers->setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
 
     qkdparam.QKD_setDefault();
 

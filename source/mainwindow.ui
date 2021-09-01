@@ -2679,7 +2679,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_149">
-            </property>
             <property name="text">
              <string>OK</string>
             </property>
@@ -2751,7 +2750,6 @@
           </item>
           <item>
            <widget class="QLabel" name="label_150">
-            </property>
             <property name="text">
              <string>OK</string>
             </property>
