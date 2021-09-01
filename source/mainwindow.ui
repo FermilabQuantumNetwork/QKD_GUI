@@ -51,7 +51,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab1">
        <property name="autoFillBackground">
@@ -1232,68 +1232,6 @@
             </item>
            </layout>
           </widget>
-          <widget class="QComboBox" name="taggers">
-           <property name="geometry">
-            <rect>
-             <x>890</x>
-             <y>120</y>
-             <width>79</width>
-             <height>23</height>
-            </rect>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="connect_button">
-           <property name="geometry">
-            <rect>
-             <x>990</x>
-             <y>120</y>
-             <width>80</width>
-             <height>23</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Connect</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="refresh_button">
-           <property name="geometry">
-            <rect>
-             <x>1100</x>
-             <y>120</y>
-             <width>80</width>
-             <height>23</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Refresh</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="connected_label">
-           <property name="geometry">
-            <rect>
-             <x>1210</x>
-             <y>120</y>
-             <width>131</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>TextLabel</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_23">
-           <property name="geometry">
-            <rect>
-             <x>890</x>
-             <y>90</y>
-             <width>111</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Time Taggers</string>
-           </property>
-          </widget>
          </widget>
         </item>
        </layout>
@@ -1871,8 +1809,17 @@
     </property>
     <addaction name="actionQKD"/>
    </widget>
+   <widget class="QMenu" name="menuConnect">
+    <property name="title">
+     <string>Connect</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionRefresh"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menuconfig_n"/>
    <addaction name="menuQKD_param"/>
+   <addaction name="menuConnect"/>
   </widget>
   <action name="actionSave_state">
    <property name="text">
@@ -1887,6 +1834,11 @@
   <action name="actionQKD">
    <property name="text">
     <string>QKD</string>
+   </property>
+  </action>
+  <action name="actionRefresh">
+   <property name="text">
+    <string>Refresh</string>
    </property>
   </action>
  </widget>

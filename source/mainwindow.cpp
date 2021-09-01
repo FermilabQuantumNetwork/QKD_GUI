@@ -201,9 +201,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->test17->setCurrentText("Disable");
     ui->test18->setCurrentText("Disable");
 
-    /* Set connected label to Disconnected. */
-    ui->connected_label->setText("Disconnected");
-
     qkdparam.QKD_setDefault();
 
     //dbc.start();
@@ -631,24 +628,29 @@ void MainWindow::refreshButton()
 
     std::vector<std::string> devices = s.check_for_devices();
 
-    ui->taggers->clear();
+    ui->menuConnect->clear();
+    ui->menuConnect->addAction("Refresh");
     for (i = 0; i < devices.size(); i++) {
-        ui->taggers->addItem(tr(devices[i].c_str()));
+        ui->menuConnect->addAction(devices[i].c_str());
     }
 }
 
-void MainWindow::connectButton()
+void MainWindow::connectAction(QAction *action)
 {
-    if (debug)
-        fprintf(stderr, "connecting to swabian\n");
-    if (s.connect(ui->taggers->currentText().toStdString()) == 0) {
-        ui->connected_label->setText("Connected");
+    std::string action_string = action->iconText().toStdString();
 
-        if (debug)
-            fprintf(stderr, "successfully connected to swabian\n");
+    if (!strcmp(action_string.c_str(),"Refresh")) {
+        this->refreshButton();
     } else {
         if (debug)
-            fprintf(stderr, "failed to connect to swabian\n");
+            fprintf(stderr, "connecting to swabian\n");
+        if (s.connect(action_string) == 0) {
+            if (debug)
+                fprintf(stderr, "successfully connected to swabian\n");
+        } else {
+            if (debug)
+                fprintf(stderr, "failed to connect to swabian\n");
+        }
     }
 }
 
@@ -671,11 +673,6 @@ void MainWindow::setupsignalslot()
     QObject::connect(ui->PlotCChn1, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->bin_width, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), this, SLOT(histogramChanged()));
-
-    /* Buttons on the Parameters tab. */
-
-    QObject::connect(ui->connect_button, &QPushButton::released, this, &MainWindow::connectButton);
-    QObject::connect(ui->refresh_button, &QPushButton::released, this, &MainWindow::refreshButton);
 
     /* Note: There should be a cleaner way to do this with loops, but I don't know how. */
     QObject::connect(ui->threshold1, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
@@ -798,6 +795,7 @@ void MainWindow::setupsignalslot()
     QObject::connect(this, SIGNAL(main_SaveQKDstats(int, int, double, double)),&dbc, SLOT(SaveQKDstats(int, int, double, double)));
 
     QObject::connect(ui->menuLoad_Qubits, SIGNAL(triggered(QAction*)), this, SLOT(tableSelected(QAction*)));
+    QObject::connect(ui->menuConnect, SIGNAL(triggered(QAction*)), this, SLOT(connectAction(QAction*)));
     QObject::connect(this , SIGNAL(tableQKDtoDB(QString)), &dbc, SLOT(readQubits(QString)));
 
     QObject::connect(&qkdparam, SIGNAL(sig_turnONDB(int)), this, SLOT(chang_QKD_turnONDB(int)));

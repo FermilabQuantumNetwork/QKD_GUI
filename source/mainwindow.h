@@ -159,6 +159,7 @@ public:
     CountWorkerThread *countWorkerThread;
 
 private slots:
+    void connectAction(QAction *action);
     void refreshButton();
     void connectButton();
     void parametersChanged();
