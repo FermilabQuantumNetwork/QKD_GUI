@@ -2084,11 +2084,11 @@ void MainWindow::SaveStateDialog(void) {
     if (fileName.isEmpty()) {
         return;
     } else {
-        this->SaveState(filename);
+        this->SaveState(fileName);
     }
 }
 
-void MainWindow::SaveState(void)
+void MainWindow::SaveState(QString fileName)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly)) {
@@ -2144,7 +2144,7 @@ void MainWindow::LoadStateDialog(void)
     }
 }
 
-void MainWindow::LoadState(QString filename)
+void MainWindow::LoadState(QString fileName)
 {
     QFile file(fileName);
 

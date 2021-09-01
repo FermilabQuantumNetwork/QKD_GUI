@@ -179,9 +179,9 @@ private slots:
     void turnONDB(int val);
 
     void SaveStateDialog(void);
-    void SaveState(void);
+    void SaveState(QString fileName);
     void LoadStateDialog(void);
-    void LoadState(QString filename);
+    void LoadState(QString fileName);
 
     void createQKDLinesA();
     void createQKDLinesB();
