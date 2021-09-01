@@ -1421,7 +1421,7 @@ void MainWindow::plot_qkd_results_det(double okA,double errA,double randA,double
     ui->QKD_H3_results->replot();
 }
 
-void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double bkgndE,double okL,double errL,double randL, double bkgndL,double okP,double errP,double randP,double bkgndP, double key)
+void MainWindow::plot_qkd_results_QB(double okE, double errE, double randE, double bkgndE, double okL, double errL, double randL, double bkgndL, double okP, double errP, double randP, double bkgndP, double key)
 {
     int i;
     double values[4], max;
@@ -1450,10 +1450,9 @@ void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double 
         ui->Late_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
         if (i == 0 || values[i] > max) {
             max = values[i];
-            ui->Early_results->graph(i)->rescaleValueAxis();
+            ui->Late_results->graph(i)->rescaleValueAxis();
         }
     }
-
 
     values[0] = okP;
     values[1] = errP;
@@ -1465,7 +1464,7 @@ void MainWindow::plot_qkd_results_QB(double okE,double errE,double randE,double 
         ui->Phase_results->graph(i)->addData(key-lastPointKey_tab3, values[i]);
         if (i == 0 || values[i] > max) {
             max = values[i];
-            ui->Early_results->graph(i)->rescaleValueAxis();
+            ui->Phase_results->graph(i)->rescaleValueAxis();
         }
     }
 
