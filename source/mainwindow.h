@@ -157,9 +157,6 @@ public:
     ~MainWindow();
     void closeEvent(QCloseEvent *event);
 
-    void setupPlotA(QCustomPlot *customPlot);
-    void setupratePlot(QCustomPlot *customPlot);
-
     void setupsignalslot();
     void setupHistoPlot(QCustomPlot *customPlot, bool top=true, bool yaxis=true);
 
