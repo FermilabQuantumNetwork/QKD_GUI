@@ -1513,6 +1513,99 @@ void MainWindow::DrawExpectedSignal(void)
         }
     }
 
+    QVector<double> xc_expected;
+    QVector<double> yc_expected;
+
+    for (j = 0; j < nC; j++) {
+        double left, right;
+        switch (qubit_sequence[j]) {
+        case 'E':
+            left = j*in_QKD_timeC + in_QKD_zeroC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(left-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(left+0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right-0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            left = j*in_QKD_timeC + in_QKD_zeroC + in_QKD_phC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(left-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(left+0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right-0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            break;
+        case 'L':
+            left = j*in_QKD_timeC + in_QKD_zeroC + in_QKD_phC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(left-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(left+0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right-0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            left = j*in_QKD_timeC + in_QKD_zeroC + 2*in_QKD_phC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(left-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(left+0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right-0.1);
+            yc_expected.push_back(0.5);
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            break;
+        case '0':
+            left = j*in_QKD_timeC + in_QKD_zeroC + in_QKD_phC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            break;
+        case 'P':
+            left = j*in_QKD_timeC + in_QKD_zeroC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(left-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(left+0.1);
+            yc_expected.push_back(0.25);
+            xc_expected.push_back(right-0.1);
+            yc_expected.push_back(0.25);
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            left = j*in_QKD_timeC + in_QKD_zeroC + in_QKD_phC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(left-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(left+0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(right-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            left = j*in_QKD_timeC + in_QKD_zeroC + 2*in_QKD_phC;
+            right = left + in_QKD_iwC;
+            xc_expected.push_back(left-0.1);
+            yc_expected.push_back(0);
+            xc_expected.push_back(left+0.1);
+            yc_expected.push_back(0.25);
+            xc_expected.push_back(right-0.1);
+            yc_expected.push_back(0.25);
+            xc_expected.push_back(right+0.1);
+            yc_expected.push_back(0);
+            break;
+        default:
+            fprintf(stderr, "unknown qubit sequence character\n");
+        }
+    }
+
     ui->PlotA_2->graph(0)->data()->clear();
     //// pass data points to graphs:
     ui->PlotA_2->graph(0)->setData(xa_expected, ya_expected);
