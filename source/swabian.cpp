@@ -77,7 +77,7 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
     measurementGroup.startFor(time);
     measurementGroup.waitUntilFinished();
 
-    for (i = 0; i < measurements.size(); i++) {
+    for (i = 0; i < (int) measurements.size(); i++) {
         std::vector<timestamp_t> data;
 
         // Fetch both vectors of data.
@@ -88,15 +88,15 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
 
         switch (i) {
         case 0:
-            for (j = 0; j < data.size(); j++)
+            for (j = 0; j < (int) data.size(); j++)
                 dataA.push_back((double) data[j]);
             break;
         case 1:
-            for (j = 0; j < data.size(); j++)
+            for (j = 0; j < (int) data.size(); j++)
                 dataB.push_back((double) data[j]);
             break;
         case 2:
-            for (j = 0; j < data.size(); j++)
+            for (j = 0; j < (int) data.size(); j++)
                 dataC.push_back((double) data[j]);
             break;
         }
@@ -159,7 +159,7 @@ int Swabian::set_trigger_level(int channel, float level)
  * specified by `n`, and `out` should be an array with at least `n` elements.
  *
  * Returns 0 on success and -1 on error. */
-int Swabian::get_count_rates(int *channels, double *out, size_t n)
+int Swabian::get_count_rates(int *channels, double *out, int n)
 {
     int i;
     int channels_corrected[18];

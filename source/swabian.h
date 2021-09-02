@@ -15,7 +15,7 @@ public:
     int get_histograms(int start_channel, int chan_a, int chan_b, int chan_c, int bin_width, timestamp_t time, std::vector<double> &dataA, std::vector<double> &dataB, std::vector<double> &dataC);
     int set_delay(int channel, int delay);
     int set_trigger_level(int channel, float level);
-    int get_count_rates(int *channels, double *out, size_t n);
+    int get_count_rates(int *channels, double *out, int n);
     int set_test_signal(int channel, int value);
     void set_rising_mask(int _rising_channel_mask);
 
