@@ -1205,6 +1205,12 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
 
     plot_qkd_results_det(resultAok, resultAerr, resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd, resultCok, resultCerr, resultCrand, resultCbkgnd, key);
     plot_qkd_results_QB(resultEok, resultEerr, resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd, resultPok, resultPerr, resultPrand, totalBkgnd, key);
+    printf("resultArand = %i\n", resultArand);
+    double sifted_time = resultAok/(resultAok+resultAerr);
+    double sifted_phase = resultBok/(resultBerr+resultCerr);
+    double error_time = resultAerr/(resultAok+resultAerr);
+    double error_phase = resultCerr/(resultBerr+resultCerr);
+    plot_qkd_stats(sifted_time, sifted_phase, error_time, error_phase, key);
 
     if (debug)
         fprintf(stderr, "show_histograms() done\n");
@@ -1453,7 +1459,8 @@ void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double 
     ui->qkd_errorplot->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     ui->qkd_siftedplot->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
 
-    //ui->PlotTrack->yAxis->rescale();
+    ui->qkd_errorplot->rescaleAxes();
+    ui->qkd_siftedplot->rescaleAxes();
 
     ui->qkd_errorplot->replot();
     ui->qkd_siftedplot->replot();
