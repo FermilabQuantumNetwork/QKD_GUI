@@ -999,8 +999,6 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
         double t = datA[2*i];
         double count = datA[2*i+1];
 
-        bool found = false;
-
         for (j = 0; j < nA; j++) {
             /* Find if we are in the early time bin. */
             double left = j*in_QKD_timeA + in_QKD_zeroA;
