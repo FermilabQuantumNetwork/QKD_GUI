@@ -53,6 +53,10 @@ public:
         while (true) {
             std::vector<double> dataA, dataB, dataC;
 
+            if (QThread::currentThread()->isInterruptionRequested()) {
+                return;
+            }
+
             if (!s->t) {
                 sleep(1);
                 continue;
@@ -112,10 +116,15 @@ public:
             channels[i] = i+1;
         
         while (true) {
+            if (QThread::currentThread()->isInterruptionRequested()) {
+                return;
+            }
+
             if (!s->t) {
                 sleep(1);
                 continue;
             }
+
             double *rates = new double[18];
 
             for (i = 0; i < 18; i++)
