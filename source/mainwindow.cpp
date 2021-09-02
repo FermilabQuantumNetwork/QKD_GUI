@@ -992,6 +992,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     if (debug)
         fprintf(stderr, "computing stats from %i qubits\n", nA);
 
+    /* FIXME: Definitely a better way to do this than a double for loop. */
     for (i = 0; i < datA.size()/2; i++) {
         if (datA[2*i] > histEnd) break;
         double t = datA[2*i];
