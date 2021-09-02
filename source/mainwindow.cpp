@@ -41,8 +41,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
     connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA->xAxis, SLOT(setRange(QCPRange)));
     connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-    //connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->yAxis, SLOT(setRange(QCPRange)));
-    //connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
     setupratePlot(ui->PlotTrack);
     setup_plot_qkd_results(ui->QKD_H1_results);
     setup_plot_qkd_results(ui->QKD_H2_results);
@@ -475,6 +473,7 @@ void MainWindow::setupHistoPlot(QCustomPlot *histograma, bool top)
     axisRectGradient.setColorAt(0, QColor(80, 80, 80));
     axisRectGradient.setColorAt(1, QColor(30, 30, 30));
     histograma->axisRect()->setBackground(axisRectGradient);
+    histograma->axisRect()->setMinimumMargins(QMargins(50,0,50,0));
 
     // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
     histograma->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
@@ -562,6 +561,7 @@ void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
     axisRectGradient.setColorAt(0, QColor(80, 80, 80));
     axisRectGradient.setColorAt(1, QColor(30, 30, 30));
     scope->axisRect()->setBackground(axisRectGradient);
+
 
     //scope->yAxis->setRange(0, 2);
 
