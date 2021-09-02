@@ -21,7 +21,6 @@ int main(int argc, char **argv)
 #endif
 
     QApplication a(argc, argv);
-    a.setStyleSheet("QComboBox { background-color: darkGray }" "QListView { color: white; }");
 
     ///////////ctl+c/////////////////////////////
 
