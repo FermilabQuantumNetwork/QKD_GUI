@@ -73,11 +73,11 @@ public:
 
             QVector<double> dataA_q, dataB_q, dataC_q;
 
-            for (i = 0; i < dataA.size(); i++)
+            for (i = 0; i < (int) dataA.size(); i++)
                 dataA_q.push_back(dataA[i]);
-            for (i = 0; i < dataB.size(); i++)
+            for (i = 0; i < (int) dataB.size(); i++)
                 dataB_q.push_back(dataB[i]);
-            for (i = 0; i < dataC.size(); i++)
+            for (i = 0; i < (int) dataC.size(); i++)
                 dataC_q.push_back(dataC[i]);
 
             emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width));
@@ -161,7 +161,7 @@ public:
     void setupratePlot(QCustomPlot *customPlot);
 
     void setupsignalslot();
-    void setupHistoPlot(QCustomPlot *customPlot, bool top=true);
+    void setupHistoPlot(QCustomPlot *customPlot, bool top=true, bool yaxis=true);
 
     void setup_histolines_Teleport();
   
@@ -183,10 +183,6 @@ private slots:
     void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
     void DrawExpectedSignal(void);
   
-    void plotRates(char AoB, int event, double key);
-
-    void histoplot(const vectorDouble &dat1, const vectorDouble &dat2, const vectorDouble &dat3);
-
     void turnONDB(int val);
 
     void SaveStateDialog(void);
@@ -246,7 +242,6 @@ private:
     QTimer dataTimer;
     QCPItemTracer *itemDemoPhaseTracer;
     bool Teleport0_or_QKD1=1;
-    bool trackRateChang =false;
     bool dbrunning=false;
 
     QCPItemStraightLine *infLine[18];

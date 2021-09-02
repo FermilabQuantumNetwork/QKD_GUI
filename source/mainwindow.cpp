@@ -35,13 +35,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // setup style of the histograms and plots
     setupHistoPlot(ui->PlotB);
     setupHistoPlot(ui->PlotA);
-    setupHistoPlot(ui->PlotA_2,false);
+    setupHistoPlot(ui->PlotA_2,false,false);
     setupHistoPlot(ui->PlotC);
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->xAxis, SLOT(setRange(QCPRange)));
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
     connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA->xAxis, SLOT(setRange(QCPRange)));
     connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-    setupratePlot(ui->PlotTrack);
     setup_plot_qkd_results(ui->QKD_H1_results);
     setup_plot_qkd_results(ui->QKD_H2_results);
     setup_plot_qkd_results(ui->QKD_H3_results);
@@ -383,14 +382,18 @@ void MainWindow::setupratePlot(QCustomPlot *scope)
     scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
-void MainWindow::setupHistoPlot(QCustomPlot *histograma, bool top)
+void MainWindow::setupHistoPlot(QCustomPlot *histograma, bool top, bool yaxis)
 {
     histograma->plotLayout()->clear();
 
     QCPAxisRect *wideAxisRect = new QCPAxisRect(histograma);
 
     wideAxisRect->setupFullAxesBox(true);
-    wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
+    if (yaxis)
+        wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
+    else
+        wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabels(false);
+
     if (top)
         wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
 
@@ -663,7 +666,7 @@ void MainWindow::refreshButton()
     std::vector<std::string> devices = s.check_for_devices();
 
     ui->menuConnect->clear();
-    for (i = 0; i < devices.size(); i++) {
+    for (i = 0; i < (int) devices.size(); i++) {
         ui->menuConnect->addAction(devices[i].c_str());
     }
     ui->menuConnect->addSeparator();
@@ -999,11 +1002,11 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     double resultBok=0, resultBerr=0, resultBrand=0, resultBbkgnd=0;
     double resultCok=0, resultCerr=0, resultCrand=0, resultCbkgnd=0;
 
-    size_t nA, nB, nC;
+    int nA, nB, nC;
     
-    nA = MIN(in_QKD_numbA,strlen(qubit_sequence));
-    nB = MIN(in_QKD_numbB,strlen(qubit_sequence));
-    nC = MIN(in_QKD_numbC,strlen(qubit_sequence));
+    nA = MIN(in_QKD_numbA,(int) strlen(qubit_sequence));
+    nB = MIN(in_QKD_numbB,(int) strlen(qubit_sequence));
+    nC = MIN(in_QKD_numbC,(int) strlen(qubit_sequence));
 
     double resultEok=0, resultEerr=0, resultErand=0;
     double resultLok=0, resultLerr=0, resultLrand=0;
@@ -1011,7 +1014,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     double totalBkgnd=0;
 
     if (debug)
-        fprintf(stderr, "computing stats from %zu qubits\n", nA);
+        fprintf(stderr, "computing stats from %i qubits\n", nA);
 
     QVector<double> xa_expected;
     QVector<double> ya_expected;
@@ -1294,13 +1297,17 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
 
     plot_qkd_results_det(resultAok, resultAerr, resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd, resultCok, resultCerr, resultCrand, resultCbkgnd, key);
     plot_qkd_results_QB(resultEok, resultEerr, resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd, resultPok, resultPerr, resultPrand, totalBkgnd, key);
-    printf("resultArand = %f\n", resultArand);
-    printf("resultBok = %f\n", resultBok);
-    printf("resultBerr = %f\n", resultBerr);
-    printf("resultBrand = %f\n", resultBrand);
-    printf("resultBbkgnd = %f\n", resultBbkgnd);
-    printf("resultCok = %f\n", resultCok);
-    printf("resultCerr = %f\n", resultCerr);
+
+    if (debug) {
+        printf("resultArand = %f\n", resultArand);
+        printf("resultBok = %f\n", resultBok);
+        printf("resultBerr = %f\n", resultBerr);
+        printf("resultBrand = %f\n", resultBrand);
+        printf("resultBbkgnd = %f\n", resultBbkgnd);
+        printf("resultCok = %f\n", resultCok);
+        printf("resultCerr = %f\n", resultCerr);
+    }
+
     double sifted_time = resultAok/((double) resultAok+resultAerr);
     double sifted_phase = resultBok/((double) resultBok+resultBerr+resultCerr);
     double error_time = resultAerr/((double) resultAok+resultAerr);
@@ -1315,9 +1322,9 @@ void MainWindow::DrawExpectedSignal(void)
 {
     int j;
 
-    size_t nA;
+    int nA;
     
-    nA = MIN(in_QKD_numbA,strlen(qubit_sequence));
+    nA = MIN(in_QKD_numbA,(int) strlen(qubit_sequence));
 
     QVector<double> xa_expected;
     QVector<double> ya_expected;
@@ -1523,44 +1530,6 @@ void MainWindow::parametersChanged(void)
 ///////////////////plotting///////////////////////////
 ///////////////////////////////////////////////////////////
 
-void MainWindow::plotRates(char AoBoC, int event, double key)
-{
-    double value1 = event; 
-
-    if (AoBoC == 'A') {
-        ui->PlotTrack->graph(0)->addData(key-lastPointKey_tab1, value1);
-        // remove data of lines that's outside visible range:key, value1
-        //ui->PlotTrack->graph(0)->removeDataBefore(key-55);
-        // rescale value (vertical) axis to fit the current data:
-        //ui->PlotTrack->graph(0)->rescaleValueAxis(true);
-        //  lastPointKey_tab1 = key;
-        // make key axis range scroll with the data (at a constant range size of 8):
-        // ui->PlotTrack->graph(0)->keyAxis()->setRange(key+0.25, 50, Qt::AlignRight);
-        //ui->PlotTrack->xAxis->setRange(key, 8, Qt::AlignRight);
-        //ui->PlotTrack->replot();
-    } else if (AoBoC == 'B') {
-        ui->PlotTrack->graph(1)->addData(key-lastPointKey_tab1, value1);
-    } else if (AoBoC == 'C') {
-        ui->PlotTrack->graph(2)->addData(key-lastPointKey_tab1, value1);
-    }
-
-    ui->PlotTrack->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
-    //ui->PlotTrack->yAxis->rescale();
-
-    ui->PlotTrack->replot();
-
-    if (trackRateChang && AoBoC == 'A') {
-        ui->PlotTrack->graph(0)->data()->clear();
-        trackRateChang=false;
-    } else if (trackRateChang && AoBoC == 'B') {
-        ui->PlotTrack->graph(1)->data()->clear();
-        trackRateChang=false;
-    } else if (trackRateChang && AoBoC == 'C') {
-        ui->PlotTrack->graph(2)->data()->clear();
-        trackRateChang=false;
-    }
-}
-
 void MainWindow::plot_qkd_results_det(double okA, double errA, double randA, double bkgndA, double okB, double errB, double randB, double bkgndB, double okC, double errC, double randC, double bkgndC, double key)
 {
     ui->QKD_H1_results->graph(0)->addData(key-lastPointKey_tab3, okA);
@@ -1637,429 +1606,6 @@ void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double 
 
     ui->qkd_errorplot->replot();
     ui->qkd_siftedplot->replot();
-}
-
-//////////////////////////////////////////////////////////
-///////////////////histograms///////////////////////////
-///////////////////////////////////////////////////////////
-
-
-void MainWindow::histoplot(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC)
-{
-    //std::cout<<" histoplot hermanitititototot"<< datB.size()<<"   "<<datC.size() <<std::endl;
-    double binwidth= ui->bin_width->value();
-
-    //  std::cout<<"histogram size   "<<datA.size()<<std::endl;
-    //std::cout<<"binwidth   "<<binwidth<<std::endl;
-    QVector<double> x(datA.size());
-//for (int i=in_histStart; i<in_histEnd; i++){
-    for (int i=0; i<datA.size(); ++i){
-        x[i] = binwidth*i+in_histStart;
-
-    }
-
-  ui->PlotA->graph(0)->data()->clear();
-  // pass data points to graphs:
-  ui->PlotA->graph(0)->setData(x, datA);
-  //let the ranges scale themselves so graph 0 fits perfectly in the visible area:
-  if(binwidth!=prevbinwidth)ui->PlotA->graph(0)->rescaleAxes();
-  ui->PlotA->graph(0)->rescaleValueAxis();
-  ui->PlotA->replot();
-
-  ui->PlotB->graph(0)->data()->clear();
-  // pass data points to graphs:
-  ui->PlotB->graph(0)->setData(x, datB);
-  //let the ranges scale themselves so graph 0 fits perfectly in the visible area:
-  if(binwidth!=prevbinwidth)ui->PlotB->graph(0)->rescaleAxes();
-  ui->PlotB->graph(0)->rescaleValueAxis();
-  ui->PlotB->replot();
-
-  ui->PlotC->graph(0)->data()->clear();
-  // pass data points to graphs:
-  ui->PlotC->graph(0)->setData(x, datC);
-  //let the ranges scale themselves so graph 0 fits perfectly in the visible area:
-  if(binwidth!=prevbinwidth)ui->PlotC->graph(0)->rescaleAxes();
-  ui->PlotC->graph(0)->rescaleValueAxis();
-  ui->PlotC->replot();
-  prevbinwidth=binwidth;
-
-  if(!Teleport0_or_QKD1){
-      for (int D=0; D<datA.size(); D++) {
-          for (int i=0; i<9; i++) {
-              if(i<3){
-                  if(x[D]>Plot_Win_BoE[0][i][0] && x[D]<Plot_Win_BoE[0][i][1])P_R[i]+=datA[D];
-              }
-              if(i>2 && i<6) {
-                  if(x[D]>Plot_Win_BoE[1][i-3][0] && x[D]<Plot_Win_BoE[1][i-3][1])P_R[i]+=datB[D];
-              }
-              if(i>5) {
-                  if(x[D]>Plot_Win_BoE[2][i-6][0] && x[D]<Plot_Win_BoE[2][i-6][1])P_R[i]+=datC[D];
-              }
-
-           }
-
-      }
-
-      if(dbrunning)emit main_SaveRateValues(P_R[0], P_R[1],  P_R[2], P_R[3], P_R[4], P_R[5], P_R[6], P_R[7], P_R[8], float(in_adqtime));
-
-      double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-      for (int i=0;i<9;i++){
-          char AoBoC = char(NULL);
-          if(P_T[i]){
-              if(i<3)AoBoC='A';
-              if(i>2 && i<6) AoBoC='B';
-              if(i>5) AoBoC='C';
-              plotRates(AoBoC, P_R[i], key);
-          }
-      }
-      for (int i=0;i<9;i++)P_R[i]=0;
-  }
-
-
-  //////////////////
-  ////QKD HISTO/////
-  /// //////////////
-
-  if(Teleport0_or_QKD1 && qubitsfromDBloaded){
-
-      double resultAok=0, resultAerr=0, resultArand=0, resultAbkgnd=0;
-      double resultBok=0, resultBerr=0, resultBrand=0, resultBbkgnd=0;
-      double resultCok=0, resultCerr=0, resultCrand=0, resultCbkgnd=0;
-      double tempresultAok=0, tempresultAerr=0, tempresultArand=0, tempresultAbkgnd=0;
-      double tempresultBok=0, tempresultBerr=0, tempresultBrand=0, tempresultBbkgnd=0;
-      double tempresultCok=0, tempresultCerr=0, tempresultCrand=0, tempresultCbkgnd=0;
-
-      double resultEok=0, resultEerr=0, resultErand=0;
-      double resultLok=0, resultLerr=0, resultLrand=0;
-      double resultPok=0, resultPerr=0, resultPrand=0;
-      double totalBkgnd=0;
-
-      int error_ok_time = 0, error_ok_phase = 0, error_time = 0, error_phase = 0;
-
-
-      //////////////Histo A//////////////
-       // std::cout<<"in_QKD_numbA: "<<in_QKD_numbA<<std::endl;
-      for(int q=0; (q<in_QKD_numbA && q<in_qkdfromDB.size()); q++){
-          for (int D = int((q*int(in_QKD_timeA)+in_QKD_zeroA)/binwidth); D<=int((q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA)/binwidth); D++) {//first win
-              if(q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA<datA.size()){
-                  tempresultAok+=in_qkdfromDB[q][0]*datA[D];
-                  tempresultAerr+=in_qkdfromDB[q][1]*datA[D];
-                  tempresultArand+=in_qkdfromDB[q][2]*datA[D];
-
-              }
-          }
-
-          for (int D = int((q*int(in_QKD_timeA)+in_QKD_zeroA+in_QKD_phA)/binwidth); D<=int((q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+in_QKD_phA)/binwidth); D++) {//second win
-              if(q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+in_QKD_phA<datA.size()){
-                  tempresultAok+=in_qkdfromDB[q][3]*datA[D];
-                  tempresultAerr+=in_qkdfromDB[q][4]*datA[D];
-                  tempresultArand+=in_qkdfromDB[q][5]*datA[D];
-               }
-          }
-
-          for (int D = int((q*int(in_QKD_timeA)+in_QKD_zeroA+2*in_QKD_phA)/binwidth); D<=int((q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+2*in_QKD_phA)/binwidth); D++) {//third win
-              if(q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+2*in_QKD_phA<datA.size()){
-                  tempresultAok+=in_qkdfromDB[q][6]*datA[D];
-                  tempresultAerr+=in_qkdfromDB[q][7]*datA[D];
-                  tempresultArand+=in_qkdfromDB[q][8]*datA[D];
-              }
-          }
-
-         //if(q==0)std::cout<<q*int(in_QKD_timeA)+in_QKD_zeroA+3*in_QKD_phA<<"       "<<q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+3*in_QKD_phA<<std::endl;
-
-          for (int D = int((q*int(in_QKD_timeA)+in_QKD_zeroA+3*in_QKD_phA)/binwidth); D<=int((q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+3*in_QKD_phA)/binwidth); D++) {//last win (background)
-              if(q*in_QKD_timeA+in_QKD_zeroA+in_QKD_iwA+3*in_QKD_phA<datA.size())tempresultAbkgnd+=datA[D];
-          }
-   // std::cout<<tempresultAbkgnd<<std::endl;
-          if(in_qkdfromDB[q][2]&&in_qkdfromDB[q][8]){//phase calc  R -- * -- R
-              error_ok_phase += tempresultAok+tempresultAerr;
-              error_phase += tempresultAerr;
-
-              resultPok+= tempresultAok;
-              resultPerr+= tempresultAerr;
-              resultPrand+= tempresultArand;
-          }
-          if(in_qkdfromDB[q][5]&&!in_qkdfromDB[q][2]&&!in_qkdfromDB[q][8]){//time calc    !R -- R -- !R
-              error_ok_time += tempresultAok+tempresultAerr;
-              error_time += tempresultAerr;
-          }
-
-          if(in_qkdfromDB[q][0]&&in_qkdfromDB[q][5]&&in_qkdfromDB[q][7]){//time calc E    O -- R -- E
-              resultEok+= tempresultAok;
-              resultEerr+= tempresultAerr;
-              resultErand+= tempresultArand;
-          }
-          if(in_qkdfromDB[q][1]&&in_qkdfromDB[q][5]&&in_qkdfromDB[q][6]){//time calc L  E -- R -- O
-              resultLok+= tempresultAok;
-              resultLerr+= tempresultAerr;
-              resultLrand+= tempresultArand;
-          }
-
-         // if(q==0)std::cout<<in_qkdfromDB[q][8]<<"       "<<tempresultArand<<std::endl;
-              /////cross qubit integration////
-          resultAok+=tempresultAok;
-          resultArand+=tempresultArand;
-          resultAerr+=tempresultAerr;
-          resultAbkgnd+=tempresultAbkgnd;
-
-             /////cross histogram integration////
-
-          if(q+1>datah5okA.size() && q+1>datah5errA.size() && q+1>datah5randA.size() && q+1>datah5bkgndA.size()){///if the array doesnt have the qubit
-              datah5okA.append(tempresultAok);
-              datah5randA.append(tempresultArand);
-              datah5errA.append(tempresultAerr);
-              datah5bkgndA.append(tempresultAbkgnd);
-          }
-          else{ ///if it have it, integrate
-              datah5okA[q]+=tempresultAok;
-              datah5randA[q]+=tempresultArand;
-              datah5errA[q]+=tempresultAerr;
-              datah5bkgndA[q]+=tempresultAbkgnd;
-          }
-
-          tempresultAok=0;
-          tempresultAerr=0;
-          tempresultArand=0;
-          tempresultAbkgnd=0;
-        // if(resultArand>200000)std::cout<<q<<std::endl;
-      }
-
-      ////////Histo B/////////////
-
-
-
-      for(int q=0; (q<in_QKD_numbB && q<in_qkdfromDB.size()); q++){
-          for (int D = q*int(in_QKD_timeB)+in_QKD_zeroB; D<=q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB; D++) {//first win
-              if(q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB<datB.size()){
-                  tempresultBok+=in_qkdfromDB[q][9]*datB[D];
-                  tempresultBerr+=in_qkdfromDB[q][10]*datB[D];
-                  tempresultBrand+=in_qkdfromDB[q][11]*datB[D];
-              }
-          }
-
-          for (int D = q*int(in_QKD_timeB)+in_QKD_zeroB+in_QKD_phB; D<=q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+in_QKD_phB; D++) {//second win
-              if(q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+in_QKD_phB<datB.size()){
-                  tempresultBok+=in_qkdfromDB[q][12]*datB[D];
-                  tempresultBerr+=in_qkdfromDB[q][13]*datB[D];
-                  tempresultBrand+=in_qkdfromDB[q][14]*datB[D];
-              }
-          }
-
-          for (int D = q*int(in_QKD_timeB)+in_QKD_zeroB+2*in_QKD_phB; D<=q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+2*in_QKD_phB; D++) {//third win
-              if(q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+2*in_QKD_phB<datB.size()){
-                  tempresultBok+=in_qkdfromDB[q][15]*datB[D];
-                  tempresultBerr+=in_qkdfromDB[q][16]*datB[D];
-                  tempresultBrand+=in_qkdfromDB[q][17]*datB[D];
-              }
-          }
-
-          for (int D = q*int(in_QKD_timeB)+in_QKD_zeroB+3*in_QKD_phB; D<=q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+3*in_QKD_phB; D++) {//last win (background)
-              if(q*in_QKD_timeB+in_QKD_zeroB+in_QKD_iwB+3*in_QKD_phB<datB.size())tempresultBbkgnd+=datB[D];
-          }
-
-          if(in_qkdfromDB[q][11]&&in_qkdfromDB[q][17]){//phase calc  R -- * -- R
-              error_ok_phase += tempresultBok+tempresultBerr;
-              error_phase += tempresultBerr;
-
-              resultPok+= tempresultBok;
-              resultPerr+= tempresultBerr;
-              resultPrand+= tempresultBrand;
-
-          }
-          if(in_qkdfromDB[q][14]&&!in_qkdfromDB[q][11]&&!in_qkdfromDB[q][17]){//time calc    !R -- R -- !R
-              error_ok_time += tempresultBok+tempresultBerr;
-              error_time += tempresultBerr;
-          }
-
-          if(in_qkdfromDB[q][9]&&in_qkdfromDB[q][14]&&in_qkdfromDB[q][16]){//time calc E    O -- R -- E
-              resultEok+= tempresultBok;
-              resultEerr+= tempresultBerr;
-              resultErand+= tempresultBrand;
-          }
-          if(in_qkdfromDB[q][10]&&in_qkdfromDB[q][14]&&in_qkdfromDB[q][15]){//time calc L  E -- R -- O
-              resultLok+= tempresultBok;
-              resultLerr+= tempresultBerr;
-              resultLrand+= tempresultBrand;
-          }
-
-              /////cross qubit integration////
-          resultBok+=tempresultBok;
-          resultBrand+=tempresultBrand;
-          resultBerr+=tempresultBerr;
-          resultBbkgnd+=tempresultBbkgnd;
-
-             /////cross histogram integration////
-
-          if(q+1>datah5okB.size() && q+1>datah5errB.size() && q+1>datah5randB.size() && q+1>datah5bkgndB.size()){///if the array doesnt have the qubit
-              datah5okB.append(tempresultBok);
-              datah5randB.append(tempresultBrand);
-              datah5errB.append(tempresultBerr);
-              datah5bkgndB.append(tempresultBbkgnd);
-          }
-          else{ ///if it have it, integrate
-              datah5okB[q]+=tempresultBok;
-              datah5randB[q]+=tempresultBrand;
-              datah5errB[q]+=tempresultBerr;
-              datah5bkgndB[q]+=tempresultBbkgnd;
-          }
-
-          tempresultBok=0;
-          tempresultBerr=0;
-          tempresultBrand=0;
-          tempresultBbkgnd=0;
-      }
-
-
-
-      ////////Histo C////////////
-
-
-      for(int q=0; (q<in_QKD_numbC && q<in_qkdfromDB.size()); q++){
-          for (int D = q*int(in_QKD_timeC)+in_QKD_zeroC; D<=q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC; D++) {//first win
-              if(q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC<datC.size()){
-                  tempresultCok+=in_qkdfromDB[q][18]*datC[D];
-                  tempresultCerr+=in_qkdfromDB[q][19]*datC[D];
-                  tempresultCrand+=in_qkdfromDB[q][20]*datC[D];
-              }
-          }
-
-          for (int D = q*int(in_QKD_timeC)+in_QKD_zeroC+in_QKD_phC; D<=q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+in_QKD_phC; D++) {//second win
-              if(q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+in_QKD_phC<datC.size()){
-                  tempresultCok+=in_qkdfromDB[q][21]*datC[D];
-                  tempresultCerr+=in_qkdfromDB[q][22]*datC[D];
-                  tempresultCrand+=in_qkdfromDB[q][23]*datC[D];
-              }
-          }
-
-          for (int D = q*int(in_QKD_timeC)+in_QKD_zeroC+2*in_QKD_phC; D<=q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+2*in_QKD_phC; D++) {//third win
-              if(q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+2*in_QKD_phC<datC.size()){
-                  tempresultCok+=in_qkdfromDB[q][24]*datC[D];
-                  tempresultCerr+=in_qkdfromDB[q][25]*datC[D];
-                  tempresultCrand+=in_qkdfromDB[q][26]*datC[D];
-              }
-          }
-
-          for (int D = q*int(in_QKD_timeC)+in_QKD_zeroC+3*in_QKD_phC; D<=q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+3*in_QKD_phC; D++) {//last win (background)
-              if(q*in_QKD_timeC+in_QKD_zeroC+in_QKD_iwC+3*in_QKD_phC<datC.size())tempresultCbkgnd+=datC[D];
-          }
-
-          if(in_qkdfromDB[q][20]&&in_qkdfromDB[q][26]){//phase calc  R -- * -- R
-              error_ok_phase += tempresultCok+tempresultCerr;
-              error_phase += tempresultCerr;
-
-              resultPok+= tempresultCok;
-              resultPerr+= tempresultCerr;
-              resultPrand+= tempresultCrand;
-          }
-          if(in_qkdfromDB[q][23]&&!in_qkdfromDB[q][20]&&!in_qkdfromDB[q][26]){//time calc    !R -- R -- !R
-              error_ok_time += tempresultCok+tempresultCerr;
-              error_time += tempresultCerr;
-          }
-
-          if(in_qkdfromDB[q][18]&&in_qkdfromDB[q][23]&&in_qkdfromDB[q][25]){//time calc E    O -- R -- E
-              resultEok+= tempresultCok;
-              resultEerr+= tempresultCerr;
-              resultErand+= tempresultCrand;
-          }
-          if(in_qkdfromDB[q][19]&&in_qkdfromDB[q][23]&&in_qkdfromDB[q][24]){//time calc L  E -- R -- O
-              resultLok+= tempresultCok;
-              resultLerr+= tempresultCerr;
-              resultLrand+= tempresultCrand;
-          }
-              /////cross qubit integration////
-          resultCok+=tempresultCok;
-          resultCrand+=tempresultCrand;
-          resultCerr+=tempresultCerr;
-          resultCbkgnd+=tempresultCbkgnd;
-
-             /////cross histogram integration////
-
-          if(q+1>datah5okC.size() && q+1>datah5errC.size() && q+1>datah5randC.size() && q+1>datah5bkgndC.size()){///if the array doesnt have the qubit
-              datah5okC.append(tempresultCok);
-              datah5randC.append(tempresultCrand);
-              datah5errC.append(tempresultCerr);
-              datah5bkgndC.append(tempresultCbkgnd);
-          }
-          else{ ///if it have it, integrate
-              datah5okC[q]+=tempresultCok;
-              datah5randC[q]+=tempresultCrand;
-              datah5errC[q]+=tempresultCerr;
-              datah5bkgndC[q]+=tempresultCbkgnd;
-          }
-
-          tempresultCok=0;
-          tempresultCerr=0;
-          tempresultCrand=0;
-          tempresultCbkgnd=0;
-      }
-
-
-      totalBkgnd = resultAbkgnd+resultBbkgnd+resultCbkgnd;
-      ///////Data submitt//////////
-
-
-      double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-
-     // std::cout<<"resultAok:"<<resultAok<<"  resultAerr:"<<resultAerr<<"   resultArand:"<<resultArand<<"   resultAbkgnd:"<< resultAbkgnd<<std::endl;
-      plot_qkd_results_det(resultAok, resultAerr,resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd,resultCok, resultCerr, resultCrand, resultCbkgnd,key);
-      plot_qkd_results_QB(resultEok, resultEerr,resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd,resultPok, resultPerr, resultPrand, totalBkgnd,key);
-
-      if(QKD_DB_ON)emit main_SaveQKDresults(resultAok, resultAerr,resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd,resultCok, resultCerr, resultCrand, resultCbkgnd);
-
-      double error_rate_time=0, error_rate_phase=0;
-
-      if(error_ok_time>0){
-          error_rate_time= double(error_time)/double(error_ok_time);
-          //std::cout<<"error_time: "<<error_time<< "  ||  error_ok_time: "<<error_ok_time<<"  ||  error_rate_time: "<<error_rate_time<<std::endl;
-      }
-      if(error_ok_phase>0)error_rate_phase= double(error_phase)/double(error_ok_phase+2*resultPrand);
-      int sift_phase = error_ok_phase+2*resultPrand;
-
-
-      resultAok=0;resultAerr=0;resultArand=0;resultAbkgnd=0;resultBok=0;resultBerr=0;resultBrand=0;resultBbkgnd=0;resultCok=0;resultCerr=0;resultCrand=0;resultCbkgnd=0;
-      resultEok=0;resultEerr=0;resultErand=0;resultLok=0;resultLerr=0;resultLrand=0;resultPok=0;resultPerr=0;resultPrand=0;
-
-
-      //std::cout<<error_ok_time<<"   "<<error_ok_phase<< "     "<<error_time<< "     "<< error_phase<<"   "<<key<<std::endl;
-      plot_qkd_stats(error_ok_time, sift_phase, error_rate_time, error_rate_phase, key);
-      if(QKD_DB_ON)emit main_SaveQKDstats(error_ok_time, sift_phase, error_rate_time, error_rate_phase);
-      udpcom.sendDataToClient(error_rate_phase);
-      error_time = 0;
-      error_phase = 0;
-      error_rate_time=0;
-      error_rate_phase=0;
-      sift_phase = 0;
-
-
-
-      /////HDF5 data submission/////////
-      if(key-qkd_prevKey>HDF5TIMEINTEGRATION && HDF5File_created){
-
-          //emit saveH5datafromMW(datah5okA, datah5errA, datah5randA, datah5bkgndA,datah5okB, datah5errB, datah5randB, datah5bkgndB,datah5okC, datah5errC, datah5randC, datah5bkgndC);
-
-          datah5okA.clear();
-          datah5errA.clear();
-          datah5randA.clear();
-          datah5bkgndA.clear();
-
-          datah5okB.clear();
-          datah5errB.clear();
-          datah5randB.clear();
-          datah5bkgndB.clear();
-
-          datah5okC.clear();
-          datah5errC.clear();
-          datah5randC.clear();
-          datah5bkgndC.clear();
-
-          qkd_prevKey=key;
-
-      }
-
-  }//end of QKD
-
-
-  x.clear();
 }
 
 /////////////////////////////////////

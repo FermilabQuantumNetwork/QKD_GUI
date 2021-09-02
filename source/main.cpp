@@ -5,8 +5,11 @@
 #include <stdlib.h>
 #include <stdio.h>//printf
 
+#define UNUSED(x) (void)(x)
+
 void my_handler(int s)
 {
+    UNUSED(s);
     printf("\n ADIOS :D \n");
     exit(1); 
 }
