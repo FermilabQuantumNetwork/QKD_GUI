@@ -46,6 +46,7 @@ HEADERS  += mainwindow.h \
 	   
 
 FORMS    += mainwindow.ui \
+    dialog.ui \
     qkd_param.ui
 
 

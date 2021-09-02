@@ -453,13 +453,7 @@
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget_4" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
                <widget class="QCustomPlot" name="PlotA" native="true">
                 <property name="sizePolicy">
@@ -469,6 +463,17 @@
                  </sizepolicy>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_10"/>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCustomPlot" name="PlotA_2" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_12"/>
                </widget>
               </item>
              </layout>

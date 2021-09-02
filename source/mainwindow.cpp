@@ -35,7 +35,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // setup style of the histograms and plots
     setupHistoPlot(ui->PlotB);
     setupHistoPlot(ui->PlotA);
+    setupHistoPlot(ui->PlotA_2,false);
     setupHistoPlot(ui->PlotC);
+    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->yAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
     setupratePlot(ui->PlotTrack);
     setup_plot_qkd_results(ui->QKD_H1_results);
     setup_plot_qkd_results(ui->QKD_H2_results);
@@ -229,6 +234,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 ///////////////////setups///////////////////////////
 ///////////////////////////////////////////////////////////
 
+void MainWindow::blah()
+{
+    printf("blah\n");
+    ui->PlotA_2->replot();
+}
+
 void MainWindow::setup_histolines_QKD()
 {
     for (int i = 0 ; i < MAX_QUBITS ; i++) {
@@ -370,7 +381,7 @@ void MainWindow::setupratePlot(QCustomPlot *scope)
     scope->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
-void MainWindow::setupHistoPlot(QCustomPlot *histograma)
+void MainWindow::setupHistoPlot(QCustomPlot *histograma, bool top)
 {
     histograma->plotLayout()->clear();
 
@@ -378,25 +389,30 @@ void MainWindow::setupHistoPlot(QCustomPlot *histograma)
 
     wideAxisRect->setupFullAxesBox(true);
     wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabels(true);
-    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
+    if (top)
+        wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabels(true);
 
     wideAxisRect->axis(QCPAxis::atRight, 0)->setTickLabelColor(Qt::white);
-    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
+    if (top)
+        wideAxisRect->axis(QCPAxis::atTop, 0)->setTickLabelColor(Qt::white);
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickLabelColor(Qt::white);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickLabelColor(Qt::white);
 
     wideAxisRect->axis(QCPAxis::atRight, 0)->setBasePen(QPen(Qt::white, 1));
-    wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
+    if (top)
+        wideAxisRect->axis(QCPAxis::atTop, 0)->setBasePen(QPen(Qt::white, 1));
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setBasePen(QPen(Qt::white, 1));
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setBasePen(QPen(Qt::white, 1));
 
     wideAxisRect->axis(QCPAxis::atRight, 0)->setTickPen(QPen(Qt::white, 1));
-    wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
+    if (top)
+        wideAxisRect->axis(QCPAxis::atTop, 0)->setTickPen(QPen(Qt::white, 1));
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setTickPen(QPen(Qt::white, 1));
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setTickPen(QPen(Qt::white, 1));
 
     wideAxisRect->axis(QCPAxis::atRight, 0)->setSubTickPen(QPen(Qt::white, 1));
-    wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
+    if (top)
+        wideAxisRect->axis(QCPAxis::atTop, 0)->setSubTickPen(QPen(Qt::white, 1));
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setSubTickPen(QPen(Qt::white, 1));
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setSubTickPen(QPen(Qt::white, 1));
 
@@ -835,6 +851,8 @@ void MainWindow::setupsignalslot()
 
     this->histogramChanged();
     this->refreshButton();
+
+    this->DrawExpectedSignal();
 }
 
 void MainWindow::histogramChanged(void)
@@ -993,6 +1011,75 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     if (debug)
         fprintf(stderr, "computing stats from %zu qubits\n", nA);
 
+    QVector<double> xa_expected;
+    QVector<double> ya_expected;
+
+    for (j = 0; j < nA; j++) {
+        double left, right;
+        switch (qubit_sequence[j]) {
+        case 'E':
+            left = j*in_QKD_timeA + in_QKD_zeroA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        case 'L':
+            left = j*in_QKD_timeA + in_QKD_zeroA + in_QKD_phA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        case '0':
+            left = j*in_QKD_timeA + in_QKD_zeroA + in_QKD_phA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        case 'P':
+            left = j*in_QKD_timeA + in_QKD_zeroA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            left = j*in_QKD_timeA + in_QKD_zeroA + in_QKD_phA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        default:
+            fprintf(stderr, "unknown qubit sequence character\n");
+        }
+    }
+
+    ui->PlotA_2->graph(0)->data()->clear();
+    // pass data points to graphs:
+    ui->PlotA_2->graph(0)->setData(xa_expected, ya_expected);
+    ui->PlotA_2->graph(0)->rescaleValueAxis();
+    ui->PlotA_2->replot();
+
     /* FIXME: Definitely a better way to do this than a double for loop. */
     for (i = 0; i < datA.size()/2; i++) {
         if (datA[2*i] > histEnd) break;
@@ -1061,7 +1148,6 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     for (i = 0; i < datB.size()/2; i++) {
         if (datB[2*i] > histEnd) break;
         double t = datB[2*i];
-        printf("looping over b i = %i t = %.2f nB = %zu\n", i, t, nB);
         double count = datB[2*i+1];
 
         for (j = 0; j < nB; j++) {
@@ -1221,6 +1307,84 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
 
     if (debug)
         fprintf(stderr, "show_histograms() done\n");
+}
+
+void MainWindow::DrawExpectedSignal(void)
+{
+    int j;
+
+    size_t nA;
+    
+    nA = MIN(in_QKD_numbA,strlen(qubit_sequence));
+
+    QVector<double> xa_expected;
+    QVector<double> ya_expected;
+
+    for (j = 0; j < nA; j++) {
+        double left, right;
+        switch (qubit_sequence[j]) {
+        case 'E':
+            left = j*in_QKD_timeA + in_QKD_zeroA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        case 'L':
+            left = j*in_QKD_timeA + in_QKD_zeroA + in_QKD_phA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(1);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        case '0':
+            left = j*in_QKD_timeA + in_QKD_zeroA + in_QKD_phA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        case 'P':
+            left = j*in_QKD_timeA + in_QKD_zeroA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            left = j*in_QKD_timeA + in_QKD_zeroA + in_QKD_phA;
+            right = left + in_QKD_iwA;
+            xa_expected.push_back(left-0.1);
+            ya_expected.push_back(0);
+            xa_expected.push_back(left+0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right-0.1);
+            ya_expected.push_back(0.5);
+            xa_expected.push_back(right+0.1);
+            ya_expected.push_back(0);
+            break;
+        default:
+            fprintf(stderr, "unknown qubit sequence character\n");
+        }
+    }
+
+    ui->PlotA_2->graph(0)->data()->clear();
+    // pass data points to graphs:
+    ui->PlotA_2->graph(0)->setData(xa_expected, ya_expected);
+    ui->PlotA_2->graph(0)->rescaleValueAxis();
+    ui->PlotA_2->replot();
 }
 
 /* Displays the event rate for each channel on the Parameters tab. This

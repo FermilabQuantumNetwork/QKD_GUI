@@ -213,7 +213,7 @@ TARGET        = PROGRAM
 first: all
 ####### Build rules
 
-PROGRAM: ui_mainwindow.h ui_qkd_param.h $(OBJECTS)  
+PROGRAM: ui_mainwindow.h ui_dialog.h ui_qkd_param.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: INQNET_GUI.pro /../lib64/qt5/mkspecs/linux-g++/qmake.conf /../lib64/qt5/mkspecs/features/spec_pre.prf \
@@ -441,7 +441,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents /../lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h qutag_adq.h qutag_anl.h socket_com.h tdcbase.h tdcdecl.h tdcstartstop.h swabian.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp qutag_adq.cpp qutag_anl.cpp socket_com.cpp swabian.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui qkd_param.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui dialog.ui qkd_param.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -535,13 +535,17 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_qkd_param.h
+compiler_uic_make_all: ui_mainwindow.h ui_dialog.h ui_qkd_param.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_qkd_param.h
+	-$(DEL_FILE) ui_mainwindow.h ui_dialog.h ui_qkd_param.h
 ui_mainwindow.h: mainwindow.ui \
 		/../lib64/qt5/bin/uic \
 		qcustomplot.h
 	/../lib64/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
+
+ui_dialog.h: dialog.ui \
+		/../lib64/qt5/bin/uic
+	/../lib64/qt5/bin/uic dialog.ui -o ui_dialog.h
 
 ui_qkd_param.h: qkd_param.ui \
 		/../lib64/qt5/bin/uic
@@ -578,7 +582,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		swabian.h \
 		../include/timetagger/TimeTagger.h \
 		../include/timetagger/Iterators.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		ui_qkd_param.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 qcustomplot.o: qcustomplot.cpp qcustomplot.h

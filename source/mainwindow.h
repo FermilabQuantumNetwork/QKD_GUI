@@ -161,7 +161,7 @@ public:
     void setupratePlot(QCustomPlot *customPlot);
 
     void setupsignalslot();
-    void setupHistoPlot(QCustomPlot *customPlot);
+    void setupHistoPlot(QCustomPlot *customPlot, bool top=true);
 
     void setup_histolines_Teleport();
   
@@ -174,12 +174,14 @@ public:
     CountWorkerThread *countWorkerThread;
 
 private slots:
+    void blah();
     void connectAction(QAction *action);
     void refreshButton();
     void parametersChanged();
     void histogramChanged(void);
     void show_rates(double *rates);
     void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
+    void DrawExpectedSignal(void);
   
     void plotRates(char AoB, int event, double key);
 
