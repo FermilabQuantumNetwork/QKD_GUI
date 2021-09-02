@@ -67,9 +67,9 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
     SynchronizedMeasurements measurementGroup(this->t);
 
     std::vector<StartStop*> measurements;
-    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_a, start_channel, bin_width));
-    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_b, start_channel, bin_width));
-    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_c, start_channel, bin_width));
+    measurements.push_back(StartStop(measurementGroup.getTagger(), chan_a, start_channel, bin_width));
+    measurements.push_back(StartStop(measurementGroup.getTagger(), chan_b, start_channel, bin_width));
+    measurements.push_back(StartStop(measurementGroup.getTagger(), chan_c, start_channel, bin_width));
 
     // This will run these measurements simultaneously.
     // Because of the asynchronous processing, they will neither start nor stop at once in real time, but they will
@@ -82,7 +82,7 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
         std::vector<timestamp_t> data;
 
         // Fetch both vectors of data.
-        measurements[i]->getData([&data](size_t size1, size_t size2) {
+        measurements[i].getData([&data](size_t size1, size_t size2) {
           data.resize(size1 * size2);
           return data.data();
         });

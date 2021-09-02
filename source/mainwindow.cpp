@@ -594,8 +594,8 @@ void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-    //wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
-    //wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
+    wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabelColor(Qt::white);
@@ -607,11 +607,11 @@ void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
 
     QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
     graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-    graph1->setPen(QPen(QColor(0, 0, 0), 2));
+    graph1->setPen(QPen(Qt::white, 2));
 
     QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
     graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
-    graph2->setPen(QPen(QColor(200, 0, 0), 2));
+    graph2->setPen(QPen(Qt::red, 2));
 
     QLinearGradient plotGradient;
     plotGradient.setStart(0, 0);
@@ -1062,6 +1062,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     for (i = 0; i < datB.size()/2; i++) {
         if (datB[2*i] > histEnd) break;
         double t = datB[2*i];
+        printf("looping over b i = %i t = %.2f nB = %i\n", i, t, nB);
         double count = datB[2*i+1];
 
         for (j = 0; j < nB; j++) {
@@ -1112,7 +1113,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
             /* Find if we are in the late late time bin.
              * FIXME: handle overlap with previous bin. Right now we are double
              * counting. */
-            left = j*in_QKD_timeB + in_QKD_zeroB + in_QKD_phB;
+            left = j*in_QKD_timeB + in_QKD_zeroB + 2*in_QKD_phB;
             right = left + in_QKD_iwB;
             if ((t > left) && (t < right)) {
                 /* Got a late late signal. */
@@ -1164,6 +1165,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                 switch (qubit_sequence[j]) {
                 case 'P':
                     resultCerr += count;
+                    resultPerr += count;
                     break;
                 case 'E':
                 case 'L':
@@ -1182,7 +1184,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
             /* Find if we are in the late late time bin.
              * FIXME: handle overlap with previous bin. Right now we are double
              * counting. */
-            left = j*in_QKD_timeC + in_QKD_zeroC + in_QKD_phC;
+            left = j*in_QKD_timeC + in_QKD_zeroC + 2*in_QKD_phC;
             right = left + in_QKD_iwC;
             if ((t > left) && (t < right)) {
                 /* Got a late late signal. */
@@ -1205,11 +1207,17 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
 
     plot_qkd_results_det(resultAok, resultAerr, resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd, resultCok, resultCerr, resultCrand, resultCbkgnd, key);
     plot_qkd_results_QB(resultEok, resultEerr, resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd, resultPok, resultPerr, resultPrand, totalBkgnd, key);
-    printf("resultArand = %i\n", resultArand);
-    double sifted_time = resultAok/(resultAok+resultAerr);
-    double sifted_phase = resultBok/(resultBerr+resultCerr);
-    double error_time = resultAerr/(resultAok+resultAerr);
-    double error_phase = resultCerr/(resultBerr+resultCerr);
+    printf("resultArand = %f\n", resultArand);
+    printf("resultBok = %f\n", resultBok);
+    printf("resultBerr = %f\n", resultBerr);
+    printf("resultBrand = %f\n", resultBrand);
+    printf("resultBbkgnd = %f\n", resultBbkgnd);
+    printf("resultCok = %f\n", resultCok);
+    printf("resultCerr = %f\n", resultCerr);
+    double sifted_time = resultAok/((double) resultAok+resultAerr);
+    double sifted_phase = resultBok/((double) resultBok+resultBerr+resultCerr);
+    double error_time = resultAerr/((double) resultAok+resultAerr);
+    double error_phase = resultCerr/((double) resultBok+resultBerr+resultCerr);
     plot_qkd_stats(sifted_time, sifted_phase, error_time, error_phase, key);
 
     if (debug)
