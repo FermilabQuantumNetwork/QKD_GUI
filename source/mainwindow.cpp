@@ -20,10 +20,6 @@
 
 char qubit_sequence[100] = "E0E0L0L0P0P0";
 
-namespace Ui {
-    class QKD_param;
-}
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -34,13 +30,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // setup style of the histograms and plots
     setupHistoPlot(ui->PlotB);
+    setupHistoPlot(ui->PlotB_2,false,false);
     setupHistoPlot(ui->PlotA);
     setupHistoPlot(ui->PlotA_2,false,false);
     setupHistoPlot(ui->PlotC);
+    setupHistoPlot(ui->PlotC_2,false,false);
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->xAxis, SLOT(setRange(QCPRange)));
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
     connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA->xAxis, SLOT(setRange(QCPRange)));
     connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+
+    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB_2->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+
+    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC_2->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+
     setup_plot_qkd_results(ui->QKD_H1_results);
     setup_plot_qkd_results(ui->QKD_H2_results);
     setup_plot_qkd_results(ui->QKD_H3_results);
@@ -239,6 +248,10 @@ void MainWindow::blah()
 {
     ui->PlotA->replot();
     ui->PlotA_2->replot();
+    ui->PlotB->replot();
+    ui->PlotB_2->replot();
+    ui->PlotC->replot();
+    ui->PlotC_2->replot();
 }
 
 void MainWindow::setup_histolines_QKD()
@@ -816,6 +829,22 @@ void MainWindow::setupsignalslot()
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroB(int)), this, SLOT(chang_QKD_zeroB(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroC(int)), this, SLOT(chang_QKD_zeroC(int)));
 
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_timeA(double)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_timeB(double)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_timeC(double)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbA(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbB(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbC(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phA(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phB(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phC(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwA(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwB(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwC(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroA(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroB(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_zeroC(int)), this, SLOT(DrawExpectedSignal()));
+
     QObject::connect(&dbc, SIGNAL(MYtables(QStringList)), this, SLOT(fillTablesNames(QStringList)));
 
 
@@ -1322,9 +1351,11 @@ void MainWindow::DrawExpectedSignal(void)
 {
     int j;
 
-    int nA;
+    int nA, nB, nC;
     
     nA = MIN(in_QKD_numbA,(int) strlen(qubit_sequence));
+    nB = MIN(in_QKD_numbB,(int) strlen(qubit_sequence));
+    nC = MIN(in_QKD_numbC,(int) strlen(qubit_sequence));
 
     QVector<double> xa_expected;
     QVector<double> ya_expected;
@@ -1389,11 +1420,110 @@ void MainWindow::DrawExpectedSignal(void)
         }
     }
 
+    QVector<double> xb_expected;
+    QVector<double> yb_expected;
+
+    for (j = 0; j < nB; j++) {
+        double left, right;
+        switch (qubit_sequence[j]) {
+        case 'E':
+            left = j*in_QKD_timeB + in_QKD_zeroB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(left-0.1);
+            yb_expected.push_back(0);
+            xb_expected.push_back(left+0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right-0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            left = j*in_QKD_timeB + in_QKD_zeroB + in_QKD_phB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(left-0.1);
+            yb_expected.push_back(0);
+            xb_expected.push_back(left+0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right-0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            break;
+        case 'L':
+            left = j*in_QKD_timeB + in_QKD_zeroB + in_QKD_phB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(left-0.1);
+            yb_expected.push_back(0);
+            xb_expected.push_back(left+0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right-0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            left = j*in_QKD_timeB + in_QKD_zeroB + 2*in_QKD_phB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(left-0.1);
+            yb_expected.push_back(0);
+            xb_expected.push_back(left+0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right-0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            break;
+        case '0':
+            left = j*in_QKD_timeB + in_QKD_zeroB + in_QKD_phB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            break;
+        case 'P':
+            left = j*in_QKD_timeB + in_QKD_zeroB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(left-0.1);
+            yb_expected.push_back(0);
+            xb_expected.push_back(left+0.1);
+            yb_expected.push_back(0.25);
+            xb_expected.push_back(right-0.1);
+            yb_expected.push_back(0.25);
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            left = j*in_QKD_timeB + in_QKD_zeroB + in_QKD_phB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(left-0.1);
+            yb_expected.push_back(0);
+            xb_expected.push_back(left+0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right-0.1);
+            yb_expected.push_back(0.5);
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            left = j*in_QKD_timeB + in_QKD_zeroB + 2*in_QKD_phB;
+            right = left + in_QKD_iwB;
+            xb_expected.push_back(left-0.1);
+            yb_expected.push_back(0);
+            xb_expected.push_back(left+0.1);
+            yb_expected.push_back(0.25);
+            xb_expected.push_back(right-0.1);
+            yb_expected.push_back(0.25);
+            xb_expected.push_back(right+0.1);
+            yb_expected.push_back(0);
+            break;
+        default:
+            fprintf(stderr, "unknown qubit sequence character\n");
+        }
+    }
+
     ui->PlotA_2->graph(0)->data()->clear();
     //// pass data points to graphs:
     ui->PlotA_2->graph(0)->setData(xa_expected, ya_expected);
     ui->PlotA_2->yAxis->setRange(0, 1.5);
     ui->PlotA_2->replot();
+
+    ui->PlotB_2->graph(0)->data()->clear();
+    //// pass data points to graphs:
+    ui->PlotB_2->graph(0)->setData(xb_expected, yb_expected);
+    ui->PlotB_2->yAxis->setRange(0, 1.5);
+    ui->PlotB_2->replot();
 }
 
 /* Displays the event rate for each channel on the Parameters tab. This

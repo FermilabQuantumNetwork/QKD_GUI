@@ -481,13 +481,7 @@
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget_3" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
               <item>
                <widget class="QCustomPlot" name="PlotB" native="true">
                 <property name="sizePolicy">
@@ -499,24 +493,23 @@
                 <layout class="QVBoxLayout" name="verticalLayout_11"/>
                </widget>
               </item>
+              <item>
+               <widget class="QCustomPlot" name="PlotB_2" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_13"/>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_28">
-              <property name="leftMargin">
-               <number>9</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>9</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
+             <layout class="QVBoxLayout" name="verticalLayout_15">
               <item>
                <widget class="QCustomPlot" name="PlotC" native="true">
                 <property name="sizePolicy">
@@ -526,6 +519,17 @@
                  </sizepolicy>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_38"/>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCustomPlot" name="PlotC_2" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_39"/>
                </widget>
               </item>
              </layout>
