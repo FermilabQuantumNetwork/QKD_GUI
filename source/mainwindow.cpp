@@ -39,8 +39,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setupHistoPlot(ui->PlotC);
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->xAxis, SLOT(setRange(QCPRange)));
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-    connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->yAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    //connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->yAxis, SLOT(setRange(QCPRange)));
+    //connect(ui->PlotA->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
     setupratePlot(ui->PlotTrack);
     setup_plot_qkd_results(ui->QKD_H1_results);
     setup_plot_qkd_results(ui->QKD_H2_results);
@@ -228,6 +230,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     createQKDLinesC();
 
     this->LoadState("default.conf", false);
+
+    this->DrawExpectedSignal();
 }
 
 //////////////////////////////////////////////////////////
@@ -236,7 +240,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::blah()
 {
-    printf("blah\n");
+    ui->PlotA->replot();
     ui->PlotA_2->replot();
 }
 
@@ -451,7 +455,7 @@ void MainWindow::setupHistoPlot(QCustomPlot *histograma, bool top)
     //QCPGraph *graph2 = histograma->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
 
     graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-    graph1->setPen(QPen(QColor(100, 100, 100), 2));
+    graph1->setPen(QPen(QColor(255, 255, 255), 2));
     graph1->setLineStyle((QCPGraph::LineStyle)4);
 
     histograma->xAxis->setRange(0, 10000);
@@ -851,8 +855,6 @@ void MainWindow::setupsignalslot()
 
     this->histogramChanged();
     this->refreshButton();
-
-    this->DrawExpectedSignal();
 }
 
 void MainWindow::histogramChanged(void)
@@ -1381,9 +1383,9 @@ void MainWindow::DrawExpectedSignal(void)
     }
 
     ui->PlotA_2->graph(0)->data()->clear();
-    // pass data points to graphs:
+    //// pass data points to graphs:
     ui->PlotA_2->graph(0)->setData(xa_expected, ya_expected);
-    ui->PlotA_2->graph(0)->rescaleValueAxis();
+    ui->PlotA_2->yAxis->setRange(0, 1.5);
     ui->PlotA_2->replot();
 }
 
