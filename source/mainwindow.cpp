@@ -233,30 +233,31 @@ void MainWindow::setup_histolines_QKD()
 {
     for (int i = 0 ; i < MAX_QUBITS ; i++) {
         LinesPlotA1[i] = new QCPItemStraightLine(ui->PlotA);
-        LinesPlotA1[i]->setPen(QPen(Qt::red));
+        LinesPlotA1[i]->setPen(QPen(QColor(255,0,0,128)));
         LinesPlotA1[i]->setVisible(0);
 
         LinesPlotA2[i] = new QCPItemStraightLine(ui->PlotA);
-        LinesPlotA2[i]->setPen(QPen(Qt::green));
+        LinesPlotA2[i]->setPen(QPen(QColor(0,255,0,128)));
         LinesPlotA2[i]->setVisible(0);
 
         LinesPlotA3[i] = new QCPItemStraightLine(ui->PlotA);
         LinesPlotA3[i]->setPen(QPen(Qt::yellow));
         LinesPlotA3[i]->setVisible(0);
+
         LinesPlotA4[i] = new QCPItemStraightLine(ui->PlotA);
         LinesPlotA4[i]->setPen(QPen(Qt::white));
         LinesPlotA4[i]->setVisible(0);
 
         LinesPlotB1[i] = new QCPItemStraightLine(ui->PlotB);
-        LinesPlotB1[i]->setPen(QPen(Qt::white));
+        LinesPlotB1[i]->setPen(QPen(QColor(255,255,255,128)));
         LinesPlotB1[i]->setVisible(0);
 
         LinesPlotB2[i] = new QCPItemStraightLine(ui->PlotB);
-        LinesPlotB2[i]->setPen(QPen(Qt::red));
+        LinesPlotB2[i]->setPen(QPen(QColor(255,0,0,128)));
         LinesPlotB2[i]->setVisible(0);
 
         LinesPlotB3[i] = new QCPItemStraightLine(ui->PlotB);
-        LinesPlotB3[i]->setPen(QPen(Qt::white));
+        LinesPlotB3[i]->setPen(QPen(QColor(255,255,255,128)));
         LinesPlotB3[i]->setVisible(0);
 
         LinesPlotB4[i] = new QCPItemStraightLine(ui->PlotB);
@@ -264,15 +265,15 @@ void MainWindow::setup_histolines_QKD()
         LinesPlotB4[i]->setVisible(0);
 
         LinesPlotC1[i] = new QCPItemStraightLine(ui->PlotC);
-        LinesPlotC1[i]->setPen(QPen(Qt::white));
+        LinesPlotC1[i]->setPen(QPen(QColor(255,255,255,128)));
         LinesPlotC1[i]->setVisible(0);
 
         LinesPlotC2[i] = new QCPItemStraightLine(ui->PlotC);
-        LinesPlotC2[i]->setPen(QPen(Qt::red));
+        LinesPlotC2[i]->setPen(QPen(QColor(255,0,0,128)));
         LinesPlotC2[i]->setVisible(0);
 
         LinesPlotC3[i] = new QCPItemStraightLine(ui->PlotC);
-        LinesPlotC3[i]->setPen(QPen(Qt::white));
+        LinesPlotC3[i]->setPen(QPen(QColor(255,255,255,128)));
         LinesPlotC3[i]->setVisible(0);
 
         LinesPlotC4[i] = new QCPItemStraightLine(ui->PlotC);
