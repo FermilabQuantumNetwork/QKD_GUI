@@ -523,11 +523,11 @@ void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
 
     QCPGraph *graph3 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
     graph3->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::black),4));
-    graph3->setPen(QPen(Qt::black, 2));
+    graph3->setPen(QPen(Qt::white, 2));
 
     QCPGraph *graph4 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
     graph4->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::white),4));
-    graph4->setPen(QPen(Qt::white, 2));
+    graph4->setPen(QPen(Qt::black, 2));
 
     QLinearGradient plotGradient;
     plotGradient.setStart(0, 0);

@@ -30,27 +30,23 @@ QKD_param::QKD_param(QWidget *parent) : QWidget(parent), ui(new Ui::QKD_param)
 
 void QKD_param::QKD_setDefault()
 {
-    ui->QKD_timeA->setValue(312.5);
-    ui->QKD_numbA->setValue(160);
-    ui->QKD_phA->setValue(82);
-    ui->QKD_iwA->setValue(43);
-    ui->QKD_zeroA->setValue(1800);
+    ui->QKD_timeA->setValue(160);
+    ui->QKD_numbA->setValue(10);
+    ui->QKD_phA->setValue(80);
+    ui->QKD_iwA->setValue(40);
+    ui->QKD_zeroA->setValue(0);
 
-    ui->QKD_timeB->setValue(212.766);
+    ui->QKD_timeB->setValue(160);
+    ui->QKD_numbB->setValue(10);
+    ui->QKD_phB->setValue(80);
+    ui->QKD_iwB->setValue(40);
+    ui->QKD_zeroC->setValue(0);
 
-    ui->QKD_timeC->setValue(212.766);
-
-    ui->QKD_numbB->setValue(35);
-    ui->QKD_numbC->setValue(35);
-
-    ui->QKD_phB->setValue(50);
-    ui->QKD_phC->setValue(50);
-
-    ui->QKD_iwB->setValue(44);
-    ui->QKD_iwC->setValue(44);
-
-    ui->QKD_zeroB->setValue(79);
-    ui->QKD_zeroC->setValue(79);
+    ui->QKD_timeC->setValue(160);
+    ui->QKD_numbC->setValue(10);
+    ui->QKD_phC->setValue(80);
+    ui->QKD_iwC->setValue(40);
+    ui->QKD_zeroB->setValue(0);
 }
 
 QKD_param::~QKD_param()
