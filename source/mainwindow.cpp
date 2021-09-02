@@ -991,7 +991,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     double totalBkgnd=0;
 
     if (debug)
-        fprintf(stderr, "computing stats from %i qubits\n", nA);
+        fprintf(stderr, "computing stats from %zu qubits\n", nA);
 
     /* FIXME: Definitely a better way to do this than a double for loop. */
     for (i = 0; i < datA.size()/2; i++) {
@@ -1061,7 +1061,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     for (i = 0; i < datB.size()/2; i++) {
         if (datB[2*i] > histEnd) break;
         double t = datB[2*i];
-        printf("looping over b i = %i t = %.2f nB = %i\n", i, t, nB);
+        printf("looping over b i = %i t = %.2f nB = %zu\n", i, t, nB);
         double count = datB[2*i+1];
 
         for (j = 0; j < nB; j++) {
