@@ -1,30 +1,33 @@
 Qt based user interface for FQNET TDC
+=====================================
 
-compile instructions:
+Installation
+------------
 
-1. install CENTOS 7 3.10.0-957.el7.x86_64
+First, download the timetagger software for either CentOS 7 or 8 from
+[https://www.swabianinstruments.com/time-tagger/downloads/](https://www.swabianinstruments.com/time-tagger/downloads/). On CentOS 7 you can do this via:
 
-2. install GCC
+```console
+$ curl -O -L https://www.swabianinstruments.com/static/downloads/timetagger-2.9.0.el7.x86_64.rpm
+$ sudo yum install timetagger-2.9.0.el7.x86_64.rpm
+```
 
-3. install qt-opensource-linux-x64-5.12.3
+and on CentOS 8:
 
-4. add the user to the sudoers (wheel group), add the user to dialoutgroup
+```console
+$ curl -O -L https://www.swabianinstruments.com/static/downloads/timetagger-2.9.0.el8.x86_64.rpm
+$ sudo dnf install timetagger-2.9.0.el8.x86_64.rpm
+```
 
-5. add libraries to bashrc
+Next, install the necessary libraries using yum or dnf:
 
-example
+```console
+$ sudo dnf install qt5-qtbase qt5-qtmultimedia hdf5 hdf5-devel
+```
 
+Next, just run make:
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/cptlab/Desktop/FQNET_GUI/lib/
-
-6. reboot
-
-
-7. open .pro file
-
-8. run
-
-9. requires for compile mesa-libGL-devel.x86_64 and GCC-G++
-
-daisy (native qtag program) requires gt4 libraries. on centos is just intstall libqtgui4.. etc
-on RHEL7 install sudo yum install qt-devel.x86_64 qt-devel.i686
+```console
+$ make
+$ ./PROGRAM
+```

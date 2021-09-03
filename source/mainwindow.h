@@ -233,7 +233,6 @@ private:
     Ui::MainWindow *ui;
     Swabian s;
     DBControl dbc;
-    socket_com udpcom;
     QKD_param qkdparam;
     QString demoName;
     QTimer dataTimer;

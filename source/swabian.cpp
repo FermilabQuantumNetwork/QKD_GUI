@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <thread>
 #include <pthread.h> /* for pthread_mutex_t */
+#include "CustomStartStop.h"
 
 Swabian::Swabian(void)
 {
@@ -66,10 +67,10 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
 
     SynchronizedMeasurements measurementGroup(this->t);
 
-    std::vector<StartStop*> measurements;
-    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_a, start_channel, bin_width));
-    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_b, start_channel, bin_width));
-    measurements.push_back(new StartStop(measurementGroup.getTagger(), chan_c, start_channel, bin_width));
+    std::vector<CustomStartStop*> measurements;
+    measurements.push_back(new CustomStartStop(measurementGroup.getTagger(), chan_a, start_channel, bin_width));
+    measurements.push_back(new CustomStartStop(measurementGroup.getTagger(), chan_b, start_channel, bin_width));
+    measurements.push_back(new CustomStartStop(measurementGroup.getTagger(), chan_c, start_channel, bin_width));
 
     // This will run these measurements simultaneously.
     // Because of the asynchronous processing, they will neither start nor stop at once in real time, but they will

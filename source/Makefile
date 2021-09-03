@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DLINUX -Dlinux -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I../lib -I../include -I../include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I. -I/../lib64/qt5/mkspecs/linux-g++
+INCPATH       = -I. -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I. -I/../lib64/qt5/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake-qt5
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = PROGRAM1.0.0
 DISTDIR = /home/tlatorre/FQNET_GUI/source/.tmp/PROGRAM1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -DLINUX -Dlinux -L/home/tlatorre/FQNET_GUI/source/../lib/ -lftd3xx -ltdcbase -lTimeTagger -lokFrontPanel -lhdf5 -lhdf5_cpp /usr/lib64/libQt5Multimedia.so /usr/lib64/libQt5PrintSupport.so /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Network.so /usr/lib64/libQt5Sql.so /usr/lib64/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -L/home/tlatorre/FQNET_GUI/source/../lib/ -lhdf5 -lhdf5_cpp /usr/lib64/libQt5Multimedia.so /usr/lib64/libQt5PrintSupport.so /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Network.so /usr/lib64/libQt5Sql.so /usr/lib64/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -57,34 +57,24 @@ SOURCES       = main.cpp \
 		mainwindow.cpp \
 		qcustomplot.cpp \
 		qkd_param.cpp \
-		qutag_adq.cpp \
-		qutag_anl.cpp \
-		socket_com.cpp \
-		swabian.cpp qrc_resources.cpp \
+		swabian.cpp \
+		CustomStartStop.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_dbcontrol.cpp \
 		moc_qcustomplot.cpp \
-		moc_qkd_param.cpp \
-		moc_qutag_adq.cpp \
-		moc_qutag_anl.cpp \
-		moc_socket_com.cpp
+		moc_qkd_param.cpp
 OBJECTS       = main.o \
 		dbcontrol.o \
 		mainwindow.o \
 		qcustomplot.o \
 		qkd_param.o \
-		qutag_adq.o \
-		qutag_anl.o \
-		socket_com.o \
 		swabian.o \
+		CustomStartStop.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_dbcontrol.o \
 		moc_qcustomplot.o \
-		moc_qkd_param.o \
-		moc_qutag_adq.o \
-		moc_qutag_anl.o \
-		moc_socket_com.o
+		moc_qkd_param.o
 DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
 		/usr/lib64/qt5/mkspecs/common/linux.conf \
@@ -190,21 +180,17 @@ DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		dbcontrol.h \
 		qcustomplot.h \
 		qkd_param.h \
-		qutag_adq.h \
-		qutag_anl.h \
-		socket_com.h \
 		tdcbase.h \
 		tdcdecl.h \
 		tdcstartstop.h \
-		swabian.h main.cpp \
+		swabian.h \
+		CustomStartStop.h main.cpp \
 		dbcontrol.cpp \
 		mainwindow.cpp \
 		qcustomplot.cpp \
 		qkd_param.cpp \
-		qutag_adq.cpp \
-		qutag_anl.cpp \
-		socket_com.cpp \
-		swabian.cpp
+		swabian.cpp \
+		CustomStartStop.cpp
 QMAKE_TARGET  = PROGRAM
 DESTDIR       = 
 TARGET        = PROGRAM
@@ -213,7 +199,7 @@ TARGET        = PROGRAM
 first: all
 ####### Build rules
 
-PROGRAM: ui_mainwindow.h ui_dialog.h ui_qkd_param.h $(OBJECTS)  
+PROGRAM: ui_mainwindow.h ui_qkd_param.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: INQNET_GUI.pro /../lib64/qt5/mkspecs/linux-g++/qmake.conf /../lib64/qt5/mkspecs/features/spec_pre.prf \
@@ -439,9 +425,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /../lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h qutag_adq.h qutag_anl.h socket_com.h tdcbase.h tdcdecl.h tdcstartstop.h swabian.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp qutag_adq.cpp qutag_anl.cpp socket_com.cpp swabian.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui dialog.ui qkd_param.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h tdcbase.h tdcdecl.h tdcstartstop.h swabian.h CustomStartStop.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui qkd_param.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -479,73 +465,45 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /../lib64/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /../lib64/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp moc_qutag_adq.cpp moc_qutag_anl.cpp moc_socket_com.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp moc_qutag_adq.cpp moc_qutag_anl.cpp moc_socket_com.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_dbcontrol.cpp moc_qcustomplot.cpp moc_qkd_param.cpp
 moc_mainwindow.cpp: mainwindow.h \
 		qcustomplot.h \
 		dbcontrol.h \
 		socket_com.h \
 		qkd_param.h \
 		swabian.h \
-		../include/timetagger/TimeTagger.h \
-		../include/timetagger/Iterators.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_dbcontrol.cpp: dbcontrol.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include dbcontrol.h -o moc_dbcontrol.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include dbcontrol.h -o moc_dbcontrol.cpp
 
 moc_qcustomplot.cpp: qcustomplot.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
 
 moc_qkd_param.cpp: qkd_param.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qkd_param.h -o moc_qkd_param.cpp
-
-moc_qutag_adq.cpp: qutag_adq.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h \
-		moc_predefs.h \
-		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qutag_adq.h -o moc_qutag_adq.cpp
-
-moc_qutag_anl.cpp: qutag_anl.h \
-		qutag_adq.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h \
-		moc_predefs.h \
-		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qutag_anl.h -o moc_qutag_anl.cpp
-
-moc_socket_com.cpp: socket_com.h \
-		moc_predefs.h \
-		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/home/tlatorre/FQNET_GUI/lib -I/home/tlatorre/FQNET_GUI/include -I/home/tlatorre/FQNET_GUI/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include socket_com.h -o moc_socket_com.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qkd_param.h -o moc_qkd_param.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_dialog.h ui_qkd_param.h
+compiler_uic_make_all: ui_mainwindow.h ui_qkd_param.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_dialog.h ui_qkd_param.h
+	-$(DEL_FILE) ui_mainwindow.h ui_qkd_param.h
 ui_mainwindow.h: mainwindow.ui \
 		/../lib64/qt5/bin/uic \
 		qcustomplot.h
 	/../lib64/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
-
-ui_dialog.h: dialog.ui \
-		/../lib64/qt5/bin/uic
-	/../lib64/qt5/bin/uic dialog.ui -o ui_dialog.h
 
 ui_qkd_param.h: qkd_param.ui \
 		/../lib64/qt5/bin/uic
@@ -566,9 +524,7 @@ main.o: main.cpp mainwindow.h \
 		dbcontrol.h \
 		socket_com.h \
 		qkd_param.h \
-		swabian.h \
-		../include/timetagger/TimeTagger.h \
-		../include/timetagger/Iterators.h
+		swabian.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 dbcontrol.o: dbcontrol.cpp dbcontrol.h
@@ -580,8 +536,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		socket_com.h \
 		qkd_param.h \
 		swabian.h \
-		../include/timetagger/TimeTagger.h \
-		../include/timetagger/Iterators.h \
 		ui_mainwindow.h \
 		ui_qkd_param.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
@@ -593,26 +547,12 @@ qkd_param.o: qkd_param.cpp qkd_param.h \
 		ui_qkd_param.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qkd_param.o qkd_param.cpp
 
-qutag_adq.o: qutag_adq.cpp qutag_adq.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qutag_adq.o qutag_adq.cpp
-
-qutag_anl.o: qutag_anl.cpp qutag_anl.h \
-		qutag_adq.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qutag_anl.o qutag_anl.cpp
-
-socket_com.o: socket_com.cpp socket_com.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socket_com.o socket_com.cpp
-
 swabian.o: swabian.cpp swabian.h \
-		../include/timetagger/TimeTagger.h \
-		../include/timetagger/Iterators.h
+		CustomStartStop.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o swabian.o swabian.cpp
+
+CustomStartStop.o: CustomStartStop.cpp CustomStartStop.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CustomStartStop.o CustomStartStop.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
@@ -628,15 +568,6 @@ moc_qcustomplot.o: moc_qcustomplot.cpp
 
 moc_qkd_param.o: moc_qkd_param.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qkd_param.o moc_qkd_param.cpp
-
-moc_qutag_adq.o: moc_qutag_adq.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qutag_adq.o moc_qutag_adq.cpp
-
-moc_qutag_anl.o: moc_qutag_anl.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qutag_anl.o moc_qutag_anl.cpp
-
-moc_socket_com.o: moc_socket_com.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_socket_com.o moc_socket_com.cpp
 
 ####### Install
 

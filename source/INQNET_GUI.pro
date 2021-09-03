@@ -6,12 +6,11 @@ QT       += core gui multimedia sql widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport network
 
 
-INCLUDEPATH += $$PWD/../lib
-DEPENDPATH += $$PWD/../lib
+INCLUDEPATH += /usr/include/timetagger
 DEFINES += LINUX linux
 TARGET = PROGRAM
 TEMPLATE = app
-LIBS += -DLINUX -Dlinux -L$$PWD/../lib/ -lftd3xx -ltdcbase -lTimeTagger -lokFrontPanel
+LIBS += -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel
 PKGCONFIG += 
 CONFIG += link_pkgconfig 
 
@@ -26,27 +25,22 @@ SOURCES += main.cpp\
            mainwindow.cpp \
            qcustomplot.cpp \
            qkd_param.cpp \
-           qutag_adq.cpp \
-           qutag_anl.cpp \
-           socket_com.cpp \
-           swabian.cpp
+           swabian.cpp \
+           CustomStartStop.cpp
           
 
 HEADERS  += mainwindow.h \
             dbcontrol.h \
             qcustomplot.h \
             qkd_param.h \
-            qutag_adq.h \
-            qutag_anl.h \
-            socket_com.h \
             tdcbase.h \
             tdcdecl.h \
             tdcstartstop.h \
-            swabian.h
+            swabian.h \
+            CustomStartStop.h
 	   
 
 FORMS    += mainwindow.ui \
-    dialog.ui \
     qkd_param.ui
 
 
@@ -57,10 +51,4 @@ RESOURCES += \
 
 unix:!macx: LIBS += -L$$PWD/../lib/ -lhdf5
 
-INCLUDEPATH += $$PWD/../include
-DEPENDPATH += $$PWD/../include
-
 unix:!macx: LIBS += -L$$PWD/../lib/ -lhdf5_cpp
-
-INCLUDEPATH += $$PWD/../include
-DEPENDPATH += $$PWD/../include
