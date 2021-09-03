@@ -7,3 +7,4 @@ ui_mainwindow.h
 ui_qkd_param.h
 *.swp
 *.stash
+qkd_gui
