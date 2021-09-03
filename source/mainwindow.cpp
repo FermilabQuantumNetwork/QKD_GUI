@@ -812,6 +812,11 @@ void MainWindow::histogramChanged(void)
         return;
     }
 
+    ui->startChan->setEnabled(true);
+    ui->PlotAChn1->setEnabled(true);
+    ui->PlotBChn1->setEnabled(true);
+    ui->PlotCChn1->setEnabled(true);
+
     /* Validate channels. */
     while ((enabled_mask & (1 << (chanA-1))) == 0) {
         chanA += prev_chanA < chanA ? 1 : -1;
