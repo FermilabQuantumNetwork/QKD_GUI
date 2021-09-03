@@ -237,7 +237,6 @@ void Swabian::set_rising_mask(int _rising_channel_mask)
  * Returns 0 on success, -1 on error. */
 int Swabian::set_test_signal(int channel, int value)
 {
-    fprintf(stderr, "set test signal called\n");
     if (!this->t) {
         fprintf(stderr, "error: set_test_signal() called but no time tagger connected!\n");
         return -1;

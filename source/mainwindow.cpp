@@ -583,13 +583,18 @@ void MainWindow::disconnectAction(void)
     this->countWorkerThread->requestInterruption();
     this->histogramWorkerThread->requestInterruption();
 
-    fprintf(stderr, "waiting for worker threads to quit\n");
+    if (debug)
+        fprintf(stderr, "disconnectAction: waiting for worker threads to quit\n");
+
     while (this->countWorkerThread->isRunning() || this->histogramWorkerThread->isRunning() || dbc.isRunning())
         usleep(100);
-    fprintf(stderr, "done waiting\n");
+
+    if (debug)
+        fprintf(stderr, "disconnectActin: done waiting\n");
 
     this->s.disconnect();
-    fprintf(stderr, "done disconnecting\n");
+    this->enabled_mask = 0;
+    this->parametersChanged();
 }
 
 void MainWindow::connectAction(QAction *action)
