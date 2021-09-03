@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     ui->setupUi(this);
 
+    enabled_mask = 0;
+
     rate_widgets[0] = ui->rate1;
     rate_widgets[1] = ui->rate2;
     rate_widgets[2] = ui->rate3;
@@ -194,8 +196,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     createQKDLinesA();
     createQKDLinesB();
     createQKDLinesC();
-
-    enabled_mask = 0;
 
     this->LoadState("default.conf", false);
 
