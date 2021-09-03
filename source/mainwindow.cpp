@@ -644,6 +644,8 @@ void MainWindow::connectAction(QAction *action)
         else if (resolution == Resolution::HighResC)
             this->enabled_mask = 0x10;
 
+        this->checkChannels();
+
         this->parametersChanged();
 
         this->countWorkerThread = new CountWorkerThread(&this->s);
@@ -1502,28 +1504,20 @@ void MainWindow::DrawExpectedSignal(void)
 
 /* Displays the event rate for each channel on the Parameters tab. This
  * function is called by the rates_ready signal from the count worker thread. */
-void MainWindow::show_rates(double *rates)
+void MainWindow::show_rates(int *channels, double *rates, int n)
 {
-    ui->rate1->display(rates[0]);
-    ui->rate2->display(rates[1]);
-    ui->rate3->display(rates[2]);
-    ui->rate4->display(rates[3]);
-    ui->rate5->display(rates[4]);
-    ui->rate6->display(rates[5]);
-    ui->rate7->display(rates[6]);
-    ui->rate8->display(rates[7]);
-    ui->rate9->display(rates[8]);
-    ui->rate10->display(rates[9]);
-    ui->rate11->display(rates[10]);
-    ui->rate12->display(rates[11]);
-    ui->rate13->display(rates[12]);
-    ui->rate14->display(rates[13]);
-    ui->rate15->display(rates[14]);
-    ui->rate16->display(rates[15]);
-    ui->rate17->display(rates[16]);
-    ui->rate18->display(rates[17]);
+    int i;
 
-    fprintf(stderr, "freeing rates\n");
+    for (i = 0; i < 18; i++)
+        rate_widgets[i]->display(0)
+
+    for (i = 0; i < n; i++)
+        rate_widgets[channels[i]-1]->display(rates[i]);
+
+    if (debug)
+        fprintf(stderr, "freeing rates\n");
+
+    free(channels);
     free(rates);
 }
 

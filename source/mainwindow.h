@@ -109,13 +109,11 @@ class CountWorkerThread : public QThread
     Q_OBJECT
 public:
     void run() override {
-        int i;
-        int channels[18];
-
-        for (i = 0; i < 18; i++)
-            channels[i] = i+1;
-        
+        int i, n;
         while (true) {
+            int *channels = new int[18];
+            double *rates = new double[18];
+
             if (QThread::currentThread()->isInterruptionRequested()) {
                 return;
             }
@@ -125,7 +123,11 @@ public:
                 continue;
             }
 
-            double *rates = new double[18];
+            n = 0;
+            for (i = 0; i < 18; i++) {
+                if (i & (1 << enabled_mask))
+                    channels[n++] = i+1;
+            }
 
             for (i = 0; i < 18; i++)
                 rates[i] = 0.0;
@@ -133,20 +135,22 @@ public:
             if (debug)
                 fprintf(stderr, "calling get_count_rates()\n");
 
-            s->get_count_rates(channels,rates,9);
+            s->get_count_rates(channels,rates,n);
 
             if (debug)
                 fprintf(stderr, "done calling get_count_rates()\n");
 
-            emit(rates_ready(rates));
+            emit(rates_ready(channels,rates,n));
         }
     }
-    CountWorkerThread(Swabian *s_) {
+    CountWorkerThread(Swabian *s_, int enabled_mask_) {
         s = s_;
+        enabled_mask = enabled_mask_;
     }
     Swabian *s;
+    int enabled_mask;
 signals:
-    void rates_ready(double *rates);
+    void rates_ready(int *channels, double *rates, int n);
 };
 
 class MainWindow : public QMainWindow
@@ -180,7 +184,7 @@ private slots:
     void refreshButton();
     void parametersChanged();
     void histogramChanged(void);
-    void show_rates(double *rates);
+    void show_rates(int *channels, double *rates, int n);
     void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
     void DrawExpectedSignal(void);
   
