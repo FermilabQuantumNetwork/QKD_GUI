@@ -603,6 +603,7 @@ void MainWindow::disconnectAction(void)
     this->s.disconnect();
     this->enabled_mask = 0;
     this->parametersChanged();
+    this->histogramChanged();
 }
 
 void MainWindow::connectAction(QAction *action)
@@ -650,6 +651,7 @@ void MainWindow::connectAction(QAction *action)
             this->enabled_mask = 0x10;
 
         this->parametersChanged();
+        this->histogramChanged();
 
         fprintf(stderr, "enabled mask = 0x%08x\n", this->enabled_mask);
         this->countWorkerThread = new CountWorkerThread(&this->s, this->enabled_mask);
