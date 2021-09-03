@@ -677,8 +677,6 @@ void MainWindow::setupsignalslot()
 
 void MainWindow::histogramChanged(void)
 {
-    int i;
-
     int chanA = ui->PlotAChn1->value();
     int chanB = ui->PlotBChn1->value();
     int chanC = ui->PlotCChn1->value();
