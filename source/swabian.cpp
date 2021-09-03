@@ -72,7 +72,7 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
     if ((this->rising_channel_mask & (1 << (chan_b-1))) == 0)
         chan_b = -chan_b;
     if ((this->rising_channel_mask & (1 << (chan_c-1))) == 0)
-        chan_c = -chanC;
+        chan_c = -chan_c;
     if ((this->rising_channel_mask & (1 << (start_channel-1))) == 0)
         start_channel = -start_channel;
 

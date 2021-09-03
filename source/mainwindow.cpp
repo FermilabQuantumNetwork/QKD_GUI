@@ -24,45 +24,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     int i;
 
-    ui->setupUi(this);
-    setGeometry(200, 200, 1500, 800);
-    setupsignalslot();
-    setWindowTitle(QString("INQNET TDC"));
-    Teleport0_or_QKD1=1;
-
-    // setup style of the histograms and plots
-    setupHistoPlot(ui->PlotB);
-    setupHistoPlot(ui->PlotB_2,false,false);
-    setupHistoPlot(ui->PlotA);
-    setupHistoPlot(ui->PlotA_2,false,false);
-    setupHistoPlot(ui->PlotC);
-    setupHistoPlot(ui->PlotC_2,false,false);
-    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-
-    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB_2->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-
-    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC_2->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
-
-    setup_plot_qkd_results(ui->QKD_H1_results);
-    setup_plot_qkd_results(ui->QKD_H2_results);
-    setup_plot_qkd_results(ui->QKD_H3_results);
-    setup_plot_qkd_stats(ui->qkd_errorplot);
-    setup_plot_qkd_stats(ui->qkd_siftedplot);
-    setup_plot_qkd_results(ui->Early_results);
-    setup_plot_qkd_results(ui->Late_results);
-    setup_plot_qkd_results(ui->Phase_results);
-
-    setup_histolines_QKD();
-
     threshold_widgets[0] = ui->threshold1;
     threshold_widgets[1] = ui->threshold2;
     threshold_widgets[2] = ui->threshold3;
@@ -138,6 +99,45 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     test_widgets[15] = ui->test16;
     test_widgets[16] = ui->test17;
     test_widgets[17] = ui->test18;
+
+    ui->setupUi(this);
+    setGeometry(200, 200, 1500, 800);
+    setupsignalslot();
+    setWindowTitle(QString("INQNET TDC"));
+    Teleport0_or_QKD1=1;
+
+    // setup style of the histograms and plots
+    setupHistoPlot(ui->PlotB);
+    setupHistoPlot(ui->PlotB_2,false,false);
+    setupHistoPlot(ui->PlotA);
+    setupHistoPlot(ui->PlotA_2,false,false);
+    setupHistoPlot(ui->PlotC);
+    setupHistoPlot(ui->PlotC_2,false,false);
+    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+
+    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB_2->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+
+    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC_2->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC->xAxis, SLOT(setRange(QCPRange)));
+    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+
+    setup_plot_qkd_results(ui->QKD_H1_results);
+    setup_plot_qkd_results(ui->QKD_H2_results);
+    setup_plot_qkd_results(ui->QKD_H3_results);
+    setup_plot_qkd_stats(ui->qkd_errorplot);
+    setup_plot_qkd_stats(ui->qkd_siftedplot);
+    setup_plot_qkd_results(ui->Early_results);
+    setup_plot_qkd_results(ui->Late_results);
+    setup_plot_qkd_results(ui->Phase_results);
+
+    setup_histolines_QKD();
 
     ui->bin_width->setValue(10);
     // update rate Adq time
@@ -579,82 +579,12 @@ void MainWindow::setupsignalslot()
     QObject::connect(ui->bin_width, SIGNAL(valueChanged(int)), this, SLOT(histogramChanged()));
     QObject::connect(ui->adqtime, SIGNAL(valueChanged(double)), this, SLOT(histogramChanged()));
 
-    /* Note: There should be a cleaner way to do this with loops, but I don't know how. */
-    QObject::connect(ui->threshold1, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold2, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold3, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold4, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold5, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold6, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold7, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold8, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold9, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold10, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold11, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold12, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold13, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold14, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold15, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold16, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold17, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->threshold18, SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
-
-    QObject::connect(ui->delay1, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay2, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay3, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay4, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay5, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay6, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay7, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay8, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay9, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay10, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay11, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay12, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay13, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay14, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay15, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay16, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay17, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->delay18, SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
-
-    QObject::connect(ui->rof1, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof2, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof3, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof4, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof5, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof6, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof7, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof8, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof9, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof10, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof11, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof12, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof13, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof14, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof15, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof16, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof17, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->rof18, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-
-    QObject::connect(ui->test1, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test2, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test3, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test4, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test5, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test6, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test7, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test8, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test9, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test10, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test11, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test12, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test13, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test14, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test15, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test16, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test17, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
-    QObject::connect(ui->test18, SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
+    for (i = 0; i < 18; i++) {
+        QObject::connect(threshold_widgets[i], SIGNAL(valueChanged(double)), this, SLOT(parametersChanged()));
+        QObject::connect(delay_widgets[i], SIGNAL(valueChanged(int)), this, SLOT(parametersChanged()));
+        QObject::connect(rof_widgets[i], SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
+        QObject::connect(test_widgets[i], SIGNAL(currentIndexChanged(int)), this, SLOT(parametersChanged()));
+    }
 
     /* Buttons on the Histogram tab. */
 
