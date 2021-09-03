@@ -774,27 +774,7 @@ void MainWindow::setupsignalslot()
     /* Set up the rate and histogram worker threads. */
 
     this->countWorkerThread = NULL;
-    //this->countWorkerThread = new CountWorkerThread(&this->s);
-    //connect(this->countWorkerThread, &CountWorkerThread::finished, this->countWorkerThread, &QObject::deleteLater);
-    //this->countWorkerThread->start();
-
-    //QObject::connect(this->countWorkerThread, &CountWorkerThread::rates_ready, this, &MainWindow::show_rates);
-
-
     this->histogramWorkerThread = NULL;
-
-    //int bin_width = ui->bin_width->value();
-    //timestamp_t time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
-    //int start_channel = ui->startChan->value();
-    //int chanA = ui->PlotAChn1->value();
-    //int chanB = ui->PlotBChn1->value();
-    //int chanC = ui->PlotCChn1->value();
-
-    //this->histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, chanA, chanB, chanC, bin_width, time);
-    //connect(this->histogramWorkerThread, &HistogramWorkerThread::finished, this->histogramWorkerThread, &QObject::deleteLater);
-    //this->histogramWorkerThread->start();
-
-    //QObject::connect(this->histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
 
     this->histogramChanged();
     this->refreshButton();
