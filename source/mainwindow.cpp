@@ -63,11 +63,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     setup_histolines_QKD();
 
-    QComboBox rof_widgets[18];
-    QDoubleSpinBox thresholds_widgets[18];
-    QDoubleSpinBox delay_widgets[18];
-    QComboBox test_widgets[18];
-
     threshold_widgets[0] = ui->threshold1;
     threshold_widgets[1] = ui->threshold2;
     threshold_widgets[2] = ui->threshold3;
@@ -1855,6 +1850,7 @@ void MainWindow::SaveStateDialog(void) {
 
 void MainWindow::SaveState(QString fileName)
 {
+    int i;
     char key[256];
 
     QFile file(fileName);
@@ -1900,7 +1896,7 @@ void MainWindow::SaveState(QString fileName)
         sprintf(key,"threshold%i",i);
         mapdouble.insert(key,threshold[i]);
         sprintf(key,"delay%i",i);
-        mapdouble.insert(key,delay[i]);
+        mapint.insert(key,delay[i]);
     }
 
     mapdouble.insert("in_adqtime", ui->adqtime->value());
@@ -1924,6 +1920,7 @@ void MainWindow::LoadStateDialog(void)
 
 void MainWindow::LoadState(QString fileName, bool warnDialog)
 {
+    int i;
     char key[256];
 
     QFile file(fileName);
@@ -1996,10 +1993,10 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
             test_widgets[i]->SetCurrentIndex(test[i]);
         sprintf(key,"threshold%i",i);
         if (mapdoubleout.contains(key))
-            thresholds_widgets[i]->SetCurrentValue(thresholds[i]);
+            threshold_widgets[i]->SetCurrentValue(thresholds[i]);
         sprintf(key,"delay%i",i);
-        if (mapdoubleout.contains(key))
-            delays_widgets[i]->SetCurrentValue(delays[i]);
+        if (mapintout.contains(key))
+            delay_widgets[i]->SetCurrentValue(delay[i]);
     }
     if (debug) {
         QMapIterator<QString,int>i(mapintout);
