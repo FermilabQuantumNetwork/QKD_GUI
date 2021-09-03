@@ -561,6 +561,8 @@ void MainWindow::connectAction(QAction *action)
 
 void MainWindow::setupsignalslot()
 {
+    int i;
+
     /* To be able to send complex types in signals, the data types need to be
      * registered with QT. */
     qRegisterMetaType<vectorInt64>("vectorInt64");
