@@ -174,6 +174,7 @@ public:
 
 private slots:
     void blah();
+    void RefreshAction(QAction *action);
     void connectAction(QAction *action);
     void refreshButton();
     void parametersChanged();

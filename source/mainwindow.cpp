@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     int i;
 
+    ui->setupUi(this);
+
     threshold_widgets[0] = ui->threshold1;
     threshold_widgets[1] = ui->threshold2;
     threshold_widgets[2] = ui->threshold3;
@@ -100,7 +102,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     test_widgets[16] = ui->test17;
     test_widgets[17] = ui->test18;
 
-    ui->setupUi(this);
     setGeometry(200, 200, 1500, 800);
     setupsignalslot();
     setWindowTitle(QString("INQNET TDC"));
@@ -533,29 +534,71 @@ void MainWindow::refreshButton()
 
     ui->menuConnect->clear();
     for (i = 0; i < (int) devices.size(); i++) {
-        ui->menuConnect->addAction(devices[i].c_str());
+        QMenu *menu = ui->menuConnect->addMenu(devices[i].c_str());
+        menu->addAction("Standard");
+        menu->addAction("HighResA");
+        menu->addAction("HighResB");
+        menu->addAction("HighResC");
+        QObject::connect(menu, SIGNAL(triggered(QAction*)), this, SLOT(connectAction(QAction*)));
     }
     ui->menuConnect->addSeparator();
     ui->menuConnect->addAction("Refresh");
 }
 
-void MainWindow::connectAction(QAction *action)
+void MainWindow::RefreshAction(QAction *action)
 {
     std::string action_string = action->iconText().toStdString();
 
-    if (!strcmp(action_string.c_str(),"Refresh")) {
+    if (!strcmp(action_string.c_str(),"Refresh"))
         this->refreshButton();
+    else
+        fprintf(stderr, "got unknown action string %s\n", action_string.c_str());
+}
+
+void MainWindow::connectAction(QAction *action)
+{
+    std::string action_string = action->iconText().toStdString();
+    QMenu *menu = (QMenu *) action->parentWidget();
+    std::string device_string = menu->title().toStdString().c_str();
+
+    if (debug) {
+        printf("action string = %s\n", action_string.c_str());
+        printf("device string = %s\n", menu->title().toStdString().c_str());
+    }
+
+    Resolution resolution = Resolution::Standard;
+
+    if (!strcmp(action_string.c_str(),"Standard"))
+        resolution = Resolution::Standard;
+    else if (!strcmp(action_string.c_str(),"HighResA"))
+        resolution = Resolution::HighResA;
+    else if (!strcmp(action_string.c_str(),"HighResB"))
+        resolution = Resolution::HighResB;
+    else if (!strcmp(action_string.c_str(),"HighResC"))
+        resolution = Resolution::HighResC;
+    else
+        fprintf(stderr, "unknown resolution '%s'\n", action_string.c_str());
+
+    if (debug)
+        fprintf(stderr, "connecting to swabian\n");
+
+    if (s.connect(device_string) == 0) {
+        if (debug)
+            fprintf(stderr, "successfully connected to swabian\n");
+
+        if (resolution == Resolution::Standard)
+            this->enabled_mask = 0x1ff;
+        else if (resolution == Resolution::HighResA)
+            this->enabled_mask = 0x155;
+        else if (resolution == Resolution::HighResB)
+            this->enabled_mask = 0x11;
+        else if (resolution == Resolution::HighResC)
+            this->enabled_mask = 0x10;
+
+        this->parametersChanged();
     } else {
         if (debug)
-            fprintf(stderr, "connecting to swabian\n");
-        if (s.connect(action_string) == 0) {
-            if (debug)
-                fprintf(stderr, "successfully connected to swabian\n");
-            this->parametersChanged();
-        } else {
-            if (debug)
-                fprintf(stderr, "failed to connect to swabian\n");
-        }
+            fprintf(stderr, "failed to connect to swabian\n");
     }
 }
 
@@ -645,7 +688,7 @@ void MainWindow::setupsignalslot()
     QObject::connect(this, SIGNAL(main_SaveQKDstats(int, int, double, double)),&dbc, SLOT(SaveQKDstats(int, int, double, double)));
 
     QObject::connect(ui->menuLoad_Qubits, SIGNAL(triggered(QAction*)), this, SLOT(tableSelected(QAction*)));
-    QObject::connect(ui->menuConnect, SIGNAL(triggered(QAction*)), this, SLOT(connectAction(QAction*)));
+    QObject::connect(ui->menuConnect, SIGNAL(triggered(QAction*)), this, SLOT(refreshAction(QAction*)));
     QObject::connect(this , SIGNAL(tableQKDtoDB(QString)), &dbc, SLOT(readQubits(QString)));
 
     QObject::connect(&qkdparam, SIGNAL(sig_turnONDB(int)), this, SLOT(chang_QKD_turnONDB(int)));
