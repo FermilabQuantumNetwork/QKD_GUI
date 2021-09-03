@@ -199,6 +199,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     this->LoadState("default.conf", false);
 
+    this->prev_start_channel = ui->startChan->value();
+    this->prev_chanA = ui->PlotAChn1->value();
+    this->prev_chanB = ui->PlotBChn1->value();;
+    this->prev_chanC = ui->PlotCChn1->value();;
+
     this->DrawExpectedSignal();
 }
 
@@ -644,11 +649,10 @@ void MainWindow::connectAction(QAction *action)
         else if (resolution == Resolution::HighResC)
             this->enabled_mask = 0x10;
 
-        this->checkChannels();
-
         this->parametersChanged();
 
-        this->countWorkerThread = new CountWorkerThread(&this->s);
+        fprintf(stderr, "enabled mask = 0x%08x\n", this->enabled_mask);
+        this->countWorkerThread = new CountWorkerThread(&this->s, this->enabled_mask);
         connect(this->countWorkerThread, &CountWorkerThread::finished, this->countWorkerThread, &QObject::deleteLater);
         this->countWorkerThread->start();
 
@@ -799,6 +803,37 @@ void MainWindow::histogramChanged(void)
     int chanA = ui->PlotAChn1->value();
     int chanB = ui->PlotBChn1->value();
     int chanC = ui->PlotCChn1->value();
+
+    if (enabled_mask == 0) {
+        ui->startChan->setEnabled(false);
+        ui->PlotAChn1->setEnabled(false);
+        ui->PlotBChn1->setEnabled(false);
+        ui->PlotCChn1->setEnabled(false);
+        return;
+    }
+
+    /* Validate channels. */
+    while (enabled_mask & (1 << (chanA-1)) == 0) {
+        chanA += prev_chanA < chanA ? 1 : -1;
+        if (chanA > 18) chanA = 0;
+        if (chanA < 0) chanA = 18;
+    }
+
+    while (enabled_mask & (1 << (chanB-1)) == 0) {
+        chanB += prev_chanB < chanB ? 1 : -1;
+        if (chanB > 18) chanB = 0;
+        if (chanB < 0) chanB = 18;
+    }
+
+    while (enabled_mask & (1 << (chanC-1)) == 0) {
+        chanC += prev_chanC < chanC ? 1 : -1;
+        if (chanC > 18) chanC = 0;
+        if (chanC < 0) chanC = 18;
+    }
+
+    prev_chanA = chanA;
+    prev_chanB = chanB;
+    prev_chanC = chanC;
 
     if (this->histogramWorkerThread) {
         this->histogramWorkerThread->bin_width = ui->bin_width->value();
@@ -1509,7 +1544,7 @@ void MainWindow::show_rates(int *channels, double *rates, int n)
     int i;
 
     for (i = 0; i < 18; i++)
-        rate_widgets[i]->display(0)
+        rate_widgets[i]->display(0);
 
     for (i = 0; i < n; i++)
         rate_widgets[channels[i]-1]->display(rates[i]);

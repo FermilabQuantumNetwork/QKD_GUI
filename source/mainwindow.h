@@ -123,11 +123,15 @@ public:
                 continue;
             }
 
+            fprintf(stderr, "enabled_mask = 0x%08x\n", enabled_mask);
+
             n = 0;
             for (i = 0; i < 18; i++) {
-                if (i & (1 << enabled_mask))
+                if (enabled_mask & (1 << i))
                     channels[n++] = i+1;
             }
+
+            fprintf(stderr, "n = %i\n", n);
 
             for (i = 0; i < 18; i++)
                 rates[i] = 0.0;
@@ -175,6 +179,10 @@ public:
     CountWorkerThread *countWorkerThread;
 
     int enabled_mask;
+    int prev_start_channel;
+    int prev_chanA;
+    int prev_chanB;
+    int prev_chanC;
 
 private slots:
     void replot_histograms();
