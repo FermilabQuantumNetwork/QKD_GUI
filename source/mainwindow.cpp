@@ -26,6 +26,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     ui->setupUi(this);
 
+    rate_widgets[0] = ui->rate1;
+    rate_widgets[1] = ui->rate2;
+    rate_widgets[2] = ui->rate3;
+    rate_widgets[3] = ui->rate4;
+    rate_widgets[4] = ui->rate5;
+    rate_widgets[5] = ui->rate6;
+    rate_widgets[6] = ui->rate7;
+    rate_widgets[7] = ui->rate8;
+    rate_widgets[8] = ui->rate9;
+    rate_widgets[9] = ui->rate10;
+    rate_widgets[10] = ui->rate11;
+    rate_widgets[11] = ui->rate12;
+    rate_widgets[12] = ui->rate13;
+    rate_widgets[13] = ui->rate14;
+    rate_widgets[14] = ui->rate15;
+    rate_widgets[15] = ui->rate16;
+    rate_widgets[16] = ui->rate17;
+    rate_widgets[17] = ui->rate18;
+
     threshold_widgets[0] = ui->threshold1;
     threshold_widgets[1] = ui->threshold2;
     threshold_widgets[2] = ui->threshold3;
@@ -155,6 +174,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     qkd_prevKey = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
 
     for (i = 0; i < 18; i++) {
+        rate_widgets[i]->setSegmentStyle(QLCDNumber::Flat);
         test_widgets[i]->addItem(tr("Enable"));
         test_widgets[i]->addItem(tr("Disable"));
         rof_widgets[i]->addItem(tr("Rise"));

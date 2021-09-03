@@ -318,6 +318,7 @@ private:
     QDoubleSpinBox *threshold_widgets[18];
     QSpinBox *delay_widgets[18];
     QComboBox *test_widgets[18];
+    QLCDNumber *rate_widgets[18];
 
     /*QFile savejasonFile;
     QJsonArray jasonhistoA, jasonhistoB, jasonhistoC;*/
