@@ -174,6 +174,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     createQKDLinesB();
     createQKDLinesC();
 
+    enabled_mask = 0x1ff;
+
     this->LoadState("default.conf", false);
 
     this->DrawExpectedSignal();
@@ -743,6 +745,8 @@ void MainWindow::setupsignalslot()
 
 void MainWindow::histogramChanged(void)
 {
+    int i;
+
     int chanA = ui->PlotAChn1->value();
     int chanB = ui->PlotBChn1->value();
     int chanC = ui->PlotCChn1->value();
@@ -751,37 +755,9 @@ void MainWindow::histogramChanged(void)
     this->histogramWorkerThread->time = static_cast<timestamp_t>(ui->adqtime->value()*1e12);
     this->histogramWorkerThread->start_channel = ui->startChan->value();
 
-    rof[0] = ui->rof1->currentIndex();
-    rof[1] = ui->rof2->currentIndex();
-    rof[2] = ui->rof3->currentIndex();
-    rof[3] = ui->rof4->currentIndex();
-    rof[4] = ui->rof5->currentIndex();
-    rof[5] = ui->rof6->currentIndex();
-    rof[6] = ui->rof7->currentIndex();
-    rof[7] = ui->rof8->currentIndex();
-    rof[8] = ui->rof9->currentIndex();
-    rof[9] = ui->rof10->currentIndex();
-    rof[10] = ui->rof11->currentIndex();
-    rof[11] = ui->rof12->currentIndex();
-    rof[12] = ui->rof13->currentIndex();
-    rof[13] = ui->rof14->currentIndex();
-    rof[14] = ui->rof15->currentIndex();
-    rof[15] = ui->rof16->currentIndex();
-    rof[16] = ui->rof17->currentIndex();
-    rof[17] = ui->rof18->currentIndex();
-
-    if (rof[chanA-1] == 0)
-        this->histogramWorkerThread->chanA = chanA;
-    else
-        this->histogramWorkerThread->chanA = -chanA;
-    if (rof[chanB-1] == 0)
-        this->histogramWorkerThread->chanB = chanB;
-    else
-        this->histogramWorkerThread->chanB = -chanB;
-    if (rof[chanC-1] == 0)
-        this->histogramWorkerThread->chanC = chanC;
-    else
-        this->histogramWorkerThread->chanC = -chanC;
+    this->histogramWorkerThread->chanA = chanA;
+    this->histogramWorkerThread->chanB = chanB;
+    this->histogramWorkerThread->chanC = chanC;
 }
 
 /* Plots the Swabian time difference histograms on the main Histogram tab. This
@@ -1505,81 +1481,23 @@ void MainWindow::parametersChanged(void)
 {
     int i;
 
-    thresholds[0] = ui->threshold1->value();
-    thresholds[1] = ui->threshold2->value();
-    thresholds[2] = ui->threshold3->value();
-    thresholds[3] = ui->threshold4->value();
-    thresholds[4] = ui->threshold5->value();
-    thresholds[5] = ui->threshold6->value();
-    thresholds[6] = ui->threshold7->value();
-    thresholds[7] = ui->threshold8->value();
-    thresholds[8] = ui->threshold9->value();
-    thresholds[9] = ui->threshold10->value();
-    thresholds[10] = ui->threshold11->value();
-    thresholds[11] = ui->threshold12->value();
-    thresholds[12] = ui->threshold13->value();
-    thresholds[13] = ui->threshold14->value();
-    thresholds[14] = ui->threshold15->value();
-    thresholds[15] = ui->threshold16->value();
-    thresholds[16] = ui->threshold17->value();
-    thresholds[17] = ui->threshold18->value();
-
-    delay[0] = ui->delay1->value();
-    delay[1] = ui->delay2->value();
-    delay[2] = ui->delay3->value();
-    delay[3] = ui->delay4->value();
-    delay[4] = ui->delay5->value();
-    delay[5] = ui->delay6->value();
-    delay[6] = ui->delay7->value();
-    delay[7] = ui->delay8->value();
-    delay[8] = ui->delay9->value();
-    delay[9] = ui->delay10->value();
-    delay[10] = ui->delay11->value();
-    delay[11] = ui->delay12->value();
-    delay[12] = ui->delay13->value();
-    delay[13] = ui->delay14->value();
-    delay[14] = ui->delay15->value();
-    delay[15] = ui->delay16->value();
-    delay[16] = ui->delay17->value();
-    delay[17] = ui->delay18->value();
-
-    test[0] = ui->test1->currentIndex();
-    test[1] = ui->test2->currentIndex();
-    test[2] = ui->test3->currentIndex();
-    test[3] = ui->test4->currentIndex();
-    test[4] = ui->test5->currentIndex();
-    test[5] = ui->test6->currentIndex();
-    test[6] = ui->test7->currentIndex();
-    test[7] = ui->test8->currentIndex();
-    test[8] = ui->test9->currentIndex();
-    test[9] = ui->test10->currentIndex();
-    test[10] = ui->test11->currentIndex();
-    test[11] = ui->test12->currentIndex();
-    test[12] = ui->test13->currentIndex();
-    test[13] = ui->test14->currentIndex();
-    test[14] = ui->test15->currentIndex();
-    test[15] = ui->test16->currentIndex();
-    test[16] = ui->test17->currentIndex();
-    test[17] = ui->test18->currentIndex();
-
-    rof[0] = ui->rof1->currentIndex();
-    rof[1] = ui->rof2->currentIndex();
-    rof[2] = ui->rof3->currentIndex();
-    rof[3] = ui->rof4->currentIndex();
-    rof[4] = ui->rof5->currentIndex();
-    rof[5] = ui->rof6->currentIndex();
-    rof[6] = ui->rof7->currentIndex();
-    rof[7] = ui->rof8->currentIndex();
-    rof[8] = ui->rof9->currentIndex();
-    rof[9] = ui->rof10->currentIndex();
-    rof[10] = ui->rof11->currentIndex();
-    rof[11] = ui->rof12->currentIndex();
-    rof[12] = ui->rof13->currentIndex();
-    rof[13] = ui->rof14->currentIndex();
-    rof[14] = ui->rof15->currentIndex();
-    rof[15] = ui->rof16->currentIndex();
-    rof[16] = ui->rof17->currentIndex();
-    rof[17] = ui->rof18->currentIndex();
+    for (i = 0; i < 18; i++) {
+        if (enabled_mask & (1 << i)) {
+            threshold_widgets[i]->setEnabled(true);
+            delay_widgets[i]->setEnabled(true);
+            test_widgets[i]->setEnabled(true);
+            rof_widgets[i]->setEnabled(true);
+        } else {
+            threshold_widgets[i]->setEnabled(false);
+            delay_widgets[i]->setEnabled(false);
+            test_widgets[i]->setEnabled(false);
+            rof_widgets[i]->setEnabled(false);
+        }
+        thresholds[i] = threshold_widgets[i]->value();
+        delay[i] = delay_widgets[i]->value();
+        test[i] = test_widgets[i]->currentIndex();
+        rof[i] = rof_widgets[i]->currentIndex();
+    }
 
     if (!s.t) {
         fprintf(stderr, "no time tagger connected\n");
@@ -1588,6 +1506,7 @@ void MainWindow::parametersChanged(void)
 
     int rising_channel_mask = 0;
     for (i = 0; i < MAX_CHANNELS; i++) {
+        if (!(enabled_mask & (1 << i))) continue;
         s.set_trigger_level(i+1,thresholds[i]);
         s.set_delay(i+1,delay[i]);
         s.set_test_signal(i+1,!test[i]);

@@ -170,6 +170,8 @@ public:
     HistogramWorkerThread *histogramWorkerThread;
     CountWorkerThread *countWorkerThread;
 
+    int enabled_mask;
+
 private slots:
     void blah();
     void connectAction(QAction *action);

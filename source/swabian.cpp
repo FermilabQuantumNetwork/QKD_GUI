@@ -67,6 +67,15 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
 
     SynchronizedMeasurements measurementGroup(this->t);
 
+    if ((this->rising_channel_mask & (1 << (chanA-1))) == 0)
+        chanA = -chanA;
+    if ((this->rising_channel_mask & (1 << (chanB-1))) == 0)
+        chanB = -chanB;
+    if ((this->rising_channel_mask & (1 << (chanC-1))) == 0)
+        chanC = -chanC;
+    if ((this->rising_channel_mask & (1 << (start_channel-1))) == 0)
+        start_channel = -start_channel;
+
     std::vector<CustomStartStop*> measurements;
     measurements.push_back(new CustomStartStop(measurementGroup.getTagger(), chan_a, start_channel, bin_width));
     measurements.push_back(new CustomStartStop(measurementGroup.getTagger(), chan_b, start_channel, bin_width));
