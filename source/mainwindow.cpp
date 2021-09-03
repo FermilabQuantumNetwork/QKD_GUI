@@ -22,6 +22,8 @@ char qubit_sequence[100] = "E0E0L0L0P0P0";
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    int i;
+
     ui->setupUi(this);
     setGeometry(200, 200, 1500, 800);
     setupsignalslot();
@@ -61,43 +63,86 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     setup_histolines_QKD();
 
-    ui->threshold1->setValue(0);
-    ui->threshold2->setValue(0);
-    ui->threshold3->setValue(0);
-    ui->threshold4->setValue(0);
-    ui->threshold5->setValue(0);
-    ui->threshold6->setValue(0);
-    ui->threshold7->setValue(0);
-    ui->threshold8->setValue(0);
-    ui->threshold9->setValue(0);
-    ui->threshold10->setValue(0);
-    ui->threshold11->setValue(0);
-    ui->threshold12->setValue(0);
-    ui->threshold13->setValue(0);
-    ui->threshold14->setValue(0);
-    ui->threshold15->setValue(0);
-    ui->threshold16->setValue(0);
-    ui->threshold17->setValue(0);
-    ui->threshold18->setValue(0);
+    QComboBox rof_widgets[18];
+    QDoubleSpinBox thresholds_widgets[18];
+    QDoubleSpinBox delay_widgets[18];
+    QComboBox test_widgets[18];
 
-    ui->delay1->setValue(0);
-    ui->delay2->setValue(0);
-    ui->delay3->setValue(0);
-    ui->delay4->setValue(0);
-    ui->delay5->setValue(0);
-    ui->delay6->setValue(0);
-    ui->delay7->setValue(0);
-    ui->delay8->setValue(0);
-    ui->delay9->setValue(0);
-    ui->delay10->setValue(0);
-    ui->delay11->setValue(0);
-    ui->delay12->setValue(0);
-    ui->delay13->setValue(0);
-    ui->delay14->setValue(0);
-    ui->delay15->setValue(0);
-    ui->delay16->setValue(0);
-    ui->delay17->setValue(0);
-    ui->delay18->setValue(0);
+    threshold_widgets[0] = ui->threshold1;
+    threshold_widgets[1] = ui->threshold2;
+    threshold_widgets[2] = ui->threshold3;
+    threshold_widgets[3] = ui->threshold4;
+    threshold_widgets[4] = ui->threshold5;
+    threshold_widgets[5] = ui->threshold6;
+    threshold_widgets[6] = ui->threshold7;
+    threshold_widgets[7] = ui->threshold8;
+    threshold_widgets[8] = ui->threshold9;
+    threshold_widgets[9] = ui->threshold10;
+    threshold_widgets[10] = ui->threshold11;
+    threshold_widgets[11] = ui->threshold12;
+    threshold_widgets[12] = ui->threshold13;
+    threshold_widgets[13] = ui->threshold14;
+    threshold_widgets[14] = ui->threshold15;
+    threshold_widgets[15] = ui->threshold16;
+    threshold_widgets[16] = ui->threshold17;
+    threshold_widgets[17] = ui->threshold18;
+
+    delay_widgets[0] = ui->delay1;
+    delay_widgets[1] = ui->delay2;
+    delay_widgets[2] = ui->delay3;
+    delay_widgets[3] = ui->delay4;
+    delay_widgets[4] = ui->delay5;
+    delay_widgets[5] = ui->delay6;
+    delay_widgets[6] = ui->delay7;
+    delay_widgets[7] = ui->delay8;
+    delay_widgets[8] = ui->delay9;
+    delay_widgets[9] = ui->delay10;
+    delay_widgets[10] = ui->delay11;
+    delay_widgets[11] = ui->delay12;
+    delay_widgets[12] = ui->delay13;
+    delay_widgets[13] = ui->delay14;
+    delay_widgets[14] = ui->delay15;
+    delay_widgets[15] = ui->delay16;
+    delay_widgets[16] = ui->delay17;
+    delay_widgets[17] = ui->delay18;
+
+    rof_widgets[0] = ui->rof1;
+    rof_widgets[1] = ui->rof2;
+    rof_widgets[2] = ui->rof3;
+    rof_widgets[3] = ui->rof4;
+    rof_widgets[4] = ui->rof5;
+    rof_widgets[5] = ui->rof6;
+    rof_widgets[6] = ui->rof7;
+    rof_widgets[7] = ui->rof8;
+    rof_widgets[8] = ui->rof9;
+    rof_widgets[9] = ui->rof10;
+    rof_widgets[10] = ui->rof11;
+    rof_widgets[11] = ui->rof12;
+    rof_widgets[12] = ui->rof13;
+    rof_widgets[13] = ui->rof14;
+    rof_widgets[14] = ui->rof15;
+    rof_widgets[15] = ui->rof16;
+    rof_widgets[16] = ui->rof17;
+    rof_widgets[17] = ui->rof18;
+
+    test_widgets[0] = ui->test1;
+    test_widgets[1] = ui->test2;
+    test_widgets[2] = ui->test3;
+    test_widgets[3] = ui->test4;
+    test_widgets[4] = ui->test5;
+    test_widgets[5] = ui->test6;
+    test_widgets[6] = ui->test7;
+    test_widgets[7] = ui->test8;
+    test_widgets[8] = ui->test9;
+    test_widgets[9] = ui->test10;
+    test_widgets[10] = ui->test11;
+    test_widgets[11] = ui->test12;
+    test_widgets[12] = ui->test13;
+    test_widgets[13] = ui->test14;
+    test_widgets[14] = ui->test15;
+    test_widgets[15] = ui->test16;
+    test_widgets[16] = ui->test17;
+    test_widgets[17] = ui->test18;
 
     ui->bin_width->setValue(10);
     // update rate Adq time
@@ -113,117 +158,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     lastPointKey_tab4 = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     qkd_prevKey = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
 
-    ui->rof1->addItem(tr("Rise"));
-    ui->rof1->addItem(tr("Fall"));
-    ui->rof2->addItem(tr("Rise"));
-    ui->rof2->addItem(tr("Fall"));
-    ui->rof3->addItem(tr("Rise"));
-    ui->rof3->addItem(tr("Fall"));
-    ui->rof4->addItem(tr("Rise"));
-    ui->rof4->addItem(tr("Fall"));
-    ui->rof5->addItem(tr("Rise"));
-    ui->rof5->addItem(tr("Fall"));
-    ui->rof6->addItem(tr("Rise"));
-    ui->rof6->addItem(tr("Fall"));
-    ui->rof7->addItem(tr("Rise"));
-    ui->rof7->addItem(tr("Fall"));
-    ui->rof8->addItem(tr("Rise"));
-    ui->rof8->addItem(tr("Fall"));
-    ui->rof9->addItem(tr("Rise"));
-    ui->rof9->addItem(tr("Fall"));
-    ui->rof10->addItem(tr("Rise"));
-    ui->rof10->addItem(tr("Fall"));
-    ui->rof11->addItem(tr("Rise"));
-    ui->rof11->addItem(tr("Fall"));
-    ui->rof12->addItem(tr("Rise"));
-    ui->rof12->addItem(tr("Fall"));
-    ui->rof13->addItem(tr("Rise"));
-    ui->rof13->addItem(tr("Fall"));
-    ui->rof14->addItem(tr("Rise"));
-    ui->rof14->addItem(tr("Fall"));
-    ui->rof15->addItem(tr("Rise"));
-    ui->rof15->addItem(tr("Fall"));
-    ui->rof16->addItem(tr("Rise"));
-    ui->rof16->addItem(tr("Fall"));
-    ui->rof17->addItem(tr("Rise"));
-    ui->rof17->addItem(tr("Fall"));
-    ui->rof18->addItem(tr("Rise"));
-    ui->rof18->addItem(tr("Fall"));
-
-    ui->rof1->setCurrentText("Fall");
-    ui->rof2->setCurrentText("Fall");
-    ui->rof3->setCurrentText("Fall");
-    ui->rof4->setCurrentText("Fall");
-    ui->rof5->setCurrentText("Fall");
-    ui->rof6->setCurrentText("Fall");
-    ui->rof7->setCurrentText("Fall");
-    ui->rof8->setCurrentText("Fall");
-    ui->rof9->setCurrentText("Fall");
-    ui->rof10->setCurrentText("Fall");
-    ui->rof11->setCurrentText("Fall");
-    ui->rof12->setCurrentText("Fall");
-    ui->rof13->setCurrentText("Fall");
-    ui->rof14->setCurrentText("Fall");
-    ui->rof15->setCurrentText("Fall");
-    ui->rof16->setCurrentText("Fall");
-    ui->rof17->setCurrentText("Fall");
-    ui->rof18->setCurrentText("Fall");
-
-    ui->test1->addItem(tr("Enable"));
-    ui->test1->addItem(tr("Disable"));
-    ui->test2->addItem(tr("Enable"));
-    ui->test2->addItem(tr("Disable"));
-    ui->test3->addItem(tr("Enable"));
-    ui->test3->addItem(tr("Disable"));
-    ui->test4->addItem(tr("Enable"));
-    ui->test4->addItem(tr("Disable"));
-    ui->test5->addItem(tr("Enable"));
-    ui->test5->addItem(tr("Disable"));
-    ui->test6->addItem(tr("Enable"));
-    ui->test6->addItem(tr("Disable"));
-    ui->test7->addItem(tr("Enable"));
-    ui->test7->addItem(tr("Disable"));
-    ui->test8->addItem(tr("Enable"));
-    ui->test8->addItem(tr("Disable"));
-    ui->test9->addItem(tr("Enable"));
-    ui->test9->addItem(tr("Disable"));
-    ui->test10->addItem(tr("Enable"));
-    ui->test10->addItem(tr("Disable"));
-    ui->test11->addItem(tr("Enable"));
-    ui->test11->addItem(tr("Disable"));
-    ui->test12->addItem(tr("Enable"));
-    ui->test12->addItem(tr("Disable"));
-    ui->test13->addItem(tr("Enable"));
-    ui->test13->addItem(tr("Disable"));
-    ui->test14->addItem(tr("Enable"));
-    ui->test14->addItem(tr("Disable"));
-    ui->test15->addItem(tr("Enable"));
-    ui->test15->addItem(tr("Disable"));
-    ui->test16->addItem(tr("Enable"));
-    ui->test16->addItem(tr("Disable"));
-    ui->test17->addItem(tr("Enable"));
-    ui->test17->addItem(tr("Disable"));
-    ui->test18->addItem(tr("Enable"));
-    ui->test18->addItem(tr("Disable"));
-
-    ui->test1->setCurrentText("Disable");
-    ui->test2->setCurrentText("Disable");
-    ui->test3->setCurrentText("Disable");
-    ui->test4->setCurrentText("Disable");
-    ui->test5->setCurrentText("Disable");
-    ui->test6->setCurrentText("Disable");
-    ui->test7->setCurrentText("Disable");
-    ui->test8->setCurrentText("Disable");
-    ui->test9->setCurrentText("Disable");
-    ui->test10->setCurrentText("Disable");
-    ui->test11->setCurrentText("Disable");
-    ui->test12->setCurrentText("Disable");
-    ui->test13->setCurrentText("Disable");
-    ui->test14->setCurrentText("Disable");
-    ui->test15->setCurrentText("Disable");
-    ui->test16->setCurrentText("Disable");
-    ui->test17->setCurrentText("Disable");
-    ui->test18->setCurrentText("Disable");
+    for (i = 0; i < 18; i++) {
+        test_widgets[i]->addItem(tr("Enable"));
+        test_widgets[i]->addItem(tr("Disable"));
+        rof_widgets[i]->addItem(tr("Rise"));
+        rof_widgets[i]->addItem(tr("Fall"));
+        threshold_widgets[i]->setValue(0);
+        delay_widgets[i]->setValue(0);
+        rof_widgets[i]->setCurrentText("Fall");
+        test_widgets[i]->setCurrentText("Disable");
+    }
 
     qkdparam.QKD_setDefault();
 
@@ -803,8 +747,6 @@ void MainWindow::setupsignalslot()
 
 void MainWindow::histogramChanged(void)
 {
-    int rof[18];
-
     int chanA = ui->PlotAChn1->value();
     int chanB = ui->PlotBChn1->value();
     int chanC = ui->PlotCChn1->value();
@@ -1566,10 +1508,6 @@ void MainWindow::show_rates(double *rates)
 void MainWindow::parametersChanged(void)
 {
     int i;
-    double thresholds[18];
-    double delay[18];
-    int test[18];
-    int rof[18];
 
     thresholds[0] = ui->threshold1->value();
     thresholds[1] = ui->threshold2->value();
@@ -1917,6 +1855,8 @@ void MainWindow::SaveStateDialog(void) {
 
 void MainWindow::SaveState(QString fileName)
 {
+    char key[256];
+
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly)) {
         QMessageBox::information(this, tr("Unable to open file"),
@@ -1952,6 +1892,17 @@ void MainWindow::SaveState(QString fileName)
     mapint.insert("in_PlotCCh1",ui->PlotCChn1->value());
     mapint.insert("in_bin_width",ui->bin_width->value());
 
+    for (i = 0; i < 18; i++) {
+        sprintf(key,"rof%i",i);
+        mapint.insert(key,rof[i]);
+        sprintf(key,"test%i",i);
+        mapint.insert(key,test[i]);
+        sprintf(key,"threshold%i",i);
+        mapdouble.insert(key,threshold[i]);
+        sprintf(key,"delay%i",i);
+        mapdouble.insert(key,delay[i]);
+    }
+
     mapdouble.insert("in_adqtime", ui->adqtime->value());
 
     out << mapint;
@@ -1973,6 +1924,8 @@ void MainWindow::LoadStateDialog(void)
 
 void MainWindow::LoadState(QString fileName, bool warnDialog)
 {
+    char key[256];
+
     QFile file(fileName);
 
     if (!file.open(QIODevice::ReadOnly)) {
@@ -2034,6 +1987,20 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     if (mapdoubleout.contains("in_adqtime"))
         ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
 
+    for (i = 0; i < 18; i++) {
+        sprintf(key,"rof%i",i);
+        if (mapintout.contains(key))
+            rof_widgets[i]->SetCurrentIndex(rof[i]);
+        sprintf(key,"test%i",i);
+        if (mapintout.contains(key))
+            test_widgets[i]->SetCurrentIndex(test[i]);
+        sprintf(key,"threshold%i",i);
+        if (mapdoubleout.contains(key))
+            thresholds_widgets[i]->SetCurrentValue(thresholds[i]);
+        sprintf(key,"delay%i",i);
+        if (mapdoubleout.contains(key))
+            delays_widgets[i]->SetCurrentValue(delays[i]);
+    }
     if (debug) {
         QMapIterator<QString,int>i(mapintout);
         while (i.hasNext()) {

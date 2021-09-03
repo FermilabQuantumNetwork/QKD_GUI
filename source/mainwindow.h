@@ -307,6 +307,16 @@ private:
     QVector<double> datah5randC;
     QVector<double> datah5bkgndC;
 
+    int rof[18];
+    double thresholds[18];
+    double delay[18];
+    int test[18];
+
+    QComboBox *rof_widgets[18];
+    QDoubleSpinBox *thresholds_widgets[18];
+    QDoubleSpinBox *delay_widgets[18];
+    QComboBox *test_widgets[18];
+
     /*QFile savejasonFile;
     QJsonArray jasonhistoA, jasonhistoB, jasonhistoC;*/
 
