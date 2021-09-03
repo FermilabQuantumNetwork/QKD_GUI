@@ -179,7 +179,7 @@ public:
     CountWorkerThread *countWorkerThread;
 
     int enabled_mask;
-    int prev_start_channel;
+    int prev_startChan;
     int prev_chanA;
     int prev_chanB;
     int prev_chanC;

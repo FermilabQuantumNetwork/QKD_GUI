@@ -199,7 +199,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     this->LoadState("default.conf", false);
 
-    this->prev_start_channel = ui->startChan->value();
+    this->prev_startChan = ui->startChan->value();
     this->prev_chanA = ui->PlotAChn1->value();
     this->prev_chanB = ui->PlotBChn1->value();;
     this->prev_chanC = ui->PlotCChn1->value();;
@@ -802,6 +802,7 @@ void MainWindow::setupsignalslot()
 
 void MainWindow::histogramChanged(void)
 {
+    int startChan = ui->startChan->value();
     int chanA = ui->PlotAChn1->value();
     int chanB = ui->PlotBChn1->value();
     int chanC = ui->PlotCChn1->value();
@@ -819,25 +820,43 @@ void MainWindow::histogramChanged(void)
     ui->PlotBChn1->setEnabled(true);
     ui->PlotCChn1->setEnabled(true);
 
+    fprintf(stderr, "validating start channel. new value = %i\n", startChan);
+
     /* Validate channels. */
+    double diff = prev_startChan < startChan ? 1 : -1;
+    while ((enabled_mask & (1 << (startChan-1))) == 0) {
+        startChan += diff;
+        if (startChan > 18) startChan = 0;
+        if (startChan < 0) startChan = 18;
+    }
+
+    diff = prev_chanA < chanA ? 1 : -1;
     while ((enabled_mask & (1 << (chanA-1))) == 0) {
-        chanA += prev_chanA < chanA ? 1 : -1;
+        chanA += diff;
         if (chanA > 18) chanA = 0;
         if (chanA < 0) chanA = 18;
     }
 
+    diff = prev_chanB < chanB ? 1 : -1;
     while ((enabled_mask & (1 << (chanB-1))) == 0) {
-        chanB += prev_chanB < chanB ? 1 : -1;
+        chanB += diff;
         if (chanB > 18) chanB = 0;
         if (chanB < 0) chanB = 18;
     }
 
+    diff = prev_chanC < chanC ? 1 : -1;
     while ((enabled_mask & (1 << (chanC-1))) == 0) {
-        chanC += prev_chanC < chanC ? 1 : -1;
+        chanC += diff;
         if (chanC > 18) chanC = 0;
         if (chanC < 0) chanC = 18;
     }
 
+    ui->startChan->setValue(startChan);
+    ui->PlotAChn1->setValue(chanA);
+    ui->PlotBChn1->setValue(chanB);
+    ui->PlotCChn1->setValue(chanC);
+
+    prev_startChan = startChan;
     prev_chanA = chanA;
     prev_chanB = chanB;
     prev_chanC = chanC;
