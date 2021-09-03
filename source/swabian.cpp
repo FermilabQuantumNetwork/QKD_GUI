@@ -67,12 +67,12 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
 
     SynchronizedMeasurements measurementGroup(this->t);
 
-    if ((this->rising_channel_mask & (1 << (chanA-1))) == 0)
-        chanA = -chanA;
-    if ((this->rising_channel_mask & (1 << (chanB-1))) == 0)
-        chanB = -chanB;
-    if ((this->rising_channel_mask & (1 << (chanC-1))) == 0)
-        chanC = -chanC;
+    if ((this->rising_channel_mask & (1 << (chan_a-1))) == 0)
+        chan_a = -chan_a;
+    if ((this->rising_channel_mask & (1 << (chan_b-1))) == 0)
+        chan_b = -chan_b;
+    if ((this->rising_channel_mask & (1 << (chan_c-1))) == 0)
+        chan_c = -chanC;
     if ((this->rising_channel_mask & (1 << (start_channel-1))) == 0)
         start_channel = -start_channel;
 
