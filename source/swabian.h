@@ -18,6 +18,7 @@ public:
     int get_count_rates(int *channels, double *out, int n);
     int set_test_signal(int channel, int value);
     void set_rising_mask(int _rising_channel_mask);
+    int disconnect(void);
 
     TimeTagger *t;
     int rising_channel_mask;

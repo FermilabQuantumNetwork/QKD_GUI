@@ -134,19 +134,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setupHistoPlot(ui->PlotC);
     setupHistoPlot(ui->PlotC_2,false,false);
     connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA_2->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotA->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(replot_histograms()));
     connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotA->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotA_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(replot_histograms()));
 
     connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB_2->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotB->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(replot_histograms()));
     connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotB->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotB_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(replot_histograms()));
 
     connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC_2->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotC->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(replot_histograms()));
     connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->PlotC->xAxis, SLOT(setRange(QCPRange)));
-    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(blah()));
+    connect(ui->PlotC_2->xAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(replot_histograms()));
 
     setup_plot_qkd_results(ui->QKD_H1_results);
     setup_plot_qkd_results(ui->QKD_H2_results);
@@ -195,7 +195,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     createQKDLinesB();
     createQKDLinesC();
 
-    enabled_mask = 0x1ff;
+    enabled_mask = 0;
 
     this->LoadState("default.conf", false);
 
@@ -206,7 +206,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 ///////////////////setups///////////////////////////
 ///////////////////////////////////////////////////////////
 
-void MainWindow::blah()
+void MainWindow::replot_histograms()
 {
     ui->PlotA->replot();
     ui->PlotA_2->replot();
@@ -563,16 +563,33 @@ void MainWindow::refreshButton()
     }
     ui->menuConnect->addSeparator();
     ui->menuConnect->addAction("Refresh");
+    ui->menuConnect->addAction("Disconnect");
 }
 
-void MainWindow::RefreshAction(QAction *action)
+void MainWindow::refreshAction(QAction *action)
 {
     std::string action_string = action->iconText().toStdString();
 
     if (!strcmp(action_string.c_str(),"Refresh"))
         this->refreshButton();
+    else if (!strcmp(action_string.c_str(),"Disconnect"))
+        this->disconnectAction();
     else
         fprintf(stderr, "got unknown action string %s\n", action_string.c_str());
+}
+
+void MainWindow::disconnectAction(void)
+{
+    this->countWorkerThread->requestInterruption();
+    this->histogramWorkerThread->requestInterruption();
+
+    fprintf(stderr, "waiting for worker threads to quit\n");
+    while (this->countWorkerThread->isRunning() || this->histogramWorkerThread->isRunning() || dbc.isRunning())
+        usleep(100);
+    fprintf(stderr, "done waiting\n");
+
+    this->s.disconnect();
+    fprintf(stderr, "done disconnecting\n");
 }
 
 void MainWindow::connectAction(QAction *action)
@@ -602,6 +619,10 @@ void MainWindow::connectAction(QAction *action)
     if (debug)
         fprintf(stderr, "connecting to swabian\n");
 
+    if (s.t) {
+        this->disconnectAction()
+    }
+
     if (s.connect(device_string) == 0) {
         if (debug)
             fprintf(stderr, "successfully connected to swabian\n");
@@ -616,6 +637,9 @@ void MainWindow::connectAction(QAction *action)
             this->enabled_mask = 0x10;
 
         this->parametersChanged();
+
+        this->countWorkerThread->start();
+        this->histogramWorkerThread->start();
     } else {
         if (debug)
             fprintf(stderr, "failed to connect to swabian\n");
@@ -709,6 +733,7 @@ void MainWindow::setupsignalslot()
 
     QObject::connect(ui->menuLoad_Qubits, SIGNAL(triggered(QAction*)), this, SLOT(tableSelected(QAction*)));
     QObject::connect(ui->menuConnect, SIGNAL(triggered(QAction*)), this, SLOT(refreshAction(QAction*)));
+
     QObject::connect(this , SIGNAL(tableQKDtoDB(QString)), &dbc, SLOT(readQubits(QString)));
 
     QObject::connect(&qkdparam, SIGNAL(sig_turnONDB(int)), this, SLOT(chang_QKD_turnONDB(int)));
@@ -717,7 +742,7 @@ void MainWindow::setupsignalslot()
 
     this->countWorkerThread = new CountWorkerThread(&this->s);
     connect(this->countWorkerThread, &CountWorkerThread::finished, this->countWorkerThread, &QObject::deleteLater);
-    this->countWorkerThread->start();
+    //this->countWorkerThread->start();
 
     QObject::connect(this->countWorkerThread, &CountWorkerThread::rates_ready, this, &MainWindow::show_rates);
 
@@ -730,7 +755,7 @@ void MainWindow::setupsignalslot()
 
     this->histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, chanA, chanB, chanC, bin_width, time);
     connect(this->histogramWorkerThread, &HistogramWorkerThread::finished, this->histogramWorkerThread, &QObject::deleteLater);
-    this->histogramWorkerThread->start();
+    //this->histogramWorkerThread->start();
 
     QObject::connect(this->histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
 
@@ -1467,6 +1492,7 @@ void MainWindow::show_rates(double *rates)
     ui->rate17->display(rates[16]);
     ui->rate18->display(rates[17]);
 
+    fprintf(stderr, "freeing rates\n");
     free(rates);
 }
 

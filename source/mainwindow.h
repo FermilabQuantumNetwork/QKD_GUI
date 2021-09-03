@@ -36,7 +36,7 @@ namespace Ui {
     class MainWindow;
 }
 
-const bool debug = false;
+const bool debug = true;
 
 extern char qubit_sequence[100];
 
@@ -173,8 +173,9 @@ public:
     int enabled_mask;
 
 private slots:
-    void blah();
-    void RefreshAction(QAction *action);
+    void replot_histograms();
+    void refreshAction(QAction *action);
+    void disconnectAction(void);
     void connectAction(QAction *action);
     void refreshButton();
     void parametersChanged();

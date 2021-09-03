@@ -5,6 +5,7 @@
 #include <thread>
 #include <pthread.h> /* for pthread_mutex_t */
 #include "CustomStartStop.h"
+#include <unistd.h>
 
 Swabian::Swabian(void)
 {
@@ -25,17 +26,35 @@ std::vector<std::string> Swabian::check_for_devices(void)
     return scanTimeTagger();
 }
 
+int Swabian::disconnect(void)
+{
+    fprintf(stderr, "freeing time tagger = %p\n", this->t);
+    if (this->t)
+        freeTimeTagger(this->t);
+    t = NULL;
+    fprintf(stderr, "done\n");
+}
+
 /* Connect to a Swabian time tagger.
  *
  * Returns 0 on success, -1 on error. */
 int Swabian::connect(std::string serial)
 {
+    fprintf(stderr, "connect called\n");
+    if (this->t) {
+        fprintf(stderr, "calling disconnect\n");
+        this->disconnect();
+    }
+
+    fprintf(stderr, "scanning for time taggers\n");
     std::vector<std::string> taggers = scanTimeTagger();
 
     if (taggers.empty()) {
         fprintf(stderr, "No time tagger found. Please attach a Time Tagger.\n");
         return -1;
     }
+
+    fprintf(stderr, "connecting to %s\n", serial.c_str());
 
     // connect to a time tagger
     this->t = createTimeTagger(serial);
@@ -57,6 +76,8 @@ int Swabian::connect(std::string serial)
 int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_c, int bin_width, timestamp_t time, std::vector<double> &dataA, std::vector<double> &dataB, std::vector<double> &dataC)
 {
     int i, j;
+
+    fprintf(stderr, "get histograms called\n");
 
     if (!this->t) {
         fprintf(stderr, "error: initialize_histogram() called but no time tagger connected!\n");
@@ -127,6 +148,7 @@ int Swabian::get_histograms(int start_channel, int chan_a, int chan_b, int chan_
  * Returns 0 on success and -1 on error. */
 int Swabian::set_delay(int channel, int delay)
 {
+    fprintf(stderr, "set delay called\n");
     if (!this->t) {
         fprintf(stderr, "error: set_delay() called but no time tagger connected!\n");
         return -1;
@@ -151,6 +173,7 @@ int Swabian::set_delay(int channel, int delay)
  * Returns 0 on success and -1 on error. */
 int Swabian::set_trigger_level(int channel, float level)
 {
+    fprintf(stderr, "set trigger level called\n");
     if (!this->t) {
         fprintf(stderr, "error: set_trigger_level() called but no time tagger connected!\n");
         return -1;
@@ -173,6 +196,8 @@ int Swabian::get_count_rates(int *channels, double *out, int n)
 {
     int i;
     int channels_corrected[18];
+
+    fprintf(stderr, "get count rates called\n");
 
     if (!this->t) {
         fprintf(stderr, "error: get_count_rates() called but no time tagger connected!\n");
@@ -222,6 +247,7 @@ void Swabian::set_rising_mask(int _rising_channel_mask)
  * Returns 0 on success, -1 on error. */
 int Swabian::set_test_signal(int channel, int value)
 {
+    fprintf(stderr, "set test signal called\n");
     if (!this->t) {
         fprintf(stderr, "error: set_test_signal() called but no time tagger connected!\n");
         return -1;
