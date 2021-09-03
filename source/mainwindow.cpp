@@ -549,6 +549,7 @@ void MainWindow::connectAction(QAction *action)
         if (s.connect(action_string) == 0) {
             if (debug)
                 fprintf(stderr, "successfully connected to swabian\n");
+            this->parametersChanged();
         } else {
             if (debug)
                 fprintf(stderr, "failed to connect to swabian\n");
@@ -1923,6 +1924,9 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     int i;
     char key[256];
 
+    if (debug)
+        printf("loading state from %s\n", fileName.toStdString().c_str());
+
     QFile file(fileName);
 
     if (!file.open(QIODevice::ReadOnly)) {
@@ -1983,8 +1987,6 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
 
     if (mapdoubleout.contains("in_adqtime"))
         ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
-
-    printf("loading state\n");
 
     for (i = 0; i < 18; i++) {
         sprintf(key,"rof%i",i);
