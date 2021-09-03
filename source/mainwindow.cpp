@@ -813,19 +813,19 @@ void MainWindow::histogramChanged(void)
     }
 
     /* Validate channels. */
-    while (enabled_mask & (1 << (chanA-1)) == 0) {
+    while ((enabled_mask & (1 << (chanA-1))) == 0) {
         chanA += prev_chanA < chanA ? 1 : -1;
         if (chanA > 18) chanA = 0;
         if (chanA < 0) chanA = 18;
     }
 
-    while (enabled_mask & (1 << (chanB-1)) == 0) {
+    while ((enabled_mask & (1 << (chanB-1))) == 0) {
         chanB += prev_chanB < chanB ? 1 : -1;
         if (chanB > 18) chanB = 0;
         if (chanB < 0) chanB = 18;
     }
 
-    while (enabled_mask & (1 << (chanC-1)) == 0) {
+    while ((enabled_mask & (1 << (chanC-1))) == 0) {
         chanC += prev_chanC < chanC ? 1 : -1;
         if (chanC > 18) chanC = 0;
         if (chanC < 0) chanC = 18;
