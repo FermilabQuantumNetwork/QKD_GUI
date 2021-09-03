@@ -8,7 +8,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport network
 
 INCLUDEPATH += /usr/include/timetagger
 DEFINES += LINUX linux
-TARGET = PROGRAM
+TARGET = qkd_gui
 TEMPLATE = app
 LIBS += -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel
 PKGCONFIG += 
