@@ -11,7 +11,7 @@ public:
     Swabian(void);
     ~Swabian(void);
     std::vector<std::string> check_for_devices(void);
-    int connect(std::string serial="");
+    int connect(std::string serial="", Resolution resolution = Resolution::Standard);
     int get_histograms(int start_channel, int chan_a, int chan_b, int chan_c, int bin_width, timestamp_t time, std::vector<double> &dataA, std::vector<double> &dataB, std::vector<double> &dataC);
     int set_delay(int channel, int delay);
     int set_trigger_level(int channel, float level);

@@ -38,7 +38,7 @@ int Swabian::disconnect(void)
 /* Connect to a Swabian time tagger.
  *
  * Returns 0 on success, -1 on error. */
-int Swabian::connect(std::string serial)
+int Swabian::connect(std::string serial, Resolution resolution)
 {
     if (this->t) {
         fprintf(stderr, "calling disconnect\n");
@@ -53,7 +53,7 @@ int Swabian::connect(std::string serial)
     }
 
     // connect to a time tagger
-    this->t = createTimeTagger(serial);
+    this->t = createTimeTagger(serial, resolution);
 
     if (!this->t) return -1;
 

@@ -51,7 +51,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab1">
        <property name="autoFillBackground">
@@ -60,7 +60,7 @@
        <attribute name="title">
         <string>Histograms</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -78,7 +78,7 @@
         </property>
         <item>
          <widget class="QWidget" name="widget_2" native="true">
-          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,2,2,2">
            <item>
             <widget class="QFrame" name="horizontalFrame_299">
              <property name="sizePolicy">
@@ -453,7 +453,7 @@
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget_4" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
+             <layout class="QVBoxLayout" name="verticalLayout_8" stretch="2,1">
               <item>
                <widget class="QCustomPlot" name="PlotA" native="true">
                 <property name="sizePolicy">
@@ -481,7 +481,7 @@
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget_3" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_14">
+             <layout class="QVBoxLayout" name="verticalLayout_14" stretch="2,1">
               <item>
                <widget class="QCustomPlot" name="PlotB" native="true">
                 <property name="sizePolicy">
@@ -509,7 +509,7 @@
            </item>
            <item>
             <widget class="QWidget" name="horizontalWidget" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_15">
+             <layout class="QVBoxLayout" name="verticalLayout_15" stretch="2,1">
               <item>
                <widget class="QCustomPlot" name="PlotC" native="true">
                 <property name="sizePolicy">

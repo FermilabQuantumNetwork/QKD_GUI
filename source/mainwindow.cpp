@@ -631,7 +631,7 @@ void MainWindow::connectAction(QAction *action)
     if (s.t)
         this->disconnectAction();
 
-    if (s.connect(device_string) == 0) {
+    if (s.connect(device_string, resolution) == 0) {
         if (debug)
             fprintf(stderr, "successfully connected to swabian\n");
 
