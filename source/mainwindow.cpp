@@ -619,9 +619,9 @@ void MainWindow::connectAction(QAction *action)
     if (debug)
         fprintf(stderr, "connecting to swabian\n");
 
-    if (s.t) {
-        this->disconnectAction()
-    }
+    /* If we are already connected, make sure to disconnect first. */
+    if (s.t)
+        this->disconnectAction();
 
     if (s.connect(device_string) == 0) {
         if (debug)
