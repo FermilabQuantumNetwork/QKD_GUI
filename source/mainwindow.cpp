@@ -1894,7 +1894,7 @@ void MainWindow::SaveState(QString fileName)
         sprintf(key,"test%i",i);
         mapint.insert(key,test[i]);
         sprintf(key,"threshold%i",i);
-        mapdouble.insert(key,threshold[i]);
+        mapdouble.insert(key,thresholds[i]);
         sprintf(key,"delay%i",i);
         mapint.insert(key,delay[i]);
     }
@@ -1984,19 +1984,29 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     if (mapdoubleout.contains("in_adqtime"))
         ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
 
+    printf("loading state\n");
+
     for (i = 0; i < 18; i++) {
         sprintf(key,"rof%i",i);
-        if (mapintout.contains(key))
-            rof_widgets[i]->SetCurrentIndex(rof[i]);
+        if (mapintout.contains(key)) {
+            rof[i] = mapintout.value(key);
+            rof_widgets[i]->setCurrentIndex(rof[i]);
+        }
         sprintf(key,"test%i",i);
-        if (mapintout.contains(key))
-            test_widgets[i]->SetCurrentIndex(test[i]);
+        if (mapintout.contains(key)) {
+            test[i] = mapintout.value(key);
+            test_widgets[i]->setCurrentIndex(test[i]);
+        }
         sprintf(key,"threshold%i",i);
-        if (mapdoubleout.contains(key))
-            threshold_widgets[i]->SetCurrentValue(thresholds[i]);
+        if (mapdoubleout.contains(key)) {
+            thresholds[i] = mapdoubleout.value(key);
+            threshold_widgets[i]->setValue(thresholds[i]);
+        }
         sprintf(key,"delay%i",i);
-        if (mapintout.contains(key))
-            delay_widgets[i]->SetCurrentValue(delay[i]);
+        if (mapintout.contains(key)) {
+            delay[i] = mapintout.value(key);
+            delay_widgets[i]->setValue(delay[i]);
+        }
     }
     if (debug) {
         QMapIterator<QString,int>i(mapintout);

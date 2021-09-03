@@ -36,7 +36,7 @@ namespace Ui {
     class MainWindow;
 }
 
-const bool debug = false;
+const bool debug = true;
 
 extern char qubit_sequence[100];
 
