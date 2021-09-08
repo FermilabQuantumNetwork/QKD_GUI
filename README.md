@@ -29,5 +29,5 @@ Next, just run make:
 
 ```console
 $ make
-$ ./PROGRAM
+$ ./qkd_gui
 ```
