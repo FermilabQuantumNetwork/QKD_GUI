@@ -8,3 +8,4 @@ ui_qkd_param.h
 *.swp
 *.stash
 qkd_gui
+default.conf
