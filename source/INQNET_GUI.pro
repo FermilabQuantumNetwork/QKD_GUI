@@ -33,9 +33,6 @@ HEADERS  += mainwindow.h \
             dbcontrol.h \
             qcustomplot.h \
             qkd_param.h \
-            tdcbase.h \
-            tdcdecl.h \
-            tdcstartstop.h \
             swabian.h \
             CustomStartStop.h
 	   

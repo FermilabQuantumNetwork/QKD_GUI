@@ -22,12 +22,15 @@ $ sudo dnf install timetagger-2.9.0.el8.x86_64.rpm
 Next, install the necessary libraries using yum or dnf:
 
 ```console
-$ sudo dnf install qt5-qtbase qt5-qtmultimedia hdf5 hdf5-devel
+$ sudo dnf install qt5-qtbase qt5-qtbase-devel qt5-qtmultimedia qt5-qtmultimedia-devel hdf5 hdf5-devel
 ```
 
-Next, just run make:
+Next, clone this repo and run make:
 
 ```console
+$ git clone https://github.com/FermilabQuantumNetwork/QKD_GUI
+$ cd QKD_GUI
+$ cd source
 $ make
 $ ./qkd_gui
 ```
