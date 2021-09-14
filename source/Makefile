@@ -15,8 +15,8 @@ EQ            = =
 CC            = gcc
 CXX           = g++
 DEFINES       = -DLINUX -Dlinux -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
-CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES) -g
-CXXFLAGS      = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES) -g
+CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I. -I/../lib64/qt5/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake-qt5
 DEL_FILE      = rm -f
@@ -180,9 +180,6 @@ DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		dbcontrol.h \
 		qcustomplot.h \
 		qkd_param.h \
-		tdcbase.h \
-		tdcdecl.h \
-		tdcstartstop.h \
 		swabian.h \
 		CustomStartStop.h main.cpp \
 		dbcontrol.cpp \
@@ -425,7 +422,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /../lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h tdcbase.h tdcdecl.h tdcstartstop.h swabian.h CustomStartStop.h $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui qkd_param.ui $(DISTDIR)/
 
