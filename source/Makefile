@@ -59,7 +59,8 @@ SOURCES       = main.cpp \
 		qkd_param.cpp \
 		swabian.cpp \
 		CustomStartStop.cpp \
-		ps.cpp qrc_resources.cpp \
+		ps.cpp \
+		logging.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_dbcontrol.cpp \
 		moc_qcustomplot.cpp \
@@ -72,6 +73,7 @@ OBJECTS       = main.o \
 		swabian.o \
 		CustomStartStop.o \
 		ps.o \
+		logging.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_dbcontrol.o \
@@ -184,14 +186,16 @@ DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		qkd_param.h \
 		swabian.h \
 		CustomStartStop.h \
-		ps.h main.cpp \
+		ps.h \
+		logging.h main.cpp \
 		dbcontrol.cpp \
 		mainwindow.cpp \
 		qcustomplot.cpp \
 		qkd_param.cpp \
 		swabian.cpp \
 		CustomStartStop.cpp \
-		ps.cpp
+		ps.cpp \
+		logging.cpp
 QMAKE_TARGET  = qkd_gui
 DESTDIR       = 
 TARGET        = qkd_gui
@@ -426,8 +430,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /../lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h ps.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp ps.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h ps.h logging.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp ps.cpp logging.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui qkd_param.ui $(DISTDIR)/
 
 
@@ -476,6 +480,7 @@ moc_mainwindow.cpp: mainwindow.h \
 		qkd_param.h \
 		ps.h \
 		swabian.h \
+		logging.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
 	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include mainwindow.h -o moc_mainwindow.cpp
@@ -527,7 +532,8 @@ main.o: main.cpp mainwindow.h \
 		socket_com.h \
 		qkd_param.h \
 		ps.h \
-		swabian.h
+		swabian.h \
+		logging.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 dbcontrol.o: dbcontrol.cpp dbcontrol.h
@@ -540,6 +546,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		qkd_param.h \
 		ps.h \
 		swabian.h \
+		logging.h \
 		ui_mainwindow.h \
 		ui_qkd_param.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
@@ -560,6 +567,9 @@ CustomStartStop.o: CustomStartStop.cpp CustomStartStop.h
 
 ps.o: ps.cpp ps.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ps.o ps.cpp
+
+logging.o: logging.cpp logging.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o logging.o logging.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

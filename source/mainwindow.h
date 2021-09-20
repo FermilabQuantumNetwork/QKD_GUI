@@ -38,8 +38,6 @@ namespace Ui {
     class MainWindow;
 }
 
-const bool debug = true;
-
 extern char qubit_sequence[100];
 
 typedef struct qber {
@@ -68,13 +66,10 @@ public:
         while (!ps_ready(ps))
             usleep(100);
 
-        if (debug)
-            printf("socket is ready!\n");
+        Log(DEBUG,"socket is ready!\n");
 
-        if (debug) {
-            ps_query(ps,"*idn?",resp,sizeof(resp));
-            printf("*idn? = '%s'\n", resp);
-        }
+        ps_query(ps,"*idn?",resp,sizeof(resp));
+        Log(DEBUG, "*idn? = '%s'\n", resp);
 
         /* Turn Ch. 1 off */
         ps_cmd(ps,":OUTPut1:STATe 0");
@@ -134,11 +129,11 @@ public:
                             double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
                             double min = -B/(2*A);
                             double min_value = C - B*B/(4*A);
-                            LOG(LOG_NOTICE, "x1 = %f y1 = %f\n", x1, y1);
-                            LOG(LOG_NOTICE, "x2 = %f y2 = %f\n", x2, y2);
-                            LOG(LOG_NOTICE, "x3 = %f y3 = %f\n", x3, y3);
-                            LOG(LOG_NOTICE, "denom = %f\n", denom);
-                            LOG(LOG_NOTICE, "min calculated at x = %f y = %f\n", min, min_value);
+                            Log(VERBOSE, "x1 = %f y1 = %f\n", x1, y1);
+                            Log(VERBOSE, "x2 = %f y2 = %f\n", x2, y2);
+                            Log(VERBOSE, "x3 = %f y3 = %f\n", x3, y3);
+                            Log(VERBOSE, "denom = %f\n", denom);
+                            Log(VERBOSE, "min calculated at x = %f y = %f\n", min, min_value);
                             /* FIXME: Need to figure out what to do if the new
                              * voltage is very close to the previous values. */
                             voltage = min;
@@ -156,8 +151,7 @@ public:
                     if (voltage > 5)
                         voltage = 5;
 
-                    if (debug)
-                        printf("setting voltage to %f\n", voltage);
+                    Log(VERBOSE, "setting voltage to %f\n", voltage);
 
                     sprintf(cmd,":SOURce1:VOLTage %f", voltage);
                     ps_cmd(ps,cmd);
@@ -206,14 +200,12 @@ public:
                 continue;
             }
 
-            if (debug)
-                fprintf(stderr, "calling get_histograms()\n");
+            Log(DEBUG, "calling get_histograms()");
 
             int last_bin_width = this->bin_width;
             s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, last_bin_width, this->time, dataA, dataB, dataC);
 
-            if (debug)
-                fprintf(stderr, "done calling get_histograms()\n");
+            Log(DEBUG, "done calling get_histograms()");
 
             QVector<double> dataA_q, dataB_q, dataC_q;
 
@@ -276,13 +268,11 @@ public:
             for (i = 0; i < 18; i++)
                 rates[i] = 0.0;
 
-            if (debug)
-                fprintf(stderr, "calling get_count_rates()\n");
+            Log(DEBUG, "calling get_count_rates()");
 
             s->get_count_rates(channels,rates,n);
 
-            if (debug)
-                fprintf(stderr, "done calling get_count_rates()\n");
+            Log(DEBUG, "done calling get_count_rates()");
 
             emit(rates_ready(channels,rates,n));
         }

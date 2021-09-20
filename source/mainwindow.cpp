@@ -586,17 +586,24 @@ void MainWindow::refreshAction(QAction *action)
 
 void MainWindow::disconnectAction(void)
 {
-    this->countWorkerThread->requestInterruption();
-    this->histogramWorkerThread->requestInterruption();
 
-    if (debug)
-        fprintf(stderr, "disconnectAction: waiting for worker threads to quit\n");
+    Log(NOTICE, "disconnectAction: waiting for worker threads to quit");
 
-    while (this->countWorkerThread->isRunning() || this->histogramWorkerThread->isRunning() || dbc.isRunning())
-        usleep(100);
+    if (this->countWorkerThread) {
+        this->countWorkerThread->requestInterruption();
 
-    if (debug)
-        fprintf(stderr, "disconnectAction: done waiting\n");
+        while (this->countWorkerThread->isRunning())
+            usleep(100);
+    }
+
+    if (this->histogramWorkerThread) {
+        this->histogramWorkerThread->requestInterruption();
+
+        while (this->histogramWorkerThread->isRunning())
+            usleep(100);
+    }
+
+    Log(NOTICE, "disconnectAction: done waiting\n");
 
     this->countWorkerThread = NULL;
     this->histogramWorkerThread = NULL;
@@ -613,10 +620,8 @@ void MainWindow::connectAction(QAction *action)
     QMenu *menu = (QMenu *) action->parentWidget();
     std::string device_string = menu->title().toStdString().c_str();
 
-    if (debug) {
-        printf("action string = %s\n", action_string.c_str());
-        printf("device string = %s\n", menu->title().toStdString().c_str());
-    }
+    Log(DEBUG, "action string = %s", action_string.c_str());
+    Log(DEBUG, "device string = %s", menu->title().toStdString().c_str());
 
     Resolution resolution = Resolution::Standard;
 
@@ -631,16 +636,14 @@ void MainWindow::connectAction(QAction *action)
     else
         fprintf(stderr, "unknown resolution '%s'\n", action_string.c_str());
 
-    if (debug)
-        fprintf(stderr, "connecting to swabian\n");
+    Log(NOTICE, "connecting to swabian\n");
 
     /* If we are already connected, make sure to disconnect first. */
     if (s.t)
         this->disconnectAction();
 
     if (s.connect(device_string, resolution) == 0) {
-        if (debug)
-            fprintf(stderr, "successfully connected to swabian\n");
+        Log(NOTICE, "successfully connected to swabian");
 
         if (resolution == Resolution::Standard)
             this->enabled_mask = 0x1ff;
@@ -674,8 +677,7 @@ void MainWindow::connectAction(QAction *action)
         QObject::connect(this->histogramWorkerThread, &HistogramWorkerThread::histograms_ready, this, &MainWindow::show_histograms);
 
     } else {
-        if (debug)
-            fprintf(stderr, "failed to connect to swabian\n");
+        Log(DEBUG, "failed to connect to swabian");
     }
 }
 
@@ -687,8 +689,7 @@ void MainWindow::PowerSupplyConnect(void)
     strcpy(ip_address,ui->ps_ip_address->text().toLocal8Bit().data());
     port = ui->ps_port->value();
 
-    if (debug)
-        printf("connecting to %s on port %i\n", ip_address, port);
+    Log(NOTICE, "connecting to %s on port %i\n", ip_address, port);
 
     if (ps)
         ps_free(ps);
@@ -700,8 +701,7 @@ void MainWindow::PowerSupplyConnect(void)
         ps_free(ps);
     }
 
-    if (debug)
-        printf("successfully connected to %s on port %i\n", ip_address, port);
+    Log(NOTICE, "successfully connected to %s on port %i\n", ip_address, port);
 
     this->phaseStabilizationThread = new PhaseStabilizationThread(this->ps);
     connect(this->phaseStabilizationThread, &PhaseStabilizationThread::finished, this->phaseStabilizationThread, &QObject::deleteLater);
@@ -893,16 +893,14 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
 {
     int i, j;
 
-    if (debug)
-        fprintf(stderr, "show_histograms() called\n");
+    Log(DEBUG, "show_histograms() called");
 
     double histEnd = ui->histEnd->value();
 
     QVector<double> xa(datA.size());
     QVector<double> ya(datA.size());
 
-    if (debug)
-        fprintf(stderr, "datA.size() = %i\n", datA.size());
+    Log(DEBUG, "datA.size() = %i", datA.size());
 
     for (i = 0; i < datA.size()/2; i++) {
         if (xa.size() > 0 && xa.back() < datA[2*i] - bin_width) {
@@ -928,8 +926,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> xb(datB.size());
     QVector<double> yb(datB.size());
 
-    if (debug)
-        fprintf(stderr, "datB.size() = %i\n", datB.size());
+    Log(DEBUG, "datB.size() = %i", datB.size());
 
     for (i = 0; i < datB.size()/2; i++) {
         if ((xb.size() > 0) && (xb.back() < datB[2*i] - bin_width)) {
@@ -955,8 +952,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     QVector<double> xc(datC.size());
     QVector<double> yc(datC.size());
 
-    if (debug)
-        fprintf(stderr, "datC.size() = %i\n", datC.size());
+    Log(DEBUG, "datC.size() = %i", datC.size());
 
     for (i = 0; i < datC.size()/2; i++) {
         if (xc.size() > 0 && xc.back() < datC[2*i] - bin_width) {
@@ -994,8 +990,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     double resultPok=0, resultPerr=0, resultPrand=0;
     double totalBkgnd=0;
 
-    if (debug)
-        fprintf(stderr, "computing stats from %i qubits\n", nA);
+    Log(DEBUG, "computing stats from %i qubits", nA);
 
     QVector<double> xa_expected;
     QVector<double> ya_expected;
@@ -1279,15 +1274,13 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     plot_qkd_results_det(resultAok, resultAerr, resultArand, resultAbkgnd, resultBok, resultBerr, resultBrand, resultBbkgnd, resultCok, resultCerr, resultCrand, resultCbkgnd, key);
     plot_qkd_results_QB(resultEok, resultEerr, resultErand, totalBkgnd, resultLok, resultLerr, resultLrand, totalBkgnd, resultPok, resultPerr, resultPrand, totalBkgnd, key);
 
-    if (debug) {
-        printf("resultArand = %f\n", resultArand);
-        printf("resultBok = %f\n", resultBok);
-        printf("resultBerr = %f\n", resultBerr);
-        printf("resultBrand = %f\n", resultBrand);
-        printf("resultBbkgnd = %f\n", resultBbkgnd);
-        printf("resultCok = %f\n", resultCok);
-        printf("resultCerr = %f\n", resultCerr);
-    }
+    Log(DEBUG, "resultArand = %f", resultArand);
+    Log(DEBUG, "resultBok = %f", resultBok);
+    Log(DEBUG, "resultBerr = %f", resultBerr);
+    Log(DEBUG, "resultBrand = %f", resultBrand);
+    Log(DEBUG, "resultBbkgnd = %f", resultBbkgnd);
+    Log(DEBUG, "resultCok = %f", resultCok);
+    Log(DEBUG, "resultCerr = %f", resultCerr);
 
     double sifted_time = resultAok/((double) resultAok+resultAerr);
     double sifted_phase = resultBok/((double) resultBok+resultBerr+resultCerr);
@@ -1303,8 +1296,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
         pthread_mutex_unlock(&phaseStabilizationThread->m);
     }
 
-    if (debug)
-        fprintf(stderr, "show_histograms() done\n");
+    Log(DEBUG, "show_histograms() done");
 }
 
 void MainWindow::DrawExpectedSignal(void)
@@ -1597,8 +1589,7 @@ void MainWindow::show_rates(int *channels, double *rates, int n)
     for (i = 0; i < n; i++)
         rate_widgets[channels[i]-1]->display(rates[i]);
 
-    if (debug)
-        fprintf(stderr, "freeing rates\n");
+    Log(DEBUG, "freeing rates");
 
     free(channels);
     free(rates);
@@ -1974,8 +1965,7 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     int i;
     char key[256];
 
-    if (debug)
-        printf("loading state from %s\n", fileName.toStdString().c_str());
+    Log(NOTICE, "loading state from %s", fileName.toStdString().c_str());
 
     QFile file(fileName);
 
@@ -2069,34 +2059,28 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     if (mapstringout.contains("in_ps_ip_address"))
         ui->ps_ip_address->setText(mapstringout.value("in_ps_ip_address"));
 
-    if (debug) {
-        QMapIterator<QString,int> i(mapintout);
-        while (i.hasNext()) {
-            i.next();
-            std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
-        }
+    QMapIterator<QString,int> iterint(mapintout);
+    while (iterint.hasNext()) {
+        iterint.next();
+        Log(DEBUG, "%s: %i", iterint.key().toStdString(), iterint.value());
     }
 
-    if (debug) {
-        QMapIterator<QString,double> j(mapdoubleout);
-        while (j.hasNext()) {
-            j.next();
-            std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
-        }
+    QMapIterator<QString,double> iterdouble(mapdoubleout);
+    while (iterdouble.hasNext()) {
+        iterdouble.next();
+        Log(DEBUG, "%s: %f", iterdouble.key().toStdString(), iterdouble.value());
     }
 
-    if (debug) {
-        QMapIterator<QString,QString> j(mapstringout);
-        while (j.hasNext()) {
-            j.next();
-            std::cout<< j.key().toStdString() <<  ": " << j.value().toLocal8Bit().data() << std::endl;
-        }
+    QMapIterator<QString,QString> iterstring(mapstringout);
+    while (iterstring.hasNext()) {
+        iterstring.next();
+        Log(DEBUG, "%s: %s", iterstring.key().toStdString(), iterstring.value().toLocal8Bit().data());
     }
 }
 
 MainWindow::~MainWindow()
 {
-  delete ui;
+    delete ui;
 }
 
 void MainWindow::hdf5savefile()
