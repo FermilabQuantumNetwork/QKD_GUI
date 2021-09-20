@@ -580,8 +580,6 @@ void MainWindow::refreshAction(QAction *action)
         this->refreshButton();
     else if (!strcmp(action_string.c_str(),"Disconnect"))
         this->disconnectAction();
-    else
-        Log(WARNING, "got unknown action string %s", action_string.c_str());
 }
 
 void MainWindow::disconnectAction(void)

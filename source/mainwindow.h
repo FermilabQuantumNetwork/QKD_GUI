@@ -66,10 +66,10 @@ public:
         while (!ps_ready(ps))
             usleep(100);
 
-        Log(DEBUG,"socket is ready!\n");
+        Log(DEBUG,"socket is ready!");
 
         ps_query(ps,"*idn?",resp,sizeof(resp));
-        Log(DEBUG, "*idn? = '%s'\n", resp);
+        Log(DEBUG, "*idn? = '%s'", resp);
 
         /* Turn Ch. 1 off */
         ps_cmd(ps,":OUTPut1:STATe 0");
@@ -129,11 +129,11 @@ public:
                             double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
                             double min = -B/(2*A);
                             double min_value = C - B*B/(4*A);
-                            Log(VERBOSE, "x1 = %f y1 = %f\n", x1, y1);
-                            Log(VERBOSE, "x2 = %f y2 = %f\n", x2, y2);
-                            Log(VERBOSE, "x3 = %f y3 = %f\n", x3, y3);
-                            Log(VERBOSE, "denom = %f\n", denom);
-                            Log(VERBOSE, "min calculated at x = %f y = %f\n", min, min_value);
+                            Log(VERBOSE, "x1 = %f y1 = %f", x1, y1);
+                            Log(VERBOSE, "x2 = %f y2 = %f", x2, y2);
+                            Log(VERBOSE, "x3 = %f y3 = %f", x3, y3);
+                            Log(VERBOSE, "denom = %f", denom);
+                            Log(VERBOSE, "min calculated at x = %f y = %f", min, min_value);
                             /* FIXME: Need to figure out what to do if the new
                              * voltage is very close to the previous values. */
                             voltage = min;
@@ -151,7 +151,7 @@ public:
                     if (voltage > 5)
                         voltage = 5;
 
-                    Log(VERBOSE, "setting voltage to %f\n", voltage);
+                    Log(VERBOSE, "setting voltage to %f", voltage);
 
                     sprintf(cmd,":SOURce1:VOLTage %f", voltage);
                     ps_cmd(ps,cmd);
