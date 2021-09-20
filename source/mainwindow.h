@@ -127,12 +127,25 @@ public:
                         if (debug) {
                             printf("min calculated at x = %f y = %f\n", min, min_value);
                         }
+                        /* FIXME: Need to figure out what to do if the new
+                         * voltage is very close to the previous values. */
                         voltage = min;
                     } else {
                         /* We don't have three points yet. So just move the
                          * voltage up by a tiny bit. */
                         voltage += 0.1;
                     }
+
+                    /* Make sure we are not out of range. */
+                    if (voltage < 0)
+                        voltage = 0;
+
+                    if (voltage > 5)
+                        voltage = 5;
+
+                    if (debug)
+                        printf("setting voltage to %f\n", voltage);
+
                     sprintf(cmd,":SOURce1:VOLTage %f", voltage);
                     ps_cmd(ps,cmd);
                     timestamp = time(NULL);
