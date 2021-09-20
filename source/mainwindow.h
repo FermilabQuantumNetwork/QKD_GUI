@@ -41,6 +41,17 @@ const bool debug = true;
 
 extern char qubit_sequence[100];
 
+typedef struct qber {
+    unsigned long timestamp;
+    double error;
+} qber;
+
+typedef struct qber_results {
+    unsigned long timestamp;
+    double voltage;
+    double error;
+} qber_results;
+
 /* Phase Stabilization worker class. */
 class PhaseStabilizationThread : public QThread
 {
@@ -50,6 +61,8 @@ public:
         int i;
         char cmd[1024];
         char resp[1024];
+        unsigned long timestamp;
+        double voltage = 1.0;
 
         while (!ps_ready(ps))
             usleep(100);
@@ -73,22 +86,74 @@ public:
         /* Set current to 1 A. */
         ps_cmd(ps,":SOURce1:CURRent 1.0");
         /* Set voltage to 1 V. */
-        ps_cmd(ps,":SOURce1:VOLTage 1.0");
+        sprintf(cmd,":SOURce1:VOLTage %f", voltage);
+        ps_cmd(ps,cmd);
         /* Set channel 1 to constant voltage mode. */
         ps_cmd(ps,":LOAD1:CV OFF");
         ps_cmd(ps,":LOAD1:CC OFF");
         ps_cmd(ps,":LOAD1:CR OFF");
         /* Turn on ch. 1. */
         ps_cmd(ps,":OUTPut1:STATe 1");
+        timestamp = time(NULL);
 
         while (true) {
+            pthread_mutex_lock(&this->m);
+            if (qber_array.size() > 0) {
+                if (qber_array.back().timestamp > timestamp) {
+                    qber_results_array.push_back(qber_results());
+                    qber_results_array.back().timestamp = qber_results_array.back().timestamp;
+                    qber_results_array.back().voltage = voltage;
+                    qber_results_array.back().error = qber_results_array.back().voltage;
+                    int extra = qber_results_array.size() - 3;
+                    if (extra > 0)
+                        qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
+                    if (qber_results_array.size() >= 3) {
+                        /* We have three points. Assume the error rate looks
+                         * like a parabola near the minimum, and calculate the
+                         * best spot to jump. */
+                        int len = qber_results_array.size();
+                        double x1 = qber_results_array[len-1].voltage;
+                        double y1 = qber_results_array[len-1].error;
+                        double x2 = qber_results_array[len-2].voltage;
+                        double y2 = qber_results_array[len-2].error;
+                        double x3 = qber_results_array[len-3].voltage;
+                        double y3 = qber_results_array[len-3].error;
+                        double denom = (x1 - x2)*(x1 - x3)*(x2 - x3);
+                        double A = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
+                        double B = (x3*x3 * (y1 - y2) + x2*x2 * (y3 - y1) + x1*x1 * (y2 - y3)) / denom;
+                        double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
+                        double min = -B/(2*A);
+                        double min_value = C - B*B/(4*A);
+                        if (debug) {
+                            printf("min calculated at x = %f y = %f\n", min, min_value);
+                        }
+                        voltage = min;
+                    } else {
+                        /* We don't have three points yet. So just move the
+                         * voltage up by a tiny bit. */
+                        voltage += 0.1;
+                    }
+                    sprintf(cmd,":SOURce1:VOLTage %f", voltage);
+                    ps_cmd(ps,cmd);
+                    timestamp = time(NULL);
+                }
+                int extra = qber_array.size() - 3;
+                if (extra > 0)
+                    qber_array.erase(qber_array.begin(), qber_array.begin() + extra);
+            }
+            pthread_mutex_unlock(&this->m);
             //emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width));
+
         }
     }
     PhaseStabilizationThread(PowerSupply *ps_) {
         this->ps = ps_;
+        pthread_mutex_init(&this->m,NULL);
     }
     PowerSupply *ps;
+    std::vector<qber> qber_array;
+    std::vector<qber_results> qber_results_array;
+    pthread_mutex_t m;
 signals:
     //void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
 };

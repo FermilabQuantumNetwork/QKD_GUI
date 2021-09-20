@@ -1296,6 +1296,14 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     double error_phase = resultCerr/((double) resultBok+resultBerr+resultCerr);
     plot_qkd_stats(sifted_time, sifted_phase, error_time, error_phase, key);
 
+    if (this->phaseStabilizationThread) {
+        pthread_mutex_lock(&phaseStabilizationThread->m);
+        phaseStabilizationThread->qber_array.push_back(qber());
+        phaseStabilizationThread->qber_array.back().timestamp = time(NULL);
+        phaseStabilizationThread->qber_array.back().error = resultCerr/(resultBok + resultCerr);
+        pthread_mutex_unlock(&phaseStabilizationThread->m);
+    }
+
     if (debug)
         fprintf(stderr, "show_histograms() done\n");
 }

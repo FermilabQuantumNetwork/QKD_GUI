@@ -105,7 +105,6 @@ int ps_cmd(PowerSupply *ps, const char *cmd)
 {
     int numbytes = 0;
     int sent = 0;
-    int recieved = 0;
     char cmd_str[1024];
 
     strcpy(cmd_str,cmd);
@@ -136,13 +135,13 @@ int ps_cmd(PowerSupply *ps, const char *cmd)
 int ps_query(PowerSupply *ps, const char *cmd, char *resp, int maxlen)
 {
     int numbytes = 0;
-    int recieved = 0;
+    int received = 0;
 
     if (ps_cmd(ps,cmd))
         return -1;
 
-    while (recieved < maxlen) {
-        if ((numbytes = recv(ps->sockfd, resp+recieved, maxlen-recieved, 0)) == -1) {
+    while (received < maxlen) {
+        if ((numbytes = recv(ps->sockfd, resp+received, maxlen-received, 0)) == -1) {
             if (errno == EAGAIN) {
                 usleep(1000);
                 continue;
@@ -151,9 +150,9 @@ int ps_query(PowerSupply *ps, const char *cmd, char *resp, int maxlen)
             return -1;
         }
 
-        recieved += numbytes;
+        received += numbytes;
 
-        if (resp[recieved-1] == '\n')
+        if (resp[received-1] == '\n')
             break;
     }
 
