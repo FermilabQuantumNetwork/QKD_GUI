@@ -101,9 +101,9 @@ public:
             if (qber_array.size() > 0) {
                 if (qber_array.back().timestamp > timestamp) {
                     qber_results_array.push_back(qber_results());
-                    qber_results_array.back().timestamp = qber_results_array.back().timestamp;
+                    qber_results_array.back().timestamp = qber_array.back().timestamp;
                     qber_results_array.back().voltage = voltage;
-                    qber_results_array.back().error = qber_results_array.back().voltage;
+                    qber_results_array.back().error = qber_array.back().error;
                     int extra = qber_results_array.size() - 3;
                     if (extra > 0)
                         qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
@@ -254,15 +254,11 @@ public:
                 continue;
             }
 
-            fprintf(stderr, "enabled_mask = 0x%08x\n", enabled_mask);
-
             n = 0;
             for (i = 0; i < 18; i++) {
                 if (enabled_mask & (1 << i))
                     channels[n++] = i+1;
             }
-
-            fprintf(stderr, "n = %i\n", n);
 
             for (i = 0; i < 18; i++)
                 rates[i] = 0.0;
