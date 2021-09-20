@@ -119,17 +119,31 @@ public:
                         double x3 = qber_results_array[len-3].voltage;
                         double y3 = qber_results_array[len-3].error;
                         double denom = (x1 - x2)*(x1 - x3)*(x2 - x3);
-                        double A = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
-                        double B = (x3*x3 * (y1 - y2) + x2*x2 * (y3 - y1) + x1*x1 * (y2 - y3)) / denom;
-                        double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
-                        double min = -B/(2*A);
-                        double min_value = C - B*B/(4*A);
-                        if (debug) {
-                            printf("min calculated at x = %f y = %f\n", min, min_value);
+                        if (fabs(denom) < 1e-10) {
+                            /* If the voltages are too close together, we won't
+                             * be able to fit a parabola, so increase the
+                             * voltage and try to get a new data point. */
+                            if (voltage < 2.5)
+                                voltage += 0.1;
+                            else
+                                voltage -= 0.1;
+                        } else {
+                            double A = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
+                            double B = (x3*x3 * (y1 - y2) + x2*x2 * (y3 - y1) + x1*x1 * (y2 - y3)) / denom;
+                            double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
+                            double min = -B/(2*A);
+                            double min_value = C - B*B/(4*A);
+                            if (debug) {
+                                printf("x1 = %f y1 = %f\n", x1, y1);
+                                printf("x2 = %f y2 = %f\n", x2, y2);
+                                printf("x3 = %f y3 = %f\n", x3, y3);
+                                printf("denom = %f\n", denom);
+                                printf("min calculated at x = %f y = %f\n", min, min_value);
+                            }
+                            /* FIXME: Need to figure out what to do if the new
+                             * voltage is very close to the previous values. */
+                            voltage = min;
                         }
-                        /* FIXME: Need to figure out what to do if the new
-                         * voltage is very close to the previous values. */
-                        voltage = min;
                     } else {
                         /* We don't have three points yet. So just move the
                          * voltage up by a tiny bit. */
