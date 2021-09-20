@@ -1870,7 +1870,7 @@ void MainWindow::SaveState(QString fileName)
     out.setVersion(QDataStream::Qt_4_5);
     QMap<QString, int> mapint;
     QMap<QString, double> mapdouble;
-    QString localstring;
+    QMap<QString, QString> mapstring;
 
     mapint.insert("in_QKD_timeA", in_QKD_timeA);
     mapint.insert("in_QKD_zeroA", in_QKD_zeroA);
@@ -1892,6 +1892,9 @@ void MainWindow::SaveState(QString fileName)
     mapint.insert("in_PlotBCh1",ui->PlotBChn1->value());
     mapint.insert("in_PlotCCh1",ui->PlotCChn1->value());
     mapint.insert("in_bin_width",ui->bin_width->value());
+    mapint.insert("in_ps_port",ui->ps_port->value());
+
+    mapstring.insert("in_ps_ip_address",ui->ps_ip_address->text());
 
     for (i = 0; i < 18; i++) {
         sprintf(key,"rof%i",i);
@@ -1908,6 +1911,7 @@ void MainWindow::SaveState(QString fileName)
 
     out << mapint;
     out << mapdouble;
+    out << mapstring;
 }
 
 void MainWindow::LoadStateDialog(void)
@@ -1943,9 +1947,12 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
 
     QMap<QString, int> mapintout;
     QMap<QString, double> mapdoubleout;
+    QMap<QString, QString> mapstringout;
     QDataStream in(&file);
     in.setVersion(QDataStream::Qt_4_5);
     in >> mapintout;
+    in >> mapdoubleout;
+    in >> mapstringout;
 
     if (mapintout.contains("in_QKD_timeA"))
         qkdparam.ui->QKD_timeA->setValue(mapintout.value("in_QKD_timeA"));
@@ -1988,6 +1995,8 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
         ui->PlotCChn1->setValue(mapintout.value("in_PlotCCh1"));
     if (mapintout.contains("in_bin_width"))
         ui->bin_width->setValue(mapintout.value("in_bin_width"));
+    if (mapintout.contains("in_ps_port"))
+        ui->ps_port->setValue(mapintout.value("in_ps_port"));
 
     if (mapdoubleout.contains("in_adqtime"))
         ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
@@ -2014,21 +2023,31 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
             delay_widgets[i]->setValue(delay[i]);
         }
     }
+
+    if (mapstringout.contains("in_ps_ip_address"))
+        ui->ps_ip_address->setText(mapstringout.value("in_ps_ip_address"));
+
     if (debug) {
-        QMapIterator<QString,int>i(mapintout);
+        QMapIterator<QString,int> i(mapintout);
         while (i.hasNext()) {
             i.next();
             std::cout<< i.key().toStdString() <<  ": " << i.value() << std::endl;
         }
     }
 
-    in >> mapdoubleout;
-
     if (debug) {
-        QMapIterator<QString,double>j(mapdoubleout);
+        QMapIterator<QString,double> j(mapdoubleout);
         while (j.hasNext()) {
             j.next();
             std::cout<< j.key().toStdString() <<  ": " << j.value() << std::endl;
+        }
+    }
+
+    if (debug) {
+        QMapIterator<QString,QString> j(mapstringout);
+        while (j.hasNext()) {
+            j.next();
+            std::cout<< j.key().toStdString() <<  ": " << j.value().toLocal8Bit().data() << std::endl;
         }
     }
 }
