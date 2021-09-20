@@ -170,7 +170,7 @@ void DBControl::createHDF5forQKDdata(QString name){
     }
     catch( H5::FileIException &error )
      {
-        error.printErrorStack();
+        fprintf(stderr, "%s\n", error.getCDetailMsg());
         return ;
      }
     //QVector<int> data;
@@ -229,7 +229,7 @@ void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, 
   }
     catch( H5::FileIException &error )
      {
-        error.printErrorStack();
+        fprintf(stderr, "%s\n", error.getCDetailMsg());
         return ;
      }
 }

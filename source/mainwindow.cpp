@@ -708,7 +708,7 @@ void MainWindow::PowerSupplyConnect(void)
     connect(this->phaseStabilizationThread, &PhaseStabilizationThread::finished, this->phaseStabilizationThread, &QObject::deleteLater);
     this->phaseStabilizationThread->start();
 
-    QObject::connect(this->phaseStabilizationThread, &PhaseStabilizationThread::histograms_ready, this, &MainWindow::show_histograms);
+    //QObject::connect(this->phaseStabilizationThread, &PhaseStabilizationThread::histograms_ready, this, &MainWindow::show_histograms);
 }
 
 void MainWindow::setupsignalslot()

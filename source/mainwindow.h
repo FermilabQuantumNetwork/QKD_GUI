@@ -223,7 +223,7 @@ public:
 
     HistogramWorkerThread *histogramWorkerThread;
     CountWorkerThread *countWorkerThread;
-    HistogramWorkerThread *phaseStabilizationThread;
+    PhaseStabilizationThread *phaseStabilizationThread;
 
     int enabled_mask;
     int prev_startChan;

@@ -89,7 +89,7 @@ int ps_connect(PowerSupply *ps)
 /* Returns 1 if the socket is ready to read and write.
  *
  * See https://stackoverflow.com/questions/28481993/non-blocking-socket-how-to-check-if-a-connection-was-successful. */
-int *ps_ready(PowerSupply *ps)
+int ps_ready(PowerSupply *ps)
 {
     struct sockaddr_in addr;
 
