@@ -19,7 +19,7 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
-char qubit_sequence[100] = "E0E0L0L0P0P0";
+char qubit_sequence[100000] = "E0E0L0L0P0P0";
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -197,6 +197,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     createQKDLinesA();
     createQKDLinesB();
     createQKDLinesC();
+
+    ui->qubit_sequence->setPlainText(QString::fromLocal8Bit(qubit_sequence));
 
     this->LoadState("default.conf", false);
 
@@ -810,6 +812,7 @@ void MainWindow::setupsignalslot()
     this->refreshButton();
 
     QObject::connect(ui->ps_connect_button, &QPushButton::released, this, &MainWindow::PowerSupplyConnect);
+    QObject::connect(ui->qubit_sequence, SIGNAL(textChanged()), this, SLOT(qubit_sequence_changed()));
 }
 
 void MainWindow::histogramChanged(void)
@@ -882,6 +885,11 @@ void MainWindow::histogramChanged(void)
         this->histogramWorkerThread->chanB = chanB;
         this->histogramWorkerThread->chanC = chanC;
     }
+}
+
+void MainWindow::qubit_sequence_changed(void)
+{
+    strcpy(qubit_sequence,ui->qubit_sequence->toPlainText().toLocal8Bit().data());
 }
 
 /* Plots the Swabian time difference histograms on the main Histogram tab. This
@@ -1926,6 +1934,7 @@ void MainWindow::SaveState(QString fileName)
     mapint.insert("in_ps_port",ui->ps_port->value());
 
     mapstring.insert("in_ps_ip_address",ui->ps_ip_address->text());
+    mapstring.insert("in_qubit_sequence",ui->qubit_sequence->toPlainText());
 
     for (i = 0; i < 18; i++) {
         sprintf(key,"rof%i",i);
@@ -2056,6 +2065,8 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
 
     if (mapstringout.contains("in_ps_ip_address"))
         ui->ps_ip_address->setText(mapstringout.value("in_ps_ip_address"));
+    if (mapstringout.contains("in_qubit_sequence"))
+        ui->qubit_sequence->setPlainText(mapstringout.value("in_qubit_sequence"));
 
     QMapIterator<QString,int> iterint(mapintout);
     while (iterint.hasNext()) {

@@ -38,7 +38,7 @@ namespace Ui {
     class MainWindow;
 }
 
-extern char qubit_sequence[100];
+extern char qubit_sequence[100000];
 
 typedef struct qber {
     unsigned long timestamp;
@@ -318,6 +318,7 @@ public:
     PowerSupply *ps;
 
 private slots:
+    void qubit_sequence_changed(void);
     void replot_histograms();
     void refreshAction(QAction *action);
     void disconnectAction(void);
