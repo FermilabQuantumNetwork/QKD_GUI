@@ -20,6 +20,7 @@
 #include <QDateTime>
 #include "swabian.h"
 #include <unistd.h> /* For usleep() */
+#include "logging.h"
 
 #define MAX_QUBITS 1000
 #define HDF5TIMEINTEGRATION 3
@@ -133,13 +134,11 @@ public:
                             double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
                             double min = -B/(2*A);
                             double min_value = C - B*B/(4*A);
-                            if (debug) {
-                                printf("x1 = %f y1 = %f\n", x1, y1);
-                                printf("x2 = %f y2 = %f\n", x2, y2);
-                                printf("x3 = %f y3 = %f\n", x3, y3);
-                                printf("denom = %f\n", denom);
-                                printf("min calculated at x = %f y = %f\n", min, min_value);
-                            }
+                            LOG(LOG_NOTICE, "x1 = %f y1 = %f\n", x1, y1);
+                            LOG(LOG_NOTICE, "x2 = %f y2 = %f\n", x2, y2);
+                            LOG(LOG_NOTICE, "x3 = %f y3 = %f\n", x3, y3);
+                            LOG(LOG_NOTICE, "denom = %f\n", denom);
+                            LOG(LOG_NOTICE, "min calculated at x = %f y = %f\n", min, min_value);
                             /* FIXME: Need to figure out what to do if the new
                              * voltage is very close to the previous values. */
                             voltage = min;
