@@ -75,7 +75,9 @@ public:
         /* Set voltage to 1 V. */
         ps_cmd(ps,":SOURce1:VOLTage 1.0");
         /* Set channel 1 to constant voltage mode. */
-        ps_cmd(ps,":LOAD1:CV ON");
+        ps_cmd(ps,":LOAD1:CV OFF");
+        ps_cmd(ps,":LOAD1:CC OFF");
+        ps_cmd(ps,":LOAD1:CR OFF");
         /* Turn on ch. 1. */
         ps_cmd(ps,":OUTPut1:STATe 1");
 
