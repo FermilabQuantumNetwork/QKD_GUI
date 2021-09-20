@@ -26,6 +26,7 @@ void LogRaw(int level, const char *msg) {
     int log_to_stdout = logfile[0] == '\0';
 
     level &= 0xff; /* clear flags */
+    if (level < verbosity) return;
 
     fp = log_to_stdout ? stdout : fopen(logfile,"a");
     if (!fp) return;

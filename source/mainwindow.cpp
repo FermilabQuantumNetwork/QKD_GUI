@@ -1618,7 +1618,7 @@ void MainWindow::parametersChanged(void)
     }
 
     if (!s.t) {
-        Log(WARNING, "no time tagger connected");
+        Log(NOTICE, "no time tagger connected");
         return;
     }
 
