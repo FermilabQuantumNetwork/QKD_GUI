@@ -118,7 +118,7 @@ int ps_cmd(PowerSupply *ps, const char *cmd)
     }
 
     while (sent < len) {
-        if ((numbytes = send(ps->sockfd, cmd+sent, len, 0)) == -1) {
+        if ((numbytes = send(ps->sockfd, cmd_str+sent, len, 0)) == -1) {
             if (errno == EAGAIN) {
                 usleep(1000);
                 continue;
