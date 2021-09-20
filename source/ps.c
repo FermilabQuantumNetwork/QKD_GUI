@@ -11,6 +11,14 @@
 #include <arpa/inet.h>
 #include "ps.h"
 
+#include <netdb.h>
+
+void *get_in_addr(struct sockaddr *sa) {
+  return sa->sa_family == AF_INET
+    ? (void *) &(((struct sockaddr_in*)sa)->sin_addr)
+    : (void *) &(((struct sockaddr_in6*)sa)->sin6_addr);
+}
+
 PowerSupply *ps_init(char *ip, int port)
 {
     PowerSupply *ps = (PowerSupply *) malloc(sizeof(PowerSupply));
@@ -26,10 +34,10 @@ PowerSupply *ps_init(char *ip, int port)
 
 int ps_connect(PowerSupply *ps)
 {
-    int numbytes;  
     struct addrinfo hints, *servinfo, *p;
     int rv;
     char s[INET6_ADDRSTRLEN];
+    char _port[6];
 
     if (ps->sockfd != -1)
         ps_close(ps);
@@ -38,7 +46,8 @@ int ps_connect(PowerSupply *ps)
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
-    if ((rv = getaddrinfo(ps->ip, ps->port, &hints, &servinfo)) != 0) {
+    sprintf(_port,"%i",ps->port);
+    if ((rv = getaddrinfo(ps->ip, _port, &hints, &servinfo)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return 1;
     }
@@ -74,33 +83,44 @@ int ps_connect(PowerSupply *ps)
     return 0;
 }
 
-int ps_query(PowerSupply *ps, char *cmd, char *resp)
+int ps_query(PowerSupply *ps, char *cmd, char *resp, int maxlen)
 {
     int numbytes = 0;
+    int sent = 0;
+    int recieved = 0;
 
-    while (1) {
-        if ((numbytes = recv(ps->sockfd, ps->sockfd, ps->resp+numbytes, MAXDATASIZE-1, 0)) == -1) {
+    int len = strlen(cmd);
+
+    while (sent < len) {
+        if ((numbytes = send(ps->sockfd, cmd+numbytes, len, 0)) == -1) {
             perror("recv");
             return -1;
         }
 
-        if (resp[numbytes-1] == '\n')
-            break
+        sent += numbytes;
+    }
+
+    while (1) {
+        if ((numbytes = recv(ps->sockfd, resp+numbytes, maxlen-recieved-1, 0)) == -1) {
+            perror("recv");
+            return -1;
+        }
+
+        recieved += numbytes;
+
+        if (resp[recieved-1] == '\n')
+            break;
     }
 
     return 0;
 }
 
-int ps_close(PowerSupply *ps)
+void ps_close(PowerSupply *ps)
 {
-    close(ps->sockfd);
-    ps->sockfd = -1;
-}
-
-int ps_close(PowerSupply *ps)
-{
-    if (ps->sockfd != -1)
+    if (ps->sockfd != -1) {
         close(ps->sockfd);
+        ps->sockfd = -1;
+    }
 }
 
 void ps_free(PowerSupply *ps)

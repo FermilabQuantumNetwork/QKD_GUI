@@ -58,7 +58,8 @@ SOURCES       = main.cpp \
 		qcustomplot.cpp \
 		qkd_param.cpp \
 		swabian.cpp \
-		CustomStartStop.cpp qrc_resources.cpp \
+		CustomStartStop.cpp \
+		ps.c qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_dbcontrol.cpp \
 		moc_qcustomplot.cpp \
@@ -70,6 +71,7 @@ OBJECTS       = main.o \
 		qkd_param.o \
 		swabian.o \
 		CustomStartStop.o \
+		ps.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_dbcontrol.o \
@@ -181,13 +183,15 @@ DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		qcustomplot.h \
 		qkd_param.h \
 		swabian.h \
-		CustomStartStop.h main.cpp \
+		CustomStartStop.h \
+		ps.h main.cpp \
 		dbcontrol.cpp \
 		mainwindow.cpp \
 		qcustomplot.cpp \
 		qkd_param.cpp \
 		swabian.cpp \
-		CustomStartStop.cpp
+		CustomStartStop.cpp \
+		ps.c
 QMAKE_TARGET  = qkd_gui
 DESTDIR       = 
 TARGET        = qkd_gui
@@ -422,8 +426,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /../lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h ps.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp ps.c $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui qkd_param.ui $(DISTDIR)/
 
 
@@ -550,6 +554,9 @@ swabian.o: swabian.cpp swabian.h \
 
 CustomStartStop.o: CustomStartStop.cpp CustomStartStop.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CustomStartStop.o CustomStartStop.cpp
+
+ps.o: ps.c ps.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o ps.o ps.c
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
