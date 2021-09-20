@@ -2062,19 +2062,19 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     QMapIterator<QString,int> iterint(mapintout);
     while (iterint.hasNext()) {
         iterint.next();
-        Log(DEBUG, "%s: %i", iterint.key().toStdString(), iterint.value());
+        Log(DEBUG, "%s: %i", iterint.key().toStdString().c_str(), iterint.value());
     }
 
     QMapIterator<QString,double> iterdouble(mapdoubleout);
     while (iterdouble.hasNext()) {
         iterdouble.next();
-        Log(DEBUG, "%s: %f", iterdouble.key().toStdString(), iterdouble.value());
+        Log(DEBUG, "%s: %f", iterdouble.key().toStdString().c_str(), iterdouble.value());
     }
 
     QMapIterator<QString,QString> iterstring(mapstringout);
     while (iterstring.hasNext()) {
         iterstring.next();
-        Log(DEBUG, "%s: %s", iterstring.key().toStdString(), iterstring.value().toLocal8Bit().data());
+        Log(DEBUG, "%s: %s", iterstring.key().toStdString().c_str(), iterstring.value().toLocal8Bit().data());
     }
 }
 
