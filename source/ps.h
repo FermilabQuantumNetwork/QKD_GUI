@@ -1,3 +1,6 @@
+#ifndef PS_H
+#define PS_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -24,3 +27,5 @@ int ps_connect(PowerSupply *ps);
 int ps_query(PowerSupply *ps, char *cmd, char *resp, int maxlen);
 void ps_close(PowerSupply *ps);
 void ps_free(PowerSupply *ps);
+
+#endif

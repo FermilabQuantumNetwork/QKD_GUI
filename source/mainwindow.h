@@ -10,6 +10,7 @@
 #include "dbcontrol.h"
 #include "socket_com.h"
 #include "qkd_param.h"
+#include "ps.h"
 
 #include <QFile>
 #include <QJsonDocument>
@@ -183,6 +184,10 @@ public:
     int prev_chanA;
     int prev_chanB;
     int prev_chanC;
+
+    void PowerSupplyConnect(QAction *action);
+
+    PowerSupply *ps;
 
 private slots:
     void replot_histograms();

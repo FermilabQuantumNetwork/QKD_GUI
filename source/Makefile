@@ -59,7 +59,7 @@ SOURCES       = main.cpp \
 		qkd_param.cpp \
 		swabian.cpp \
 		CustomStartStop.cpp \
-		ps.c qrc_resources.cpp \
+		ps.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_dbcontrol.cpp \
 		moc_qcustomplot.cpp \
@@ -191,7 +191,7 @@ DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		qkd_param.cpp \
 		swabian.cpp \
 		CustomStartStop.cpp \
-		ps.c
+		ps.cpp
 QMAKE_TARGET  = qkd_gui
 DESTDIR       = 
 TARGET        = qkd_gui
@@ -427,7 +427,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /../lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h ps.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp ps.c $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp ps.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui qkd_param.ui $(DISTDIR)/
 
 
@@ -474,6 +474,7 @@ moc_mainwindow.cpp: mainwindow.h \
 		dbcontrol.h \
 		socket_com.h \
 		qkd_param.h \
+		ps.h \
 		swabian.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
@@ -525,6 +526,7 @@ main.o: main.cpp mainwindow.h \
 		dbcontrol.h \
 		socket_com.h \
 		qkd_param.h \
+		ps.h \
 		swabian.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
@@ -536,6 +538,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		dbcontrol.h \
 		socket_com.h \
 		qkd_param.h \
+		ps.h \
 		swabian.h \
 		ui_mainwindow.h \
 		ui_qkd_param.h
@@ -555,8 +558,8 @@ swabian.o: swabian.cpp swabian.h \
 CustomStartStop.o: CustomStartStop.cpp CustomStartStop.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CustomStartStop.o CustomStartStop.cpp
 
-ps.o: ps.c ps.h
-	$(CC) -c $(CFLAGS) $(INCPATH) -o ps.o ps.c
+ps.o: ps.cpp ps.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ps.o ps.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

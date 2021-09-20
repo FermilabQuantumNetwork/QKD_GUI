@@ -14,6 +14,7 @@
 #include <H5Cpp.h>
 #include "qkd_param.h"
 #include "ui_qkd_param.h"
+#include "ps.h"
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -679,6 +680,18 @@ void MainWindow::connectAction(QAction *action)
     }
 }
 
+void MainWindow::PowerSupplyConnect(QAction *action)
+{
+    char ip_address[1024];
+    int port;
+
+    strcpy(ip_address,ui->ps_ip_address->text().toLocal8Bit().data());
+    port = ui->ps_port->value();
+
+    ps = ps_init(ip_address,port);
+    ps_connect(ps);
+}
+
 void MainWindow::setupsignalslot()
 {
     int i;
@@ -778,6 +791,8 @@ void MainWindow::setupsignalslot()
 
     this->histogramChanged();
     this->refreshButton();
+
+    QObject::connect(ui->ps_connect_button, SIGNAL(triggered(QAction *)), this, SLOT(PowerSupplyConnect(QAction *)));
 }
 
 void MainWindow::histogramChanged(void)

@@ -27,7 +27,7 @@ SOURCES += main.cpp\
            qkd_param.cpp \
            swabian.cpp \
            CustomStartStop.cpp \
-           ps.c
+           ps.cpp
           
 
 HEADERS  += mainwindow.h \
