@@ -64,6 +64,8 @@ int ps_connect(PowerSupply *ps)
         fcntl(ps->sockfd, F_SETFL, O_NONBLOCK);
 
         if (connect(ps->sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+            if (errno == EINPROGRESS)
+                break;
             close(ps->sockfd);
             perror("client: connect");
             continue;
@@ -99,25 +101,52 @@ int ps_ready(PowerSupply *ps)
     return (getpeername(ps->sockfd, (struct sockaddr *)&addr, &length) == 0);
 }
 
-int ps_query(PowerSupply *ps, char *cmd, char *resp, int maxlen)
+int ps_cmd(PowerSupply *ps, const char *cmd)
 {
     int numbytes = 0;
     int sent = 0;
     int recieved = 0;
+    char cmd_str[1024];
 
-    int len = strlen(cmd);
+    strcpy(cmd_str,cmd);
+
+    int len = strlen(cmd_str);
+
+    if (cmd_str[len-1] != '\n') {
+        cmd_str[len] = '\n';
+        len += 1;
+    }
 
     while (sent < len) {
-        if ((numbytes = send(ps->sockfd, cmd+numbytes, len, 0)) == -1) {
-            perror("recv");
+        if ((numbytes = send(ps->sockfd, cmd+sent, len, 0)) == -1) {
+            if (errno == EAGAIN) {
+                usleep(1000);
+                continue;
+            }
+            perror("send");
             return -1;
         }
 
         sent += numbytes;
     }
 
-    while (1) {
-        if ((numbytes = recv(ps->sockfd, resp+numbytes, maxlen-recieved-1, 0)) == -1) {
+    return 0;
+}
+
+int ps_query(PowerSupply *ps, const char *cmd, char *resp, int maxlen)
+{
+    int numbytes = 0;
+    int recieved = 0;
+
+    if (ps_cmd(ps,cmd))
+        return -1;
+
+    while (recieved < maxlen) {
+        if ((numbytes = recv(ps->sockfd, resp+recieved, maxlen-recieved, 0)) == -1) {
+            if (errno == EAGAIN) {
+                usleep(1000);
+                continue;
+            }
             perror("recv");
             return -1;
         }

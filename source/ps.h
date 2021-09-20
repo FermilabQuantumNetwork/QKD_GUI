@@ -25,7 +25,8 @@ typedef struct PowerSupply {
 PowerSupply *ps_init(char *ip, int port);
 int ps_connect(PowerSupply *ps);
 int ps_ready(PowerSupply *ps);
-int ps_query(PowerSupply *ps, char *cmd, char *resp, int maxlen);
+int ps_cmd(PowerSupply *ps, const char *cmd);
+int ps_query(PowerSupply *ps, const char *cmd, char *resp, int maxlen);
 void ps_close(PowerSupply *ps);
 void ps_free(PowerSupply *ps);
 

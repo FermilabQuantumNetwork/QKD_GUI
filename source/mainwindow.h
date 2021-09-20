@@ -57,22 +57,27 @@ public:
         if (debug)
             printf("socket is ready!\n");
 
+        if (debug) {
+            ps_query(ps,"*idn?",resp,sizeof(resp));
+            printf("*idn? = '%s'\n", resp);
+        }
+
         /* Turn Ch. 1 off */
-        ps_query(ps,":OUTPut1:STATe 0",resp,sizeof(resp));
+        ps_cmd(ps,":OUTPut1:STATe 0");
         /* Turn on overvoltage protection. */
-        ps_query(ps,":OUTPut1:OVP:STATe 1",resp,sizeof(resp));
-        ps_query(ps,":OUTPut1:OVP 5",resp,sizeof(resp));
+        ps_cmd(ps,":OUTPut1:OVP:STATe 1");
+        ps_cmd(ps,":OUTPut1:OVP 5");
         /* Turn on overcurrent protection. */
-        ps_query(ps,":OUTPut1:OCP:STATe 1",resp,sizeof(resp));
-        ps_query(ps,":OUTPut1:OCP 1",resp,sizeof(resp));
+        ps_cmd(ps,":OUTPut1:OCP:STATe 1");
+        ps_cmd(ps,":OUTPut1:OCP 1");
         /* Set current to 1 A. */
-        ps_query(ps,":SOURce1:CURRent 1.0",resp,sizeof(resp));
+        ps_cmd(ps,":SOURce1:CURRent 1.0");
         /* Set voltage to 1 V. */
-        ps_query(ps,":SOURce1:VOLTage 1.0",resp,sizeof(resp));
+        ps_cmd(ps,":SOURce1:VOLTage 1.0");
         /* Set channel 1 to constant voltage mode. */
-        ps_query(ps,":LOAD1:CV ON",resp,sizeof(resp));
+        ps_cmd(ps,":LOAD1:CV ON");
         /* Turn on ch. 1. */
-        ps_query(ps,":OUTPut1:STATe 1",resp,sizeof(resp));
+        ps_cmd(ps,":OUTPut1:STATe 1");
 
         while (true) {
             //emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width));
