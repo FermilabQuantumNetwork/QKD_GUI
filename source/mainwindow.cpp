@@ -680,7 +680,7 @@ void MainWindow::connectAction(QAction *action)
     }
 }
 
-void MainWindow::PowerSupplyConnect(QAction *action)
+void MainWindow::PowerSupplyConnect(void)
 {
     char ip_address[1024];
     int port;
@@ -688,8 +688,21 @@ void MainWindow::PowerSupplyConnect(QAction *action)
     strcpy(ip_address,ui->ps_ip_address->text().toLocal8Bit().data());
     port = ui->ps_port->value();
 
+    if (debug)
+        printf("connecting to %s on port %i\n", ip_address, port);
+
+    if (ps)
+        ps_free(ps);
+
     ps = ps_init(ip_address,port);
-    ps_connect(ps);
+
+    if (ps_connect(ps)) {
+        fprintf(stderr, "failed to connect to %s on port %i\n", ip_address, port);
+        ps_free(ps);
+    }
+
+    if (debug)
+        printf("successfully connected to %s on port %i\n", ip_address, port);
 }
 
 void MainWindow::setupsignalslot()
@@ -792,7 +805,7 @@ void MainWindow::setupsignalslot()
     this->histogramChanged();
     this->refreshButton();
 
-    QObject::connect(ui->ps_connect_button, SIGNAL(triggered(QAction *)), this, SLOT(PowerSupplyConnect(QAction *)));
+    QObject::connect(ui->ps_connect_button, &QPushButton::released, this, &MainWindow::PowerSupplyConnect);
 }
 
 void MainWindow::histogramChanged(void)

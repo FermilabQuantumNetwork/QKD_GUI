@@ -185,8 +185,6 @@ public:
     int prev_chanB;
     int prev_chanC;
 
-    void PowerSupplyConnect(QAction *action);
-
     PowerSupply *ps;
 
 private slots:
@@ -249,6 +247,8 @@ private slots:
     void tableSelected(QAction* action){emit tableQKDtoDB(action->text());}
 
     void chang_QKD_turnONDB(int val){QKD_DB_ON=val;}
+
+    void PowerSupplyConnect(void);
 
 private:
     Ui::MainWindow *ui;

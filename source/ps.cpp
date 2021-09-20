@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <fcntl.h>
 
 #include <arpa/inet.h>
 #include "ps.h"
@@ -59,6 +60,8 @@ int ps_connect(PowerSupply *ps)
             perror("client: socket");
             continue;
         }
+
+        fcntl(ps->sockfd, F_SETFL, O_NONBLOCK);
 
         if (connect(ps->sockfd, p->ai_addr, p->ai_addrlen) == -1) {
             close(ps->sockfd);

@@ -2618,7 +2618,7 @@
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>Page</string>
+        <string>Phase Stabilization</string>
        </attribute>
        <widget class="QPushButton" name="ps_connect_button">
         <property name="geometry">
