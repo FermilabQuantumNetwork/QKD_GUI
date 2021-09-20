@@ -581,7 +581,7 @@ void MainWindow::refreshAction(QAction *action)
     else if (!strcmp(action_string.c_str(),"Disconnect"))
         this->disconnectAction();
     else
-        fprintf(stderr, "got unknown action string %s\n", action_string.c_str());
+        Log(WARNING, "got unknown action string %s", action_string.c_str());
 }
 
 void MainWindow::disconnectAction(void)
@@ -603,7 +603,7 @@ void MainWindow::disconnectAction(void)
             usleep(100);
     }
 
-    Log(NOTICE, "disconnectAction: done waiting\n");
+    Log(NOTICE, "disconnectAction: done waiting");
 
     this->countWorkerThread = NULL;
     this->histogramWorkerThread = NULL;
@@ -634,9 +634,9 @@ void MainWindow::connectAction(QAction *action)
     else if (!strcmp(action_string.c_str(),"HighResC"))
         resolution = Resolution::HighResC;
     else
-        fprintf(stderr, "unknown resolution '%s'\n", action_string.c_str());
+        Log(WARNING, "unknown resolution '%s'", action_string.c_str());
 
-    Log(NOTICE, "connecting to swabian\n");
+    Log(NOTICE, "connecting to swabian");
 
     /* If we are already connected, make sure to disconnect first. */
     if (s.t)
@@ -689,7 +689,7 @@ void MainWindow::PowerSupplyConnect(void)
     strcpy(ip_address,ui->ps_ip_address->text().toLocal8Bit().data());
     port = ui->ps_port->value();
 
-    Log(NOTICE, "connecting to %s on port %i\n", ip_address, port);
+    Log(NOTICE, "connecting to %s on port %i", ip_address, port);
 
     if (ps)
         ps_free(ps);
@@ -697,11 +697,11 @@ void MainWindow::PowerSupplyConnect(void)
     ps = ps_init(ip_address,port);
 
     if (ps_connect(ps)) {
-        fprintf(stderr, "failed to connect to %s on port %i\n", ip_address, port);
+        Log(WARNING, "failed to connect to %s on port %i", ip_address, port);
         ps_free(ps);
     }
 
-    Log(NOTICE, "successfully connected to %s on port %i\n", ip_address, port);
+    Log(NOTICE, "successfully connected to %s on port %i", ip_address, port);
 
     this->phaseStabilizationThread = new PhaseStabilizationThread(this->ps);
     connect(this->phaseStabilizationThread, &PhaseStabilizationThread::finished, this->phaseStabilizationThread, &QObject::deleteLater);
@@ -834,7 +834,7 @@ void MainWindow::histogramChanged(void)
     ui->PlotBChn1->setEnabled(true);
     ui->PlotCChn1->setEnabled(true);
 
-    fprintf(stderr, "validating start channel. new value = %i\n", startChan);
+    Log(DEBUG, "validating start channel. new value = %i", startChan);
 
     /* Validate channels. */
     double diff = prev_startChan < startChan ? 1 : -1;
@@ -1051,7 +1051,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
             ya_expected.push_back(0);
             break;
         default:
-            fprintf(stderr, "unknown qubit sequence character\n");
+            Log(WARNING, "unknown qubit sequence character");
         }
     }
 
@@ -1091,7 +1091,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     resultErand += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1119,7 +1119,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     resultLrand += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1146,7 +1146,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     resultPrand += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1171,7 +1171,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     totalBkgnd += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1192,7 +1192,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     resultPrand += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1218,7 +1218,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     resultCrand += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1242,7 +1242,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     totalBkgnd += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1262,7 +1262,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                     resultCrand += count;
                     break;
                 default:
-                    fprintf(stderr, "unknown qubit sequence character\n");
+                    Log(WARNING, "unknown qubit sequence character");
                 }
                 break;
             }
@@ -1368,7 +1368,7 @@ void MainWindow::DrawExpectedSignal(void)
             ya_expected.push_back(0);
             break;
         default:
-            fprintf(stderr, "unknown qubit sequence character\n");
+            Log(WARNING, "unknown qubit sequence character");
         }
     }
 
@@ -1461,7 +1461,7 @@ void MainWindow::DrawExpectedSignal(void)
             yb_expected.push_back(0);
             break;
         default:
-            fprintf(stderr, "unknown qubit sequence character\n");
+            Log(WARNING, "unknown qubit sequence character");
         }
     }
 
@@ -1554,7 +1554,7 @@ void MainWindow::DrawExpectedSignal(void)
             yc_expected.push_back(0);
             break;
         default:
-            fprintf(stderr, "unknown qubit sequence character\n");
+            Log(WARNING, "unknown qubit sequence character");
         }
     }
 
@@ -1618,7 +1618,7 @@ void MainWindow::parametersChanged(void)
     }
 
     if (!s.t) {
-        fprintf(stderr, "no time tagger connected\n");
+        Log(WARNING, "no time tagger connected");
         return;
     }
 
@@ -2150,10 +2150,10 @@ void MainWindow::set_qkd_datafromDB(const boolvector2d &dat,int qkdcolumns, int 
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    fprintf(stderr, "saving last state to default.conf\n");
+    Log(NOTICE, "saving last state to default.conf");
     this->SaveState("default.conf");
 
-    fprintf(stderr, "waiting for worker threads to quit\n");
+    Log(NOTICE, "waiting for worker threads to quit");
 
     if (this->countWorkerThread) {
         this->countWorkerThread->requestInterruption();
@@ -2179,7 +2179,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     while (dbc.isRunning())
         usleep(100);
 
-    fprintf(stderr, "done waiting\n");
+    Log(NOTICE, "done waiting");
 
     usleep(1000);
 
