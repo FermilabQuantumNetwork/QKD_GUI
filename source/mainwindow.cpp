@@ -2127,12 +2127,25 @@ void MainWindow::closeEvent(QCloseEvent *event)
     fprintf(stderr, "saving last state to default.conf\n");
     this->SaveState("default.conf");
 
-    this->countWorkerThread->requestInterruption();
-    this->histogramWorkerThread->requestInterruption();
-
     fprintf(stderr, "waiting for worker threads to quit\n");
-    while (this->countWorkerThread->isRunning() || this->histogramWorkerThread->isRunning() || dbc.isRunning())
+
+    if (this->countWorkerThread) {
+        this->countWorkerThread->requestInterruption();
+
+        while (this->countWorkerThread->isRunning())
+            usleep(100);
+    }
+
+    if (this->histogramWorkerThread) {
+        this->histogramWorkerThread->requestInterruption();
+
+        while (this->histogramWorkerThread->isRunning())
+            usleep(100);
+    }
+
+    while (dbc.isRunning())
         usleep(100);
+
     fprintf(stderr, "done waiting\n");
 
     usleep(1000);
