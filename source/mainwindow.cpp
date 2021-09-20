@@ -703,6 +703,12 @@ void MainWindow::PowerSupplyConnect(void)
 
     if (debug)
         printf("successfully connected to %s on port %i\n", ip_address, port);
+
+    this->phaseStabilizationThread = new PhaseStabilizationThread(this->ps);
+    connect(this->phaseStabilizationThread, &PhaseStabilizationThread::finished, this->phaseStabilizationThread, &QObject::deleteLater);
+    this->phaseStabilizationThread->start();
+
+    QObject::connect(this->phaseStabilizationThread, &PhaseStabilizationThread::histograms_ready, this, &MainWindow::show_histograms);
 }
 
 void MainWindow::setupsignalslot()
@@ -801,6 +807,7 @@ void MainWindow::setupsignalslot()
 
     this->countWorkerThread = NULL;
     this->histogramWorkerThread = NULL;
+    this->phaseStabilizationThread = NULL;
 
     this->histogramChanged();
     this->refreshButton();
@@ -2168,6 +2175,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
         this->histogramWorkerThread->requestInterruption();
 
         while (this->histogramWorkerThread->isRunning())
+            usleep(100);
+    }
+
+    if (this->phaseStabilizationThread) {
+        this->phaseStabilizationThread->requestInterruption();
+
+        while (this->phaseStabilizationThread->isRunning())
             usleep(100);
     }
 

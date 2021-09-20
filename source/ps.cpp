@@ -86,6 +86,19 @@ int ps_connect(PowerSupply *ps)
     return 0;
 }
 
+/* Returns 1 if the socket is ready to read and write.
+ *
+ * See https://stackoverflow.com/questions/28481993/non-blocking-socket-how-to-check-if-a-connection-was-successful. */
+int *ps_ready(PowerSupply *ps)
+{
+    struct sockaddr_in addr;
+
+    /* Check that socket is ready. */
+    socklen_t length = sizeof(addr);
+    memset(&addr, 0, sizeof(addr));
+    return (getpeername(ps->sockfd, (struct sockaddr *)&addr, &length) == 0);
+}
+
 int ps_query(PowerSupply *ps, char *cmd, char *resp, int maxlen)
 {
     int numbytes = 0;

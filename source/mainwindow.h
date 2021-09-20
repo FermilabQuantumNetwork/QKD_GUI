@@ -41,6 +41,51 @@ const bool debug = true;
 
 extern char qubit_sequence[100];
 
+/* Phase Stabilization worker class. */
+class PhaseStabilizationThread : public QThread
+{
+    Q_OBJECT
+public:
+    void run() override {
+        int i;
+        char cmd[1024];
+        char resp[1024];
+
+        while (!ps_ready(ps))
+            usleep(100);
+
+        if (debug)
+            printf("socket is ready!\n");
+
+        /* Turn Ch. 1 off */
+        ps_query(ps,":OUTPut1:STATe 0",resp,sizeof(resp));
+        /* Turn on overvoltage protection. */
+        ps_query(ps,":OUTPut1:OVP:STATe 1",resp,sizeof(resp));
+        ps_query(ps,":OUTPut1:OVP 5",resp,sizeof(resp));
+        /* Turn on overcurrent protection. */
+        ps_query(ps,":OUTPut1:OCP:STATe 1",resp,sizeof(resp));
+        ps_query(ps,":OUTPut1:OCP 1",resp,sizeof(resp));
+        /* Set current to 1 A. */
+        ps_query(ps,":SOURce1:CURRent 1.0",resp,sizeof(resp));
+        /* Set voltage to 1 V. */
+        ps_query(ps,":SOURce1:VOLTage 1.0",resp,sizeof(resp));
+        /* Set channel 1 to constant voltage mode. */
+        ps_query(ps,":LOAD1:CV ON",resp,sizeof(resp));
+        /* Turn on ch. 1. */
+        ps_query(ps,":OUTPut1:STATe 1",resp,sizeof(resp));
+
+        while (true) {
+            //emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width));
+        }
+    }
+    PhaseStabilizationThread(PowerSupply *ps_) {
+        this->ps = ps_;
+    }
+    PowerSupply *ps;
+signals:
+    //void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
+};
+
 /* Histogram worker class. This is a QThread that gets the histogram data from
  * the Swabian class and then emits a signal with the data so that it can be
  * plotted. It's started when the GUI boots up and runs an infinite loop. */
@@ -178,6 +223,7 @@ public:
 
     HistogramWorkerThread *histogramWorkerThread;
     CountWorkerThread *countWorkerThread;
+    HistogramWorkerThread *phaseStabilizationThread;
 
     int enabled_mask;
     int prev_startChan;
