@@ -66,6 +66,7 @@ public:
         char resp[1024];
         unsigned long timestamp;
         double voltage = 1.0;
+        double min;
 
         while (!ps_ready(ps))
             usleep(100);
@@ -96,7 +97,9 @@ public:
         ps_cmd(ps,":OUTPut1:STATe 1");
         timestamp = time(NULL);
 
+        int count = 0;
         while (true) {
+            count += 1;
             pthread_mutex_lock(&this->m);
             if (qber_array.size() > 0) {
                 if (qber_array.back().start > timestamp) {
@@ -104,44 +107,53 @@ public:
                     qber_results_array.back().timestamp = qber_array.back().start;
                     qber_results_array.back().voltage = voltage;
                     qber_results_array.back().error = qber_array.back().error;
-                    //int extra = qber_results_array.size() - 3;
-                    //if (extra > 0)
-                    //    qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
-                    if (qber_results_array.size() >= 3) {
+                    int extra = qber_results_array.size() - 100;
+                    if (extra > 0) {
+                        Log(VERBOSE, "deleting %i elements from qber_results_array", extra);
+                        qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
+                    }
+                    if (qber_results_array.size() >= 10) {
                         /* We have three points. Assume the error rate looks
                          * like a parabola near the minimum, and calculate the
                          * best spot to jump. */
-                        int len = qber_results_array.size();
-                        double x1 = qber_results_array[len-1].voltage;
-                        double y1 = qber_results_array[len-1].error;
-                        double x2 = qber_results_array[len-2].voltage;
-                        double y2 = qber_results_array[len-2].error;
-                        double x3 = qber_results_array[len-3].voltage;
-                        double y3 = qber_results_array[len-3].error;
-                        double denom = (x1 - x2)*(x1 - x3)*(x2 - x3);
-                        if (fabs(denom) < 1e-10) {
-                            /* If the voltages are too close together, we won't
-                             * be able to fit a parabola, so increase the
-                             * voltage and try to get a new data point. */
-                            if (voltage < 2.5)
-                                voltage += 0.1;
-                            else
-                                voltage -= 0.1;
-                        } else {
-                            double A = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
-                            double B = (x3*x3 * (y1 - y2) + x2*x2 * (y3 - y1) + x1*x1 * (y2 - y3)) / denom;
-                            double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
-                            double min = -B/(2*A);
-                            double min_value = C - B*B/(4*A);
-                            Log(VERBOSE, "x1 = %f y1 = %f", x1, y1);
-                            Log(VERBOSE, "x2 = %f y2 = %f", x2, y2);
-                            Log(VERBOSE, "x3 = %f y3 = %f", x3, y3);
-                            Log(VERBOSE, "denom = %f", denom);
-                            Log(VERBOSE, "min calculated at x = %f y = %f", min, min_value);
-                            /* FIXME: Need to figure out what to do if the new
-                             * voltage is very close to the previous values. */
-                            voltage = min;
+                        std::vector<double> x;
+                        std::vector<double> y;
+                        for (i = 0; i < qber_results_array.size(); i++) {
+                            x.push_back(qber_results_array[i].voltage);
+                            x.push_back(qber_results_array[i].error);
                         }
+                        fit(&x,&y,&min);
+                        //int len = qber_results_array.size();
+                        //double x1 = qber_results_array[len-1].voltage;
+                        //double y1 = qber_results_array[len-1].error;
+                        //double x2 = qber_results_array[len-2].voltage;
+                        //double y2 = qber_results_array[len-2].error;
+                        //double x3 = qber_results_array[len-3].voltage;
+                        //double y3 = qber_results_array[len-3].error;
+                        //double denom = (x1 - x2)*(x1 - x3)*(x2 - x3);
+                        //if (fabs(denom) < 1e-10) {
+                        //    /* If the voltages are too close together, we won't
+                        //     * be able to fit a parabola, so increase the
+                        //     * voltage and try to get a new data point. */
+                        //    if (voltage < 2.5)
+                        //        voltage += 0.1;
+                        //    else
+                        //        voltage -= 0.1;
+                        //} else {
+                        //    double A = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
+                        //    double B = (x3*x3 * (y1 - y2) + x2*x2 * (y3 - y1) + x1*x1 * (y2 - y3)) / denom;
+                        //    double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
+                        //    double min = -B/(2*A);
+                        //    double min_value = C - B*B/(4*A);
+                        //    Log(VERBOSE, "x1 = %f y1 = %f", x1, y1);
+                        //    Log(VERBOSE, "x2 = %f y2 = %f", x2, y2);
+                        //    Log(VERBOSE, "x3 = %f y3 = %f", x3, y3);
+                        //    Log(VERBOSE, "denom = %f", denom);
+                        Log(VERBOSE, "min calculated at x = %f", min);
+                        //    /* FIXME: Need to figure out what to do if the new
+                        //     * voltage is very close to the previous values. */
+                        voltage = min + 0.01*cos(count*0.1);
+                        //}
                     } else {
                         /* We don't have three points yet. So just move the
                          * voltage up by a tiny bit. */
