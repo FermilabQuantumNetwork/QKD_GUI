@@ -21,6 +21,7 @@
 #include "swabian.h"
 #include <unistd.h> /* For usleep() */
 #include "logging.h"
+#include "fit.h"
 
 #define MAX_QUBITS 1000
 #define HDF5TIMEINTEGRATION 3

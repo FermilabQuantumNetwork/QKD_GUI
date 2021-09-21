@@ -40,7 +40,7 @@ DISTNAME      = qkd_gui1.0.0
 DISTDIR = /home/tlatorre/FQNET_GUI/source/.tmp/qkd_gui1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -L/home/tlatorre/FQNET_GUI/source/../lib/ -lhdf5 -lhdf5_cpp /usr/lib64/libQt5Multimedia.so /usr/lib64/libQt5PrintSupport.so /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Network.so /usr/lib64/libQt5Sql.so /usr/lib64/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -lgsl -lgslcblas -L/home/tlatorre/FQNET_GUI/source/../lib/ -lhdf5 -lhdf5_cpp /usr/lib64/libQt5Multimedia.so /usr/lib64/libQt5PrintSupport.so /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Network.so /usr/lib64/libQt5Sql.so /usr/lib64/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -60,7 +60,8 @@ SOURCES       = main.cpp \
 		swabian.cpp \
 		CustomStartStop.cpp \
 		ps.cpp \
-		logging.cpp qrc_resources.cpp \
+		logging.cpp \
+		fit.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_dbcontrol.cpp \
 		moc_qcustomplot.cpp \
@@ -74,6 +75,7 @@ OBJECTS       = main.o \
 		CustomStartStop.o \
 		ps.o \
 		logging.o \
+		fit.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_dbcontrol.o \
@@ -187,7 +189,8 @@ DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		swabian.h \
 		CustomStartStop.h \
 		ps.h \
-		logging.h main.cpp \
+		logging.h \
+		fit.h main.cpp \
 		dbcontrol.cpp \
 		mainwindow.cpp \
 		qcustomplot.cpp \
@@ -195,7 +198,8 @@ DIST          = /../lib64/qt5/mkspecs/features/spec_pre.prf \
 		swabian.cpp \
 		CustomStartStop.cpp \
 		ps.cpp \
-		logging.cpp
+		logging.cpp \
+		fit.cpp
 QMAKE_TARGET  = qkd_gui
 DESTDIR       = 
 TARGET        = qkd_gui
@@ -430,8 +434,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /../lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h ps.h logging.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp ps.cpp logging.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h dbcontrol.h qcustomplot.h qkd_param.h swabian.h CustomStartStop.h ps.h logging.h fit.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp dbcontrol.cpp mainwindow.cpp qcustomplot.cpp qkd_param.cpp swabian.cpp CustomStartStop.cpp ps.cpp logging.cpp fit.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui qkd_param.ui $(DISTDIR)/
 
 
@@ -481,6 +485,7 @@ moc_mainwindow.cpp: mainwindow.h \
 		ps.h \
 		swabian.h \
 		logging.h \
+		fit.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
 	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include mainwindow.h -o moc_mainwindow.cpp
@@ -533,7 +538,8 @@ main.o: main.cpp mainwindow.h \
 		qkd_param.h \
 		ps.h \
 		swabian.h \
-		logging.h
+		logging.h \
+		fit.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 dbcontrol.o: dbcontrol.cpp dbcontrol.h
@@ -547,6 +553,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		ps.h \
 		swabian.h \
 		logging.h \
+		fit.h \
 		ui_mainwindow.h \
 		ui_qkd_param.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
@@ -570,6 +577,9 @@ ps.o: ps.cpp ps.h
 
 logging.o: logging.cpp logging.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o logging.o logging.cpp
+
+fit.o: fit.cpp fit.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fit.o fit.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

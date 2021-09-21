@@ -10,7 +10,7 @@ INCLUDEPATH += /usr/include/timetagger
 DEFINES += LINUX linux
 TARGET = qkd_gui
 TEMPLATE = app
-LIBS += -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel
+LIBS += -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -lgsl -lgslcblas
 PKGCONFIG += 
 CONFIG += link_pkgconfig 
 
@@ -28,7 +28,8 @@ SOURCES += main.cpp\
            swabian.cpp \
            CustomStartStop.cpp \
            ps.cpp \
-           logging.cpp
+           logging.cpp \
+           fit.cpp
           
 
 HEADERS  += mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS  += mainwindow.h \
             swabian.h \
             CustomStartStop.h \
             ps.h \
-            logging.h
+            logging.h \
+            fit.h
 	   
 
 FORMS    += mainwindow.ui \
