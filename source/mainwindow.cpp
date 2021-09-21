@@ -15,15 +15,26 @@
 #include "qkd_param.h"
 #include "ui_qkd_param.h"
 #include "ps.h"
+#include <sys/time.h>
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 char qubit_sequence[100000] = "E0E0L0L0P0P0";
 
+unsigned long long microtime(void)
+{
+    struct timeval tv;
+
+    gettimeofday(&tv, NULL);
+    return tv.tv_sec*1000000 + tv.tv_usec;
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     int i;
+
+    pthread_mutex_init(&this->sync,NULL);
 
     ui->setupUi(this);
 
@@ -670,7 +681,7 @@ void MainWindow::connectAction(QAction *action)
         int chanB = ui->PlotBChn1->value();
         int chanC = ui->PlotCChn1->value();
 
-        this->histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, chanA, chanB, chanC, bin_width, time);
+        this->histogramWorkerThread = new HistogramWorkerThread(&this->s, start_channel, chanA, chanB, chanC, bin_width, time, &this->sync);
         connect(this->histogramWorkerThread, &HistogramWorkerThread::finished, this->histogramWorkerThread, &QObject::deleteLater);
         this->histogramWorkerThread->start();
 
@@ -703,7 +714,7 @@ void MainWindow::PowerSupplyConnect(void)
 
     Log(NOTICE, "successfully connected to %s on port %i", ip_address, port);
 
-    this->phaseStabilizationThread = new PhaseStabilizationThread(this->ps);
+    this->phaseStabilizationThread = new PhaseStabilizationThread(this->ps, &this->sync);
     connect(this->phaseStabilizationThread, &PhaseStabilizationThread::finished, this->phaseStabilizationThread, &QObject::deleteLater);
     this->phaseStabilizationThread->start();
 
@@ -895,7 +906,7 @@ void MainWindow::qubit_sequence_changed(void)
 /* Plots the Swabian time difference histograms on the main Histogram tab. This
  * function is called when the histogram worker emits the histogram_ready
  * signal. */
-void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width)
+void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width, unsigned long long start, unsigned long long stop)
 {
     int i, j;
 
@@ -1297,7 +1308,8 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     if (this->phaseStabilizationThread) {
         pthread_mutex_lock(&phaseStabilizationThread->m);
         phaseStabilizationThread->qber_array.push_back(qber());
-        phaseStabilizationThread->qber_array.back().timestamp = time(NULL);
+        phaseStabilizationThread->qber_array.back().start = start;
+        phaseStabilizationThread->qber_array.back().stop = stop;
         phaseStabilizationThread->qber_array.back().error = resultCerr/(resultBok + resultCerr);
         pthread_mutex_unlock(&phaseStabilizationThread->m);
     }

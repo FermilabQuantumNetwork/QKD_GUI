@@ -41,15 +41,18 @@ namespace Ui {
 extern char qubit_sequence[100000];
 
 typedef struct qber {
-    unsigned long timestamp;
+    unsigned long long start;
+    unsigned long long stop;
     double error;
 } qber;
 
 typedef struct qber_results {
-    unsigned long timestamp;
+    unsigned long long timestamp;
     double voltage;
     double error;
 } qber_results;
+
+unsigned long long microtime(void);
 
 /* Phase Stabilization worker class. */
 class PhaseStabilizationThread : public QThread
@@ -95,14 +98,14 @@ public:
         while (true) {
             pthread_mutex_lock(&this->m);
             if (qber_array.size() > 0) {
-                if (qber_array.back().timestamp > timestamp) {
+                if (qber_array.back().start > timestamp) {
                     qber_results_array.push_back(qber_results());
-                    qber_results_array.back().timestamp = qber_array.back().timestamp;
+                    qber_results_array.back().timestamp = qber_array.back().start;
                     qber_results_array.back().voltage = voltage;
                     qber_results_array.back().error = qber_array.back().error;
-                    int extra = qber_results_array.size() - 3;
-                    if (extra > 0)
-                        qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
+                    //int extra = qber_results_array.size() - 3;
+                    //if (extra > 0)
+                    //    qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
                     if (qber_results_array.size() >= 3) {
                         /* We have three points. Assume the error rate looks
                          * like a parabola near the minimum, and calculate the
@@ -153,7 +156,9 @@ public:
 
                     Log(VERBOSE, "setting voltage to %f", voltage);
 
+                    pthread_mutex_lock(this->sync);
                     sprintf(cmd,":SOURce1:VOLTage %f", voltage);
+                    pthread_mutex_unlock(this->sync);
                     ps_cmd(ps,cmd);
                     timestamp = time(NULL);
                 }
@@ -166,14 +171,16 @@ public:
 
         }
     }
-    PhaseStabilizationThread(PowerSupply *ps_) {
+    PhaseStabilizationThread(PowerSupply *ps_, pthread_mutex_t *sync_) {
         this->ps = ps_;
         pthread_mutex_init(&this->m,NULL);
+        this->sync = sync_;
     }
     PowerSupply *ps;
     std::vector<qber> qber_array;
     std::vector<qber_results> qber_results_array;
     pthread_mutex_t m;
+    pthread_mutex_t *sync;
 signals:
     //void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
 };
@@ -189,6 +196,7 @@ public:
         int i;
 
         while (true) {
+            unsigned long long start, stop;
             std::vector<double> dataA, dataB, dataC;
 
             if (QThread::currentThread()->isInterruptionRequested()) {
@@ -203,7 +211,11 @@ public:
             Log(DEBUG, "calling get_histograms()");
 
             int last_bin_width = this->bin_width;
+            pthread_mutex_lock(this->sync);
+            start = microtime();
             s->get_histograms(this->start_channel, this->chanA, this->chanB, this->chanC, last_bin_width, this->time, dataA, dataB, dataC);
+            stop = microtime();
+            pthread_mutex_unlock(this->sync);
 
             Log(DEBUG, "done calling get_histograms()");
 
@@ -216,25 +228,27 @@ public:
             for (i = 0; i < (int) dataC.size(); i++)
                 dataC_q.push_back(dataC[i]);
 
-            emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width));
+            emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width,start,stop));
         }
     }
-    HistogramWorkerThread(Swabian *s_, int start_channel_, int chanA_, int chanB_, int chanC_, int bin_width_, timestamp_t time_) {
+    HistogramWorkerThread(Swabian *s_, int start_channel_, int chanA_, int chanB_, int chanC_, int bin_width_, timestamp_t time_, pthread_mutex_t *sync_) {
         this->s = s_;
         this->start_channel = start_channel_;
         this->chanA = chanA_;
         this->chanB = chanB_;
         this->chanC = chanC_;
-        bin_width = bin_width_;
-        time = time_;
+        this->bin_width = bin_width_;
+        this->time = time_;
+        this->sync = sync_;
     }
     Swabian *s;
     int start_channel;
     int chanA, chanB, chanC;
     int bin_width;
     timestamp_t time;
+    pthread_mutex_t *sync;
 signals:
-    void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
+    void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width, unsigned long long start, unsigned long long stop);
 };
 
 /* Count worker class. This is a QThread that gets the event rate on each
@@ -316,6 +330,7 @@ public:
     int prev_chanC;
 
     PowerSupply *ps;
+    pthread_mutex_t sync;
 
 private slots:
     void qubit_sequence_changed(void);
@@ -327,7 +342,7 @@ private slots:
     void parametersChanged();
     void histogramChanged(void);
     void show_rates(int *channels, double *rates, int n);
-    void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
+    void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width, unsigned long long start, unsigned long long stop);
     void DrawExpectedSignal(void);
   
     void turnONDB(int val);
