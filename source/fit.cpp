@@ -8,10 +8,11 @@
 #include <gsl/gsl_multifit_nlinear.h>
 #include <vector>
 #include "fit.h"
+#include "logging.h"
 
 /* Function to fit interference to:
  *
- * y = A + B*cos^2(voltage*C + D) */
+ * y = A + B*cos(voltage^2*C + D) */
 int cos_f(const gsl_vector *x, void *data_, gsl_vector *f)
 {
     size_t n = ((struct data *)data_)->n;
@@ -21,13 +22,16 @@ int cos_f(const gsl_vector *x, void *data_, gsl_vector *f)
     double A = gsl_vector_get(x, 0);
     double B = gsl_vector_get(x, 1);
     double C = gsl_vector_get(x, 2);
+    /* FIXME: For now we fix A, B, and C to ensure we get reliable results. */
+    A = 4.5;
+    B = 0.5;
+    C = 0.5;
     double D = gsl_vector_get(x, 3);
 
     size_t i;
 
     for (i = 0; i < n; i++) {
-        /* Model Yi = A * exp(-lambda * t_i) + b */
-        double Yi = A + B*pow(cos(t[i]*C + D),2);
+        double Yi = A + B*cos(t[i]*t[i]*C + D);
         gsl_vector_set(f, i, Yi - y[i]);
     }
 
@@ -43,7 +47,7 @@ void callback(const size_t iter, void *params, const gsl_multifit_nlinear_worksp
   /* compute reciprocal condition number of J(x) */
   gsl_multifit_nlinear_rcond(&rcond, w);
 
-  fprintf(stderr, "iter %2zu: A = %.4f, B = %.4f, C = %.4f, D = %.4f, cond(J) = %8.4f, |f(x)| = %.4f\n",
+  Log(VERBOSE, "iter %2zu: A = %.4f, B = %.4f, C = %.4f, D = %.4f, cond(J) = %8.4f, |f(x)| = %.4f",
           iter,
           gsl_vector_get(x, 0),
           gsl_vector_get(x, 1),
@@ -101,7 +105,6 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
         t[i] = ti;
         y[i] = yi;
         weights[i] = 1.0;// / (si * si);
-        //printf ("data: %g %g %g\n", ti, y[i], si);
     };
 
     /* allocate workspace with default parameters */
@@ -127,35 +130,55 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     #define FIT(i) gsl_vector_get(w->x, i)
     #define ERR(i) sqrt(gsl_matrix_get(covar,i,i))
 
-    fprintf(stderr, "summary from method '%s/%s'\n",
+    Log(VERBOSE, "summary from method '%s/%s'",
           gsl_multifit_nlinear_name(w),
           gsl_multifit_nlinear_trs_name(w));
-    fprintf(stderr, "number of iterations: %zu\n",
+    Log(VERBOSE, "number of iterations: %zu",
           gsl_multifit_nlinear_niter(w));
-    fprintf(stderr, "function evaluations: %zu\n", fdf.nevalf);
-    fprintf(stderr, "Jacobian evaluations: %zu\n", fdf.nevaldf);
-    fprintf(stderr, "reason for stopping: %s\n",
+    Log(VERBOSE, "function evaluations: %zu", fdf.nevalf);
+    Log(VERBOSE, "Jacobian evaluations: %zu", fdf.nevaldf);
+    Log(VERBOSE, "reason for stopping: %s",
           (info == 1) ? "small step size" : "small gradient");
-    fprintf(stderr, "initial |f(x)| = %f\n", sqrt(chisq0));
-    fprintf(stderr, "final   |f(x)| = %f\n", sqrt(chisq));
+    Log(VERBOSE, "initial |f(x)| = %f", sqrt(chisq0));
+    Log(VERBOSE, "final   |f(x)| = %f", sqrt(chisq));
 
     {
         double dof = n - p;
         double c = GSL_MAX_DBL(1, sqrt(chisq / dof));
 
-        fprintf(stderr, "chisq/dof = %g\n", chisq / dof);
+        Log(VERBOSE, "chisq/dof = %g", chisq / dof);
 
-        fprintf (stderr, "A      = %.5f +/- %.5f\n", FIT(0), c*ERR(0));
-        fprintf (stderr, "B      = %.5f +/- %.5f\n", FIT(1), c*ERR(1));
-        fprintf (stderr, "C      = %.5f +/- %.5f\n", FIT(2), c*ERR(2));
-        fprintf (stderr, "D      = %.5f +/- %.5f\n", FIT(3), c*ERR(3));
+        Log(VERBOSE, "A      = %.5f +/- %.5f", FIT(0), c*ERR(0));
+        Log(VERBOSE, "B      = %.5f +/- %.5f", FIT(1), c*ERR(1));
+        Log(VERBOSE, "C      = %.5f +/- %.5f", FIT(2), c*ERR(2));
+        Log(VERBOSE, "D      = %.5f +/- %.5f", FIT(3), c*ERR(3));
     }
 
     double C = FIT(2);
+    A = 4.5;
+    B = 0.5;
+    C = 0.5;
     double D = FIT(3);
-    *min = -D/C;
 
-    fprintf(stderr, "status = %s\n", gsl_strerror (status));
+    /* y = A + B*cos(voltage^2*C + D)
+     *
+     * Therefore, the minimum is at
+     *     voltage^2*C + D = pi + 2*pi*n
+     *     voltage^2*C     = pi + 2*pi*n - D
+     *     voltage^2       = (pi + 2*pi*n - D)/C
+     *     voltage         = sqrt((pi+2*pi*n - D)/C) */
+    *min = sqrt((M_PI-D)/C);
+
+    /* We want the minimum closest to 2.5 V. */
+    int i;
+    for (i = -10; i <= 10; i++) {
+        double new_min = sqrt((M_PI+2*M_PI*n-D)/C);
+
+        if (fabs(new_min-2.5) < fabs(*min - 2.5))
+            *min = new_min;
+    }
+
+    Log(VERBOSE, "status = %s", gsl_strerror (status));
 
     gsl_multifit_nlinear_free (w);
     gsl_matrix_free (covar);
