@@ -69,8 +69,12 @@ public:
         double min;
         double alpha = 0.1;
 
-        while (!ps_ready(ps))
+        while (!ps_ready(ps)) {
+            if (QThread::currentThread()->isInterruptionRequested())
+                return;
+
             usleep(100);
+        }
 
         Log(DEBUG,"socket is ready!");
 
