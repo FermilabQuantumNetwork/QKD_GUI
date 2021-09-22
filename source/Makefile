@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DLINUX -Dlinux -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I. -I/../lib64/qt5/mkspecs/linux-g++
+INCPATH       = -I. -I/usr/include/timetagger -I/usr/local/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I. -I/../lib64/qt5/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake-qt5
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = qkd_gui1.0.0
 DISTDIR = /home/tlatorre/FQNET_GUI/source/.tmp/qkd_gui1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -lgsl -lgslcblas -L/home/tlatorre/FQNET_GUI/source/../lib/ -lhdf5 -lhdf5_cpp /usr/lib64/libQt5Multimedia.so /usr/lib64/libQt5PrintSupport.so /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Network.so /usr/lib64/libQt5Sql.so /usr/lib64/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -L/usr/local/lib -lgsl -lgslcblas -L/home/tlatorre/FQNET_GUI/source/../lib/ -lhdf5 -lhdf5_cpp /usr/lib64/libQt5Multimedia.so /usr/lib64/libQt5PrintSupport.so /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Network.so /usr/lib64/libQt5Sql.so /usr/lib64/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -488,22 +488,22 @@ moc_mainwindow.cpp: mainwindow.h \
 		fit.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/local/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_dbcontrol.cpp: dbcontrol.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include dbcontrol.h -o moc_dbcontrol.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/local/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include dbcontrol.h -o moc_dbcontrol.cpp
 
 moc_qcustomplot.cpp: qcustomplot.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/local/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
 
 moc_qkd_param.cpp: qkd_param.h \
 		moc_predefs.h \
 		/../lib64/qt5/bin/moc
-	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qkd_param.h -o moc_qkd_param.cpp
+	/../lib64/qt5/bin/moc $(DEFINES) --include /home/tlatorre/FQNET_GUI/source/moc_predefs.h -I/../lib64/qt5/mkspecs/linux-g++ -I/home/tlatorre/FQNET_GUI/source -I/usr/include/timetagger -I/usr/local/include -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtPrintSupport -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/c++/11/x86_64-redhat-linux -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-redhat-linux/11/include -I/usr/local/include -I/usr/include qkd_param.h -o moc_qkd_param.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -578,7 +578,8 @@ ps.o: ps.cpp ps.h
 logging.o: logging.cpp logging.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o logging.o logging.cpp
 
-fit.o: fit.cpp fit.h
+fit.o: fit.cpp fit.h \
+		logging.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fit.o fit.cpp
 
 qrc_resources.o: qrc_resources.cpp 

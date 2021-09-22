@@ -77,7 +77,7 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     gsl_rng * r;
     double chisq, chisq0;
     int status, info;
-    size_t i;
+    int i;
 
     const double xtol = 1e-8;
     const double gtol = 1e-8;
@@ -155,8 +155,6 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     }
 
     double C = FIT(2);
-    A = 4.5;
-    B = 0.5;
     C = 0.5;
     double D = FIT(3);
 
@@ -170,7 +168,6 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     *min = sqrt((M_PI-D)/C);
 
     /* We want the minimum closest to 2.5 V. */
-    int i;
     for (i = -10; i <= 10; i++) {
         double new_min = sqrt((M_PI+2*M_PI*n-D)/C);
 

@@ -67,6 +67,7 @@ public:
         unsigned long timestamp;
         double voltage = 1.0;
         double min;
+        double alpha = 0.1;
 
         while (!ps_ready(ps))
             usleep(100);
@@ -144,7 +145,7 @@ public:
                          * This makes sure we don't get stuck at the very
                          * bottom of the minimum where there is no way to
                          * actually fit the cosine curve. */
-                        voltage = (1-alpha)*voltage + alha*(min - voltage) + 0.1*cos(count*0.1);
+                        voltage = (1-alpha)*voltage + alpha*(min - voltage) + 0.1*cos(count*0.1);
                     } else {
                         /* We don't have enough points yet. So just move the
                          * voltage up by a fixed amount to map out the curve. */
