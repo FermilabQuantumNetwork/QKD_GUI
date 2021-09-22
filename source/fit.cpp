@@ -15,18 +15,30 @@
  * y = A + B*cos(voltage^2*C + D) */
 int cos_f(const gsl_vector *x, void *data_, gsl_vector *f)
 {
+    double A, B, C, D;
     size_t n = ((struct data *)data_)->n;
     double *t = ((struct data *)data_)->t;
     double *y = ((struct data *)data_)->y;
 
-    double A = gsl_vector_get(x, 0);
-    double B = gsl_vector_get(x, 1);
-    double C = gsl_vector_get(x, 2);
+    A = cos(gsl_vector_get(x, 0);
+    /* We want to force A to be between 0 and 1. Therefore, we use this
+     * function to transform A as suggested at
+     * https://lists.gnu.org/archive/html/help-gsl/2007-09/msg00021.html. */
+    A = (0.5 * (cos(gsl_vector_get(x, 0)) + 1));
+
+    /* Square B since we always want it to be positive. */
+    B = pow(gsl_vector_get(x, 1),2);
+
+    C = gsl_vector_get(x, 2);
+    /* We want to force C to be a reasonable value between 0 and 10. */
+    C = 10*(0.5 * (cos(gsl_vector_get(x, 2)) + 1));
+
+    D = gsl_vector_get(x, 3);
+
     /* FIXME: For now we fix A, B, and C to ensure we get reliable results. */
-    A = 4.5;
-    B = 0.5;
-    C = 0.5;
-    double D = gsl_vector_get(x, 3);
+    //A = 4.5;
+    //B = 0.5;
+    //C = 0.5;
 
     size_t i;
 
@@ -155,8 +167,11 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     }
 
     double C = FIT(2);
-    C = 0.5;
+    C = 10*(0.5 * (cos(FIT(2)) + 1));
     double D = FIT(3);
+
+    /* Uncomment the next line to force C to be 0.5. */
+    //C = 0.5;
 
     /* y = A + B*cos(voltage^2*C + D)
      *
