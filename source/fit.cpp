@@ -100,7 +100,7 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     if (prev_phase > 0)
         x_init[3] = prev_phase;
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
-    gsl_vector_view wts = gsl_vector_view_array(weights, n+4);
+    gsl_vector_view wts = gsl_vector_view_array(weights, n+p);
     gsl_rng * r;
     double chisq, chisq0;
     int status, info;
@@ -117,7 +117,7 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     fdf.f = cos_f;
     fdf.df = NULL;   /* set to NULL for finite-difference Jacobian */
     fdf.fvv = NULL;     /* not using geodesic acceleration */
-    fdf.n = n;
+    fdf.n = n+p;
     fdf.p = p;
     fdf.params = &d;
 
