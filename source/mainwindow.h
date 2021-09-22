@@ -108,6 +108,11 @@ public:
             if (QThread::currentThread()->isInterruptionRequested())
                 return;
 
+            if (!running) {
+                usleep(1000);
+                continue;
+            }
+
             count += 1;
             pthread_mutex_lock(&this->m);
             if (qber_array.size() > 0) {
@@ -117,6 +122,7 @@ public:
                     qber_results_array.back().voltage = voltage;
                     qber_results_array.back().error = qber_array.back().error;
                     qber_array.pop_back();
+                    qber_array.clear();
 
                     Log(VERBOSE, "v = %f err = %f", voltage, qber_results_array.back().error);
 
@@ -185,12 +191,16 @@ public:
         this->ps = ps_;
         pthread_mutex_init(&this->m,NULL);
         this->sync = sync_;
+        this->running = 0;
+        this->initialized = 0;
     }
     PowerSupply *ps;
     std::vector<qber> qber_array;
     std::vector<qber_results> qber_results_array;
     pthread_mutex_t m;
     pthread_mutex_t *sync;
+    int running;
+    int initialized;
 signals:
     void voltage_changed(double voltage);
 };
@@ -406,6 +416,9 @@ private slots:
 
     void chang_QKD_turnONDB(int val){QKD_DB_ON=val;}
 
+    void PowerSupplyStart(void);
+    void PowerSupplyStop(void);
+    void PowerSupplyDisconnect(void);
     void PowerSupplyConnect(void);
 
 private:

@@ -219,6 +219,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     this->prev_chanC = ui->PlotCChn1->value();;
 
     this->DrawExpectedSignal();
+
+    ui->ps_connect_button->setEnabled(true);
+    ui->ps_disconnect_button->setEnabled(false);
+    ui->ps_start_button->setEnabled(false);
+    ui->ps_stop_button->setEnabled(false);
 }
 
 //////////////////////////////////////////////////////////
@@ -776,6 +781,43 @@ void MainWindow::connectAction(QAction *action)
     }
 }
 
+void MainWindow::PowerSupplyStart(void)
+{
+    if (this->phaseStabilizationThread) {
+        this->phaseStabilizationThread->running = 1;
+        ui->ps_start_button->setEnabled(false);
+        ui->ps_stop_button->setEnabled(true);
+    }
+}
+
+void MainWindow::PowerSupplyStop(void)
+{
+    if (this->phaseStabilizationThread) {
+        this->phaseStabilizationThread->running = 0;
+        ui->ps_start_button->setEnabled(true);
+        ui->ps_stop_button->setEnabled(false);
+    }
+}
+
+void MainWindow::PowerSupplyDisconnect(void)
+{
+    Log(NOTICE, "disconnecting from power supply");
+
+    if (this->phaseStabilizationThread) {
+        this->phaseStabilizationThread->requestInterruption();
+
+        while (this->phaseStabilizationThread->isRunning())
+            usleep(100);
+
+        this->phaseStabilizationThread = NULL;
+
+        ui->ps_connect_button->setEnabled(true);
+        ui->ps_disconnect_button->setEnabled(false);
+        ui->ps_start_button->setEnabled(false);
+        ui->ps_stop_button->setEnabled(false);
+    }
+}
+
 void MainWindow::PowerSupplyConnect(void)
 {
     char ip_address[1024];
@@ -803,6 +845,11 @@ void MainWindow::PowerSupplyConnect(void)
     this->phaseStabilizationThread->start();
 
     QObject::connect(this->phaseStabilizationThread, &PhaseStabilizationThread::voltage_changed, this, &MainWindow::plot_voltage);
+
+    ui->ps_connect_button->setEnabled(false);
+    ui->ps_disconnect_button->setEnabled(true);
+    ui->ps_start_button->setEnabled(true);
+    ui->ps_stop_button->setEnabled(false);
 }
 
 void MainWindow::setupsignalslot()
@@ -907,6 +954,9 @@ void MainWindow::setupsignalslot()
     this->refreshButton();
 
     QObject::connect(ui->ps_connect_button, &QPushButton::released, this, &MainWindow::PowerSupplyConnect);
+    QObject::connect(ui->ps_disconnect_button, &QPushButton::released, this, &MainWindow::PowerSupplyDisconnect);
+    QObject::connect(ui->ps_start_button, &QPushButton::released, this, &MainWindow::PowerSupplyStart);
+    QObject::connect(ui->ps_stop_button, &QPushButton::released, this, &MainWindow::PowerSupplyStop);
     QObject::connect(ui->qubit_sequence, SIGNAL(textChanged()), this, SLOT(qubit_sequence_changed()));
 }
 
