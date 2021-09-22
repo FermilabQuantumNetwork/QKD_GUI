@@ -110,12 +110,16 @@ public:
                     qber_results_array.back().timestamp = qber_array.back().start;
                     qber_results_array.back().voltage = voltage;
                     qber_results_array.back().error = qber_array.back().error;
+                    qber_array.pop_back();
+
+                    /* Only fit the last 100 points. */
                     int extra = qber_results_array.size() - 100;
                     if (extra > 0) {
                         Log(VERBOSE, "deleting %i elements from qber_results_array", extra);
                         qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
                     }
-                    if (qber_results_array.size() >= 10) {
+
+                    if (qber_results_array.size() >= 20) {
                         /* We have three points. Assume the error rate looks
                          * like a parabola near the minimum, and calculate the
                          * best spot to jump. */
@@ -123,43 +127,27 @@ public:
                         std::vector<double> y;
                         for (i = 0; i < qber_results_array.size(); i++) {
                             x.push_back(qber_results_array[i].voltage);
-                            x.push_back(qber_results_array[i].error);
+                            y.push_back(qber_results_array[i].error);
                         }
                         fit(&x,&y,&min);
-                        //int len = qber_results_array.size();
-                        //double x1 = qber_results_array[len-1].voltage;
-                        //double y1 = qber_results_array[len-1].error;
-                        //double x2 = qber_results_array[len-2].voltage;
-                        //double y2 = qber_results_array[len-2].error;
-                        //double x3 = qber_results_array[len-3].voltage;
-                        //double y3 = qber_results_array[len-3].error;
-                        //double denom = (x1 - x2)*(x1 - x3)*(x2 - x3);
-                        //if (fabs(denom) < 1e-10) {
-                        //    /* If the voltages are too close together, we won't
-                        //     * be able to fit a parabola, so increase the
-                        //     * voltage and try to get a new data point. */
-                        //    if (voltage < 2.5)
-                        //        voltage += 0.1;
-                        //    else
-                        //        voltage -= 0.1;
-                        //} else {
-                        //    double A = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / denom;
-                        //    double B = (x3*x3 * (y1 - y2) + x2*x2 * (y3 - y1) + x1*x1 * (y2 - y3)) / denom;
-                        //    double C = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / denom;
-                        //    double min = -B/(2*A);
-                        //    double min_value = C - B*B/(4*A);
-                        //    Log(VERBOSE, "x1 = %f y1 = %f", x1, y1);
-                        //    Log(VERBOSE, "x2 = %f y2 = %f", x2, y2);
-                        //    Log(VERBOSE, "x3 = %f y3 = %f", x3, y3);
-                        //    Log(VERBOSE, "denom = %f", denom);
-                        Log(VERBOSE, "min calculated at x = %f", min);
-                        //    /* FIXME: Need to figure out what to do if the new
-                        //     * voltage is very close to the previous values. */
-                        voltage = min + 0.01*cos(count*0.1);
-                        //}
+                        Log(VERBOSE, "new min calculated at %f V", min);
+                        Log(VERBOSE, "v = %f err = %f", x[x.size()-1], y[x.size()-1]);
+                        /* min is our new target goal, but we don't want to
+                         * move too fast since the interferometer appears to
+                         * have some hysteresis, i.e.  if you move around too
+                         * fast, you don't get reliable results. Therefore, we
+                         * use exponential smoothing to slowly move towards the
+                         * target value.
+                         *
+                         * In addition, we add a dither by adding a component
+                         * proportional to the cosine of the current iteration.
+                         * This makes sure we don't get stuck at the very
+                         * bottom of the minimum where there is no way to
+                         * actually fit the cosine curve. */
+                        voltage = (1-alpha)*voltage + alha*(min - voltage) + 0.1*cos(count*0.1);
                     } else {
-                        /* We don't have three points yet. So just move the
-                         * voltage up by a tiny bit. */
+                        /* We don't have enough points yet. So just move the
+                         * voltage up by a fixed amount to map out the curve. */
                         voltage += 0.1;
                     }
 
@@ -178,13 +166,8 @@ public:
                     ps_cmd(ps,cmd);
                     timestamp = time(NULL);
                 }
-                int extra = qber_array.size() - 3;
-                if (extra > 0)
-                    qber_array.erase(qber_array.begin(), qber_array.begin() + extra);
             }
             pthread_mutex_unlock(&this->m);
-            //emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width));
-
         }
     }
     PhaseStabilizationThread(PowerSupply *ps_, pthread_mutex_t *sync_) {
@@ -197,8 +180,6 @@ public:
     std::vector<qber_results> qber_results_array;
     pthread_mutex_t m;
     pthread_mutex_t *sync;
-signals:
-    //void histograms_ready(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width);
 };
 
 /* Histogram worker class. This is a QThread that gets the histogram data from
