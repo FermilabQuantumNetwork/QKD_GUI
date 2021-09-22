@@ -130,14 +130,14 @@ public:
 
                     Log(VERBOSE, "v = %f err = %f", voltage, qber_results_array.back().error);
 
-                    /* Only fit the last 100 points. */
-                    int extra = qber_results_array.size() - 100;
+                    /* Only fit the last 10 points. */
+                    int extra = qber_results_array.size() - 10;
                     if (extra > 0) {
                         Log(VERBOSE, "deleting %i elements from qber_results_array", extra);
                         qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
                     }
 
-                    if (qber_results_array.size() >= 20) {
+                    if (qber_results_array.size() >= 10) {
                         /* We have three points. Assume the error rate looks
                          * like a parabola near the minimum, and calculate the
                          * best spot to jump. */
