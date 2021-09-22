@@ -10,6 +10,16 @@
 #include "fit.h"
 #include "logging.h"
 
+double map_parameter_ext_to_int(double ext, double lo, double hi)
+{
+    return asin(2*((ext-lo)/(hi-lo))-1);
+}
+
+double map_parameter_int_to_ext(double int, double lo, double hi)
+{
+    return lo + (hi-lo)*(sin(int)+1)/2;
+}
+
 /* Function to fit interference to:
  *
  * y = A + B*cos(voltage^2*C + D) */
@@ -19,26 +29,13 @@ int cos_f(const gsl_vector *x, void *data_, gsl_vector *f)
     size_t n = ((struct data *)data_)->n;
     double *t = ((struct data *)data_)->t;
     double *y = ((struct data *)data_)->y;
+    double *lo = ((struct data *)data_)->lo;
+    double *hi = ((struct data *)data_)->hi;
 
-    A = cos(gsl_vector_get(x, 0);
-    /* We want to force A to be between 0 and 1. Therefore, we use this
-     * function to transform A as suggested at
-     * https://lists.gnu.org/archive/html/help-gsl/2007-09/msg00021.html. */
-    A = (0.5 * (cos(gsl_vector_get(x, 0)) + 1));
-
-    /* Square B since we always want it to be positive. */
-    B = pow(gsl_vector_get(x, 1),2);
-
-    C = gsl_vector_get(x, 2);
-    /* We want to force C to be a reasonable value between 0 and 10. */
-    C = 10*(0.5 * (cos(gsl_vector_get(x, 2)) + 1));
-
-    D = gsl_vector_get(x, 3);
-
-    /* FIXME: For now we fix A, B, and C to ensure we get reliable results. */
-    //A = 4.5;
-    //B = 0.5;
-    //C = 0.5;
+    A = map_parameter_int_to_ext(gsl_vector_get(x, 0),lo[0],hi[0]);
+    B = map_parameter_int_to_ext(gsl_vector_get(x, 1),lo[1],hi[1]);
+    C = map_parameter_int_to_ext(gsl_vector_get(x, 2),lo[2],hi[2]);
+    D = map_parameter_int_to_ext(gsl_vector_get(x, 3),lo[3],hi[3]);
 
     size_t i;
 
@@ -81,7 +78,7 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     gsl_vector *f;
     gsl_matrix *J;
     gsl_matrix *covar = gsl_matrix_alloc(p, p);
-    double t[N], y[N], weights[N];
+    double t[N], y[N], weights[N], lo[100], hi[100];
     struct data d = { n, t, y };
     double x_init[4] = {0.0, 1.0, 1.0, 1.0}; /* starting values */
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
@@ -105,6 +102,16 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     fdf.n = n;
     fdf.p = p;
     fdf.params = &d;
+
+    /* Set parameter bounds. */
+    lo[0] = 0.1;
+    hi[0] = 1.0;
+    lo[1] = 0.1;
+    hi[1] = 1.0;
+    lo[2] = 0.1;
+    hi[2] = 10.0;
+    lo[3] = 0;
+    hi[3] = 2*M_PI;
 
     /* this is the data to be fitted */
     for (i = 0; i < n; i++)
@@ -166,12 +173,10 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
         Log(VERBOSE, "D      = %.5f +/- %.5f", FIT(3), c*ERR(3));
     }
 
-    double C = FIT(2);
-    C = 10*(0.5 * (cos(FIT(2)) + 1));
-    double D = FIT(3);
-
-    /* Uncomment the next line to force C to be 0.5. */
-    //C = 0.5;
+    double A = map_parameter_int_to_ext(FIT(0),lo[0],hi[0]);
+    double B = map_parameter_int_to_ext(FIT(1),lo[1],hi[1]);
+    double C = map_parameter_int_to_ext(FIT(2),lo[2],hi[2]);
+    double D = map_parameter_int_to_ext(FIT(3),lo[3],hi[3]);
 
     /* y = A + B*cos(voltage^2*C + D)
      *
@@ -180,14 +185,22 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
      *     voltage^2*C     = pi + 2*pi*n - D
      *     voltage^2       = (pi + 2*pi*n - D)/C
      *     voltage         = sqrt((pi+2*pi*n - D)/C) */
-    *min = sqrt((M_PI-D)/C);
+    *min = -1;
 
     /* We want the minimum closest to 2.5 V. */
     for (i = -10; i <= 10; i++) {
-        double new_min = sqrt((M_PI+2*M_PI*n-D)/C);
+        if ((M_PI+2*M_PI*i-D)/C < 0)
+            continue;
 
-        if (fabs(new_min-2.5) < fabs(*min - 2.5))
+        double new_min = sqrt((M_PI+2*M_PI*i-D)/C);
+
+        if (*min < 0) || (fabs(new_min-2.5) < fabs(*min - 2.5))
             *min = new_min;
+    }
+
+    if (*min < 0) {
+        Log(WARNING, "unable to find a valid minimum! setting voltage to zero.");
+        *min = 0;
     }
 
     Log(VERBOSE, "status = %s", gsl_strerror (status));

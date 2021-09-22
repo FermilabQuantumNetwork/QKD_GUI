@@ -12,9 +12,12 @@
 #define TMAX   (3.0)  /* time variable in [0,TMAX] */
 
 struct data {
-  size_t n;
-  double *t;
-  double *y;
+    size_t n;
+    double *t;
+    double *y;
+    /* Parameter bounds. */
+    double *lo;
+    double *hi;
 };
 
 int cos_f(const gsl_vector *x, void *data, gsl_vector *f);
