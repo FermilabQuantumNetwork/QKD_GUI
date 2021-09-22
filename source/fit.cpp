@@ -15,9 +15,14 @@ double map_parameter_ext_to_int(double ext, double lo, double hi)
     return asin(2*((ext-lo)/(hi-lo))-1);
 }
 
-double map_parameter_int_to_ext(double int, double lo, double hi)
+double map_parameter_int_to_ext(double x, double lo, double hi)
 {
-    return lo + (hi-lo)*(sin(int)+1)/2;
+    return lo + (hi-lo)*(sin(x)+1)/2;
+}
+
+double map_error_int_to_ext(double x, double err, double lo, double hi)
+{
+    return err*fabs((hi-lo)*cos(x)/2);
 }
 
 /* Function to fit interference to:
@@ -80,7 +85,7 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     gsl_matrix *covar = gsl_matrix_alloc(p, p);
     double t[N], y[N], weights[N], lo[100], hi[100];
     struct data d = { n, t, y };
-    double x_init[4] = {0.0, 1.0, 1.0, 1.0}; /* starting values */
+    double x_init[4] = {0.5, 0.5, 4.0, 1.0}; /* starting values */
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
     gsl_vector_view wts = gsl_vector_view_array(weights, n);
     gsl_rng * r;
@@ -112,6 +117,10 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     hi[2] = 10.0;
     lo[3] = 0;
     hi[3] = 2*M_PI;
+
+    /* Map initial guess to internal parameter values. */
+    for (i = 0; i < 4; i++)
+        x_init[i] = map_parameter_ext_to_int(x_init[i],lo[i],hi[i]);
 
     /* this is the data to be fitted */
     for (i = 0; i < n; i++)
@@ -167,10 +176,16 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
 
         Log(VERBOSE, "chisq/dof = %g", chisq / dof);
 
+        Log(VERBOSE, "Internal");
         Log(VERBOSE, "A      = %.5f +/- %.5f", FIT(0), c*ERR(0));
         Log(VERBOSE, "B      = %.5f +/- %.5f", FIT(1), c*ERR(1));
         Log(VERBOSE, "C      = %.5f +/- %.5f", FIT(2), c*ERR(2));
         Log(VERBOSE, "D      = %.5f +/- %.5f", FIT(3), c*ERR(3));
+        Log(VERBOSE, "External");
+        Log(VERBOSE, "A      = %.5f +/- %.5f", map_parameter_int_to_ext(FIT(0),lo[0],hi[0]), c*map_error_int_to_ext(FIT(0),ERR(0),lo[0],hi[0]));
+        Log(VERBOSE, "B      = %.5f +/- %.5f", map_parameter_int_to_ext(FIT(1),lo[1],hi[1]), c*map_error_int_to_ext(FIT(1),ERR(1),lo[1],hi[1]));
+        Log(VERBOSE, "C      = %.5f +/- %.5f", map_parameter_int_to_ext(FIT(2),lo[2],hi[2]), c*map_error_int_to_ext(FIT(2),ERR(2),lo[2],hi[2]));
+        Log(VERBOSE, "D      = %.5f +/- %.5f", map_parameter_int_to_ext(FIT(3),lo[3],hi[3]), c*map_error_int_to_ext(FIT(3),ERR(3),lo[3],hi[3]));
     }
 
     double A = map_parameter_int_to_ext(FIT(0),lo[0],hi[0]);
@@ -194,7 +209,7 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
 
         double new_min = sqrt((M_PI+2*M_PI*i-D)/C);
 
-        if (*min < 0) || (fabs(new_min-2.5) < fabs(*min - 2.5))
+        if ((*min < 0) || (fabs(new_min-2.5) < fabs(*min - 2.5)))
             *min = new_min;
     }
 
