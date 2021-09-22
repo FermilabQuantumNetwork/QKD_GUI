@@ -46,12 +46,14 @@ typedef struct qber {
     unsigned long long start;
     unsigned long long stop;
     double error;
+    double std_error;
 } qber;
 
 typedef struct qber_results {
     unsigned long long timestamp;
     double voltage;
     double error;
+    double std_error;
 } qber_results;
 
 unsigned long long microtime(void);
@@ -122,6 +124,7 @@ public:
                     qber_results_array.back().timestamp = qber_array.back().start;
                     qber_results_array.back().voltage = voltage;
                     qber_results_array.back().error = qber_array.back().error;
+                    qber_results_array.back().std_error = qber_array.back().std_error;
                     qber_array.pop_back();
                     qber_array.clear();
 
@@ -140,11 +143,13 @@ public:
                          * best spot to jump. */
                         std::vector<double> x;
                         std::vector<double> y;
+                        std::vector<double> y_err;
                         for (i = 0; i < qber_results_array.size(); i++) {
                             x.push_back(qber_results_array[i].voltage);
                             y.push_back(qber_results_array[i].error);
+                            y_err.push_back(qber_results_array[i].std_error);
                         }
-                        fit(&x,&y,&min);
+                        fit(&x,&y,&y_err,&min);
                         Log(VERBOSE, "new min calculated at %f V", min);
                         /* min is our new target goal, but we don't want to
                          * move too fast since the interferometer appears to

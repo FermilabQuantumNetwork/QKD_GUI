@@ -1445,6 +1445,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
         phaseStabilizationThread->qber_array.back().start = start;
         phaseStabilizationThread->qber_array.back().stop = stop;
         phaseStabilizationThread->qber_array.back().error = resultCerr/(resultBok + resultCerr);
+        phaseStabilizationThread->qber_array.back().std_error = sqrt(resultCerr)/(resultBok + resultCerr);
         pthread_mutex_unlock(&phaseStabilizationThread->m);
     }
 

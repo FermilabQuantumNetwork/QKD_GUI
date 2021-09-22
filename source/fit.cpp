@@ -81,7 +81,7 @@ void callback(const size_t iter, void *params, const gsl_multifit_nlinear_worksp
           gsl_blas_dnrm2(f));
 }
 
-int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
+int fit(std::vector<double> *v, std::vector<double> *qber, std::vector<double> *std_qber, double *min)
 {
     const gsl_multifit_nlinear_type *T = gsl_multifit_nlinear_trust;
     gsl_multifit_nlinear_workspace *w;
@@ -153,12 +153,11 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     {
         double ti = (*v)[i];
         double yi = (*qber)[i];
-        /* FIXME: add weights later. */
-        //double si = 0.1 * yi;
+        double si = (*std_qber)[i];
 
         t[i] = ti;
         y[i] = yi;
-        weights[i] = 1.0;// / (si * si);
+        weights[i] = 1.0/(si*si);
     };
 
     for (i = 0; i < p; i++)
