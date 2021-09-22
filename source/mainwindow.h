@@ -174,6 +174,7 @@ public:
                     sprintf(cmd,":SOURce1:VOLTage %f", voltage);
                     pthread_mutex_unlock(this->sync);
                     ps_cmd(ps,cmd);
+                    emit(voltage_changed(voltage));
                     timestamp = time(NULL);
                 }
             }
@@ -190,6 +191,8 @@ public:
     std::vector<qber_results> qber_results_array;
     pthread_mutex_t m;
     pthread_mutex_t *sync;
+signals:
+    void voltage_changed(double voltage);
 };
 
 /* Histogram worker class. This is a QThread that gets the histogram data from
@@ -325,6 +328,7 @@ public:
   
     void setup_plot_qkd_results(QCustomPlot *scope);
     void setup_plot_qkd_stats(QCustomPlot *scope);
+    void setup_plot_voltage(QCustomPlot *scope);
 
     HistogramWorkerThread *histogramWorkerThread;
     CountWorkerThread *countWorkerThread;
@@ -350,6 +354,7 @@ private slots:
     void histogramChanged(void);
     void show_rates(int *channels, double *rates, int n);
     void show_histograms(const vectorDouble &datA, const vectorDouble &datB, const vectorDouble &datC, int bin_width, unsigned long long start, unsigned long long stop);
+    void plot_voltage(double voltage);
     void DrawExpectedSignal(void);
   
     void turnONDB(int val);
