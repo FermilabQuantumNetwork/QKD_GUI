@@ -10,6 +10,8 @@
 #include "fit.h"
 #include "logging.h"
 
+#define UNUSED(V) ((void) V)
+
 double map_parameter_ext_to_int(double ext, double lo, double hi)
 {
     return asin(2*((ext-lo)/(hi-lo))-1);
@@ -54,14 +56,15 @@ int cos_f(const gsl_vector *x, void *data_, gsl_vector *f)
 
 void callback(const size_t iter, void *params, const gsl_multifit_nlinear_workspace *w)
 {
-  gsl_vector *f = gsl_multifit_nlinear_residual(w);
-  gsl_vector *x = gsl_multifit_nlinear_position(w);
-  double rcond;
+    UNUSED(params);
+    gsl_vector *f = gsl_multifit_nlinear_residual(w);
+    gsl_vector *x = gsl_multifit_nlinear_position(w);
+    double rcond;
 
-  /* compute reciprocal condition number of J(x) */
-  gsl_multifit_nlinear_rcond(&rcond, w);
+    /* compute reciprocal condition number of J(x) */
+    gsl_multifit_nlinear_rcond(&rcond, w);
 
-  Log(VERBOSE, "iter %2zu: A = %.4f, B = %.4f, C = %.4f, D = %.4f, cond(J) = %8.4f, |f(x)| = %.4f",
+    Log(VERBOSE, "iter %2zu: A = %.4f, B = %.4f, C = %.4f, D = %.4f, cond(J) = %8.4f, |f(x)| = %.4f",
           iter,
           gsl_vector_get(x, 0),
           gsl_vector_get(x, 1),
@@ -79,13 +82,16 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     gsl_multifit_nlinear_parameters fdf_params = gsl_multifit_nlinear_default_parameters();
     const size_t n = v->size();
     const size_t p = 4;
+    static double prev_phase = -100;
 
     gsl_vector *f;
     gsl_matrix *J;
     gsl_matrix *covar = gsl_matrix_alloc(p, p);
     double t[N], y[N], weights[N], lo[100], hi[100];
-    struct data d = { n, t, y };
+    struct data d = { n, t, y, lo, hi };
     double x_init[4] = {0.5, 0.5, 4.0, 1.0}; /* starting values */
+    if (prev_phase > 0)
+        x_init[3] = prev_phase;
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
     gsl_vector_view wts = gsl_vector_view_array(weights, n);
     gsl_rng * r;
@@ -188,10 +194,12 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
         Log(VERBOSE, "D      = %.5f +/- %.5f", map_parameter_int_to_ext(FIT(3),lo[3],hi[3]), c*map_error_int_to_ext(FIT(3),ERR(3),lo[3],hi[3]));
     }
 
-    double A = map_parameter_int_to_ext(FIT(0),lo[0],hi[0]);
-    double B = map_parameter_int_to_ext(FIT(1),lo[1],hi[1]);
+    //double A = map_parameter_int_to_ext(FIT(0),lo[0],hi[0]);
+    //double B = map_parameter_int_to_ext(FIT(1),lo[1],hi[1]);
     double C = map_parameter_int_to_ext(FIT(2),lo[2],hi[2]);
     double D = map_parameter_int_to_ext(FIT(3),lo[3],hi[3]);
+
+    prev_phase = D;
 
     /* y = A + B*cos(voltage^2*C + D)
      *
