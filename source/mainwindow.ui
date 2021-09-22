@@ -2590,6 +2590,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_4">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>Phase Stabilization</string>
        </attribute>
