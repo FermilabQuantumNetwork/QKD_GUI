@@ -155,6 +155,7 @@ int Swabian::set_delay(int channel, int delay)
     pthread_mutex_lock(&this->m);
 
     this->t->setDelayHardware(channel,delay);
+    this->t->setDelayHardware(-channel,delay);
 
     pthread_mutex_unlock(&this->m);
     
@@ -174,6 +175,7 @@ int Swabian::set_trigger_level(int channel, float level)
     pthread_mutex_lock(&this->m);
 
     this->t->setTriggerLevel(channel,level);
+    this->t->setTriggerLevel(-channel,level);
 
     pthread_mutex_unlock(&this->m);
     
