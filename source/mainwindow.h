@@ -99,6 +99,9 @@ public:
 
         int count = 0;
         while (true) {
+            if (QThread::currentThread()->isInterruptionRequested())
+                return;
+
             count += 1;
             pthread_mutex_lock(&this->m);
             if (qber_array.size() > 0) {
