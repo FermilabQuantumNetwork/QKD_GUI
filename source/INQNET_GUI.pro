@@ -6,11 +6,11 @@ QT       += core gui multimedia sql widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport network
 
 
-INCLUDEPATH += /usr/include/timetagger
+INCLUDEPATH += /usr/include/timetagger /usr/local/include
 DEFINES += LINUX linux
 TARGET = qkd_gui
 TEMPLATE = app
-LIBS += -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -lgsl -lgslcblas
+LIBS += -DLINUX -Dlinux -L/usr/lib64/timetagger/x64/driver -lTimeTagger -lokFrontPanel -L/usr/local/lib -lgsl -lgslcblas
 PKGCONFIG += 
 CONFIG += link_pkgconfig 
 
