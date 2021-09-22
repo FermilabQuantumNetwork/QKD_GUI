@@ -113,6 +113,8 @@ public:
                     qber_results_array.back().error = qber_array.back().error;
                     qber_array.pop_back();
 
+                    Log(VERBOSE, "v = %f err = %f", voltage, qber_results_array.back().error);
+
                     /* Only fit the last 100 points. */
                     int extra = qber_results_array.size() - 100;
                     if (extra > 0) {
@@ -132,7 +134,6 @@ public:
                         }
                         fit(&x,&y,&min);
                         Log(VERBOSE, "new min calculated at %f V", min);
-                        Log(VERBOSE, "v = %f err = %f", x[x.size()-1], y[x.size()-1]);
                         /* min is our new target goal, but we don't want to
                          * move too fast since the interferometer appears to
                          * have some hysteresis, i.e.  if you move around too
