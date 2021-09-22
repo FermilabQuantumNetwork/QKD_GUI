@@ -431,7 +431,7 @@ void MainWindow::setup_plot_qkd_results(QCustomPlot *scope)
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Error Rate");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
@@ -537,7 +537,7 @@ void MainWindow::setup_plot_voltage(QCustomPlot *scope)
 
     QCPGraph *graph1 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
     graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::green),4));
-    graph1->setPen(QPen(Qt::white, 2));
+    graph1->setPen(QPen(Qt::green, 2));
 
     QCPGraph *graph2 = scope->addGraph(wideAxisRect->axis(QCPAxis::atBottom), wideAxisRect->axis(QCPAxis::atLeft));
     graph2->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1), QBrush(Qt::red),4));
@@ -608,7 +608,7 @@ void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Counts");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Error Rate");
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
@@ -802,7 +802,7 @@ void MainWindow::PowerSupplyConnect(void)
     connect(this->phaseStabilizationThread, &PhaseStabilizationThread::finished, this->phaseStabilizationThread, &QObject::deleteLater);
     this->phaseStabilizationThread->start();
 
-    //QObject::connect(this->phaseStabilizationThread, &PhaseStabilizationThread::histograms_ready, this, &MainWindow::show_histograms);
+    QObject::connect(this->phaseStabilizationThread, &PhaseStabilizationThread::voltage_changed, this, &MainWindow::plot_voltage);
 }
 
 void MainWindow::setupsignalslot()
