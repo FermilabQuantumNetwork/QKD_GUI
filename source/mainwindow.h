@@ -67,6 +67,7 @@ public:
         char resp[1024];
         unsigned long timestamp;
         double voltage = 1.0;
+        double target = 1.0;
         double min;
         double alpha = 0.1;
 
@@ -157,11 +158,13 @@ public:
                          * This makes sure we don't get stuck at the very
                          * bottom of the minimum where there is no way to
                          * actually fit the cosine curve. */
-                        voltage = (1-alpha)*voltage + alpha*min + 0.01*cos(count*0.1);
+                        target = (1-alpha)*target + alpha*min;
+                        voltage = target + 0.1*cos(2*M_PI*count/10.0);
                     } else {
                         /* We don't have enough points yet. So just move the
                          * voltage up by a fixed amount to map out the curve. */
                         voltage += 0.1;
+                        target = voltage;
                     }
 
                     /* Make sure we are not out of range. */
