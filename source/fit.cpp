@@ -97,8 +97,8 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     double t[N], y[N], weights[N], lo[100], hi[100], mu[100], sigma[100];
     struct data d = { n, t, y, lo, hi, mu, sigma };
     double x_init[4] = {0.5, 0.5, 1.0, 1.0}; /* starting values */
-    if (prev_phase > 0)
-        x_init[3] = prev_phase;
+    //if (prev_phase > 0)
+    //    x_init[3] = prev_phase;
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
     gsl_vector_view wts = gsl_vector_view_array(weights, n+p);
     gsl_rng * r;
