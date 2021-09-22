@@ -51,6 +51,11 @@ int cos_f(const gsl_vector *x, void *data_, gsl_vector *f)
         gsl_vector_set(f, i, Yi - y[i]);
     }
 
+    /* Apply priors. */
+    for (i = 0; i < 4; i++) {
+        gsl_vector_set(f, n+i, (map_parameter_int_to_ext(gsl_vector_get(x, i),lo[i],hi[i])-mu[i])/sigma[i]);
+    }
+
     return GSL_SUCCESS;
 }
 
@@ -87,13 +92,13 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     gsl_vector *f;
     gsl_matrix *J;
     gsl_matrix *covar = gsl_matrix_alloc(p, p);
-    double t[N], y[N], weights[N], lo[100], hi[100];
-    struct data d = { n, t, y, lo, hi };
+    double t[N], y[N], weights[N], lo[100], hi[100], mu[100], sigma[100];
+    struct data d = { n, t, y, lo, hi, mu, sigma };
     double x_init[4] = {0.5, 0.5, 1.0, 1.0}; /* starting values */
     if (prev_phase > 0)
         x_init[3] = prev_phase;
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
-    gsl_vector_view wts = gsl_vector_view_array(weights, n);
+    gsl_vector_view wts = gsl_vector_view_array(weights, n+4);
     gsl_rng * r;
     double chisq, chisq0;
     int status, info;
@@ -124,8 +129,18 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     lo[3] = 0;
     hi[3] = 2*M_PI;
 
+    /* Set priors. */
+    mu[0] = 0.5;
+    sigma[0] = 0.1;
+    mu[1] = 0.5;
+    sigma[1] = 0.1;
+    mu[2] = 1.0;
+    sigma[2] = 1.0;
+    mu[3] = 1.0;
+    sigma[3] = 100.0;
+
     /* Map initial guess to internal parameter values. */
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < p; i++)
         x_init[i] = map_parameter_ext_to_int(x_init[i],lo[i],hi[i]);
 
     /* this is the data to be fitted */
@@ -141,8 +156,15 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
         weights[i] = 1.0;// / (si * si);
     };
 
+    for (i = 0; i < p; i++)
+    {
+        t[n+i] = 0;
+        y[n+i] = 0;
+        weights[n+i] = 1.0;
+    };
+
     /* allocate workspace with default parameters */
-    w = gsl_multifit_nlinear_alloc (T, &fdf_params, n, p);
+    w = gsl_multifit_nlinear_alloc (T, &fdf_params, n+p, p);
 
     /* initialize solver with starting point and weights */
     gsl_multifit_nlinear_winit (&x.vector, &wts.vector, &fdf, w);

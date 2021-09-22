@@ -18,6 +18,8 @@ struct data {
     /* Parameter bounds. */
     double *lo;
     double *hi;
+    double *mu;
+    double *sigma;
 };
 
 int cos_f(const gsl_vector *x, void *data, gsl_vector *f);
