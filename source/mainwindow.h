@@ -159,7 +159,7 @@ public:
                          * bottom of the minimum where there is no way to
                          * actually fit the cosine curve. */
                         target = (1-alpha)*target + alpha*min;
-                        voltage = target + 0.1*cos(2*M_PI*count/10.0);
+                        voltage = target + 0.05*cos(2*M_PI*count/10.0);
                     } else {
                         /* We don't have enough points yet. So just move the
                          * voltage up by a fixed amount to map out the curve. */
