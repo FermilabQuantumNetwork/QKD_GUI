@@ -89,7 +89,6 @@ int fit(std::vector<double> *v, std::vector<double> *qber, std::vector<double> *
     gsl_multifit_nlinear_parameters fdf_params = gsl_multifit_nlinear_default_parameters();
     const size_t n = v->size();
     const size_t p = 4;
-    static double prev_phase = -100;
 
     gsl_vector *f;
     gsl_matrix *J;
@@ -97,8 +96,6 @@ int fit(std::vector<double> *v, std::vector<double> *qber, std::vector<double> *
     double t[N], y[N], weights[N], lo[100], hi[100], mu[100], sigma[100];
     struct data d = { n, t, y, lo, hi, mu, sigma };
     double x_init[4] = {0.5, 0.4, 1.0, 1.0}; /* starting values */
-    //if (prev_phase > 0)
-    //    x_init[3] = prev_phase;
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
     gsl_vector_view wts = gsl_vector_view_array(weights, n+p);
     gsl_rng * r;
@@ -224,8 +221,6 @@ int fit(std::vector<double> *v, std::vector<double> *qber, std::vector<double> *
     //double B = map_parameter_int_to_ext(FIT(1),lo[1],hi[1]);
     double C = map_parameter_int_to_ext(FIT(2),lo[2],hi[2]);
     double D = map_parameter_int_to_ext(FIT(3),lo[3],hi[3]);
-
-    prev_phase = D;
 
     /* y = A + B*cos(voltage^2*C + D)
      *
