@@ -237,14 +237,14 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
      *     voltage         = sqrt((pi+2*pi*n - D)/C) */
     *min = -1;
 
-    /* We want the minimum closest to 2.5 V. */
+    /* We want the minimum closest to 3 V. */
     for (i = -10; i <= 10; i++) {
         if ((M_PI+2*M_PI*i-D)/C < 0)
             continue;
 
         double new_min = sqrt((M_PI+2*M_PI*i-D)/C);
 
-        if ((*min < 0) || (fabs(new_min-2.5) < fabs(*min - 2.5)))
+        if ((*min < 0) || (fabs(new_min-3) < fabs(*min - 3)))
             *min = new_min;
     }
 

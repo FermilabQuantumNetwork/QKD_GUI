@@ -8,8 +8,7 @@
 #include <gsl/gsl_multifit_nlinear.h>
 #include <vector>
 
-#define N      100    /* number of data points to fit */
-#define TMAX   (3.0)  /* time variable in [0,TMAX] */
+#define N      1000    /* maximum number of data points to fit */
 
 struct data {
     size_t n;
