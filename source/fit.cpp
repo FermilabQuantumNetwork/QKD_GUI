@@ -38,6 +38,8 @@ int cos_f(const gsl_vector *x, void *data_, gsl_vector *f)
     double *y = ((struct data *)data_)->y;
     double *lo = ((struct data *)data_)->lo;
     double *hi = ((struct data *)data_)->hi;
+    double *mu = ((struct data *)data_)->mu;
+    double *sigma = ((struct data *)data_)->sigma;
 
     A = map_parameter_int_to_ext(gsl_vector_get(x, 0),lo[0],hi[0]);
     B = map_parameter_int_to_ext(gsl_vector_get(x, 1),lo[1],hi[1]);
