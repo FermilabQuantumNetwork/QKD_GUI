@@ -22,6 +22,7 @@
 #include <unistd.h> /* For usleep() */
 #include "logging.h"
 #include "fit.h"
+#include <math.h>
 
 #define MAX_QUBITS 1000
 #define HDF5TIMEINTEGRATION 3
@@ -158,6 +159,9 @@ public:
                     }
 
                     /* Make sure we are not out of range. */
+                    if (isnan(voltage))
+                        voltage = 0;
+
                     if (voltage < 0)
                         voltage = 0;
 
