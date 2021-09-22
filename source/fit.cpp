@@ -128,8 +128,11 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     hi[1] = 1.0;
     lo[2] = 0.1;
     hi[2] = 10.0;
-    lo[3] = 0;
-    hi[3] = 2*M_PI;
+    /* In principle, we want to limit this to [0,2*pi], but since the parameter
+     * transformation is non-linear and introduces roundoff effects near the
+     * edges, we give it a wider range. */
+    lo[3] = -10*M_PI;
+    hi[3] = 10*M_PI;
 
     /* Set priors. */
     mu[0] = 0.5;
