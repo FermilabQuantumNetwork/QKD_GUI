@@ -89,7 +89,7 @@ int fit(std::vector<double> *v, std::vector<double> *qber, double *min)
     gsl_matrix *covar = gsl_matrix_alloc(p, p);
     double t[N], y[N], weights[N], lo[100], hi[100];
     struct data d = { n, t, y, lo, hi };
-    double x_init[4] = {0.5, 0.5, 4.0, 1.0}; /* starting values */
+    double x_init[4] = {0.5, 0.5, 1.0, 1.0}; /* starting values */
     if (prev_phase > 0)
         x_init[3] = prev_phase;
     gsl_vector_view x = gsl_vector_view_array(x_init, p);
