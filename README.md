@@ -35,6 +35,7 @@ $ cd gsl-*
 $ ./configure
 $ make
 $ sudo make install
+$ echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 ```
 
 Next, clone this repo and run make:
