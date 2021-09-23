@@ -45,15 +45,15 @@ extern char qubit_sequence[100000];
 typedef struct qber {
     unsigned long long start;
     unsigned long long stop;
-    double error;
-    double std_error;
+    double success;
+    double std_success;
 } qber;
 
 typedef struct qber_results {
     unsigned long long timestamp;
     double voltage;
-    double error;
-    double std_error;
+    double success;
+    double std_success;
 } qber_results;
 
 unsigned long long microtime(void);
@@ -123,12 +123,12 @@ public:
                     qber_results_array.push_back(qber_results());
                     qber_results_array.back().timestamp = qber_array.back().start;
                     qber_results_array.back().voltage = voltage;
-                    qber_results_array.back().error = qber_array.back().error;
-                    qber_results_array.back().std_error = qber_array.back().std_error;
+                    qber_results_array.back().success = qber_array.back().success;
+                    qber_results_array.back().std_success = qber_array.back().std_success;
                     qber_array.pop_back();
                     qber_array.clear();
 
-                    Log(VERBOSE, "v = %f err = %f", voltage, qber_results_array.back().error);
+                    Log(VERBOSE, "v = %f err = %f", voltage, qber_results_array.back().success);
 
                     /* Only fit the last 10 points. */
                     int extra = qber_results_array.size() - 10;
@@ -146,8 +146,8 @@ public:
                         std::vector<double> y_err;
                         for (i = 0; i < qber_results_array.size(); i++) {
                             x.push_back(qber_results_array[i].voltage);
-                            y.push_back(qber_results_array[i].error);
-                            y_err.push_back(qber_results_array[i].std_error);
+                            y.push_back(qber_results_array[i].success);
+                            y_err.push_back(qber_results_array[i].std_success);
                         }
                         fit(&x,&y,&y_err,&min);
                         Log(VERBOSE, "new min calculated at %f V", min);

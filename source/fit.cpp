@@ -224,26 +224,26 @@ int fit(std::vector<double> *v, std::vector<double> *qber, std::vector<double> *
 
     /* y = A + B*cos(voltage^2*C + D)
      *
-     * Therefore, the minimum is at
-     *     voltage^2*C + D = pi + 2*pi*n
-     *     voltage^2*C     = pi + 2*pi*n - D
-     *     voltage^2       = (pi + 2*pi*n - D)/C
-     *     voltage         = sqrt((pi+2*pi*n - D)/C) */
+     * Therefore, the maximum is at
+     *     voltage^2*C + D = 2*pi*n
+     *     voltage^2*C     = 2*pi*n - D
+     *     voltage^2       = (2*pi*n - D)/C
+     *     voltage         = sqrt((2*pi*n - D)/C) */
     *min = -1;
 
-    /* We want the minimum closest to 3 V. */
+    /* We want the maximum closest to 3 V. */
     for (i = -10; i <= 10; i++) {
-        if ((M_PI+2*M_PI*i-D)/C < 0)
+        if ((2*M_PI*i-D)/C < 0)
             continue;
 
-        double new_min = sqrt((M_PI+2*M_PI*i-D)/C);
+        double new_min = sqrt((2*M_PI*i-D)/C);
 
         if ((*min < 0) || (fabs(new_min-3) < fabs(*min - 3)))
             *min = new_min;
     }
 
     if (*min < 0) {
-        Log(WARNING, "unable to find a valid minimum! setting voltage to zero.");
+        Log(WARNING, "unable to find a valid maximum! setting voltage to zero.");
         *min = 0;
     }
 
