@@ -71,7 +71,7 @@ public:
         double voltage = 1.0;
         double target = 1.0;
         double min;
-        double alpha = 0.1;
+        double alpha = 0.01;
 
         while (!ps_ready(ps)) {
             if (QThread::currentThread()->isInterruptionRequested())
