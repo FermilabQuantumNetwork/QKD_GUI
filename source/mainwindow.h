@@ -130,17 +130,16 @@ public:
 
                     Log(VERBOSE, "v = %f err = %f", voltage, qber_results_array.back().success);
 
-                    /* Only fit the last 10 points. */
-                    int extra = qber_results_array.size() - 10;
+                    /* Only fit the last 100 points. */
+                    int extra = qber_results_array.size() - 100;
                     if (extra > 0) {
                         Log(VERBOSE, "deleting %i elements from qber_results_array", extra);
                         qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
                     }
 
                     if (qber_results_array.size() >= 10) {
-                        /* We have three points. Assume the error rate looks
-                         * like a parabola near the minimum, and calculate the
-                         * best spot to jump. */
+                        /* We have ten points. Fit the success rate to a cosine
+                         * curve, and calculate the best spot to jump. */
                         std::vector<double> x;
                         std::vector<double> y;
                         std::vector<double> y_err;
@@ -151,12 +150,12 @@ public:
                         }
                         fit(&x,&y,&y_err,&min);
                         Log(VERBOSE, "new min calculated at %f V", min);
-                        /* min is our new target goal, but we don't want to
-                         * move too fast since the interferometer appears to
-                         * have some hysteresis, i.e.  if you move around too
-                         * fast, you don't get reliable results. Therefore, we
-                         * use exponential smoothing to slowly move towards the
-                         * target value.
+                        /* min is where we think the minimum is, but we don't
+                         * want to move too fast since the interferometer
+                         * appears to have some hysteresis, i.e.  if you move
+                         * around too fast, you don't get reliable results.
+                         * Therefore, we use exponential smoothing to slowly
+                         * move towards the target value.
                          *
                          * In addition, we add a dither by adding a component
                          * proportional to the cosine of the current iteration.
@@ -164,7 +163,7 @@ public:
                          * bottom of the minimum where there is no way to
                          * actually fit the cosine curve. */
                         target = (1-alpha)*target + alpha*min;
-                        voltage = target + 0.05*cos(2*M_PI*count/10.0);
+                        voltage = target + 0.05*cos(2*M_PI*count/100.0);
                     } else {
                         /* We don't have enough points yet. So just move the
                          * voltage up by a fixed amount to map out the curve. */
