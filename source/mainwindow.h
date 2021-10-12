@@ -104,7 +104,7 @@ public:
         ps_cmd(ps,":LOAD1:CR OFF");
         /* Turn on ch. 1. */
         ps_cmd(ps,":OUTPut1:STATe 1");
-        timestamp = time(NULL);
+        timestamp = microtime();
 
         int count = 0;
         while (true) {
@@ -188,7 +188,7 @@ public:
                     pthread_mutex_unlock(this->sync);
                     ps_cmd(ps,cmd);
                     emit(voltage_changed(voltage));
-                    timestamp = time(NULL);
+                    timestamp = microtime();
                 }
             }
             pthread_mutex_unlock(&this->m);
