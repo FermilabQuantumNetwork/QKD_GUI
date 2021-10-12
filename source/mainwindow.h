@@ -116,7 +116,6 @@ public:
                 continue;
             }
 
-            count += 1;
             pthread_mutex_lock(&this->m);
             /* Only add data points taken at least 10 seconds since the
              * voltage was changed. The reason for this is that even though
@@ -142,6 +141,9 @@ public:
                 Log(VERBOSE, "deleting %i elements from qber_results_array", extra);
                 qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
             }
+
+            /* Only update the voltage once every 20 seconds. */
+            if (microtime() < timestamp + 20000000) continue;
 
             if (qber_results_array.size() >= 10) {
                 /* We have ten points. Fit the success rate to a cosine
@@ -169,7 +171,7 @@ public:
                  * bottom of the minimum where there is no way to
                  * actually fit the cosine curve. */
                 target = (1-alpha)*target + alpha*min;
-                voltage = target + 0.05*cos(2*M_PI*count/100.0);
+                voltage = target + 0.05*cos(2*M_PI*count++/100.0);
             } else {
                 /* We don't have enough points yet. So just move the
                  * voltage up by a fixed amount to map out the curve. */
