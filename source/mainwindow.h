@@ -13,10 +13,6 @@
 #include "ps.h"
 
 #include <QFile>
-#include <QJsonDocument>
-#include <QJsonValue>
-#include <QJsonArray>
-#include <QJsonObject>
 #include <QDateTime>
 #include "swabian.h"
 #include <unistd.h> /* For usleep() */
@@ -102,7 +98,7 @@ class PhaseStabilizationThread : public QThread
     Q_OBJECT
 public:
     void run() override {
-        int i;
+        size_t i;
         char cmd[1024];
         char resp[1024];
         unsigned long timestamp;
@@ -263,7 +259,7 @@ class HistogramWorkerThread : public QThread
     Q_OBJECT
 public:
     void run() override {
-        int i;
+        size_t i;
 
         while (true) {
             unsigned long long start, stop;
@@ -291,11 +287,11 @@ public:
 
             QVector<double> dataA_q, dataB_q, dataC_q;
 
-            for (i = 0; i < (int) dataA.size(); i++)
+            for (i = 0; i < dataA.size(); i++)
                 dataA_q.push_back(dataA[i]);
-            for (i = 0; i < (int) dataB.size(); i++)
+            for (i = 0; i < dataB.size(); i++)
                 dataB_q.push_back(dataB[i]);
-            for (i = 0; i < (int) dataC.size(); i++)
+            for (i = 0; i < dataC.size(); i++)
                 dataC_q.push_back(dataC[i]);
 
             emit(histograms_ready(dataA_q,dataB_q,dataC_q,last_bin_width,start,stop));
