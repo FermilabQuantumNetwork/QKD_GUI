@@ -2068,17 +2068,14 @@ void MainWindow::SaveState(QString fileName)
     QMap<QString, double> mapdouble;
     QMap<QString, QString> mapstring;
 
-    mapint.insert("in_QKD_timeA", in_QKD_timeA);
     mapint.insert("in_QKD_zeroA", in_QKD_zeroA);
     mapint.insert("in_QKD_iwA", in_QKD_iwA);
     mapint.insert("in_QKD_phA", in_QKD_phA);
     mapint.insert("in_QKD_numA", in_QKD_numbA);
-    mapint.insert("in_QKD_timeB", in_QKD_timeB);
     mapint.insert("in_QKD_zeroB", in_QKD_zeroB);
     mapint.insert("in_QKD_iwB", in_QKD_iwB);
     mapint.insert("in_QKD_phB", in_QKD_phB);
     mapint.insert("in_QKD_numB", in_QKD_numbB);
-    mapint.insert("in_QKD_timeC", in_QKD_timeC);
     mapint.insert("in_QKD_zeroC", in_QKD_zeroC);
     mapint.insert("in_QKD_iwC", in_QKD_iwC);
     mapint.insert("in_QKD_phC", in_QKD_phC);
@@ -2089,6 +2086,10 @@ void MainWindow::SaveState(QString fileName)
     mapint.insert("in_PlotCCh1",ui->PlotCChn1->value());
     mapint.insert("in_bin_width",ui->bin_width->value());
     mapint.insert("in_ps_port",ui->ps_port->value());
+
+    mapdouble.insert("in_QKD_timeA", in_QKD_timeA);
+    mapdouble.insert("in_QKD_timeB", in_QKD_timeB);
+    mapdouble.insert("in_QKD_timeC", in_QKD_timeC);
 
     mapstring.insert("in_ps_ip_address",ui->ps_ip_address->text());
     mapstring.insert("in_qubit_sequence",ui->qubit_sequence->toPlainText());
@@ -2150,8 +2151,6 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     in >> mapdoubleout;
     in >> mapstringout;
 
-    if (mapintout.contains("in_QKD_timeA"))
-        qkdparam.ui->QKD_timeA->setValue(mapintout.value("in_QKD_timeA"));
     if (mapintout.contains("in_QKD_zeroA"))
         qkdparam.ui->QKD_zeroA->setValue(mapintout.value("in_QKD_zeroA"));
     if (mapintout.contains("in_QKD_iwA"))
@@ -2160,8 +2159,6 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
         qkdparam.ui->QKD_phA->setValue(mapintout.value("in_QKD_phA"));
     if (mapintout.contains("in_QKD_numA"))
         qkdparam.ui->QKD_numbA->setValue(mapintout.value("in_QKD_numA"));
-    if (mapintout.contains("in_QKD_timeB"))
-        qkdparam.ui->QKD_timeB->setValue(mapintout.value("in_QKD_timeB"));
     if (mapintout.contains("in_QKD_zeroB"))
         qkdparam.ui->QKD_zeroB->setValue(mapintout.value("in_QKD_zeroB"));
     if (mapintout.contains("in_QKD_iwB"))
@@ -2170,8 +2167,6 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
         qkdparam.ui->QKD_phB->setValue(mapintout.value("in_QKD_phB"));
     if (mapintout.contains("in_QKD_numB"))
         qkdparam.ui->QKD_numbB->setValue(mapintout.value("in_QKD_numB"));
-    if (mapintout.contains("in_QKD_timeC"))
-        qkdparam.ui->QKD_timeC->setValue(mapintout.value("in_QKD_timeC"));
     if (mapintout.contains("in_QKD_zeroC"))
         qkdparam.ui->QKD_zeroC->setValue(mapintout.value("in_QKD_zeroC"));
     if (mapintout.contains("in_QKD_iwC"))
@@ -2194,6 +2189,12 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     if (mapintout.contains("in_ps_port"))
         ui->ps_port->setValue(mapintout.value("in_ps_port"));
 
+    if (mapdoubleout.contains("in_QKD_timeA"))
+        qkdparam.ui->QKD_timeA->setValue(mapdoubleout.value("in_QKD_timeA"));
+    if (mapdoubleout.contains("in_QKD_timeB"))
+        qkdparam.ui->QKD_timeB->setValue(mapdoubleout.value("in_QKD_timeB"));
+    if (mapdoubleout.contains("in_QKD_timeC"))
+        qkdparam.ui->QKD_timeC->setValue(mapdoubleout.value("in_QKD_timeC"));
     if (mapdoubleout.contains("in_adqtime"))
         ui->adqtime->setValue(mapdoubleout.value("in_adqtime"));
 
