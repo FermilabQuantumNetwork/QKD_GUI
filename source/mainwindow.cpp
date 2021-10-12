@@ -613,7 +613,7 @@ void MainWindow::setup_plot_qkd_stats(QCustomPlot *scope)
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
-    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Error Rate");
+    wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabel("Phase Error Fraction");
     wideAxisRect->axis(QCPAxis::atBottom, 0)->setLabel("Time");
 
     wideAxisRect->axis(QCPAxis::atLeft, 0)->setLabelColor(Qt::white);
