@@ -118,80 +118,83 @@ public:
 
             count += 1;
             pthread_mutex_lock(&this->m);
-            if (qber_array.size() > 0) {
-                if (qber_array.back().start > timestamp) {
+            /* Only add data points taken at least 10 seconds since the
+             * voltage was changed. The reason for this is that even though
+             * the datasheet on the interferometer says the response time
+             * is < 1 second, you can see when changing the voltage that it
+             * takes at least ~7 seconds to completely settle.  */
+            for (i = 0; i < qber_array.size(); i++) {
+                if (qber_array[i].start > timestamp + 10000000) {
                     qber_results_array.push_back(qber_results());
-                    qber_results_array.back().timestamp = qber_array.back().start;
+                    qber_results_array.back().timestamp = qber_array[i].start;
                     qber_results_array.back().voltage = voltage;
-                    qber_results_array.back().success = qber_array.back().success;
-                    qber_results_array.back().std_success = qber_array.back().std_success;
-                    qber_array.pop_back();
-                    qber_array.clear();
-
+                    qber_results_array.back().success = qber_array[i].success;
+                    qber_results_array.back().std_success = qber_array[i].std_success;
                     Log(VERBOSE, "v = %f err = %f", voltage, qber_results_array.back().success);
-
-                    /* Only fit the last 100 points. */
-                    int extra = qber_results_array.size() - 100;
-                    if (extra > 0) {
-                        Log(VERBOSE, "deleting %i elements from qber_results_array", extra);
-                        qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
-                    }
-
-                    if (qber_results_array.size() >= 10) {
-                        /* We have ten points. Fit the success rate to a cosine
-                         * curve, and calculate the best spot to jump. */
-                        std::vector<double> x;
-                        std::vector<double> y;
-                        std::vector<double> y_err;
-                        for (i = 0; i < qber_results_array.size(); i++) {
-                            x.push_back(qber_results_array[i].voltage);
-                            y.push_back(qber_results_array[i].success);
-                            y_err.push_back(qber_results_array[i].std_success);
-                        }
-                        fit(&x,&y,&y_err,&min);
-                        Log(VERBOSE, "new min calculated at %f V", min);
-                        /* min is where we think the minimum is, but we don't
-                         * want to move too fast since the interferometer
-                         * appears to have some hysteresis, i.e.  if you move
-                         * around too fast, you don't get reliable results.
-                         * Therefore, we use exponential smoothing to slowly
-                         * move towards the target value.
-                         *
-                         * In addition, we add a dither by adding a component
-                         * proportional to the cosine of the current iteration.
-                         * This makes sure we don't get stuck at the very
-                         * bottom of the minimum where there is no way to
-                         * actually fit the cosine curve. */
-                        target = (1-alpha)*target + alpha*min;
-                        voltage = target + 0.05*cos(2*M_PI*count/100.0);
-                    } else {
-                        /* We don't have enough points yet. So just move the
-                         * voltage up by a fixed amount to map out the curve. */
-                        voltage += 0.1;
-                        target = voltage;
-                    }
-
-                    /* Make sure we are not out of range. */
-                    if (isnan(voltage))
-                        voltage = 0;
-
-                    if (voltage < 0)
-                        voltage = 0;
-
-                    if (voltage > 5)
-                        voltage = 5;
-
-                    Log(VERBOSE, "setting voltage to %f", voltage);
-
-                    pthread_mutex_lock(this->sync);
-                    sprintf(cmd,":SOURce1:VOLTage %f", voltage);
-                    pthread_mutex_unlock(this->sync);
-                    ps_cmd(ps,cmd);
-                    emit(voltage_changed(voltage));
-                    timestamp = microtime();
                 }
             }
+            qber_array.clear();
             pthread_mutex_unlock(&this->m);
+
+            /* Only fit the last 100 points. */
+            int extra = qber_results_array.size() - 100;
+            if (extra > 0) {
+                Log(VERBOSE, "deleting %i elements from qber_results_array", extra);
+                qber_results_array.erase(qber_results_array.begin(), qber_results_array.begin() + extra);
+            }
+
+            if (qber_results_array.size() >= 10) {
+                /* We have ten points. Fit the success rate to a cosine
+                 * curve, and calculate the best spot to jump. */
+                std::vector<double> x;
+                std::vector<double> y;
+                std::vector<double> y_err;
+                for (i = 0; i < qber_results_array.size(); i++) {
+                    x.push_back(qber_results_array[i].voltage);
+                    y.push_back(qber_results_array[i].success);
+                    y_err.push_back(qber_results_array[i].std_success);
+                }
+                fit(&x,&y,&y_err,&min);
+                Log(VERBOSE, "new min calculated at %f V", min);
+                /* min is where we think the minimum is, but we don't
+                 * want to move too fast since the interferometer
+                 * appears to have some hysteresis, i.e.  if you move
+                 * around too fast, you don't get reliable results.
+                 * Therefore, we use exponential smoothing to slowly
+                 * move towards the target value.
+                 *
+                 * In addition, we add a dither by adding a component
+                 * proportional to the cosine of the current iteration.
+                 * This makes sure we don't get stuck at the very
+                 * bottom of the minimum where there is no way to
+                 * actually fit the cosine curve. */
+                target = (1-alpha)*target + alpha*min;
+                voltage = target + 0.05*cos(2*M_PI*count/100.0);
+            } else {
+                /* We don't have enough points yet. So just move the
+                 * voltage up by a fixed amount to map out the curve. */
+                voltage += 0.1;
+                target = voltage;
+            }
+
+            /* Make sure we are not out of range. */
+            if (isnan(voltage))
+                voltage = 0;
+
+            if (voltage < 0)
+                voltage = 0;
+
+            if (voltage > 5)
+                voltage = 5;
+
+            Log(VERBOSE, "setting voltage to %f", voltage);
+
+            pthread_mutex_lock(this->sync);
+            sprintf(cmd,":SOURce1:VOLTage %f", voltage);
+            pthread_mutex_unlock(this->sync);
+            ps_cmd(ps,cmd);
+            emit(voltage_changed(voltage));
+            timestamp = microtime();
         }
     }
     PhaseStabilizationThread(PowerSupply *ps_, pthread_mutex_t *sync_) {
