@@ -2086,6 +2086,7 @@ void MainWindow::SaveState(QString fileName)
     mapint.insert("in_PlotCCh1",ui->PlotCChn1->value());
     mapint.insert("in_bin_width",ui->bin_width->value());
     mapint.insert("in_ps_port",ui->ps_port->value());
+    mapint.insert("in_hist_end",ui->histEnd->value());
 
     mapdouble.insert("in_QKD_timeA", in_QKD_timeA);
     mapdouble.insert("in_QKD_timeB", in_QKD_timeB);
@@ -2188,6 +2189,8 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
         ui->bin_width->setValue(mapintout.value("in_bin_width"));
     if (mapintout.contains("in_ps_port"))
         ui->ps_port->setValue(mapintout.value("in_ps_port"));
+    if (mapintout.contains("in_hist_end"))
+        ui->histEnd->setValue(mapintout.value("in_hist_end"));
 
     if (mapdoubleout.contains("in_QKD_timeA"))
         qkdparam.ui->QKD_timeA->setValue(mapdoubleout.value("in_QKD_timeA"));
