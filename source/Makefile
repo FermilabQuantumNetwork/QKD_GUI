@@ -480,7 +480,6 @@ compiler_moc_header_clean:
 moc_mainwindow.cpp: mainwindow.h \
 		qcustomplot.h \
 		dbcontrol.h \
-		socket_com.h \
 		qkd_param.h \
 		ps.h \
 		swabian.h \
@@ -534,7 +533,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 main.o: main.cpp mainwindow.h \
 		qcustomplot.h \
 		dbcontrol.h \
-		socket_com.h \
 		qkd_param.h \
 		ps.h \
 		swabian.h \
@@ -548,7 +546,6 @@ dbcontrol.o: dbcontrol.cpp dbcontrol.h
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		qcustomplot.h \
 		dbcontrol.h \
-		socket_com.h \
 		qkd_param.h \
 		ps.h \
 		swabian.h \

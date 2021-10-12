@@ -8,7 +8,6 @@
 #include <ctime>
 #include <stdio.h>
 #include "dbcontrol.h"
-#include "socket_com.h"
 #include "qkd_param.h"
 #include "ps.h"
 
