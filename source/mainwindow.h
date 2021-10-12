@@ -42,6 +42,17 @@ namespace Ui {
 
 extern char qubit_sequence[100000];
 
+/* Struct to hold the quantum bit error rate for the last histogram. We need a
+ * struct here since we have several threads involved in calculating this and
+ * so we need a vector protected by a mutex lock to pass the data around.
+ * First, the HistogramWorkerThread takes the data and passes it off to the
+ * main thread. The main thread then calculates the quantum bit error rate and
+ * adds it to a qber std::vector. The PhaseStabilizationThread then accesses
+ * the vector and matches it up with the voltage that was set in order to
+ * figure out what voltage to minimize the error rate.
+ *
+ * Note: We actually use the success rate instead of the error rate since that
+ * should have a smaller relative error. */
 typedef struct qber {
     unsigned long long start;
     unsigned long long stop;
@@ -49,6 +60,8 @@ typedef struct qber {
     double std_success;
 } qber;
 
+/* Sturct to hold the quantum bit error rate after it has been matched up with
+ * the voltage. */
 typedef struct qber_results {
     unsigned long long timestamp;
     double voltage;
@@ -56,9 +69,34 @@ typedef struct qber_results {
     double std_success;
 } qber_results;
 
+/* Returns the current UNIX time in microseconds. */
 unsigned long long microtime(void);
 
-/* Phase Stabilization worker class. */
+/* Phase Stabilization worker class.
+ *
+ * This thread is responsible for talking with the LeCroy power supply which
+ * supplies a voltage to the heater (?) in Bob's interferometer in order to
+ * phase lock it with Alice's interferometer. The voltage is varied and matched
+ * up with the quantum bit error (or success) rate and then the voltage is
+ * tuned in order to minimize the error rate. This is inherently tricky since
+ * we are trying to tune the system to be at a minimum where the first
+ * derivative is zero. This means that we can't run a PID algorithm since when
+ * the error rate increases we don't know which way to change the voltage.
+ *
+ * The solution being used right now is that we keep track of the voltage and
+ * error rates and fit a sine curve to the data to determine the minimum. In
+ * order to make sure we have enough data along the curve we add a sinusoidal
+ * dither signal to the voltage on top of where we think the minimum is.
+ *
+ * This *kind of* seems to work, but does have some stability issues. For one,
+ * when you only have points very close to the minimum the fit is not able to
+ * determine the amplitude, offset, or frequency of the sine curve. The points
+ * are often degenerate with a very fast oscillating wave with a small
+ * amplitude and small offset. Therefore, right now I have added priors to the
+ * fit to essentially fix these three parameters and only vary the phase (which
+ * is what we really care about). In the future it might be nice to collect a
+ * lot of data before starting, fit with all parameters free, and then fix
+ * these to the values from the first fit. */
 class PhaseStabilizationThread : public QThread
 {
     Q_OBJECT
@@ -520,9 +558,6 @@ private:
     QSpinBox *delay_widgets[18];
     QComboBox *test_widgets[18];
     QLCDNumber *rate_widgets[18];
-
-    /*QFile savejasonFile;
-    QJsonArray jasonhistoA, jasonhistoB, jasonhistoC;*/
 
     bool HDF5File_created=false;
 signals:

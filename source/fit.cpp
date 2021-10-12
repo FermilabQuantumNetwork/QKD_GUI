@@ -135,9 +135,9 @@ int fit(std::vector<double> *v, std::vector<double> *qber, std::vector<double> *
     mu[0] = 0.5;
     sigma[0] = 0.01;
     mu[1] = 0.4;
-    sigma[1] = 0.1;
+    sigma[1] = 0.01;
     mu[2] = 0.7;
-    sigma[2] = 0.1;
+    sigma[2] = 0.01;
     mu[3] = 1.0;
     sigma[3] = 100.0;
 
