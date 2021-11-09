@@ -452,7 +452,7 @@ private slots:
     void plot_qkd_results_det(double okA,double errA,double randA,double bkgndA,double okB,double errB,double randB,double bkgndB,double okC,double errC,double randC,double bkgndC, double key);
     void plot_qkd_results_QB(double okE,double errE,double randE,double bkgndE,double okL,double errL,double randL, double bkgndL,double okP,double errP,double randP,double bkgndP, double key);
 
-    void plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double key);
+    void plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double error_phase_qubit, double key);
 
     void hdf5savefile();
 

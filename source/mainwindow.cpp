@@ -166,6 +166,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setup_plot_qkd_results(ui->QKD_H2_results);
     setup_plot_qkd_results(ui->QKD_H3_results);
     setup_plot_qkd_stats(ui->qkd_errorplot);
+    setup_plot_qkd_stats(ui->qkd_siftedplot_2);
     setup_plot_voltage(ui->qkd_siftedplot);
     setup_plot_qkd_results(ui->Early_results);
     setup_plot_qkd_results(ui->Late_results);
@@ -1277,6 +1278,9 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
         }
     }
 
+    int resultPB = 0;
+    int resultPC = 0;
+                
     for (i = 0; i < datB.size()/2; i++) {
         if (datB[2*i] > histEnd) break;
         double t = datB[2*i];
@@ -1290,6 +1294,8 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                 /* Got an early early signal, which is always ignored. */
                 switch (qubit_sequence[j]) {
                 case 'E':
+                    if (j > 0 && (qubit_sequence[j-1] == 'L'))
+                        resultPB += 1;
                 case 'L':
                 case '0':
                 case 'P':
@@ -1349,7 +1355,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
             }
         }
     }
-                
+
     for (i = 0; i < datC.size()/2; i++) {
         if (datC[2*i] > histEnd) break;
         double t = datC[2*i];
@@ -1363,6 +1369,8 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
                 /* Got an early early signal, which is always ignored. */
                 switch (qubit_sequence[j]) {
                 case 'E':
+                    if (j > 0 && (qubit_sequence[j-1] == 'L'))
+                        resultPC += 1;
                 case 'L':
                 case '0':
                 case 'P':
@@ -1437,7 +1445,7 @@ void MainWindow::show_histograms(const vectorDouble &datA, const vectorDouble &d
     double sifted_phase = resultBok/((double) resultBok+resultBerr+resultCerr);
     double error_time = resultAerr/((double) resultAok+resultAerr);
     double error_phase = resultCerr/((double) resultBok+resultBerr+resultCerr);
-    plot_qkd_stats(sifted_time, sifted_phase, error_time, error_phase, key);
+    plot_qkd_stats(sifted_time, sifted_phase, error_time, error_phase, resultPB/((float) resultPB + resultPC),key);
 
     if (this->phaseStabilizationThread) {
         pthread_mutex_lock(&phaseStabilizationThread->m);
@@ -1865,21 +1873,25 @@ void MainWindow::plot_voltage(double voltage)
     ui->qkd_siftedplot->replot();
 }
 
-void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double key)
+void MainWindow::plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double error_phase_qubit, double key)
 {
     ui->qkd_errorplot->graph(0)->addData(key-lastPointKey_tab3, error_time);
     ui->qkd_errorplot->graph(1)->addData(key-lastPointKey_tab3, error_phase);
+    ui->qkd_siftedplot_2->graph(0)->addData(key-lastPointKey_tab3, error_phase);
 
     //ui->qkd_siftedplot->graph(0)->addData(key-lastPointKey_tab3, sifted_time);
     //ui->qkd_siftedplot->graph(1)->addData(key-lastPointKey_tab3, sifted_phase);
 
     ui->qkd_errorplot->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
+    ui->qkd_siftedplot_2->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
     //ui->qkd_siftedplot->xAxis->setRange(key-lastPointKey_tab1, 120, Qt::AlignRight);
 
     ui->qkd_errorplot->rescaleAxes();
+    ui->qkd_siftedplot_2->rescaleAxes();
     //ui->qkd_siftedplot->rescaleAxes();
 
     ui->qkd_errorplot->replot();
+    ui->qkd_siftedplot_2->replot();
     //ui->qkd_siftedplot->replot();
 }
 
