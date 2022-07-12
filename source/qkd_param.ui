@@ -95,18 +95,24 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="QKD_phA">
+        <widget class="QDoubleSpinBox" name="QKD_phA">
          <property name="styleSheet">
           <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="prefix">
+          <string/>
          </property>
          <property name="suffix">
           <string> [ps]</string>
          </property>
-         <property name="minimum">
-          <number>1</number>
+         <property name="decimals">
+          <number>3</number>
          </property>
          <property name="maximum">
-          <number>3000</number>
+          <double>3000.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>1.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -240,18 +246,21 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="QKD_phB">
+        <widget class="QDoubleSpinBox" name="QKD_phB">
          <property name="styleSheet">
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="suffix">
           <string> [ps]</string>
          </property>
-         <property name="minimum">
-          <number>1</number>
+         <property name="decimals">
+          <number>3</number>
          </property>
          <property name="maximum">
-          <number>3000</number>
+          <double>3000.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>1.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -385,12 +394,21 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="QKD_phC">
+        <widget class="QDoubleSpinBox" name="QKD_phC">
          <property name="styleSheet">
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="suffix">
           <string> [ps]</string>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>1.000000000000000</double>
          </property>
         </widget>
        </item>
