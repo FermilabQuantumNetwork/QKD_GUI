@@ -2367,3 +2367,33 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     event->accept();
 }
+
+void MainWindow::resetButton_clicked() {
+    // Array of the plots that will be cleared
+    // There are currently 9 plots, so that number must be updated in the loop as well if it changes
+    QCustomPlot *ui_plots[9] = {ui->QKD_H1_results, ui->QKD_H2_results, ui->QKD_H3_results,
+                               ui->Early_results, ui->Late_results, ui->Phase_results,
+                               ui->qkd_errorplot, ui->qkd_siftedplot, ui->qkd_siftedplot_2};
+
+    for (int p = 0; p < 9; p++) {
+            for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
+                ui_plots[p]->graph(g)->data()->clear();
+            }
+            ui_plots[p]->replot();
+    }
+}
+
+void MainWindow::on_resetButton_1_clicked()
+{
+    resetButton_clicked();
+}
+
+void MainWindow::on_resetButton_2_clicked()
+{
+    resetButton_clicked();
+}
+
+void MainWindow::on_resetButton_3_clicked()
+{
+    resetButton_clicked();
+}
