@@ -466,6 +466,11 @@ private slots:
     void PowerSupplyDisconnect(void);
     void PowerSupplyConnect(void);
 
+    void resetButton_clicked();
+    void on_resetButton_1_clicked();
+    void on_resetButton_2_clicked();
+    void on_resetButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     Swabian s;
