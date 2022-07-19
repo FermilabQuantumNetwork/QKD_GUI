@@ -138,7 +138,7 @@ void DBControl::createHDF5forQKDdata(QString name){
         /*
          * Create a new file. If file exists its contents will be overwritten.
          */
-        QString nameh5 = name + ".h5";
+        QString nameh5 = "../data/" + name + ".h5";
         fileh5 = new H5::H5File(nameh5.toLocal8Bit().data(), H5F_ACC_TRUNC);
         /*
          * Modify dataset creation properties, i.e. enable chunking.
