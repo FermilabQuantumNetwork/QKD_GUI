@@ -25,6 +25,7 @@ SOURCES += main.cpp\
            mainwindow.cpp \
            qcustomplot.cpp \
            qkd_param.cpp \
+           save_param.cpp \
            swabian.cpp \
            CustomStartStop.cpp \
            ps.cpp \
@@ -36,6 +37,7 @@ HEADERS  += mainwindow.h \
             dbcontrol.h \
             qcustomplot.h \
             qkd_param.h \
+            save_param.h \
             swabian.h \
             CustomStartStop.h \
             ps.h \
@@ -44,7 +46,8 @@ HEADERS  += mainwindow.h \
 	   
 
 FORMS    += mainwindow.ui \
-    qkd_param.ui
+    qkd_param.ui \
+    save_param.ui
 
 
 RESOURCES += \

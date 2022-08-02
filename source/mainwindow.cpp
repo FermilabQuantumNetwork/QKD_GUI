@@ -14,6 +14,8 @@
 #include <H5Cpp.h>
 #include "qkd_param.h"
 #include "ui_qkd_param.h"
+#include "save_param.h"
+#include "ui_save_param.h"
 #include "ps.h"
 #include <sys/time.h>
 
@@ -231,6 +233,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
 
     connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked()));
+
+    connect(ui->actionSave_Data, SIGNAL(triggered()), &save_param, SLOT(show()));
 }
 
 //////////////////////////////////////////////////////////
