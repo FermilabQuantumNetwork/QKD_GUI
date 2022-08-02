@@ -473,7 +473,7 @@ private slots:
     QVector<int> graphDataToIntVector(QCPGraph *graph);
     QVector<double> graphDataToDoubleVector(QCPGraph *graph);
 
-    void pointsButton_clicked(int amount);
+    void pointsButton_clicked(int amount = 3);
 
 private:
     Ui::MainWindow *ui;

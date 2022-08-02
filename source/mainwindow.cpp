@@ -230,7 +230,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
 
-    connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked(3)));
+    connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked()));
 }
 
 //////////////////////////////////////////////////////////
@@ -2400,12 +2400,12 @@ void MainWindow::pointsButton_clicked(int amount)
     for (int p = 0; p < 9; p++) {
         for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
             for (int i = 0; i < amount; i++) {
-                ui_plots[p]->graph(g)->addData(adding_points_counter / 2.0, rand() % 5);
+                ui_plots[p]->graph(g)->addData(adding_points_counter / 2.0 + i, rand() % 5);
             }
         }
         ui_plots[p]->replot();
     }
-    adding_points_counter++;
+    adding_points_counter += amount;
 }
 
 
