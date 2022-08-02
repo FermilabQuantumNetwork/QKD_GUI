@@ -467,9 +467,6 @@ private slots:
     void PowerSupplyConnect(void);
 
     void resetButton_clicked();
-    void on_resetButton_1_clicked();
-    void on_resetButton_2_clicked();
-    void on_resetButton_3_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -535,18 +532,18 @@ private:
     bool qubitsfromDBloaded = false;
     int QKD_DB_ON=0;
 
-    QVector<double> datah5okA;
-    QVector<double> datah5errA;
-    QVector<double> datah5randA;
-    QVector<double> datah5bkgndA;
-    QVector<double> datah5okB;
-    QVector<double> datah5errB;
-    QVector<double> datah5randB;
-    QVector<double> datah5bkgndB;
-    QVector<double> datah5okC;
-    QVector<double> datah5errC;
-    QVector<double> datah5randC;
-    QVector<double> datah5bkgndC;
+    QVector<int> datah5okA;
+    QVector<int> datah5errA;
+    QVector<int> datah5randA;
+    QVector<int> datah5bkgndA;
+    QVector<int> datah5okB;
+    QVector<int> datah5errB;
+    QVector<int> datah5randB;
+    QVector<int> datah5bkgndB;
+    QVector<int> datah5okC;
+    QVector<int> datah5errC;
+    QVector<int> datah5randC;
+    QVector<int> datah5bkgndC;
 
     int rof[18];
     double thresholds[18];
@@ -560,6 +557,7 @@ private:
     QLCDNumber *rate_widgets[18];
 
     bool HDF5File_created=false;
+
 signals:
     void main_SaveAndValues(int and1, int and2, int and3, int orgate, int bsm1, int bsm2, float andTime, int delayline);
     void main_SaveRateValues( int Ra1, int Ra2, int Ra3, int Rb1, int Rb2, int Rb3, int Rc1, int Rc2, int Rc3, float hist_adqtime);
