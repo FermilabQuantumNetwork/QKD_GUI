@@ -225,6 +225,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->ps_disconnect_button->setEnabled(false);
     ui->ps_start_button->setEnabled(false);
     ui->ps_stop_button->setEnabled(false);
+
+    connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
 }
 
 //////////////////////////////////////////////////////////
@@ -2368,7 +2370,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void MainWindow::resetButton_clicked() {
+void MainWindow::resetButton_clicked()
+{
     // Array of the plots that will be cleared
     // There are currently 9 plots, so that number must be updated in the loop as well if it changes
     QCustomPlot *ui_plots[9] = {ui->QKD_H1_results, ui->QKD_H2_results, ui->QKD_H3_results,
@@ -2381,19 +2384,4 @@ void MainWindow::resetButton_clicked() {
             }
             ui_plots[p]->replot();
     }
-}
-
-void MainWindow::on_resetButton_1_clicked()
-{
-    resetButton_clicked();
-}
-
-void MainWindow::on_resetButton_2_clicked()
-{
-    resetButton_clicked();
-}
-
-void MainWindow::on_resetButton_3_clicked()
-{
-    resetButton_clicked();
 }

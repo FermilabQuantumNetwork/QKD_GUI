@@ -51,7 +51,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab1">
        <property name="autoFillBackground">
@@ -1503,13 +1503,6 @@
              <enum>QLayout::SetMinimumSize</enum>
             </property>
             <item>
-             <widget class="QPushButton" name="resetButton_1">
-              <property name="text">
-               <string>Reset</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <spacer name="verticalSpacer_2">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -1746,13 +1739,6 @@
           <property name="sizeConstraint">
            <enum>QLayout::SetMinimumSize</enum>
           </property>
-          <item>
-           <widget class="QPushButton" name="resetButton_2">
-            <property name="text">
-             <string>Reset</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <spacer name="verticalSpacer_20">
             <property name="orientation">
@@ -2419,13 +2405,6 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_16">
           <item>
-           <widget class="QPushButton" name="resetButton_3">
-            <property name="text">
-             <string>Reset</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="verticalSpacer_16">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -2696,12 +2675,16 @@
     <addaction name="actionLoad_state"/>
     <addaction name="separator"/>
     <addaction name="menuLoad_Qubits"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Data"/>
    </widget>
    <widget class="QMenu" name="menuQKD_param">
     <property name="title">
      <string>Edit</string>
     </property>
     <addaction name="actionQKD"/>
+    <addaction name="separator"/>
+    <addaction name="actionReset"/>
    </widget>
    <widget class="QMenu" name="menuConnect">
     <property name="title">
@@ -2718,12 +2701,12 @@
   </widget>
   <action name="actionSave_state">
    <property name="text">
-    <string>Save state</string>
+    <string>Save State</string>
    </property>
   </action>
   <action name="actionLoad_state">
    <property name="text">
-    <string>Load state</string>
+    <string>Load State</string>
    </property>
   </action>
   <action name="actionQKD">
@@ -2739,6 +2722,16 @@
   <action name="actionDisconnect">
    <property name="text">
     <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="text">
+    <string>Reset</string>
+   </property>
+  </action>
+  <action name="actionSave_Data">
+   <property name="text">
+    <string>Save Data</string>
    </property>
   </action>
  </widget>
