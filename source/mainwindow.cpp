@@ -22,6 +22,8 @@
 
 char qubit_sequence[100000] = "E0E0L0L0P0P0";
 
+int adding_points_counter = 0;
+
 unsigned long long microtime(void)
 {
     struct timeval tv;
@@ -227,6 +229,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->ps_stop_button->setEnabled(false);
 
     connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
+
+    connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked(3)));
 }
 
 //////////////////////////////////////////////////////////
@@ -2384,4 +2388,59 @@ void MainWindow::resetButton_clicked()
             }
             ui_plots[p]->replot();
     }
+    adding_points_counter = 0;
+}
+
+void MainWindow::pointsButton_clicked(int amount)
+{
+    QCustomPlot *ui_plots[9] = {ui->QKD_H1_results, ui->QKD_H2_results, ui->QKD_H3_results,
+                               ui->Early_results, ui->Late_results, ui->Phase_results,
+                               ui->qkd_errorplot, ui->qkd_siftedplot, ui->qkd_siftedplot_2};
+
+    for (int p = 0; p < 9; p++) {
+        for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
+            for (int i = 0; i < amount; i++) {
+                ui_plots[p]->graph(g)->addData(adding_points_counter / 2.0, rand() % 5);
+            }
+        }
+        ui_plots[p]->replot();
+    }
+    adding_points_counter++;
+}
+
+
+void MainWindow::on_saveQBButton_clicked()
+{
+    QCustomPlot *early_p = ui->Early_results;
+    QCustomPlot *late_p = ui->Late_results;
+    QCustomPlot *phase_p = ui->Phase_results;
+
+    emit saveH5datafromMW(graphDataToIntVector(early_p->graph(0)), graphDataToIntVector(early_p->graph(1)), graphDataToIntVector(early_p->graph(2)), graphDataToIntVector(early_p->graph(3)),
+                          graphDataToIntVector(late_p->graph(0)), graphDataToIntVector(late_p->graph(1)), graphDataToIntVector(late_p->graph(2)), graphDataToIntVector(late_p->graph(3)),
+                          graphDataToIntVector(phase_p->graph(0)), graphDataToIntVector(phase_p->graph(1)), graphDataToIntVector(phase_p->graph(2)), graphDataToIntVector(phase_p->graph(3)));
+}
+
+QVector<int> MainWindow::graphDataToIntVector(QCPGraph *graph)
+{
+    int data_count = graph->dataCount();
+    QVector<int> vector = QVector<int>(data_count);
+
+    for (int i = 0; i < data_count; i++) {
+        vector[i] = (int) graph->dataMainValue(i);
+    }
+
+    return vector;
+}
+
+QVector<double> MainWindow::graphDataToDoubleVector(QCPGraph *graph)
+{
+    int data_count = 2 * graph->dataCount();
+    QVector<double> vector = QVector<double>(data_count);
+
+    for (int i = 0; i < data_count; i += 2) {
+        vector[i] = graph->dataMainKey(i);
+        vector[i + 1] = (graph->dataMainValue(i));
+    }
+
+    return vector;
 }

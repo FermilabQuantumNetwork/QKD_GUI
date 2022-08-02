@@ -468,6 +468,13 @@ private slots:
 
     void resetButton_clicked();
 
+    void on_saveQBButton_clicked();
+
+    QVector<int> graphDataToIntVector(QCPGraph *graph);
+    QVector<double> graphDataToDoubleVector(QCPGraph *graph);
+
+    void pointsButton_clicked(int amount);
+
 private:
     Ui::MainWindow *ui;
     Swabian s;
