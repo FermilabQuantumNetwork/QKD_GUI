@@ -15,7 +15,7 @@
 #include "qkd_param.h"
 #include "ui_qkd_param.h"
 #include "save_dialog.h"
-#include "ui_save_param.h"
+#include "ui_save_dialog.h"
 #include "ps.h"
 #include <sys/time.h>
 
@@ -235,6 +235,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked()));
 
     connect(ui->actionSave_Data, SIGNAL(triggered()), &save_dialog, SLOT(show()));
+
+    connect((&save_dialog)->ui->pushButton_file, SIGNAL(released()), this, SLOT(hdf5savefile()));
 }
 
 //////////////////////////////////////////////////////////
@@ -2278,7 +2280,7 @@ MainWindow::~MainWindow()
 void MainWindow::hdf5savefile()
 {
     bool ok;
-    QString comentario = QInputDialog::getText(this, tr("Record DATA"),tr("Insert a name for HDF5 the file"), QLineEdit::Normal,QDir::home().dirName(), &ok);
+    QString comentario = QInputDialog::getText(&save_dialog, tr("Record DATA"),tr("Insert a name for HDF5 the file"), QLineEdit::Normal,QDir::home().dirName(), &ok);
 
     if (ok && !comentario.isEmpty()){
         HDF5File_created=true;

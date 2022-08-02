@@ -4,7 +4,7 @@
 #include <QDialog>
 
 namespace Ui {
-class Save_dialog;
+    class Save_dialog;
 }
 
 class Save_dialog : public QDialog
@@ -14,6 +14,7 @@ class Save_dialog : public QDialog
 public:
     explicit Save_dialog(QWidget *parent = nullptr);
     ~Save_dialog();
+    Ui::Save_dialog *ui;
 
 private slots:
     void on_checkBox_det_toggled(bool checked);
@@ -21,7 +22,7 @@ private slots:
     void on_checkBox_stats_toggled(bool checked);
 
 private:
-    Ui::Save_dialog *ui;
+
 };
 
 #endif // SAVE_DIALOG_H

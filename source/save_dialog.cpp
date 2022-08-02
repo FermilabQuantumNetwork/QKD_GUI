@@ -1,11 +1,15 @@
 #include "save_dialog.h"
 #include "ui_save_dialog.h"
 
-Save_dialog::Save_dialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Save_dialog)
+Save_dialog::Save_dialog(QWidget *parent) : QDialog(parent), ui(new Ui::Save_dialog)
 {
     ui->setupUi(this);
+
+    emit ui->checkBox_det->toggle();
+    emit ui->checkBox_qb->toggle();
+    emit ui->checkBox_stats->toggle();
+
+    this->setWindowFlags(Qt::WindowStaysOnTopHint);
 }
 
 Save_dialog::~Save_dialog()
@@ -53,4 +57,3 @@ void Save_dialog::on_checkBox_stats_toggled(bool checked)
         ui->checkBox_stat_voltage->setChecked(false);
     }
 }
-

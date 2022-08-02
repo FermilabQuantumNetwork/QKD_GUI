@@ -18,6 +18,7 @@
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -64,12 +65,13 @@ public:
     QSpacerItem *horizontalSpacer_6;
     QCheckBox *checkBox_phase;
     QDialogButtonBox *buttonBox;
+    QPushButton *pushButton_file;
 
     void setupUi(QDialog *Save_dialog)
     {
         if (Save_dialog->objectName().isEmpty())
             Save_dialog->setObjectName(QStringLiteral("Save_dialog"));
-        Save_dialog->resize(434, 164);
+        Save_dialog->resize(433, 183);
         verticalLayoutWidget = new QWidget(Save_dialog);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(10, 10, 111, 111));
@@ -231,10 +233,13 @@ public:
 
         buttonBox = new QDialogButtonBox(Save_dialog);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(20, 130, 341, 32));
+        buttonBox->setGeometry(QRect(140, 140, 171, 31));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
         buttonBox->setCenterButtons(true);
+        pushButton_file = new QPushButton(Save_dialog);
+        pushButton_file->setObjectName(QStringLiteral("pushButton_file"));
+        pushButton_file->setGeometry(QRect(10, 140, 80, 31));
 
         retranslateUi(Save_dialog);
 
@@ -243,7 +248,7 @@ public:
 
     void retranslateUi(QDialog *Save_dialog)
     {
-        Save_dialog->setWindowTitle(QApplication::translate("Save_dialog", "Dialog", Q_NULLPTR));
+        Save_dialog->setWindowTitle(QApplication::translate("Save_dialog", "Save Plots", Q_NULLPTR));
         checkBox_det->setText(QApplication::translate("Save_dialog", "QKD Results/det", Q_NULLPTR));
         checkBox_h1->setText(QApplication::translate("Save_dialog", "1", Q_NULLPTR));
         checkBox_h2->setText(QApplication::translate("Save_dialog", "2", Q_NULLPTR));
@@ -256,6 +261,7 @@ public:
         checkBox_early->setText(QApplication::translate("Save_dialog", "Early", Q_NULLPTR));
         checkBox_late->setText(QApplication::translate("Save_dialog", "Late", Q_NULLPTR));
         checkBox_phase->setText(QApplication::translate("Save_dialog", "Phase", Q_NULLPTR));
+        pushButton_file->setText(QApplication::translate("Save_dialog", "File Name", Q_NULLPTR));
     } // retranslateUi
 
 };
