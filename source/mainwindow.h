@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "dbcontrol.h"
 #include "qkd_param.h"
-#include "save_param.h"
+#include "save_dialog.h"
 #include "ps.h"
 
 #include <QFile>
@@ -481,7 +481,7 @@ private:
     Swabian s;
     DBControl dbc;
     QKD_param qkdparam;
-    Save_param save_param;
+    Save_dialog save_dialog;
     QString demoName;
     QTimer dataTimer;
     QCPItemTracer *itemDemoPhaseTracer;
