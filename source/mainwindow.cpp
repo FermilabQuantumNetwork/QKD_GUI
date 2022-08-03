@@ -2414,17 +2414,6 @@ void MainWindow::pointsButton_clicked(int amount)
     adding_points_counter += amount;
 }
 
-void MainWindow::savePageQB()
-{
-    QCustomPlot *early_p = ui->Early_results;
-    QCustomPlot *late_p = ui->Late_results;
-    QCustomPlot *phase_p = ui->Phase_results;
-
-    emit saveH5datafromMW(graphDataToIntVector(early_p->graph(0)), graphDataToIntVector(early_p->graph(1)), graphDataToIntVector(early_p->graph(2)), graphDataToIntVector(early_p->graph(3)),
-                          graphDataToIntVector(late_p->graph(0)), graphDataToIntVector(late_p->graph(1)), graphDataToIntVector(late_p->graph(2)), graphDataToIntVector(late_p->graph(3)),
-                          graphDataToIntVector(phase_p->graph(0)), graphDataToIntVector(phase_p->graph(1)), graphDataToIntVector(phase_p->graph(2)), graphDataToIntVector(phase_p->graph(3)));
-}
-
 QVector<int> MainWindow::graphDataToIntVector(QCPGraph *graph)
 {
     int data_count = graph->dataCount();
@@ -2450,7 +2439,38 @@ QVector<double> MainWindow::graphDataToDoubleVector(QCPGraph *graph)
     return vector;
 }
 
+void MainWindow::savePageDet()
+{
+
+}
+
+void MainWindow::savePageQB()
+{
+    QCustomPlot *early_p = ui->Early_results;
+    QCustomPlot *late_p = ui->Late_results;
+    QCustomPlot *phase_p = ui->Phase_results;
+
+    emit saveH5datafromMW(graphDataToIntVector(early_p->graph(0)), graphDataToIntVector(early_p->graph(1)), graphDataToIntVector(early_p->graph(2)), graphDataToIntVector(early_p->graph(3)),
+                          graphDataToIntVector(late_p->graph(0)), graphDataToIntVector(late_p->graph(1)), graphDataToIntVector(late_p->graph(2)), graphDataToIntVector(late_p->graph(3)),
+                          graphDataToIntVector(phase_p->graph(0)), graphDataToIntVector(phase_p->graph(1)), graphDataToIntVector(phase_p->graph(2)), graphDataToIntVector(phase_p->graph(3)));
+}
+
+void MainWindow::savePageStats()
+{
+
+}
+
 void MainWindow::saveData(bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage)
 {
     Log(NOTICE, "save signal received: %d %d %d %d %d %d %d %d %d", h1, h2, h3, early, late, phase, time, error, voltage);
+    if (h1 || h2 || h3) {
+        savePageDet();
+    }
+    if (early || late || phase) {
+        savePageQB();
+    }
+    if (time || error || voltage) {
+        savePageStats();
+    }
+
 }

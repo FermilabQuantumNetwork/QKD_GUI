@@ -240,4 +240,8 @@ void DBControl::disconnectFromServer()
     db.close();
 }
 
+void DBControl::savePlotToHDF5()
+{
+
+}
 

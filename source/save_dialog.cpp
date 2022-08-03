@@ -65,6 +65,8 @@ void Save_dialog::on_buttonBox_accepted()
     emit savePressed(ui->checkBox_h1->isChecked(), ui->checkBox_h2->isChecked(), ui->checkBox_h3->isChecked(),
                      ui->checkBox_early->isChecked(), ui->checkBox_late->isChecked(), ui->checkBox_phase->isChecked(),
                      ui->checkBox_stat_time->isChecked(), ui->checkBox_stat_phase->isChecked(), ui->checkBox_stat_voltage->isChecked());
+
+    this->close();
 }
 
 void Save_dialog::on_buttonBox_rejected()
