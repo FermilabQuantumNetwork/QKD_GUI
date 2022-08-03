@@ -1740,7 +1740,7 @@
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item>
-           <widget class="QPushButton" name="saveQBButton">
+           <widget class="QPushButton" name="saveButtonQB">
             <property name="text">
              <string>Save</string>
             </property>

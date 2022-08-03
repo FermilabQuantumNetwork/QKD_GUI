@@ -1,6 +1,8 @@
 #include "save_dialog.h"
 #include "ui_save_dialog.h"
 
+#include "logging.h"
+
 Save_dialog::Save_dialog(QWidget *parent) : QDialog(parent), ui(new Ui::Save_dialog)
 {
     ui->setupUi(this);
@@ -56,4 +58,16 @@ void Save_dialog::on_checkBox_stats_toggled(bool checked)
         ui->checkBox_stat_phase->setChecked(false);
         ui->checkBox_stat_voltage->setChecked(false);
     }
+}
+
+void Save_dialog::on_buttonBox_accepted()
+{
+    emit savePressed(ui->checkBox_h1->isChecked(), ui->checkBox_h2->isChecked(), ui->checkBox_h3->isChecked(),
+                     ui->checkBox_early->isChecked(), ui->checkBox_late->isChecked(), ui->checkBox_phase->isChecked(),
+                     ui->checkBox_stat_time->isChecked(), ui->checkBox_stat_phase->isChecked(), ui->checkBox_stat_voltage->isChecked());
+}
+
+void Save_dialog::on_buttonBox_rejected()
+{
+    this->close();
 }

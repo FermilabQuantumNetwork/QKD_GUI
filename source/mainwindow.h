@@ -469,7 +469,8 @@ private slots:
 
     void resetButton_clicked();
 
-    void on_saveQBButton_clicked();
+    void saveData(bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+    void savePageQB();
 
     QVector<int> graphDataToIntVector(QCPGraph *graph);
     QVector<double> graphDataToDoubleVector(QCPGraph *graph);

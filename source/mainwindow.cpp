@@ -231,11 +231,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->ps_stop_button->setEnabled(false);
 
     connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
-
     connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked()));
 
+    connect(ui->saveButtonQB, SIGNAL(pressed()), this, SLOT(savePageQB()));
+    connect((&save_dialog), &Save_dialog::savePressed, this, &MainWindow::saveData);
     connect(ui->actionSave_Data, SIGNAL(triggered()), &save_dialog, SLOT(show()));
-
     connect((&save_dialog)->ui->pushButton_file, SIGNAL(released()), this, SLOT(hdf5savefile()));
 }
 
@@ -2414,8 +2414,7 @@ void MainWindow::pointsButton_clicked(int amount)
     adding_points_counter += amount;
 }
 
-
-void MainWindow::on_saveQBButton_clicked()
+void MainWindow::savePageQB()
 {
     QCustomPlot *early_p = ui->Early_results;
     QCustomPlot *late_p = ui->Late_results;
@@ -2449,4 +2448,9 @@ QVector<double> MainWindow::graphDataToDoubleVector(QCPGraph *graph)
     }
 
     return vector;
+}
+
+void MainWindow::saveData(bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage)
+{
+    Log(NOTICE, "save signal received: %d %d %d %d %d %d %d %d %d", h1, h2, h3, early, late, phase, time, error, voltage);
 }
