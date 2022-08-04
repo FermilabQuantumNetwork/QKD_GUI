@@ -455,8 +455,6 @@ private slots:
 
     void plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double error_phase_qubit, double key);
 
-    void hdf5savefile();
-
     void fillTablesNames(QStringList tables_names);
     void tableSelected(QAction* action){emit tableQKDtoDB(action->text());}
 
@@ -475,7 +473,7 @@ private slots:
     void savePageDet();
     void savePageQB();
     void savePageStats();
-    void saveData(bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+    void saveData(QString file_name, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
 
     void pointsButton_clicked(int amount = 3);
 

@@ -236,7 +236,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->saveButtonQB, SIGNAL(pressed()), this, SLOT(savePageQB()));
     connect((&save_dialog), &Save_dialog::savePressed, this, &MainWindow::saveData);
     connect(ui->actionSave_Data, SIGNAL(triggered()), &save_dialog, SLOT(show()));
-    connect((&save_dialog)->ui->pushButton_file, SIGNAL(released()), this, SLOT(hdf5savefile()));
 }
 
 //////////////////////////////////////////////////////////
@@ -942,7 +941,6 @@ void MainWindow::setupsignalslot()
 
     QObject::connect(&dbc, SIGNAL(qubitsfromDB(boolvector2d, int, int)), this, SLOT(set_qkd_datafromDB(boolvector2d , int, int)),Qt::QueuedConnection);
 
-    QObject::connect(&qkdparam, SIGNAL(savehdf5()), this, SLOT(hdf5savefile()));
     QObject::connect(this, SIGNAL(MW_savehdf5(QString)), &dbc, SLOT(createHDF5forQKDdata(QString)));
 
     QObject::connect(this, SIGNAL(saveH5datafromMW(intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector)), &dbc, SLOT(appendQKDdata2HDF5(intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector)));
@@ -2277,29 +2275,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::hdf5savefile()
-{
-    bool ok;
-    QString comentario = QInputDialog::getText(&save_dialog, tr("Record DATA"),tr("Insert a name for HDF5 the file"), QLineEdit::Normal,QDir::home().dirName(), &ok);
-
-    if (ok && !comentario.isEmpty()){
-        HDF5File_created=true;
-        emit MW_savehdf5(comentario);
-    }
-
-   /*    QString key = QDateTime::currentDateTime().toString("dd_MMM_yyyy_hh:mm" );
-       key.append(".txt");
-
-       data = new QFile(key);
-
-       if (!data->open(QIODevice::WriteOnly | QIODevice::Text))return;
-
-       QTextStream out(data);
-       out<<"# "<<comentario<<"\n";
-       out<<"Vch0\tVch1\tCch0\tCch1\tTime\n";
-       recorddata=true;*/
-}
-
 void MainWindow::fillTablesNames(QStringList tables_names)
 {
     if (tables_names.length() == 0) {
@@ -2460,9 +2435,30 @@ void MainWindow::savePageStats()
 
 }
 
-void MainWindow::saveData(bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage)
+/*
+ * Assumes file_name is not empty
+ * Each bool tells which plot to save. The bool name corresponds to the plot name or data is holds.
+*/
+void MainWindow::saveData(QString file_name, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage)
 {
-    Log(NOTICE, "save signal received: %d %d %d %d %d %d %d %d %d", h1, h2, h3, early, late, phase, time, error, voltage);
+    Log(NOTICE, "save signal received @ %s: %d %d %d %d %d %d %d %d %d", qPrintable(file_name), h1, h2, h3, early, late, phase, time, error, voltage);
+
+    HDF5File_created=true;
+    emit MW_savehdf5(file_name);
+
+    /*  Copied from old hdf5savefile() function:
+        QString key = QDateTime::currentDateTime().toString("dd_MMM_yyyy_hh:mm" );
+        key.append(".txt");
+
+        data = new QFile(key);
+
+        if (!data->open(QIODevice::WriteOnly | QIODevice::Text))return;
+
+        QTextStream out(data);
+        out<<"# "<<text_input<<"\n";
+        out<<"Vch0\tVch1\tCch0\tCch1\tTime\n";
+        recorddata=true;*/
+
     if (h1 || h2 || h3) {
         savePageDet();
     }

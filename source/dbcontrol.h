@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QtCore>
 #include "H5Cpp.h"
+#include "qcustomplot.h"
 
 
 typedef QVector<QVector<bool>> boolvector2d;
@@ -50,6 +51,6 @@ public slots:
     void createHDF5forQKDdata(QString name);
     void appendQKDdata2HDF5(const intvector dataokA,const intvector dataerrA, const intvector datarandA, const intvector databkgndA, const intvector dataokB,const intvector dataerrB, const intvector datarandB, const intvector databkgndB, const intvector dataokC,const intvector dataerrC, const intvector datarandC, const intvector databkgndC);
 
-    void savePlotToHDF5();
+    void savePlotToHDF5(QCustomPlot *plot);
 };
 #endif // DBCONTROL_H

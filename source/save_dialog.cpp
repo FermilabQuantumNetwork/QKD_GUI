@@ -2,6 +2,7 @@
 #include "ui_save_dialog.h"
 
 #include "logging.h"
+#include <QInputDialog>
 
 Save_dialog::Save_dialog(QWidget *parent) : QDialog(parent), ui(new Ui::Save_dialog)
 {
@@ -62,7 +63,7 @@ void Save_dialog::on_checkBox_stats_toggled(bool checked)
 
 void Save_dialog::on_buttonBox_accepted()
 {
-    emit savePressed(ui->checkBox_h1->isChecked(), ui->checkBox_h2->isChecked(), ui->checkBox_h3->isChecked(),
+    emit savePressed(this->file_name, ui->checkBox_h1->isChecked(), ui->checkBox_h2->isChecked(), ui->checkBox_h3->isChecked(),
                      ui->checkBox_early->isChecked(), ui->checkBox_late->isChecked(), ui->checkBox_phase->isChecked(),
                      ui->checkBox_stat_time->isChecked(), ui->checkBox_stat_phase->isChecked(), ui->checkBox_stat_voltage->isChecked());
 
@@ -72,4 +73,14 @@ void Save_dialog::on_buttonBox_accepted()
 void Save_dialog::on_buttonBox_rejected()
 {
     this->close();
+}
+
+void Save_dialog::on_pushButton_file_released()
+{
+    bool ok;
+    QString text_input = QInputDialog::getText(this, tr("Record DATA"), tr("Insert a name for HDF5 the file"), QLineEdit::Normal, "data", &ok);
+
+    if (ok && !text_input.isEmpty()) {
+        this->file_name = text_input;
+    }
 }

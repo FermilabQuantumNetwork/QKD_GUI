@@ -240,7 +240,7 @@ void DBControl::disconnectFromServer()
     db.close();
 }
 
-void DBControl::savePlotToHDF5()
+void DBControl::savePlotToHDF5(QCustomPlot *plot)
 {
 
 }
