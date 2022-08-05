@@ -1740,13 +1740,6 @@
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item>
-           <widget class="QPushButton" name="saveButtonQB">
-            <property name="text">
-             <string>Save</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="verticalSpacer_20">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
