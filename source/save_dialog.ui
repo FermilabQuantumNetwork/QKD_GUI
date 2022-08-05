@@ -26,7 +26,7 @@
     <item>
      <widget class="QCheckBox" name="checkBox_det">
       <property name="text">
-       <string>QKD Results/det</string>
+       <string>QKD Det</string>
       </property>
      </widget>
     </item>
@@ -226,7 +226,7 @@
     <item>
      <widget class="QCheckBox" name="checkBox_qb">
       <property name="text">
-       <string>QKD Results/QB</string>
+       <string>QKD QB</string>
       </property>
      </widget>
     </item>

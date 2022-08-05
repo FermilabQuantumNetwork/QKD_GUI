@@ -188,7 +188,7 @@ void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, 
     /*
      * Select a hyperslab.
      */
-    H5::DataSpace fspace1 = dataset->getSpace ();
+    H5::DataSpace fspace1 = dataset->getSpace();
     hsize_t     offset[2];
     offset[1] = 0;
     offset[0] = chunkcounter*12;
@@ -234,14 +234,102 @@ void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, 
      }
 }
 
-
 void DBControl::disconnectFromServer()
 {
     db.close();
 }
 
-void DBControl::savePlotToHDF5(QCustomPlot *plot)
+QVector<int> DBControl::graphDataToIntVector(QCPGraph *graph)
 {
+    int data_count = graph->dataCount();
+    QVector<int> vector = QVector<int>(data_count);
 
+    for (int i = 0; i < data_count; i++) {
+        vector[i] = (int) graph->dataMainValue(i);
+    }
+
+    return vector;
+}
+
+QVector<double> DBControl::graphDataToDoubleVector(QCPGraph *graph)
+{
+    int data_count = 2 * graph->dataCount();
+    QVector<double> vector = QVector<double>(data_count);
+
+    for (int i = 0; i < data_count; i += 2) {
+        vector[i] = graph->dataMainKey(i);
+        vector[i + 1] = (graph->dataMainValue(i));
+    }
+
+    return vector;
+}
+
+void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString group_path)
+{
+    if (fileh5 == 0) return;
+
+    try {
+        H5::Exception::dontPrint();
+
+        // make a new group if it doesn't already exist
+        H5::Group *group;
+        try {
+            group = new H5::Group(fileh5->openGroup(group_path.toLocal8Bit().data()));
+        }
+        catch (...) {
+            group = new H5::Group(fileh5->createGroup(group_path.toLocal8Bit().data()));
+        }
+
+        // Given plot, number of "graphs" is dims[0]
+        // number of data points in a graph is dims[1]
+        hsize_t dims[2];
+        dims[0] = plot->graphCount();
+        dims[1] = plot->graph(0)->dataCount();
+
+        H5::DataSpace dspace(RANK, dims);
+
+        /*
+         * Modify dataset creation properties, i.e. enable chunking.
+         */
+        H5::DSetCreatPropList cparms;
+        hsize_t      chunk_dims[2] ={12, 500};
+        cparms.setChunk( RANK, chunk_dims );
+        // Set fill value for the dataset
+        int fill_val = 0;
+        cparms.setFillValue( H5::PredType::NATIVE_INT, &fill_val);
+        /*
+         * Define datatype for the data in the file.
+         * We will store little endian INT numbers.
+         */
+        H5::IntType datatype( H5::PredType::NATIVE_INT );
+        datatype.setOrder( H5T_ORDER_LE );
+
+        QString dataset_name = group_path.append(plot_name.prepend("/"));
+        H5::DataSet datasetp = fileh5->createDataSet(dataset_name.toLocal8Bit().data(), datatype, dspace);
+
+
+        // Method for storing and writing data borrowed from here https://support.hdfgroup.org/ftp/HDF5/examples/misc-examples/h5_writedyn.c
+        int **data = (int**) malloc(dims[0]*sizeof(int*));
+        data[0] = (int*)malloc( dims[0]*dims[1]*sizeof(int));
+        for (size_t i=1; i<dims[0]; i++) data[i] = data[0]+i*dims[1];
+        // Load graph data into data vector for writing
+        for (size_t g=0; g<dims[0]; g++) {
+            QCPGraph *graph = plot->graph(g);
+
+            for (size_t i=0; i<dims[1]; i++) {
+                data[g][i] = (int) graph->dataMainValue(i);
+            }
+        }
+
+        datasetp.write( &data[0][0], H5::PredType::NATIVE_INT );
+
+        free(data[0]);
+        free(data);
+        delete group;
+    }
+
+    catch (...) {
+
+    }
 }
 

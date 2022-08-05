@@ -2389,60 +2389,33 @@ void MainWindow::pointsButton_clicked(int amount)
     adding_points_counter += amount;
 }
 
-QVector<int> MainWindow::graphDataToIntVector(QCPGraph *graph)
+void MainWindow::savePageDet(bool h1, bool h2, bool h3)
 {
-    int data_count = graph->dataCount();
-    QVector<int> vector = QVector<int>(data_count);
-
-    for (int i = 0; i < data_count; i++) {
-        vector[i] = (int) graph->dataMainValue(i);
-    }
-
-    return vector;
+    if (h1) dbc.savePlotToHDF5(ui->QKD_H1_results, "H1", "Thurs");
+    if (h2) dbc.savePlotToHDF5(ui->QKD_H2_results, "H2", "Thurs");
+    if (h3) dbc.savePlotToHDF5(ui->QKD_H3_results, "H3", "Thurs");
 }
 
-QVector<double> MainWindow::graphDataToDoubleVector(QCPGraph *graph)
+void MainWindow::savePageQB(bool early, bool late, bool phase)
 {
-    int data_count = 2 * graph->dataCount();
-    QVector<double> vector = QVector<double>(data_count);
-
-    for (int i = 0; i < data_count; i += 2) {
-        vector[i] = graph->dataMainKey(i);
-        vector[i + 1] = (graph->dataMainValue(i));
-    }
-
-    return vector;
+    if (early) dbc.savePlotToHDF5(ui->Early_results, "early", "Thurs");
+    if (late) dbc.savePlotToHDF5(ui->Late_results, "late", "Thurs");
+    if (phase) dbc.savePlotToHDF5(ui->Phase_results, "phase", "Thurs");
 }
 
-void MainWindow::savePageDet()
+void MainWindow::savePageStats(bool time, bool error, bool voltage)
 {
-
-}
-
-void MainWindow::savePageQB()
-{
-    QCustomPlot *early_p = ui->Early_results;
-    QCustomPlot *late_p = ui->Late_results;
-    QCustomPlot *phase_p = ui->Phase_results;
-
-    emit saveH5datafromMW(graphDataToIntVector(early_p->graph(0)), graphDataToIntVector(early_p->graph(1)), graphDataToIntVector(early_p->graph(2)), graphDataToIntVector(early_p->graph(3)),
-                          graphDataToIntVector(late_p->graph(0)), graphDataToIntVector(late_p->graph(1)), graphDataToIntVector(late_p->graph(2)), graphDataToIntVector(late_p->graph(3)),
-                          graphDataToIntVector(phase_p->graph(0)), graphDataToIntVector(phase_p->graph(1)), graphDataToIntVector(phase_p->graph(2)), graphDataToIntVector(phase_p->graph(3)));
-}
-
-void MainWindow::savePageStats()
-{
-
+     if (time) dbc.savePlotToHDF5(ui->qkd_errorplot, "err_time", "Thurs");
+     if (error) dbc.savePlotToHDF5(ui->qkd_siftedplot, "err_phase", "Thurs");
+     if (voltage) dbc.savePlotToHDF5(ui->qkd_siftedplot_2, "voltage", "Thurs");
 }
 
 /*
- * Assumes file_name is not empty
+ * Assumes file_name is not empty.
  * Each bool tells which plot to save. The bool name corresponds to the plot name or data is holds.
 */
 void MainWindow::saveData(QString file_name, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage)
 {
-    Log(NOTICE, "save signal received @ %s: %d %d %d %d %d %d %d %d %d", qPrintable(file_name), h1, h2, h3, early, late, phase, time, error, voltage);
-
     HDF5File_created=true;
     emit MW_savehdf5(file_name);
 
@@ -2459,14 +2432,8 @@ void MainWindow::saveData(QString file_name, bool h1, bool h2, bool h3, bool ear
         out<<"Vch0\tVch1\tCch0\tCch1\tTime\n";
         recorddata=true;*/
 
-    if (h1 || h2 || h3) {
-        savePageDet();
-    }
-    if (early || late || phase) {
-        savePageQB();
-    }
-    if (time || error || voltage) {
-        savePageStats();
-    }
+    savePageDet(h1, h2, h3);
+    savePageQB(early, late, phase);
+    savePageStats(time, error, voltage);
 
 }

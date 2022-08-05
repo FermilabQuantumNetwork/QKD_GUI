@@ -27,7 +27,7 @@ private slots:
     void on_pushButton_file_released();
 
 private:
-    QString file_name;
+    QString file_name = "data";
 
 signals:
     // This signal relays which checkboxes are pressed

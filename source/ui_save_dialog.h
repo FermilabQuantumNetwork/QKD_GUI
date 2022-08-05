@@ -249,7 +249,7 @@ public:
     void retranslateUi(QDialog *Save_dialog)
     {
         Save_dialog->setWindowTitle(QApplication::translate("Save_dialog", "Save Plots", Q_NULLPTR));
-        checkBox_det->setText(QApplication::translate("Save_dialog", "QKD Results/det", Q_NULLPTR));
+        checkBox_det->setText(QApplication::translate("Save_dialog", "QKD Det", Q_NULLPTR));
         checkBox_h1->setText(QApplication::translate("Save_dialog", "1", Q_NULLPTR));
         checkBox_h2->setText(QApplication::translate("Save_dialog", "2", Q_NULLPTR));
         checkBox_h3->setText(QApplication::translate("Save_dialog", "3", Q_NULLPTR));
@@ -257,7 +257,7 @@ public:
         checkBox_stat_time->setText(QApplication::translate("Save_dialog", "Error Time", Q_NULLPTR));
         checkBox_stat_phase->setText(QApplication::translate("Save_dialog", "Error Phase", Q_NULLPTR));
         checkBox_stat_voltage->setText(QApplication::translate("Save_dialog", "Voltage", Q_NULLPTR));
-        checkBox_qb->setText(QApplication::translate("Save_dialog", "QKD Results/QB", Q_NULLPTR));
+        checkBox_qb->setText(QApplication::translate("Save_dialog", "QKD QB", Q_NULLPTR));
         checkBox_early->setText(QApplication::translate("Save_dialog", "Early", Q_NULLPTR));
         checkBox_late->setText(QApplication::translate("Save_dialog", "Late", Q_NULLPTR));
         checkBox_phase->setText(QApplication::translate("Save_dialog", "Phase", Q_NULLPTR));
