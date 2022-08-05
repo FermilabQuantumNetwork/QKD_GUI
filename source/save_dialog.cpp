@@ -78,7 +78,7 @@ void Save_dialog::on_buttonBox_rejected()
 void Save_dialog::on_pushButton_file_released()
 {
     bool ok;
-    QString text_input = QInputDialog::getText(this, tr("Record DATA"), tr("Insert a name for HDF5 the file"), QLineEdit::Normal, "data", &ok);
+    QString text_input = QInputDialog::getText(this, tr("Record DATA"), tr("Insert a name for HDF5 the file"), QLineEdit::Normal, this->file_name, &ok);
 
     if (ok && !text_input.isEmpty()) {
         this->file_name = text_input;
