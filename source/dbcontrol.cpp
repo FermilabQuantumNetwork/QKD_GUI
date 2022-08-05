@@ -2,6 +2,8 @@
 #include <iostream>
 #include <time.h>
 
+#include "logging.h"
+
 DBControl::DBControl(){
 
 }
@@ -138,12 +140,23 @@ void DBControl::createHDF5forQKDdata(QString name){
         hsize_t      maxdims[2] = {H5S_UNLIMITED, H5S_UNLIMITED};
         mspace1 = new H5::DataSpace( RANK, dims, maxdims);
         */
+
         /*
-         * Create a new file. If file exists doesn't make a new one.
+         * Create a new file.
+         * If file is opened, do nothing if it has the same name as the previous one.
+         * Otherwise, we close the previous one and open a new one.
          */
-        if (fileh5 != 0) return;
-        QString nameh5 = "../data/" + name + ".h5";
-        fileh5 = new H5::H5File(nameh5.toLocal8Bit().data(), H5F_ACC_TRUNC);
+        if (fileh5 != 0) {
+            if (name == fileh5_name) {
+                return;
+            } else {
+                delete fileh5;
+            }
+        }
+
+        fileh5_name = name;
+        QString file_path = "../data/" + name + ".h5";
+        fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_TRUNC);
         /*
          * Modify dataset creation properties, i.e. enable chunking.
          */
