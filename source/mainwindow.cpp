@@ -233,7 +233,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
     connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked()));
 
-    connect(ui->saveButtonQB, SIGNAL(pressed()), this, SLOT(savePageQB()));
     connect((&save_dialog), &Save_dialog::savePressed, this, &MainWindow::saveData);
     connect(ui->actionSave_Data, SIGNAL(triggered()), &save_dialog, SLOT(show()));
 }
@@ -2389,25 +2388,25 @@ void MainWindow::pointsButton_clicked(int amount)
     adding_points_counter += amount;
 }
 
-void MainWindow::savePageDet(bool h1, bool h2, bool h3)
+void MainWindow::savePageDet(bool h1, bool h2, bool h3, QString outer_group)
 {
-    if (h1) dbc.savePlotToHDF5(ui->QKD_H1_results, "H1", "Thurs");
-    if (h2) dbc.savePlotToHDF5(ui->QKD_H2_results, "H2", "Thurs");
-    if (h3) dbc.savePlotToHDF5(ui->QKD_H3_results, "H3", "Thurs");
+    if (h1) dbc.savePlotToHDF5(ui->QKD_H1_results, "H1", outer_group);
+    if (h2) dbc.savePlotToHDF5(ui->QKD_H2_results, "H2", outer_group);
+    if (h3) dbc.savePlotToHDF5(ui->QKD_H3_results, "H3", outer_group);
 }
 
-void MainWindow::savePageQB(bool early, bool late, bool phase)
+void MainWindow::savePageQB(bool early, bool late, bool phase, QString outer_group)
 {
-    if (early) dbc.savePlotToHDF5(ui->Early_results, "early", "Thurs");
-    if (late) dbc.savePlotToHDF5(ui->Late_results, "late", "Thurs");
-    if (phase) dbc.savePlotToHDF5(ui->Phase_results, "phase", "Thurs");
+    if (early) dbc.savePlotToHDF5(ui->Early_results, "early", outer_group);
+    if (late) dbc.savePlotToHDF5(ui->Late_results, "late", outer_group);
+    if (phase) dbc.savePlotToHDF5(ui->Phase_results, "phase", outer_group);
 }
 
-void MainWindow::savePageStats(bool time, bool error, bool voltage)
+void MainWindow::savePageStats(bool time, bool error, bool voltage, QString outer_group)
 {
-     if (time) dbc.savePlotToHDF5(ui->qkd_errorplot, "err_time", "Thurs");
-     if (error) dbc.savePlotToHDF5(ui->qkd_siftedplot, "err_phase", "Thurs");
-     if (voltage) dbc.savePlotToHDF5(ui->qkd_siftedplot_2, "voltage", "Thurs");
+    if (time) dbc.savePlotToHDF5(ui->qkd_errorplot, "err_time", outer_group);
+    if (error) dbc.savePlotToHDF5(ui->qkd_siftedplot, "err_phase", outer_group);
+    if (voltage) dbc.savePlotToHDF5(ui->qkd_siftedplot_2, "voltage", outer_group);
 }
 
 /*
@@ -2432,8 +2431,9 @@ void MainWindow::saveData(QString file_name, bool h1, bool h2, bool h3, bool ear
         out<<"Vch0\tVch1\tCch0\tCch1\tTime\n";
         recorddata=true;*/
 
-    savePageDet(h1, h2, h3);
-    savePageQB(early, late, phase);
-    savePageStats(time, error, voltage);
+    QString outer_group = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
+    savePageDet(h1, h2, h3, outer_group);
+    savePageQB(early, late, phase, outer_group);
+    savePageStats(time, error, voltage, outer_group);
 
 }
