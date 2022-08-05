@@ -126,31 +126,39 @@ void DBControl::createHDF5forQKDdata(QString name){
 
     //const H5std_string FILE_NAME( "SDSextendible.h5" );
     try{
-
+        /*
         QString as = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
         const H5std_string DATASET_NAME(as.toLocal8Bit().data());
+        */
         //const int      NX = 10;
         //const int      NY = 5;
 
+        /*
         hsize_t      dims[2]  = { 3, 3};  // dataset dimensions at creation
         hsize_t      maxdims[2] = {H5S_UNLIMITED, H5S_UNLIMITED};
         mspace1 = new H5::DataSpace( RANK, dims, maxdims);
+        */
         /*
-         * Create a new file. If file exists its contents will be overwritten.
+         * Create a new file. If file exists doesn't make a new one.
          */
+        if (fileh5 != 0) return;
         QString nameh5 = "../data/" + name + ".h5";
         fileh5 = new H5::H5File(nameh5.toLocal8Bit().data(), H5F_ACC_TRUNC);
         /*
          * Modify dataset creation properties, i.e. enable chunking.
          */
+        /*
         H5::DSetCreatPropList cparms;
         hsize_t      chunk_dims[2] ={12, 500};
         cparms.setChunk( RANK, chunk_dims );
+        */
         /*
          * Set fill value for the dataset
          */
+        /*
         int fill_val = 0;
         cparms.setFillValue( H5::PredType::NATIVE_INT, &fill_val);
+        */
 
         /*
          * Create a new dataset within the file using cparms
@@ -161,20 +169,20 @@ void DBControl::createHDF5forQKDdata(QString name){
         * Define datatype for the data in the file.
         * We will store little endian INT numbers.
         */
+        /*
         H5::IntType datatype( H5::PredType::NATIVE_INT );
         datatype.setOrder( H5T_ORDER_LE );
+        */
 
         // dataset = new H5::DataSet(fileh5->createDataSet( DATASET_NAME, datatype, *mspace1, cparms));
 
-        size[1]   = 500;//
+        // size[1]   = 500;
     }
     catch( H5::FileIException &error )
      {
         fprintf(stderr, "%s\n", error.getCDetailMsg());
         return ;
      }
-    //QVector<int> data;
-    //appendQKDdata2HDF5(data);
 }
 
 void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, QVector<int> datarandA, QVector<int> databkgndA, QVector<int> dataokB, QVector<int> dataerrB, QVector<int> datarandB, QVector<int> databkgndB, QVector<int> dataokC, QVector<int> dataerrC, QVector<int> datarandC, QVector<int> databkgndC){
@@ -237,31 +245,6 @@ void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, 
 void DBControl::disconnectFromServer()
 {
     db.close();
-}
-
-QVector<int> DBControl::graphDataToIntVector(QCPGraph *graph)
-{
-    int data_count = graph->dataCount();
-    QVector<int> vector = QVector<int>(data_count);
-
-    for (int i = 0; i < data_count; i++) {
-        vector[i] = (int) graph->dataMainValue(i);
-    }
-
-    return vector;
-}
-
-QVector<double> DBControl::graphDataToDoubleVector(QCPGraph *graph)
-{
-    int data_count = 2 * graph->dataCount();
-    QVector<double> vector = QVector<double>(data_count);
-
-    for (int i = 0; i < data_count; i += 2) {
-        vector[i] = graph->dataMainKey(i);
-        vector[i + 1] = (graph->dataMainValue(i));
-    }
-
-    return vector;
 }
 
 void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString group_path)
@@ -335,3 +318,17 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
     }
 }
 
+void DBControl::tryMakeGroupHDF5(QString group_path) {
+    H5::Exception::dontPrint();
+
+    // make a new group if it doesn't already exist
+    H5::Group *group;
+    try {
+        group = new H5::Group(fileh5->openGroup(group_path.toLocal8Bit().data()));
+        delete group;
+    }
+    catch (...) {
+        group = new H5::Group(fileh5->createGroup(group_path.toLocal8Bit().data()));
+        delete group;
+    }
+}

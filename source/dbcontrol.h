@@ -29,8 +29,7 @@ public:
     unsigned long long chunkcounter = 0;
     unsigned long long size[2]={0,0};
 
-    QVector<int> graphDataToIntVector(QCPGraph *graph);
-    QVector<double> graphDataToDoubleVector(QCPGraph *graph);
+    void tryMakeGroupHDF5(QString group_path);
 
 private:
     QSqlDatabase db;

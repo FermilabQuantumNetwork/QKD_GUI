@@ -2380,7 +2380,7 @@ void MainWindow::pointsButton_clicked(int amount)
     for (int p = 0; p < 9; p++) {
         for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
             for (int i = 0; i < amount; i++) {
-                ui_plots[p]->graph(g)->addData(adding_points_counter / 2.0 + i, rand() % 5);
+                ui_plots[p]->graph(g)->addData(adding_points_counter / 2.0 + i, adding_points_counter + rand() % 3);
             }
         }
         ui_plots[p]->replot();
@@ -2390,23 +2390,26 @@ void MainWindow::pointsButton_clicked(int amount)
 
 void MainWindow::savePageDet(bool h1, bool h2, bool h3, QString outer_group)
 {
-    if (h1) dbc.savePlotToHDF5(ui->QKD_H1_results, "H1", outer_group);
-    if (h2) dbc.savePlotToHDF5(ui->QKD_H2_results, "H2", outer_group);
-    if (h3) dbc.savePlotToHDF5(ui->QKD_H3_results, "H3", outer_group);
+    QString group = outer_group + "/det";
+    if (h1) dbc.savePlotToHDF5(ui->QKD_H1_results, "H1", group);
+    if (h2) dbc.savePlotToHDF5(ui->QKD_H2_results, "H2", group);
+    if (h3) dbc.savePlotToHDF5(ui->QKD_H3_results, "H3", group);
 }
 
 void MainWindow::savePageQB(bool early, bool late, bool phase, QString outer_group)
 {
-    if (early) dbc.savePlotToHDF5(ui->Early_results, "early", outer_group);
-    if (late) dbc.savePlotToHDF5(ui->Late_results, "late", outer_group);
-    if (phase) dbc.savePlotToHDF5(ui->Phase_results, "phase", outer_group);
+    QString group = outer_group + "/QB";
+    if (early) dbc.savePlotToHDF5(ui->Early_results, "early", group);
+    if (late) dbc.savePlotToHDF5(ui->Late_results, "late", group);
+    if (phase) dbc.savePlotToHDF5(ui->Phase_results, "phase", group);
 }
 
 void MainWindow::savePageStats(bool time, bool error, bool voltage, QString outer_group)
 {
-    if (time) dbc.savePlotToHDF5(ui->qkd_errorplot, "err_time", outer_group);
-    if (error) dbc.savePlotToHDF5(ui->qkd_siftedplot, "err_phase", outer_group);
-    if (voltage) dbc.savePlotToHDF5(ui->qkd_siftedplot_2, "voltage", outer_group);
+    QString group = outer_group + "/stats";
+    if (time) dbc.savePlotToHDF5(ui->qkd_errorplot, "err_time", group);
+    if (error) dbc.savePlotToHDF5(ui->qkd_siftedplot, "err_phase", group);
+    if (voltage) dbc.savePlotToHDF5(ui->qkd_siftedplot_2, "voltage", group);
 }
 
 /*
@@ -2432,6 +2435,7 @@ void MainWindow::saveData(QString file_name, bool h1, bool h2, bool h3, bool ear
         recorddata=true;*/
 
     QString outer_group = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
+    dbc.tryMakeGroupHDF5(outer_group);
     savePageDet(h1, h2, h3, outer_group);
     savePageQB(early, late, phase, outer_group);
     savePageStats(time, error, voltage, outer_group);
