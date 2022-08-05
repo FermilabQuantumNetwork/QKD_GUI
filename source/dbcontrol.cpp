@@ -146,6 +146,7 @@ void DBControl::createHDF5forQKDdata(QString name){
          * If file is opened, do nothing if it has the same name as the previous one.
          * Otherwise, we close the previous one and open a new one.
          */
+        H5::Exception::dontPrint();
         if (fileh5 != 0) {
             if (name == fileh5_name) {
                 return;
@@ -156,7 +157,13 @@ void DBControl::createHDF5forQKDdata(QString name){
 
         fileh5_name = name;
         QString file_path = "../data/" + name + ".h5";
-        fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_TRUNC);
+        // Try to open a file for read write. Otherwise, create the file.
+        try {
+            fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_RDWR);
+        } catch(H5::FileIException &file_exists_err) {
+            fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_TRUNC);
+        }
+
         /*
          * Modify dataset creation properties, i.e. enable chunking.
          */

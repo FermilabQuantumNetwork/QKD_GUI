@@ -38,7 +38,7 @@ private:
     bool connectToServerMySQL(QString server, int port, QString database, QString login, QString password);
     const int RANK = 2;
 
-    QString fileh5_name;
+    QString fileh5_name="";
 
 signals:
     void qubitsfromDB(const boolvector2d &qubitsvector, int a, int b);
