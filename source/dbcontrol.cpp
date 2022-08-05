@@ -288,7 +288,15 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
         hsize_t dims[2];
         size_t graph_count = plot->graphCount();
         dims[0] = 2 * graph_count;
-        dims[1] = plot->graph(0)->dataCount();
+        dims[1] = 0;
+        // Take the largest dataCount for the other dimension
+        size_t curr_d_count;
+        for (size_t i=0; i < graph_count; i++) {
+            curr_d_count = plot->graph(i)->dataCount();
+            if (curr_d_count > dims[1]) {
+                dims[1] = curr_d_count;
+            }
+        }
 
         H5::DataSpace dspace(RANK, dims);
 
@@ -312,7 +320,10 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
         H5::DataSet datasetp = fileh5->createDataSet(dataset_name.toLocal8Bit().data(), datatype, dspace);
 
 
-        // Method for storing and writing data borrowed from here https://support.hdfgroup.org/ftp/HDF5/examples/misc-examples/h5_writedyn.c
+        /*
+         * Method for storing and writing data borrowed from:
+         * https://support.hdfgroup.org/ftp/HDF5/examples/misc-examples/h5_writedyn.c
+         */
         double **data = (double**) malloc(dims[0]*sizeof(double*));
         data[0] = (double*)malloc( dims[0]*dims[1]*sizeof(double));
         for (size_t i=1; i<dims[0]; i++) data[i] = data[0]+i*dims[1];
