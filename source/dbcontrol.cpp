@@ -283,7 +283,8 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
         // Given plot, number of "graphs" is dims[0]
         // number of data points in a graph is dims[1]
         hsize_t dims[2];
-        dims[0] = plot->graphCount();
+        size_t graph_count = plot->graphCount();
+        dims[0] = 2 * graph_count;
         dims[1] = plot->graph(0)->dataCount();
 
         H5::DataSpace dspace(RANK, dims);
@@ -296,12 +297,12 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
         cparms.setChunk( RANK, chunk_dims );
         // Set fill value for the dataset
         int fill_val = 0;
-        cparms.setFillValue( H5::PredType::NATIVE_INT, &fill_val);
+        cparms.setFillValue( H5::PredType::NATIVE_DOUBLE, &fill_val);
         /*
          * Define datatype for the data in the file.
          * We will store little endian INT numbers.
          */
-        H5::IntType datatype( H5::PredType::NATIVE_INT );
+        H5::IntType datatype( H5::PredType::NATIVE_DOUBLE );
         datatype.setOrder( H5T_ORDER_LE );
 
         QString dataset_name = group_path.append(plot_name.prepend("/"));
@@ -309,19 +310,20 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
 
 
         // Method for storing and writing data borrowed from here https://support.hdfgroup.org/ftp/HDF5/examples/misc-examples/h5_writedyn.c
-        int **data = (int**) malloc(dims[0]*sizeof(int*));
-        data[0] = (int*)malloc( dims[0]*dims[1]*sizeof(int));
+        double **data = (double**) malloc(dims[0]*sizeof(double*));
+        data[0] = (double*)malloc( dims[0]*dims[1]*sizeof(double));
         for (size_t i=1; i<dims[0]; i++) data[i] = data[0]+i*dims[1];
         // Load graph data into data vector for writing
-        for (size_t g=0; g<dims[0]; g++) {
+        for (size_t g=0; g < graph_count; g++) {
             QCPGraph *graph = plot->graph(g);
 
-            for (size_t i=0; i<dims[1]; i++) {
-                data[g][i] = (int) graph->dataMainValue(i);
+            for (size_t i=0; i < dims[1]; i++) {
+                data[2*g][i] = (double) graph->dataMainKey(i);
+                data[2*g + 1][i] = (double) graph->dataMainValue(i);
             }
         }
 
-        datasetp.write( &data[0][0], H5::PredType::NATIVE_INT );
+        datasetp.write( &data[0][0], H5::PredType::NATIVE_DOUBLE );
 
         free(data[0]);
         free(data);
