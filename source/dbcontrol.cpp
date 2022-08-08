@@ -69,7 +69,6 @@ void DBControl::SaveAndValues(int and1, int and2, int and3, int orgate, int bsm1
     if(connection_succesfull){QSqlQuery query(s,db);
        // std::cout<<"gud"<<std::endl;
     }
-
 }
 
 void DBControl::SaveRateValues( int Ra1, int Ra2, int Ra3, int Rb1, int Rb2, int Rb3,int Rc1 , int Rc2, int Rc3, float hist_adqtime){
@@ -87,6 +86,7 @@ void DBControl::SaveQKDresults(double okA,double errA,double randA,double bkgndA
        // std::cout<<"gud"<<std::endl;
     }
 }
+
 void DBControl::SaveQKDstats(int sifted_time, int sifted_phase, double error_rate_time, double error_rate_phase){
     QString s= "insert into QKD_stats_V3(sifted_time, sifted_phase, error_rate_time, error_rate_phase, datetime) values("+QString::number(sifted_time)+","+QString::number(sifted_phase)+","+QString::number(error_rate_time)+","+QString::number(error_rate_phase)+","+"now());";
     std::cout<<s.toStdString()<<std::endl;
@@ -318,7 +318,6 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
 
         QString dataset_name = group_path.append(plot_name.prepend("/"));
         H5::DataSet datasetp = fileh5->createDataSet(dataset_name.toLocal8Bit().data(), datatype, dspace);
-
 
         /*
          * Method for storing and writing data borrowed from:

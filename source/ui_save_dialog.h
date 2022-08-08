@@ -66,15 +66,27 @@ public:
     QCheckBox *checkBox_phase;
     QDialogButtonBox *buttonBox;
     QPushButton *pushButton_file;
+    QWidget *verticalLayoutWidget_4;
+    QVBoxLayout *verticalLayout_4;
+    QCheckBox *checkBox_hists;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_10;
+    QCheckBox *checkBox_hist_time;
+    QHBoxLayout *horizontalLayout_12;
+    QSpacerItem *horizontalSpacer_11;
+    QCheckBox *checkBox_hist_phase_ok;
+    QHBoxLayout *horizontalLayout_13;
+    QSpacerItem *horizontalSpacer_12;
+    QCheckBox *checkBox_hist_phase_bad;
 
     void setupUi(QDialog *Save_dialog)
     {
         if (Save_dialog->objectName().isEmpty())
             Save_dialog->setObjectName(QStringLiteral("Save_dialog"));
-        Save_dialog->resize(433, 183);
+        Save_dialog->resize(600, 183);
         verticalLayoutWidget = new QWidget(Save_dialog);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 111, 111));
+        verticalLayoutWidget->setGeometry(QRect(170, 10, 111, 111));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -127,7 +139,7 @@ public:
 
         verticalLayoutWidget_3 = new QWidget(Save_dialog);
         verticalLayoutWidget_3->setObjectName(QStringLiteral("verticalLayoutWidget_3"));
-        verticalLayoutWidget_3->setGeometry(QRect(270, 10, 151, 111));
+        verticalLayoutWidget_3->setGeometry(QRect(430, 10, 164, 111));
         verticalLayout_3 = new QVBoxLayout(verticalLayoutWidget_3);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -180,7 +192,7 @@ public:
 
         verticalLayoutWidget_2 = new QWidget(Save_dialog);
         verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(140, 10, 111, 111));
+        verticalLayoutWidget_2->setGeometry(QRect(300, 10, 111, 111));
         verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -233,13 +245,66 @@ public:
 
         buttonBox = new QDialogButtonBox(Save_dialog);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(140, 140, 171, 31));
+        buttonBox->setGeometry(QRect(130, 140, 171, 31));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
         buttonBox->setCenterButtons(true);
         pushButton_file = new QPushButton(Save_dialog);
         pushButton_file->setObjectName(QStringLiteral("pushButton_file"));
         pushButton_file->setGeometry(QRect(10, 140, 80, 31));
+        verticalLayoutWidget_4 = new QWidget(Save_dialog);
+        verticalLayoutWidget_4->setObjectName(QStringLiteral("verticalLayoutWidget_4"));
+        verticalLayoutWidget_4->setGeometry(QRect(10, 10, 141, 111));
+        verticalLayout_4 = new QVBoxLayout(verticalLayoutWidget_4);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        checkBox_hists = new QCheckBox(verticalLayoutWidget_4);
+        checkBox_hists->setObjectName(QStringLiteral("checkBox_hists"));
+
+        verticalLayout_4->addWidget(checkBox_hists);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_10);
+
+        checkBox_hist_time = new QCheckBox(verticalLayoutWidget_4);
+        checkBox_hist_time->setObjectName(QStringLiteral("checkBox_hist_time"));
+
+        horizontalLayout_3->addWidget(checkBox_hist_time);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_3);
+
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+        horizontalLayout_12->addItem(horizontalSpacer_11);
+
+        checkBox_hist_phase_ok = new QCheckBox(verticalLayoutWidget_4);
+        checkBox_hist_phase_ok->setObjectName(QStringLiteral("checkBox_hist_phase_ok"));
+
+        horizontalLayout_12->addWidget(checkBox_hist_phase_ok);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_12);
+
+        horizontalLayout_13 = new QHBoxLayout();
+        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+        horizontalLayout_13->addItem(horizontalSpacer_12);
+
+        checkBox_hist_phase_bad = new QCheckBox(verticalLayoutWidget_4);
+        checkBox_hist_phase_bad->setObjectName(QStringLiteral("checkBox_hist_phase_bad"));
+
+        horizontalLayout_13->addWidget(checkBox_hist_phase_bad);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_13);
+
 
         retranslateUi(Save_dialog);
 
@@ -262,6 +327,10 @@ public:
         checkBox_late->setText(QApplication::translate("Save_dialog", "Late", Q_NULLPTR));
         checkBox_phase->setText(QApplication::translate("Save_dialog", "Phase", Q_NULLPTR));
         pushButton_file->setText(QApplication::translate("Save_dialog", "File Name", Q_NULLPTR));
+        checkBox_hists->setText(QApplication::translate("Save_dialog", "Histograms", Q_NULLPTR));
+        checkBox_hist_time->setText(QApplication::translate("Save_dialog", "Time", Q_NULLPTR));
+        checkBox_hist_phase_ok->setText(QApplication::translate("Save_dialog", "Phase OK", Q_NULLPTR));
+        checkBox_hist_phase_bad->setText(QApplication::translate("Save_dialog", "Phase Bad", Q_NULLPTR));
     } // retranslateUi
 
 };

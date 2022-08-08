@@ -26,12 +26,14 @@ private slots:
 
     void on_pushButton_file_released();
 
+    void on_checkBox_hists_toggled(bool checked);
+
 private:
     QString file_name = "data";
 
 signals:
     // This signal relays which checkboxes are pressed
-    void savePressed(QString file_name, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+    void savePressed(QString file_name, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
 };
 
 #endif // SAVE_DIALOG_H

@@ -2358,11 +2358,12 @@ void MainWindow::resetButton_clicked()
 {
     // Array of the plots that will be cleared
     // There are currently 9 plots, so that number must be updated in the loop as well if it changes
-    QCustomPlot *ui_plots[9] = {ui->QKD_H1_results, ui->QKD_H2_results, ui->QKD_H3_results,
+    QCustomPlot *ui_plots[12] = {ui->PlotA, ui->PlotB, ui->PlotC,
+                               ui->QKD_H1_results, ui->QKD_H2_results, ui->QKD_H3_results,
                                ui->Early_results, ui->Late_results, ui->Phase_results,
                                ui->qkd_errorplot, ui->qkd_siftedplot, ui->qkd_siftedplot_2};
 
-    for (int p = 0; p < 9; p++) {
+    for (int p = 0; p < 12; p++) {
             for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
                 ui_plots[p]->graph(g)->data()->clear();
             }
@@ -2373,11 +2374,12 @@ void MainWindow::resetButton_clicked()
 
 void MainWindow::pointsButton_clicked(int amount)
 {
-    QCustomPlot *ui_plots[9] = {ui->QKD_H1_results, ui->QKD_H2_results, ui->QKD_H3_results,
+    QCustomPlot *ui_plots[12] = {ui->PlotA, ui->PlotB, ui->PlotC,
+                               ui->QKD_H1_results, ui->QKD_H2_results, ui->QKD_H3_results,
                                ui->Early_results, ui->Late_results, ui->Phase_results,
                                ui->qkd_errorplot, ui->qkd_siftedplot, ui->qkd_siftedplot_2};
 
-    for (int p = 0; p < 9; p++) {
+    for (int p = 0; p < 12; p++) {
         for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
             for (int i = 0; i < amount; i++) {
                 ui_plots[p]->graph(g)->addData(adding_points_counter / 2.0 + i, adding_points_counter + rand() % 3);
@@ -2386,6 +2388,14 @@ void MainWindow::pointsButton_clicked(int amount)
         ui_plots[p]->replot();
     }
     adding_points_counter += amount;
+}
+
+void MainWindow::savePageHists(bool h_time, bool h_phase_ok, bool h_phase_bad, QString outer_group) {
+    // The histograms are ui->PlotA, ui->PlotB, ui->PlotC .
+    QString group = outer_group + "/hists";
+    if (h_time) dbc.savePlotToHDF5(ui->PlotA, "time", group);
+    if (h_phase_ok) dbc.savePlotToHDF5(ui->PlotB, "phase_ok", group);
+    if (h_phase_bad) dbc.savePlotToHDF5(ui->PlotC, "phase_bad", group);
 }
 
 void MainWindow::savePageDet(bool h1, bool h2, bool h3, QString outer_group)
@@ -2414,9 +2424,14 @@ void MainWindow::savePageStats(bool time, bool error, bool voltage, QString oute
 
 /*
  * Assumes file_name is not empty.
- * Each bool tells which plot to save. The bool name corresponds to the plot name or data is holds.
+ * Each bool tells which plot to save, they follow order left to right and top to bottom in the mainwindow.
+ * The bool name corresponds to the plot name or data it holds.
 */
-void MainWindow::saveData(QString file_name, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage)
+void MainWindow::saveData(QString file_name,
+                          bool h_time, bool h_phase_ok, bool h_phase_bad,
+                          bool h1, bool h2, bool h3,
+                          bool early, bool late, bool phase,
+                          bool time, bool error, bool voltage)
 {
     HDF5File_created=true;
     emit MW_savehdf5(file_name);
@@ -2436,6 +2451,7 @@ void MainWindow::saveData(QString file_name, bool h1, bool h2, bool h3, bool ear
 
     QString outer_group = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
     dbc.tryMakeGroupHDF5(outer_group);
+    savePageHists(h_time, h_phase_ok, h_phase_bad, outer_group);
     savePageDet(h1, h2, h3, outer_group);
     savePageQB(early, late, phase, outer_group);
     savePageStats(time, error, voltage, outer_group);

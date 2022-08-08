@@ -8,6 +8,7 @@ Save_dialog::Save_dialog(QWidget *parent) : QDialog(parent), ui(new Ui::Save_dia
 {
     ui->setupUi(this);
 
+    emit ui->checkBox_hists->toggle();
     emit ui->checkBox_det->toggle();
     emit ui->checkBox_qb->toggle();
     emit ui->checkBox_stats->toggle();
@@ -18,6 +19,19 @@ Save_dialog::Save_dialog(QWidget *parent) : QDialog(parent), ui(new Ui::Save_dia
 Save_dialog::~Save_dialog()
 {
     delete ui;
+}
+
+void Save_dialog::on_checkBox_hists_toggled(bool checked)
+{
+    if (checked == true) {
+        ui->checkBox_hist_time->setChecked(true);
+        ui->checkBox_hist_phase_ok->setChecked(true);
+        ui->checkBox_hist_phase_bad->setChecked(true);
+    } else {
+        ui->checkBox_hist_time->setChecked(false);
+        ui->checkBox_hist_phase_ok->setChecked(false);
+        ui->checkBox_hist_phase_bad->setChecked(false);
+    }
 }
 
 void Save_dialog::on_checkBox_det_toggled(bool checked)
@@ -33,7 +47,6 @@ void Save_dialog::on_checkBox_det_toggled(bool checked)
     }
 }
 
-
 void Save_dialog::on_checkBox_qb_toggled(bool checked)
 {
     if (checked == true) {
@@ -46,7 +59,6 @@ void Save_dialog::on_checkBox_qb_toggled(bool checked)
         ui->checkBox_phase->setChecked(false);
     }
 }
-
 
 void Save_dialog::on_checkBox_stats_toggled(bool checked)
 {
@@ -63,7 +75,9 @@ void Save_dialog::on_checkBox_stats_toggled(bool checked)
 
 void Save_dialog::on_buttonBox_accepted()
 {
-    emit savePressed(this->file_name, ui->checkBox_h1->isChecked(), ui->checkBox_h2->isChecked(), ui->checkBox_h3->isChecked(),
+    emit savePressed(this->file_name,
+                     ui->checkBox_hist_time->isChecked(), ui->checkBox_hist_phase_ok->isChecked(), ui->checkBox_hist_phase_bad->isChecked(),
+                     ui->checkBox_h1->isChecked(), ui->checkBox_h2->isChecked(), ui->checkBox_h3->isChecked(),
                      ui->checkBox_early->isChecked(), ui->checkBox_late->isChecked(), ui->checkBox_phase->isChecked(),
                      ui->checkBox_stat_time->isChecked(), ui->checkBox_stat_phase->isChecked(), ui->checkBox_stat_voltage->isChecked());
 

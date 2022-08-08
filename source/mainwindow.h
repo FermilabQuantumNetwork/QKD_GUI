@@ -467,10 +467,11 @@ private slots:
 
     void resetButton_clicked();
 
+    void savePageHists(bool h_time, bool h_phase_ok, bool h_phase_bad, QString outer_group);
     void savePageDet(bool h1, bool h2, bool h3, QString outer_group);
     void savePageQB(bool early, bool late, bool phase, QString outer_group);
     void savePageStats(bool time, bool error, bool voltage, QString outer_group);
-    void saveData(QString file_name, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+    void saveData(QString file_name, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
 
     void pointsButton_clicked(int amount = 3);
 
