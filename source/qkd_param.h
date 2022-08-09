@@ -18,10 +18,12 @@ public:
     Ui::QKD_param *ui;
 
 private:
-    int  in_QKD_numbA, in_QKD_phA, in_QKD_iwA, in_QKD_pxqA, in_QKD_zeroA;
-    int  in_QKD_numbB, in_QKD_phB, in_QKD_iwB, in_QKD_pxqB, in_QKD_zeroB;
-    int  in_QKD_numbC, in_QKD_phC, in_QKD_iwC, in_QKD_pxqC, in_QKD_zeroC;
-    double in_QKD_timeA, in_QKD_timeB,  in_QKD_timeC;
+    int  in_QKD_numbA, in_QKD_iwA, in_QKD_pxqA, in_QKD_zeroA;
+    int  in_QKD_numbB, in_QKD_iwB, in_QKD_pxqB, in_QKD_zeroB;
+    int  in_QKD_numbC, in_QKD_iwC, in_QKD_pxqC, in_QKD_zeroC;
+    double in_QKD_timeA, in_QKD_phA;
+    double in_QKD_timeB, in_QKD_phB;
+    double in_QKD_timeC, in_QKD_phC;
 
 signals:
     void sig_QKD_timeA(double a);
@@ -30,9 +32,9 @@ signals:
     void sig_QKD_numbA(int a);
     void sig_QKD_numbB(int a);
     void sig_QKD_numbC(int a);
-    void sig_QKD_phA(int a);
-    void sig_QKD_phB(int a);
-    void sig_QKD_phC(int a);
+    void sig_QKD_phA(double a);
+    void sig_QKD_phB(double a);
+    void sig_QKD_phC(double a);
     void sig_QKD_iwA(int a);
     void sig_QKD_iwB(int a);
     void sig_QKD_iwC(int a);
@@ -53,9 +55,9 @@ public slots:
     void slot_QKD_numbA(int a){emit sig_QKD_numbA(a);}
     void slot_QKD_numbB(int a){emit sig_QKD_numbB(a);}
     void slot_QKD_numbC(int a){emit sig_QKD_numbC(a);}
-    void slot_QKD_phA(int a){emit sig_QKD_phA(a);}
-    void slot_QKD_phB(int a){emit sig_QKD_phB(a);}
-    void slot_QKD_phC(int a){emit sig_QKD_phC(a);}
+    void slot_QKD_phA(double a){emit sig_QKD_phA(a);}
+    void slot_QKD_phB(double a){emit sig_QKD_phB(a);}
+    void slot_QKD_phC(double a){emit sig_QKD_phC(a);}
     void slot_QKD_iwA(int a){emit sig_QKD_iwA(a);}
     void slot_QKD_iwB(int a){emit sig_QKD_iwB(a);}
     void slot_QKD_iwC(int a){emit sig_QKD_iwC(a);}

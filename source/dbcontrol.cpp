@@ -124,7 +124,7 @@ void DBControl::readQubits(QString tablename){
     }
 }
 
-void DBControl::createHDF5forQKDdata(QString name){
+void DBControl::createHDF5forQKDdata(QString file_name){
 
     //const H5std_string FILE_NAME( "SDSextendible.h5" );
     try{
@@ -148,15 +148,15 @@ void DBControl::createHDF5forQKDdata(QString name){
          */
         H5::Exception::dontPrint();
         if (fileh5 != 0) {
-            if (name == fileh5_name) {
+            if (file_name == fileh5_name) {
                 return;
             } else {
                 delete fileh5;
             }
         }
 
-        fileh5_name = name;
-        QString file_path = "../data/" + name + ".h5";
+        fileh5_name = file_name;
+        QString file_path = "../data/" + file_name + ".h5";
         // Try to open a file for read write. Otherwise, create the file.
         try {
             fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_RDWR);
@@ -199,10 +199,10 @@ void DBControl::createHDF5forQKDdata(QString name){
         // size[1]   = 500;
     }
     catch( H5::FileIException &error )
-     {
+    {
         fprintf(stderr, "%s\n", error.getCDetailMsg());
-        return ;
-     }
+        return;
+    }
 }
 
 void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, QVector<int> datarandA, QVector<int> databkgndA, QVector<int> dataokB, QVector<int> dataerrB, QVector<int> datarandB, QVector<int> databkgndB, QVector<int> dataokC, QVector<int> dataerrC, QVector<int> datarandC, QVector<int> databkgndC){
@@ -274,7 +274,7 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
     try {
         H5::Exception::dontPrint();
 
-        // make a new group if it doesn't already exist
+        // open group or make it if it doesn't exist
         H5::Group *group;
         try {
             group = new H5::Group(fileh5->openGroup(group_path.toLocal8Bit().data()));
@@ -308,12 +308,12 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
         cparms.setChunk( RANK, chunk_dims );
         // Set fill value for the dataset
         int fill_val = 0;
-        cparms.setFillValue( H5::PredType::NATIVE_DOUBLE, &fill_val);
+        cparms.setFillValue( H5::PredType::NATIVE_FLOAT, &fill_val);
         /*
          * Define datatype for the data in the file.
-         * We will store little endian INT numbers.
+         * We will store little endian DOUBLE numbers.
          */
-        H5::IntType datatype( H5::PredType::NATIVE_DOUBLE );
+        H5::FloatType datatype( H5::PredType::NATIVE_FLOAT );
         datatype.setOrder( H5T_ORDER_LE );
 
         QString dataset_name = group_path.append(plot_name.prepend("/"));
@@ -323,20 +323,20 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
          * Method for storing and writing data borrowed from:
          * https://support.hdfgroup.org/ftp/HDF5/examples/misc-examples/h5_writedyn.c
          */
-        double **data = (double**) malloc(dims[0]*sizeof(double*));
-        data[0] = (double*)malloc( dims[0]*dims[1]*sizeof(double));
+        float **data = (float**) malloc(dims[0]*sizeof(float*));
+        data[0] = (float*)malloc( dims[0]*dims[1]*sizeof(float));
         for (size_t i=1; i<dims[0]; i++) data[i] = data[0]+i*dims[1];
         // Load graph data into data vector for writing
         for (size_t g=0; g < graph_count; g++) {
             QCPGraph *graph = plot->graph(g);
 
             for (size_t i=0; i < dims[1]; i++) {
-                data[2*g][i] = (double) graph->dataMainKey(i);
-                data[2*g + 1][i] = (double) graph->dataMainValue(i);
+                data[2*g][i] = (float) graph->dataMainKey(i);
+                data[2*g + 1][i] = (float) graph->dataMainValue(i);
             }
         }
 
-        datasetp.write( &data[0][0], H5::PredType::NATIVE_DOUBLE );
+        datasetp.write( &data[0][0], H5::PredType::NATIVE_FLOAT );
 
         free(data[0]);
         free(data);
@@ -348,10 +348,10 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
     }
 }
 
+// Make a new group if it doesn't already exist.
 void DBControl::tryMakeGroupHDF5(QString group_path) {
     H5::Exception::dontPrint();
 
-    // make a new group if it doesn't already exist
     H5::Group *group;
     try {
         group = new H5::Group(fileh5->openGroup(group_path.toLocal8Bit().data()));
@@ -360,5 +360,79 @@ void DBControl::tryMakeGroupHDF5(QString group_path) {
     catch (...) {
         group = new H5::Group(fileh5->createGroup(group_path.toLocal8Bit().data()));
         delete group;
+    }
+}
+
+/*
+ * Writes the following attributes to the H5 file:
+ * timestamp : simple timestamp of when this function is entered.
+ * qubit_seq : qubit sequence used for histogram matching and entered on phase stabilization page.
+ * qkd_param_* : every field following ABC order from the Edit -> QKD parameter page.
+ *
+ */
+void DBControl::writeAttrToHDF5(QKD_param *param, char qubit_sequence[100000], float adq_time) {
+    try {
+        QString timestamp = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
+        H5::StrType str_type_t(H5::PredType::C_S1, timestamp.length() + 1);
+        H5::DataSpace s_space(H5S_SCALAR);
+        H5::Attribute *attr_t = new H5::Attribute(fileh5->createAttribute("timestamp", str_type_t, s_space));
+        attr_t->write(str_type_t, timestamp.toStdString());
+
+        H5::StrType str_type_seq(H5::PredType::C_S1, strlen(qubit_sequence) + 1);
+        H5::Attribute *attr_seq = new H5::Attribute(fileh5->createAttribute("qubit_seq", str_type_seq, s_space));
+        attr_seq->write(str_type_seq, qubit_sequence);
+
+        // Types and spaces for QKD params metadata. Want to write arrays of 3 numbers.
+        H5::FloatType float_type_p( H5::PredType::NATIVE_FLOAT );
+        float_type_p.setOrder( H5T_ORDER_LE );
+        H5::IntType int_type_p( H5::PredType::NATIVE_INT );
+        int_type_p.setOrder( H5T_ORDER_LE );
+        hsize_t dims[1] = {3};
+        H5::DataSpace qkd_p_space(1, dims);
+
+        // These hold the data from param. There are several sets of 3 int and double parameters.
+        float qkd_floats[3] = {(float) param->ui->QKD_timeA->value(), (float) param->ui->QKD_timeB->value(), (float) param->ui->QKD_timeC->value()};
+        int qkd_ints[3] = {(int) param->ui->QKD_numbA->value(), (int) param->ui->QKD_numbB->value(), (int) param->ui->QKD_numbC->value()};
+
+        H5::Attribute *attr_qkd_times = new H5::Attribute(fileh5->createAttribute("qkd_param_qubit_times", float_type_p, qkd_p_space));
+        attr_qkd_times->write(float_type_p, qkd_floats);
+
+        H5::Attribute *attr_qkd_nums = new H5::Attribute(fileh5->createAttribute("qkd_param_num_qubits", int_type_p, qkd_p_space));
+        attr_qkd_nums->write(int_type_p, qkd_ints);
+
+        qkd_floats[0] = (float) param->ui->QKD_phA->value();
+        qkd_floats[1] = (float) param->ui->QKD_phB->value();
+        qkd_floats[2] = (float) param->ui->QKD_phC->value();
+        H5::Attribute *attr_qkd_phases = new H5::Attribute(fileh5->createAttribute("qkd_param_phases", float_type_p, qkd_p_space));
+        attr_qkd_phases->write(float_type_p, qkd_floats);
+
+        qkd_ints[0] = (int) param->ui->QKD_iwA->value();
+        qkd_ints[1] = (int) param->ui->QKD_iwB->value();
+        qkd_ints[2] = (int) param->ui->QKD_iwC->value();
+        H5::Attribute *attr_qkd_int_wins = new H5::Attribute(fileh5->createAttribute("qkd_param_integration_windows", int_type_p, qkd_p_space));
+        attr_qkd_int_wins->write(int_type_p, qkd_ints);
+
+        qkd_ints[0] = (int) param->ui->QKD_zeroA->value();
+        qkd_ints[1] = (int) param->ui->QKD_zeroB->value();
+        qkd_ints[2] = (int) param->ui->QKD_zeroC->value();
+        H5::Attribute *attr_qkd_offsets = new H5::Attribute(fileh5->createAttribute("qkd_param_offsets", int_type_p, qkd_p_space));
+        attr_qkd_offsets->write(int_type_p, qkd_ints);
+
+        H5::Attribute *attr_adq_time = new H5::Attribute(fileh5->createAttribute("hist_adq_time", float_type_p, s_space));
+        attr_adq_time->write(float_type_p, &adq_time);
+
+        delete attr_t;
+        delete attr_seq;
+        delete attr_qkd_times;
+        delete attr_qkd_nums;
+        delete attr_qkd_phases;
+        delete attr_qkd_int_wins;
+        delete attr_qkd_offsets;
+        delete attr_adq_time;
+    }
+    catch( H5::AttributeIException &error )
+    {
+        fprintf(stderr, "%s\n", error.getCDetailMsg());
+        return;
     }
 }

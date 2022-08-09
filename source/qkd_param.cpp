@@ -11,9 +11,9 @@ QKD_param::QKD_param(QWidget *parent) : QWidget(parent), ui(new Ui::QKD_param)
     QApplication::connect(ui->QKD_numbA, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_numbA(int)));
     QApplication::connect(ui->QKD_numbB, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_numbB(int)));
     QApplication::connect(ui->QKD_numbC, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_numbC(int)));
-    QApplication::connect(ui->QKD_phA, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_phA(int)));
-    QApplication::connect(ui->QKD_phB, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_phB(int)));
-    QApplication::connect(ui->QKD_phC, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_phC(int)));
+    QApplication::connect(ui->QKD_phA, SIGNAL(valueChanged(double)), this, SLOT(slot_QKD_phA(double)));
+    QApplication::connect(ui->QKD_phB, SIGNAL(valueChanged(double)), this, SLOT(slot_QKD_phB(double)));
+    QApplication::connect(ui->QKD_phC, SIGNAL(valueChanged(double)), this, SLOT(slot_QKD_phC(double)));
     QApplication::connect(ui->QKD_iwA, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_iwA(int)));
     QApplication::connect(ui->QKD_iwB, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_iwB(int)));
     QApplication::connect(ui->QKD_iwC, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_iwC(int)));
