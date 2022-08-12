@@ -368,7 +368,7 @@ void DBControl::tryMakeGroupHDF5(QString group_path) {
  * timestamp : simple timestamp of when this function is entered.
  * qubit_seq : qubit sequence used for histogram matching and entered on phase stabilization page.
  * qkd_param_* : every field following ABC order from the Edit -> QKD parameter page.
- *
+ * adq_time : update rate / adq time from histogram page.
  */
 void DBControl::writeAttrToHDF5(QKD_param *param, char qubit_sequence[100000], float adq_time) {
     try {
@@ -390,7 +390,7 @@ void DBControl::writeAttrToHDF5(QKD_param *param, char qubit_sequence[100000], f
         hsize_t dims[1] = {3};
         H5::DataSpace qkd_p_space(1, dims);
 
-        // These hold the data from param. There are several sets of 3 int and double parameters.
+        // These hold the data from param. There are several sets of 3 int and double parameters taken from qkd_param.cpp.
         float qkd_floats[3] = {(float) param->ui->QKD_timeA->value(), (float) param->ui->QKD_timeB->value(), (float) param->ui->QKD_timeC->value()};
         int qkd_ints[3] = {(int) param->ui->QKD_numbA->value(), (int) param->ui->QKD_numbB->value(), (int) param->ui->QKD_numbC->value()};
 

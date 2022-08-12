@@ -2193,24 +2193,18 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
         qkdparam.ui->QKD_zeroA->setValue(mapintout.value("in_QKD_zeroA"));
     if (mapintout.contains("in_QKD_iwA"))
         qkdparam.ui->QKD_iwA->setValue(mapintout.value("in_QKD_iwA"));
-    if (mapintout.contains("in_QKD_phA"))
-        qkdparam.ui->QKD_phA->setValue(mapintout.value("in_QKD_phA"));
     if (mapintout.contains("in_QKD_numA"))
         qkdparam.ui->QKD_numbA->setValue(mapintout.value("in_QKD_numA"));
     if (mapintout.contains("in_QKD_zeroB"))
         qkdparam.ui->QKD_zeroB->setValue(mapintout.value("in_QKD_zeroB"));
     if (mapintout.contains("in_QKD_iwB"))
         qkdparam.ui->QKD_iwB->setValue(mapintout.value("in_QKD_iwB"));
-    if (mapintout.contains("in_QKD_phB"))
-        qkdparam.ui->QKD_phB->setValue(mapintout.value("in_QKD_phB"));
     if (mapintout.contains("in_QKD_numB"))
         qkdparam.ui->QKD_numbB->setValue(mapintout.value("in_QKD_numB"));
     if (mapintout.contains("in_QKD_zeroC"))
         qkdparam.ui->QKD_zeroC->setValue(mapintout.value("in_QKD_zeroC"));
     if (mapintout.contains("in_QKD_iwC"))
         qkdparam.ui->QKD_iwC->setValue(mapintout.value("in_QKD_iwC"));
-    if (mapintout.contains("in_QKD_phC"))
-        qkdparam.ui->QKD_phC->setValue(mapintout.value("in_QKD_phC"));
     if (mapintout.contains("in_QKD_numC"))
         qkdparam.ui->QKD_numbC->setValue(mapintout.value("in_QKD_numC"));
 
@@ -2229,6 +2223,12 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     if (mapintout.contains("in_hist_end"))
         ui->histEnd->setValue(mapintout.value("in_hist_end"));
 
+    if (mapdoubleout.contains("in_QKD_phA"))
+        qkdparam.ui->QKD_phA->setValue(mapdoubleout.value("in_QKD_phA"));
+    if (mapdoubleout.contains("in_QKD_phB"))
+        qkdparam.ui->QKD_phB->setValue(mapdoubleout.value("in_QKD_phB"));
+    if (mapdoubleout.contains("in_QKD_phC"))
+        qkdparam.ui->QKD_phC->setValue(mapdoubleout.value("in_QKD_phC"));
     if (mapdoubleout.contains("in_QKD_timeA"))
         qkdparam.ui->QKD_timeA->setValue(mapdoubleout.value("in_QKD_timeA"));
     if (mapdoubleout.contains("in_QKD_timeB"))
