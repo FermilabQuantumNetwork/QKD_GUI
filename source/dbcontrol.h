@@ -54,10 +54,11 @@ public slots:
     void SaveQKDresults(double okA,double errA, double randA, double bkgndA,double okB, double errB, double randB,double bkgndB, double okC, double errC, double randC, double bkgndC);
     void SaveQKDstats(int sifted_time, int sifted_phase, double error_rate_time, double error_rate_phase);
 
-    void createHDF5forQKDdata(QString file_name);
+    void createHDF5forQKDdata(QString file_path);
     void appendQKDdata2HDF5(const intvector dataokA,const intvector dataerrA, const intvector datarandA, const intvector databkgndA, const intvector dataokB,const intvector dataerrB, const intvector datarandB, const intvector databkgndB, const intvector dataokC,const intvector dataerrC, const intvector datarandC, const intvector databkgndC);
 
     void savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString group_path);
     void writeAttrToHDF5(QKD_param *param, char qubit_sequence[100000], float adq_time);
+    void closeHDF5();
 };
 #endif // DBCONTROL_H

@@ -471,7 +471,7 @@ private slots:
     void savePageDet(bool h1, bool h2, bool h3, QString outer_group);
     void savePageQB(bool early, bool late, bool phase, QString outer_group);
     void savePageStats(bool time, bool error, bool voltage, QString outer_group);
-    void saveData(QString file_name, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+    void saveData(QString file_path, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
 
     void pointsButton_clicked(int amount = 3);
 
@@ -581,8 +581,9 @@ signals:
     void saveH5datafromMW(const intvector datah5okA, const intvector datah5errA, const intvector datah5randA, const intvector datah5bkgndA, const intvector datah5okB, const intvector datah5errB, const intvector datah5randB, const intvector datah5bkgndB, const intvector datah5okC, const intvector datah5errC, const intvector datah5randC, const intvector datah5bkgndC);
     void tableQKDtoDB(QString text);
 
-    void sig_CreateHDF5(QString file_name);
-    void sig_AttrHDF5(QKD_param *param, char qubit_sequence[100000], float adq_time);
+    void sig_CreateHDF5(QString file_path);
+    void sig_attrHDF5(QKD_param *param, char qubit_sequence[100000], float adq_time);
+    void sig_closeHDF5();
 };
 
 #endif // MAINWINDOW_H

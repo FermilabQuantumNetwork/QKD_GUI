@@ -124,87 +124,73 @@ void DBControl::readQubits(QString tablename){
     }
 }
 
-void DBControl::createHDF5forQKDdata(QString file_name){
+void DBControl::createHDF5forQKDdata(QString file_path){
 
     //const H5std_string FILE_NAME( "SDSextendible.h5" );
-    try{
-        /*
-        QString as = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
-        const H5std_string DATASET_NAME(as.toLocal8Bit().data());
-        */
-        //const int      NX = 10;
-        //const int      NY = 5;
+    /*
+    QString as = QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
+    const H5std_string DATASET_NAME(as.toLocal8Bit().data());
+    */
+    //const int      NX = 10;
+    //const int      NY = 5;
 
-        /*
-        hsize_t      dims[2]  = { 3, 3};  // dataset dimensions at creation
-        hsize_t      maxdims[2] = {H5S_UNLIMITED, H5S_UNLIMITED};
-        mspace1 = new H5::DataSpace( RANK, dims, maxdims);
-        */
+    /*
+    hsize_t      dims[2]  = { 3, 3};  // dataset dimensions at creation
+    hsize_t      maxdims[2] = {H5S_UNLIMITED, H5S_UNLIMITED};
+    mspace1 = new H5::DataSpace( RANK, dims, maxdims);
+    */
 
-        /*
-         * Create a new file.
-         * If file is opened, do nothing if it has the same name as the previous one.
-         * Otherwise, we close the previous one and open a new one.
-         */
-        H5::Exception::dontPrint();
-        if (fileh5 != 0) {
-            if (file_name == fileh5_name) {
-                return;
-            } else {
-                delete fileh5;
-            }
-        }
+    /*
+     * Create a new file.
+     * If file is opened, do nothing if it has the same name as the previous one.
+     * Otherwise, we close the previous one and open a new one.
+     */
+    H5::Exception::dontPrint();
 
-        fileh5_name = file_name;
-        QString file_path = "../data/" + file_name + ".h5";
-        // Try to open a file for read write. Otherwise, create the file.
-        try {
-            fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_RDWR);
-        } catch(H5::FileIException &file_exists_err) {
-            fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_TRUNC);
-        }
-
-        /*
-         * Modify dataset creation properties, i.e. enable chunking.
-         */
-        /*
-        H5::DSetCreatPropList cparms;
-        hsize_t      chunk_dims[2] ={12, 500};
-        cparms.setChunk( RANK, chunk_dims );
-        */
-        /*
-         * Set fill value for the dataset
-         */
-        /*
-        int fill_val = 0;
-        cparms.setFillValue( H5::PredType::NATIVE_INT, &fill_val);
-        */
-
-        /*
-         * Create a new dataset within the file using cparms
-         * creation properties.
-         */
-
-       /*
-        * Define datatype for the data in the file.
-        * We will store little endian INT numbers.
-        */
-        /*
-        H5::IntType datatype( H5::PredType::NATIVE_INT );
-        datatype.setOrder( H5T_ORDER_LE );
-        */
-
-        // dataset = new H5::DataSet(fileh5->createDataSet( DATASET_NAME, datatype, *mspace1, cparms));
-
-        // size[1]   = 500;
-    }
-    catch( H5::FileIException &error )
-    {
+    // Try to open a file for read write. Otherwise, create the file.
+    try {
+        fileh5 = new H5::H5File(file_path.toLocal8Bit().data(), H5F_ACC_TRUNC);
+    } catch(H5::FileIException &error) {
         fprintf(stderr, "%s\n", error.getCDetailMsg());
-        return;
+        return ;
     }
+
+    /*
+     * Modify dataset creation properties, i.e. enable chunking.
+     */
+    /*
+    H5::DSetCreatPropList cparms;
+    hsize_t      chunk_dims[2] ={12, 500};
+    cparms.setChunk( RANK, chunk_dims );
+    */
+    /*
+     * Set fill value for the dataset
+     */
+    /*
+    int fill_val = 0;
+    cparms.setFillValue( H5::PredType::NATIVE_INT, &fill_val);
+    */
+
+    /*
+     * Create a new dataset within the file using cparms
+     * creation properties.
+     */
+
+   /*
+    * Define datatype for the data in the file.
+    * We will store little endian INT numbers.
+    */
+    /*
+    H5::IntType datatype( H5::PredType::NATIVE_INT );
+    datatype.setOrder( H5T_ORDER_LE );
+    */
+
+    // dataset = new H5::DataSet(fileh5->createDataSet( DATASET_NAME, datatype, *mspace1, cparms));
+
+    // size[1]   = 500;
 }
 
+/* deprecated */
 void DBControl::appendQKDdata2HDF5(QVector<int> dataokA, QVector<int> dataerrA, QVector<int> datarandA, QVector<int> databkgndA, QVector<int> dataokB, QVector<int> dataerrB, QVector<int> datarandB, QVector<int> databkgndB, QVector<int> dataokC, QVector<int> dataerrC, QVector<int> datarandC, QVector<int> databkgndC){
 
     if(fileh5 == 0)return;
@@ -317,7 +303,13 @@ void DBControl::savePlotToHDF5(QCustomPlot *plot, QString plot_name, QString gro
         datatype.setOrder( H5T_ORDER_LE );
 
         QString dataset_name = group_path.append(plot_name.prepend("/"));
-        H5::DataSet datasetp = fileh5->createDataSet(dataset_name.toLocal8Bit().data(), datatype, dspace);
+        H5::DataSet datasetp;
+        try {
+            datasetp = fileh5->createDataSet(dataset_name.toLocal8Bit().data(), datatype, dspace);
+        }
+        catch (...) {
+
+        }
 
         /*
          * Method for storing and writing data borrowed from:
@@ -435,4 +427,8 @@ void DBControl::writeAttrToHDF5(QKD_param *param, char qubit_sequence[100000], f
         fprintf(stderr, "%s\n", error.getCDetailMsg());
         return;
     }
+}
+
+void DBControl::closeHDF5() {
+    delete fileh5;
 }

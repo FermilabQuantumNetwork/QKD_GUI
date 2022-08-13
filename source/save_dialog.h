@@ -28,12 +28,17 @@ private slots:
 
     void on_checkBox_hists_toggled(bool checked);
 
+    bool fileExists(QString path);
+    void warnFileExists(QString path);
+
 private:
     QString file_name = "data";
+    QString file_path = "../data/data.h5";
 
 signals:
     // This signal relays which checkboxes are pressed
-    void savePressed(QString file_name, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+    void savePressed(QString file_path, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+    void sig_fileExists(QString file_path);
 };
 
 #endif // SAVE_DIALOG_H

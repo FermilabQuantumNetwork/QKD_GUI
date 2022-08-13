@@ -248,7 +248,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     connect((&save_dialog), &Save_dialog::savePressed, this, &MainWindow::saveData);
     connect(ui->actionSave_Data, SIGNAL(triggered()), &save_dialog, SLOT(show()));
-    connect(this, &MainWindow::sig_AttrHDF5, &dbc, &DBControl::writeAttrToHDF5);
+    connect(this, &MainWindow::sig_attrHDF5, &dbc, &DBControl::writeAttrToHDF5);
+    connect(this, &MainWindow::sig_closeHDF5, &dbc, &DBControl::closeHDF5);
 
 
 }
@@ -2427,25 +2428,26 @@ void MainWindow::savePageStats(bool time, bool error, bool voltage, QString oute
 }
 
 /*
- * Assumes file_name is not empty.
+ * Assumes file_path is not empty and doesn't previously exist.
  * Each bool tells which plot to save, they follow order left to right and top to bottom in the mainwindow tabs.
  * The bool name corresponds to the plot name or data it holds.
 */
-void MainWindow::saveData(QString file_name,
+void MainWindow::saveData(QString file_path,
                           bool h_time, bool h_phase_ok, bool h_phase_bad,
                           bool h1, bool h2, bool h3,
                           bool early, bool late, bool phase,
                           bool time, bool error, bool voltage)
 {
+    Log(NOTICE, "Attempting to save to %s", qPrintable(file_path));
     HDF5File_created=true;
-    emit sig_CreateHDF5(file_name);
-    emit sig_AttrHDF5(&qkdparam, qubit_sequence, ui->adqtime->value());
+    emit sig_CreateHDF5(file_path);
+    emit sig_attrHDF5(&qkdparam, qubit_sequence, ui->adqtime->value());
 
-    QString outer_group = ""; // QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss");
-    // dbc.tryMakeGroupHDF5(outer_group);
+    QString outer_group = "";
     savePageHists(h_time, h_phase_ok, h_phase_bad, outer_group);
     savePageDet(h1, h2, h3, outer_group);
     savePageQB(early, late, phase, outer_group);
     savePageStats(time, error, voltage, outer_group);
 
+    emit sig_closeHDF5();
 }
