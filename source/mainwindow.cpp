@@ -2395,33 +2395,33 @@ void MainWindow::pointsButton_clicked(int amount)
     adding_points_counter += amount;
 }
 
-void MainWindow::savePageHists(bool h_time, bool h_phase_ok, bool h_phase_bad, QString outer_group) {
+void MainWindow::savePageHists(bool h_time, bool h_phase_ok, bool h_phase_bad) {
     // The histograms are ui->PlotA, ui->PlotB, ui->PlotC .
-    QString group = outer_group + "/hists";
+    QString group = "/hists";
     if (h_time) dbc.savePlotToHDF5(ui->PlotA, "time", group);
     if (h_phase_ok) dbc.savePlotToHDF5(ui->PlotB, "phase_ok", group);
     if (h_phase_bad) dbc.savePlotToHDF5(ui->PlotC, "phase_bad", group);
 }
 
-void MainWindow::savePageDet(bool h1, bool h2, bool h3, QString outer_group)
+void MainWindow::savePageDet(bool h1, bool h2, bool h3)
 {
-    QString group = outer_group + "/det";
+    QString group = "/det";
     if (h1) dbc.savePlotToHDF5(ui->QKD_H1_results, "H1", group);
     if (h2) dbc.savePlotToHDF5(ui->QKD_H2_results, "H2", group);
     if (h3) dbc.savePlotToHDF5(ui->QKD_H3_results, "H3", group);
 }
 
-void MainWindow::savePageQB(bool early, bool late, bool phase, QString outer_group)
+void MainWindow::savePageQB(bool early, bool late, bool phase)
 {
-    QString group = outer_group + "/QB";
+    QString group = "/QB";
     if (early) dbc.savePlotToHDF5(ui->Early_results, "early", group);
     if (late) dbc.savePlotToHDF5(ui->Late_results, "late", group);
     if (phase) dbc.savePlotToHDF5(ui->Phase_results, "phase", group);
 }
 
-void MainWindow::savePageStats(bool time, bool error, bool voltage, QString outer_group)
+void MainWindow::savePageStats(bool time, bool error, bool voltage)
 {
-    QString group = outer_group + "/stats";
+    QString group = "/stats";
     if (time) dbc.savePlotToHDF5(ui->qkd_errorplot, "err_time", group);
     if (error) dbc.savePlotToHDF5(ui->qkd_siftedplot, "err_phase", group);
     if (voltage) dbc.savePlotToHDF5(ui->qkd_siftedplot_2, "voltage", group);
@@ -2443,11 +2443,10 @@ void MainWindow::saveData(QString file_path,
     emit sig_CreateHDF5(file_path);
     emit sig_attrHDF5(&qkdparam, qubit_sequence, ui->adqtime->value());
 
-    QString outer_group = "";
-    savePageHists(h_time, h_phase_ok, h_phase_bad, outer_group);
-    savePageDet(h1, h2, h3, outer_group);
-    savePageQB(early, late, phase, outer_group);
-    savePageStats(time, error, voltage, outer_group);
+    savePageHists(h_time, h_phase_ok, h_phase_bad);
+    savePageDet(h1, h2, h3);
+    savePageQB(early, late, phase);
+    savePageStats(time, error, voltage);
 
     emit sig_closeHDF5();
 }
