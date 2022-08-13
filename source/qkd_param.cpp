@@ -21,10 +21,6 @@ QKD_param::QKD_param(QWidget *parent) : QWidget(parent), ui(new Ui::QKD_param)
     QApplication::connect(ui->QKD_zeroB, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_zeroB(int)));
     QApplication::connect(ui->QKD_zeroC, SIGNAL(valueChanged(int)), this, SLOT(slot_QKD_zeroC(int)));
 
-    QObject::connect(ui->QKD_DB, SIGNAL(valueChanged(int)), this, SLOT(turnONDB(int)));
-
-    QApplication::connect(ui->hdf5, SIGNAL(released()), this, SLOT(in_savehdf5()));
-
     this->setWindowFlags(Qt::WindowStaysOnTopHint);
 }
 
