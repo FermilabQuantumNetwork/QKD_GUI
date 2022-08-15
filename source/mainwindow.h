@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "dbcontrol.h"
 #include "qkd_param.h"
+#include "save_dialog.h"
 #include "ps.h"
 
 #include <QFile>
@@ -426,19 +427,19 @@ private slots:
     void setup_histolines_QKD();
 
     void chang_QKD_timeA(double val){in_QKD_timeA=val;if(initR)createQKDLinesA();}
-    void chang_QKD_phA(int val){in_QKD_phA=val;if(initR)createQKDLinesA();}
+    void chang_QKD_phA(double val){in_QKD_phA=val;if(initR)createQKDLinesA();}
     void chang_QKD_numbA(int val){if(in_QKD_numbA>val)hidelinesA(val);in_QKD_numbA=val;if(initR)createQKDLinesA();}
     void chang_QKD_iwA(int val){in_QKD_iwA=val;if(initR)createQKDLinesA();}
     void chang_QKD_zeroA(int val){in_QKD_zeroA =val;if(initR)createQKDLinesA();}
 
     void chang_QKD_timeB(double val){in_QKD_timeB=val;if(initR)createQKDLinesB();}
-    void chang_QKD_phB(int val){in_QKD_phB=val;if(initR)createQKDLinesB();}
+    void chang_QKD_phB(double val){in_QKD_phB=val;if(initR)createQKDLinesB();}
     void chang_QKD_numbB(int val){if(in_QKD_numbB>val)hidelinesB(val);in_QKD_numbB=val;if(initR)createQKDLinesB();}
     void chang_QKD_iwB(int val){in_QKD_iwB=val;if(initR)createQKDLinesB();}
     void chang_QKD_zeroB(int val){in_QKD_zeroB =val;if(initR)createQKDLinesB();}
 
     void chang_QKD_timeC(double val){in_QKD_timeC=val;if(initR)createQKDLinesC();}
-    void chang_QKD_phC(int val){in_QKD_phC=val;if(initR)createQKDLinesC();}
+    void chang_QKD_phC(double val){in_QKD_phC=val;if(initR)createQKDLinesC();}
     void chang_QKD_numbC(int val){if(in_QKD_numbC>val)hidelinesC(val);in_QKD_numbC=val;if(initR)createQKDLinesC();}
     void chang_QKD_iwC(int val){in_QKD_iwC=val;if(initR)createQKDLinesC();}
     void chang_QKD_zeroC(int val){in_QKD_zeroC =val;if(initR)createQKDLinesC();}
@@ -454,8 +455,6 @@ private slots:
 
     void plot_qkd_stats(double sifted_time, double sifted_phase, double error_time, double error_phase, double error_phase_qubit, double key);
 
-    void hdf5savefile();
-
     void fillTablesNames(QStringList tables_names);
     void tableSelected(QAction* action){emit tableQKDtoDB(action->text());}
 
@@ -466,11 +465,20 @@ private slots:
     void PowerSupplyDisconnect(void);
     void PowerSupplyConnect(void);
 
+    void resetButton_clicked();
+
+    void savePageHists(bool h_time, bool h_phase_ok, bool h_phase_bad);
+    void savePageDet(bool h1, bool h2, bool h3);
+    void savePageQB(bool early, bool late, bool phase);
+    void savePageStats(bool time, bool error, bool voltage);
+    void saveData(QString file_path, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
+
 private:
     Ui::MainWindow *ui;
     Swabian s;
     DBControl dbc;
     QKD_param qkdparam;
+    Save_dialog save_dialog;
     QString demoName;
     QTimer dataTimer;
     QCPItemTracer *itemDemoPhaseTracer;
@@ -520,28 +528,30 @@ private:
 
     int QubitTime, Phasetime, NoQubits, PeaksQubit, QKD_intWind, QKD_zero;
 
-    int  in_QKD_numbA=30, in_QKD_phA=50, in_QKD_iwA=45, in_QKD_zeroA=1;
-    int  in_QKD_numbB=30, in_QKD_phB=50, in_QKD_iwB=45, in_QKD_zeroB=1;
-    int  in_QKD_numbC=30, in_QKD_phC=50, in_QKD_iwC=45, in_QKD_zeroC=1;
-    double in_QKD_timeA=200, in_QKD_timeB=200, in_QKD_timeC=200;
+    int  in_QKD_numbA=30, in_QKD_iwA=45, in_QKD_zeroA=1;
+    int  in_QKD_numbB=30, in_QKD_iwB=45, in_QKD_zeroB=1;
+    int  in_QKD_numbC=30, in_QKD_iwC=45, in_QKD_zeroC=1;
+    double in_QKD_timeA=200, in_QKD_phA=50;
+    double in_QKD_timeB=200, in_QKD_phB=50;
+    double in_QKD_timeC=200, in_QKD_phC=50;
 
     QVector<QVector<bool>> in_qkdfromDB;
     int in_qubnumindb, in_qkddbcolumns;
     bool qubitsfromDBloaded = false;
     int QKD_DB_ON=0;
 
-    QVector<double> datah5okA;
-    QVector<double> datah5errA;
-    QVector<double> datah5randA;
-    QVector<double> datah5bkgndA;
-    QVector<double> datah5okB;
-    QVector<double> datah5errB;
-    QVector<double> datah5randB;
-    QVector<double> datah5bkgndB;
-    QVector<double> datah5okC;
-    QVector<double> datah5errC;
-    QVector<double> datah5randC;
-    QVector<double> datah5bkgndC;
+    QVector<int> datah5okA;
+    QVector<int> datah5errA;
+    QVector<int> datah5randA;
+    QVector<int> datah5bkgndA;
+    QVector<int> datah5okB;
+    QVector<int> datah5errB;
+    QVector<int> datah5randB;
+    QVector<int> datah5bkgndB;
+    QVector<int> datah5okC;
+    QVector<int> datah5errC;
+    QVector<int> datah5randC;
+    QVector<int> datah5bkgndC;
 
     int rof[18];
     double thresholds[18];
@@ -555,15 +565,23 @@ private:
     QLCDNumber *rate_widgets[18];
 
     bool HDF5File_created=false;
+
+    // These 12's must change together if more plots are added for saving.
+    const int num_ui_plots = 12;
+    QCustomPlot *ui_plots[12];
+
 signals:
     void main_SaveAndValues(int and1, int and2, int and3, int orgate, int bsm1, int bsm2, float andTime, int delayline);
     void main_SaveRateValues( int Ra1, int Ra2, int Ra3, int Rb1, int Rb2, int Rb3, int Rc1, int Rc2, int Rc3, float hist_adqtime);
 
     void main_SaveQKDresults(double okA, double errA,double  randA, double bkgndA, double okB, double errB, double randB, double bkgndB, double okC, double errC, double randC, double bkgndC);
     void main_SaveQKDstats(int sifted_time, int sifted_phase, double error_time, double error_phase);
-    void MW_savehdf5(QString mensaje);
     void saveH5datafromMW(const intvector datah5okA, const intvector datah5errA, const intvector datah5randA, const intvector datah5bkgndA, const intvector datah5okB, const intvector datah5errB, const intvector datah5randB, const intvector datah5bkgndB, const intvector datah5okC, const intvector datah5errC, const intvector datah5randC, const intvector datah5bkgndC);
     void tableQKDtoDB(QString text);
+
+    void sig_CreateHDF5(QString file_path);
+    void sig_attrHDF5(QKD_param *param, char qubit_sequence[100000], float adq_time);
+    void sig_closeHDF5();
 };
 
 #endif // MAINWINDOW_H

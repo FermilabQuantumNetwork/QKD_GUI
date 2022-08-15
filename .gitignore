@@ -1,1 +1,3 @@
 build*
+source/INQNET_GUI.pro.user
+*.h5

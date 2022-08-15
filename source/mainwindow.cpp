@@ -14,6 +14,8 @@
 #include <H5Cpp.h>
 #include "qkd_param.h"
 #include "ui_qkd_param.h"
+#include "save_dialog.h"
+#include "ui_save_dialog.h"
 #include "ps.h"
 #include <sys/time.h>
 
@@ -21,6 +23,8 @@
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 char qubit_sequence[100000] = "E0E0L0L0P0P0";
+
+int adding_points_counter = 0;
 
 unsigned long long microtime(void)
 {
@@ -225,6 +229,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->ps_disconnect_button->setEnabled(false);
     ui->ps_start_button->setEnabled(false);
     ui->ps_stop_button->setEnabled(false);
+
+    ui_plots[0] = ui->PlotA;
+    ui_plots[1] = ui->PlotB;
+    ui_plots[2] = ui->PlotC;
+    ui_plots[3] = ui->QKD_H1_results;
+    ui_plots[4] = ui->QKD_H2_results;
+    ui_plots[5] = ui->QKD_H3_results;
+    ui_plots[6] = ui->Early_results;
+    ui_plots[7] = ui->Late_results;
+    ui_plots[8] = ui->Phase_results;
+    ui_plots[9] = ui->qkd_errorplot;
+    ui_plots[10] = ui->qkd_siftedplot;
+    ui_plots[11] = ui->qkd_siftedplot_2;
+
+    connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
+
+    connect((&save_dialog), &Save_dialog::savePressed, this, &MainWindow::saveData);
+    connect(ui->actionSave_Data, SIGNAL(triggered()), &save_dialog, SLOT(show()));
+    connect(this, &MainWindow::sig_attrHDF5, &dbc, &DBControl::writeAttrToHDF5);
+    connect(this, &MainWindow::sig_closeHDF5, &dbc, &DBControl::closeHDF5);
+
+
 }
 
 //////////////////////////////////////////////////////////
@@ -899,9 +925,9 @@ void MainWindow::setupsignalslot()
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbA(int)), this, SLOT(chang_QKD_numbA(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbB(int)), this, SLOT(chang_QKD_numbB(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbC(int)), this, SLOT(chang_QKD_numbC(int)));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phA(int)), this, SLOT(chang_QKD_phA(int)));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phB(int)), this, SLOT(chang_QKD_phB(int)));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phC(int)), this, SLOT(chang_QKD_phC(int)));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phA(double)), this, SLOT(chang_QKD_phA(double)));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phB(double)), this, SLOT(chang_QKD_phB(double)));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phC(double)), this, SLOT(chang_QKD_phC(double)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwA(int)), this, SLOT(chang_QKD_iwA(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwB(int)), this, SLOT(chang_QKD_iwB(int)));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwC(int)), this, SLOT(chang_QKD_iwC(int)));
@@ -915,9 +941,9 @@ void MainWindow::setupsignalslot()
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbA(int)), this, SLOT(DrawExpectedSignal()));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbB(int)), this, SLOT(DrawExpectedSignal()));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_numbC(int)), this, SLOT(DrawExpectedSignal()));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phA(int)), this, SLOT(DrawExpectedSignal()));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phB(int)), this, SLOT(DrawExpectedSignal()));
-    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phC(int)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phA(double)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phB(double)), this, SLOT(DrawExpectedSignal()));
+    QObject::connect(&qkdparam, SIGNAL(sig_QKD_phC(double)), this, SLOT(DrawExpectedSignal()));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwA(int)), this, SLOT(DrawExpectedSignal()));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwB(int)), this, SLOT(DrawExpectedSignal()));
     QObject::connect(&qkdparam, SIGNAL(sig_QKD_iwC(int)), this, SLOT(DrawExpectedSignal()));
@@ -930,8 +956,7 @@ void MainWindow::setupsignalslot()
 
     QObject::connect(&dbc, SIGNAL(qubitsfromDB(boolvector2d, int, int)), this, SLOT(set_qkd_datafromDB(boolvector2d , int, int)),Qt::QueuedConnection);
 
-    QObject::connect(&qkdparam, SIGNAL(savehdf5()), this, SLOT(hdf5savefile()));
-    QObject::connect(this, SIGNAL(MW_savehdf5(QString)), &dbc, SLOT(createHDF5forQKDdata(QString)));
+    QObject::connect(this, SIGNAL(sig_CreateHDF5(QString)), &dbc, SLOT(createHDF5forQKDdata(QString)));
 
     QObject::connect(this, SIGNAL(saveH5datafromMW(intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector)), &dbc, SLOT(appendQKDdata2HDF5(intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector,intvector)));
 
@@ -2082,15 +2107,12 @@ void MainWindow::SaveState(QString fileName)
 
     mapint.insert("in_QKD_zeroA", in_QKD_zeroA);
     mapint.insert("in_QKD_iwA", in_QKD_iwA);
-    mapint.insert("in_QKD_phA", in_QKD_phA);
     mapint.insert("in_QKD_numA", in_QKD_numbA);
     mapint.insert("in_QKD_zeroB", in_QKD_zeroB);
     mapint.insert("in_QKD_iwB", in_QKD_iwB);
-    mapint.insert("in_QKD_phB", in_QKD_phB);
     mapint.insert("in_QKD_numB", in_QKD_numbB);
     mapint.insert("in_QKD_zeroC", in_QKD_zeroC);
     mapint.insert("in_QKD_iwC", in_QKD_iwC);
-    mapint.insert("in_QKD_phC", in_QKD_phC);
     mapint.insert("in_QKD_numC", in_QKD_numbC);
     mapint.insert("in_startChan",ui->startChan->value());
     mapint.insert("in_PlotACh1",ui->PlotAChn1->value());
@@ -2101,8 +2123,11 @@ void MainWindow::SaveState(QString fileName)
     mapint.insert("in_hist_end",ui->histEnd->value());
 
     mapdouble.insert("in_QKD_timeA", in_QKD_timeA);
+    mapdouble.insert("in_QKD_phA", in_QKD_phA);
     mapdouble.insert("in_QKD_timeB", in_QKD_timeB);
+    mapdouble.insert("in_QKD_phB", in_QKD_phB);
     mapdouble.insert("in_QKD_timeC", in_QKD_timeC);
+    mapdouble.insert("in_QKD_phC", in_QKD_phC);
 
     mapstring.insert("in_ps_ip_address",ui->ps_ip_address->text());
     mapstring.insert("in_qubit_sequence",ui->qubit_sequence->toPlainText());
@@ -2168,24 +2193,18 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
         qkdparam.ui->QKD_zeroA->setValue(mapintout.value("in_QKD_zeroA"));
     if (mapintout.contains("in_QKD_iwA"))
         qkdparam.ui->QKD_iwA->setValue(mapintout.value("in_QKD_iwA"));
-    if (mapintout.contains("in_QKD_phA"))
-        qkdparam.ui->QKD_phA->setValue(mapintout.value("in_QKD_phA"));
     if (mapintout.contains("in_QKD_numA"))
         qkdparam.ui->QKD_numbA->setValue(mapintout.value("in_QKD_numA"));
     if (mapintout.contains("in_QKD_zeroB"))
         qkdparam.ui->QKD_zeroB->setValue(mapintout.value("in_QKD_zeroB"));
     if (mapintout.contains("in_QKD_iwB"))
         qkdparam.ui->QKD_iwB->setValue(mapintout.value("in_QKD_iwB"));
-    if (mapintout.contains("in_QKD_phB"))
-        qkdparam.ui->QKD_phB->setValue(mapintout.value("in_QKD_phB"));
     if (mapintout.contains("in_QKD_numB"))
         qkdparam.ui->QKD_numbB->setValue(mapintout.value("in_QKD_numB"));
     if (mapintout.contains("in_QKD_zeroC"))
         qkdparam.ui->QKD_zeroC->setValue(mapintout.value("in_QKD_zeroC"));
     if (mapintout.contains("in_QKD_iwC"))
         qkdparam.ui->QKD_iwC->setValue(mapintout.value("in_QKD_iwC"));
-    if (mapintout.contains("in_QKD_phC"))
-        qkdparam.ui->QKD_phC->setValue(mapintout.value("in_QKD_phC"));
     if (mapintout.contains("in_QKD_numC"))
         qkdparam.ui->QKD_numbC->setValue(mapintout.value("in_QKD_numC"));
 
@@ -2204,6 +2223,12 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
     if (mapintout.contains("in_hist_end"))
         ui->histEnd->setValue(mapintout.value("in_hist_end"));
 
+    if (mapdoubleout.contains("in_QKD_phA"))
+        qkdparam.ui->QKD_phA->setValue(mapdoubleout.value("in_QKD_phA"));
+    if (mapdoubleout.contains("in_QKD_phB"))
+        qkdparam.ui->QKD_phB->setValue(mapdoubleout.value("in_QKD_phB"));
+    if (mapdoubleout.contains("in_QKD_phC"))
+        qkdparam.ui->QKD_phC->setValue(mapdoubleout.value("in_QKD_phC"));
     if (mapdoubleout.contains("in_QKD_timeA"))
         qkdparam.ui->QKD_timeA->setValue(mapdoubleout.value("in_QKD_timeA"));
     if (mapdoubleout.contains("in_QKD_timeB"))
@@ -2263,29 +2288,6 @@ void MainWindow::LoadState(QString fileName, bool warnDialog)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::hdf5savefile()
-{
-    bool ok;
-    QString comentario = QInputDialog::getText(this, tr("Record DATA"),tr("Insert a name for HDF5 the file"), QLineEdit::Normal,QDir::home().dirName(), &ok);
-
-    if (ok && !comentario.isEmpty()){
-        HDF5File_created=true;
-        emit MW_savehdf5(comentario);
-    }
-
-   /*    QString key = QDateTime::currentDateTime().toString("dd_MMM_yyyy_hh:mm" );
-       key.append(".txt");
-
-       data = new QFile(key);
-
-       if (!data->open(QIODevice::WriteOnly | QIODevice::Text))return;
-
-       QTextStream out(data);
-       out<<"# "<<comentario<<"\n";
-       out<<"Vch0\tVch1\tCch0\tCch1\tTime\n";
-       recorddata=true;*/
 }
 
 void MainWindow::fillTablesNames(QStringList tables_names)
@@ -2366,4 +2368,71 @@ void MainWindow::closeEvent(QCloseEvent *event)
     usleep(1000);
 
     event->accept();
+}
+
+void MainWindow::resetButton_clicked()
+{
+    for (int p = 0; p < num_ui_plots; p++) {
+            for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
+                ui_plots[p]->graph(g)->data()->clear();
+            }
+            ui_plots[p]->replot();
+    }
+    adding_points_counter = 0;
+}
+
+void MainWindow::savePageHists(bool h_time, bool h_phase_ok, bool h_phase_bad) {
+    // The histograms are ui->PlotA, ui->PlotB, ui->PlotC .
+    QString group = "/hists";
+    if (h_time) dbc.savePlotToHDF5(ui->PlotA, "time", group);
+    if (h_phase_ok) dbc.savePlotToHDF5(ui->PlotB, "phase_ok", group);
+    if (h_phase_bad) dbc.savePlotToHDF5(ui->PlotC, "phase_bad", group);
+}
+
+void MainWindow::savePageDet(bool h1, bool h2, bool h3)
+{
+    QString group = "/det";
+    if (h1) dbc.savePlotToHDF5(ui->QKD_H1_results, "H1", group);
+    if (h2) dbc.savePlotToHDF5(ui->QKD_H2_results, "H2", group);
+    if (h3) dbc.savePlotToHDF5(ui->QKD_H3_results, "H3", group);
+}
+
+void MainWindow::savePageQB(bool early, bool late, bool phase)
+{
+    QString group = "/QB";
+    if (early) dbc.savePlotToHDF5(ui->Early_results, "early", group);
+    if (late) dbc.savePlotToHDF5(ui->Late_results, "late", group);
+    if (phase) dbc.savePlotToHDF5(ui->Phase_results, "phase", group);
+}
+
+void MainWindow::savePageStats(bool time, bool error, bool voltage)
+{
+    QString group = "/stats";
+    if (time) dbc.savePlotToHDF5(ui->qkd_errorplot, "err_time", group);
+    if (error) dbc.savePlotToHDF5(ui->qkd_siftedplot, "err_phase", group);
+    if (voltage) dbc.savePlotToHDF5(ui->qkd_siftedplot_2, "voltage", group);
+}
+
+/*
+ * Assumes file_path is not empty and doesn't previously exist.
+ * Each bool tells which plot to save, they follow order left to right and top to bottom in the mainwindow tabs.
+ * The bool name corresponds to the plot name or data it holds.
+*/
+void MainWindow::saveData(QString file_path,
+                          bool h_time, bool h_phase_ok, bool h_phase_bad,
+                          bool h1, bool h2, bool h3,
+                          bool early, bool late, bool phase,
+                          bool time, bool error, bool voltage)
+{
+    Log(NOTICE, "Attempting to save to %s", qPrintable(file_path));
+    HDF5File_created=true;
+    emit sig_CreateHDF5(file_path);
+    emit sig_attrHDF5(&qkdparam, qubit_sequence, ui->adqtime->value());
+
+    savePageHists(h_time, h_phase_ok, h_phase_bad);
+    savePageDet(h1, h2, h3);
+    savePageQB(early, late, phase);
+    savePageStats(time, error, voltage);
+
+    emit sig_closeHDF5();
 }
