@@ -244,7 +244,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui_plots[11] = ui->qkd_siftedplot_2;
 
     connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(resetButton_clicked()));
-    connect(ui->actionAdd_Points, SIGNAL(triggered()), this, SLOT(pointsButton_clicked()));
 
     connect((&save_dialog), &Save_dialog::savePressed, this, &MainWindow::saveData);
     connect(ui->actionSave_Data, SIGNAL(triggered()), &save_dialog, SLOT(show()));
@@ -2380,19 +2379,6 @@ void MainWindow::resetButton_clicked()
             ui_plots[p]->replot();
     }
     adding_points_counter = 0;
-}
-
-void MainWindow::pointsButton_clicked(int amount)
-{
-    for (int p = 0; p < num_ui_plots; p++) {
-        for (int g = 0; g < ui_plots[p]->graphCount(); g++) {
-            for (int i = 0; i < amount; i++) {
-                ui_plots[p]->graph(g)->addData(adding_points_counter / 2.0 + i, adding_points_counter + rand() % 3);
-            }
-        }
-        ui_plots[p]->replot();
-    }
-    adding_points_counter += amount;
 }
 
 void MainWindow::savePageHists(bool h_time, bool h_phase_ok, bool h_phase_bad) {

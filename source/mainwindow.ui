@@ -2699,7 +2699,6 @@
     <addaction name="separator"/>
     <addaction name="actionReset"/>
     <addaction name="separator"/>
-    <addaction name="actionAdd_Points"/>
    </widget>
    <widget class="QMenu" name="menuConnect">
     <property name="title">

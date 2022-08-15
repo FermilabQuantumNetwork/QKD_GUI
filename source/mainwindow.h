@@ -473,8 +473,6 @@ private slots:
     void savePageStats(bool time, bool error, bool voltage);
     void saveData(QString file_path, bool h_time, bool h_phase_ok, bool h_phase_bad, bool h1, bool h2, bool h3, bool early, bool late, bool phase, bool time, bool error, bool voltage);
 
-    void pointsButton_clicked(int amount = 3);
-
 private:
     Ui::MainWindow *ui;
     Swabian s;
